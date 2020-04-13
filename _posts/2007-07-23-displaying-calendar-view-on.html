@@ -1,0 +1,14 @@
+---
+layout: post
+title: Displaying the Calendar view on a DateTimePicker Control in .NETCF
+date: '2007-07-23T20:30:00.000+02:00'
+author: Christian Resma Helle
+tags:
+- Windows Mobile
+- ".NET Compact Framework"
+modified_time: '2007-07-24T08:46:21.711+02:00'
+blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-3866100767263295435
+blogger_orig_url: https://christian-helle.blogspot.com/2007/07/displaying-calendar-view-on.html
+---
+
+I've recently made a solution where the customer requested to be able to bring up the calendar view in a DateTimePicker control by pressing on a specific button on the screen. The solution to that was really simple: Create a control that inherits from <font face="Courier">System.Windows.Forms.DateTimePicker</font> and add a method called <font face="Courier">ShowCalendar()</font> which I call to bring up the Calendar view.<br /><br /><font face="Courier"><br /><font color="Blue">public class</font> <font color="#408080">DateTimePickerEx</font> : <font color="#408080">DateTimePicker</font><br />{<br />&nbsp;&nbsp;[<font color="#408080">DllImport</font>(<font color="Red">"coredll.dll"</font>)]<br />&nbsp;&nbsp;<font color="Blue">static extern int</font> SendMessage(<br />&nbsp;&nbsp;&nbsp;&nbsp;<font color="#408080">IntPtr</font> hWnd, <font color="Blue">uint</font> uMsg, <font color="Blue">int</font> wParam, <font color="Blue">int</font> lParam);<br /><br />&nbsp;&nbsp;<font color="Blue">const int</font> WM_LBUTTONDOWN = 0x0201;<br /><br />&nbsp;&nbsp;<font color="Blue">public void</font> ShowCalendar() {<br />&nbsp;&nbsp;&nbsp;&nbsp;<font color="Blue">int</font> x = Width - 10;<br />&nbsp;&nbsp;&nbsp;&nbsp;<font color="Blue">int</font> y = Height / 2;<br />&nbsp;&nbsp;&nbsp;&nbsp;<font color="Blue">int</font> lParam = x + y * 0x00010000;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;SendMessage(Handle, WM_LBUTTONDOWN, 1, lParam);<br />&nbsp;&nbsp;}<br />}<br /></font>

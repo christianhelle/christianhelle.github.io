@@ -1,0 +1,13 @@
+---
+layout: post
+title: Programmatically Refreshing the Today Screen
+date: '2007-06-06T08:04:00.000+02:00'
+author: Christian Resma Helle
+tags:
+- Windows Mobile
+modified_time: '2007-06-11T09:45:04.556+02:00'
+blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-9105916737634152947
+blogger_orig_url: https://christian-helle.blogspot.com/2007/06/programmatically-refreshing-today.html
+---
+
+A simple trick for forcing the today screen to re-read from the registry (or refresh) is by sending the message <font face="courier">WM_WININICHANGE </font>with the parameter <font face="courier">0x000000F2 </font> to a window called the <font face="courier">DesktopExplorerWindow</font>.<br /><br />Here's a small code snippet on how to accomplish this programmatically:<br /><font face="courier" size=2><br /><font color="Blue">void</font> RefreshTodayScreen() {<br />&nbsp;&nbsp;HWND hWnd = FindWindow(_T(<font color="Red">"DesktopExplorerWindow"</font>), _T(<font color="Red">"Desktop"</font>));<br />&nbsp;&nbsp;SendMessage(hWnd, WM_WININICHANGE, 0x000000F2, 0);<br />}<br /></font><br />and in managed code...<br /><font face="courier" size=2><br />[<font color="#408080">DllImport</font>(<font color="Red">"coredll.dll"</font>)]<br /><font color="Blue">static extern</font> <font color="#408080">IntPtr</font> FindWindow(<font color="Blue">string</font> class_name, <font color="Blue">string</font> caption);<br /><br />[<font color="#408080">DllImport</font>("<font color="Red">coredll.dll"</font>)]<br /><font color="Blue">static extern int</font> SendMessage(<font color="#408080">IntPtr</font> hWnd, <font color="Blue">uint</font> Msg, <font color="Blue">int</font> wParam, <font color="Blue">int</font> lParam);<br /><br /><font color="Blue">const uint</font> WM_WININICHANGE = 0x1a;<br /><br /><font color="Blue">void</font> RefreshTodayScreen() {<br />&nbsp;&nbsp;<font color="#408080">IntPtr</font> hWnd = FindWindow(<font color="Red">"DesktopExplorerWindow"</font>, <font color="Red">"Desktop"</font>);<br />&nbsp;&nbsp;SendMessage(hWnd, WM_WININICHANGE, 0x000000F2, 0);<br />}<br /><br /></font>
