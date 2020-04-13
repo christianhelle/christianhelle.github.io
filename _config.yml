@@ -14,13 +14,8 @@ highlighter: rouge
 
 theme: minima
 plugins:
-  - jekyll-feed
+  - jekyll-paginate
 
-minima:
-  skin: dark
-show_excerpts: true
-
-gist:
-  noscript: false
-future: true 
-jailed: false
+paginate: 1
+paginate_path: /page/:num/
+google_analytics: UA-141206907-2
