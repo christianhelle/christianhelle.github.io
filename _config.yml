@@ -19,3 +19,4 @@ plugins:
 paginate: 5
 paginate_path: /page/:num/
 google_analytics: UA-141206907-2
+permalink: /:categories/:year/:month/:title:output_ext
