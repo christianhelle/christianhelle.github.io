@@ -16,6 +16,9 @@ theme: minima
 plugins:
   - jekyll-paginate
 
+minima:
+  skin: dark
+
 paginate: 5
 paginate_path: /page/:num/
 google_analytics: UA-141206907-2
