@@ -11,7 +11,7 @@ jobs:
         uses: celinekurpershoek/link-checker@v1.0.2
         with:
           # Required:
-          url: "https://christianhelle.github.io/archive"
+          url: "https://christianhelle.github.io/archives"
           # optional:
           honorRobotExclusions: false
           recursiveLinks: true # Check all URLs on all reachable pages (could take a while)
