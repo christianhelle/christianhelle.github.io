@@ -17,3 +17,37 @@ jobs:
           recursiveLinks: false # Check all URLs on all reachable pages (could take a while)
       - name: Get the result
         run: echo "${{steps.link-report.outputs.result}}"
+        
+  local:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@0a29871fe2b0200a17a4497bae54fe5df0d973aa # v1.115.3
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+          cache-version: 0
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v2
+      - name: Build with Jekyll
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+      - name: Run with Jekyll
+        run: bundle exec jekyll serve &        
+        env:
+          JEKYLL_ENV: production
+      - name: Sleep for 1 minute
+        run: Start-Sleep -s 60
+        shell: powershell
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install LinkChecker
+        run: pip install LinkChecker
+      - name: Run linkchecker against local site
+        run: linkchecker --verbose http://127.0.0.1:4000/
