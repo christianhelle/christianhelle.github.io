@@ -2,9 +2,9 @@ name: Website tests
 on: [push]
 
 jobs:
-  broken_link_checker_job:
+  live:
     runs-on: ubuntu-latest
-    name: Check for broken links
+    name: Check for broken links in Live site
     steps:
       - name: Check for broken links
         id: link-report
