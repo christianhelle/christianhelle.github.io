@@ -61,3 +61,22 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+  
+  # Test site for broken links
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    name: Test site for broken links
+    steps:
+      - name: Check for broken links
+        id: link-report
+        uses: celinekurpershoek/link-checker@v1.0.2
+        continue-on-error: true
+        with:
+          # Required:
+          url: "https://christianhelle.github.io/archives"
+          # optional:
+          honorRobotExclusions: false
+          recursiveLinks: true # Check all URLs on all reachable pages (could take a while)
+      - name: Get the result
+        run: echo "${{steps.link-report.outputs.result}}"
