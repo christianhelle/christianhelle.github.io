@@ -11,10 +11,10 @@ jobs:
         uses: celinekurpershoek/link-checker@v1.0.2
         with:
           # Required:
-          url: "https://christianhelle.github.io"
+          url: "https://christianhelle.github.io/archive"
           # optional:
           honorRobotExclusions: false
-          recursiveLinks: false # Check all URLs on all reachable pages (could take a while)
+          recursiveLinks: true # Check all URLs on all reachable pages (could take a while)
       - name: Get the result
         run: echo "${{steps.link-report.outputs.result}}"
         
