@@ -4,7 +4,7 @@ on: [push]
 jobs:
   live:
     runs-on: ubuntu-latest
-    name: Check for broken links in Live site
+    name: Live site tests
     steps:
       - name: Check for broken links
         id: link-report
@@ -20,6 +20,7 @@ jobs:
         
   local:
     runs-on: ubuntu-latest
+    name: Local site tests
     steps:
       - name: Checkout
         uses: actions/checkout@v3
