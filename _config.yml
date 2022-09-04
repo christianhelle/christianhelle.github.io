@@ -18,6 +18,17 @@ plugins:
 
 minima:
   skin: dark
+  social_links:
+    twitter: christianhelle
+    github: christianhelle
+    stackoverflow: "575374"
+    facebook: christianresmahelle
+    instagram: chresmahelle
+    linkedin: christianhelle
+    pinterest: christianhelle
+    telegram: christianhelle
+    microdotblog: christianhelle
+    keybase: christianhelle
 
 paginate: 5
 paginate_path: /page/:num/
