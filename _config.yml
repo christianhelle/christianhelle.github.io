@@ -15,6 +15,7 @@ highlighter: rouge
 theme: minima
 plugins:
   - jekyll-paginate
+  - jekyll-sitemap
 
 minima:
   skin: dark
