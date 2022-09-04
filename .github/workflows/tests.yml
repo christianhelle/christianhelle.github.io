@@ -40,9 +40,9 @@ jobs:
         run: bundle exec jekyll serve &        
         env:
           JEKYLL_ENV: production
-      - name: Sleep for 1 minute
-        run: Start-Sleep -s 60
-        shell: powershell
+      - name: Sleep for 60 seconds
+        run: sleep 60s
+        shell: bash
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
