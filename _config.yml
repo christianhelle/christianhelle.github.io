@@ -9,10 +9,6 @@ url: "https://christianhelle.github.io"
 twitter_username: christianhelle
 github_username:  christianhelle
 
-header_pages:
-  - about.md
-  - archives.md
-
 markdown: kramdown
 highlighter: rouge
 
