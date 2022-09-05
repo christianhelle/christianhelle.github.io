@@ -20,11 +20,6 @@ Databricks Notebooks should be used for only 3 things:
 
 All components must be designed with unit and integration testing in mind and tests must execute in the CI/CD pipeline
 
-## The OETL Design Pattern
-
-Short for **Orchestrated Extract-Transform-Load** is a pattern that takes the ideas behind variations of the 
-***Model-View-Whatever*** design pattern
-
 In the past, some of us have used and implemented variations on the ***Model-View-Whatever*** (MVC, MVP, MVVM, etc) design pattern. Such patterns solve the problems regarding separating concerns between the following:
 
 - Data layer
@@ -38,19 +33,42 @@ A similar pattern can be derived for separating the following concerns:
 - Transformation
 - Loading
 
+## The OETL Design Pattern
+
+Short for **Orchestrated Extract-Transform-Load** is a pattern that takes the ideas behind variations of the 
+***Model-View-Whatever*** design pattern
+
+![Orchestrated ETL](/assets/images/etl-orchestrator.png)
+
 The **Orchestrator** is responsible for conducting the interactions between the 
 **Extractor** -> **Transformer** -> **Loader**.
 
 The **Ochestrator** reads data from the **Extractor** then uses the result as a parameter to calling the **Transformer**
 and saves the transformed result into the **Loader**. The **Transformer** can be optional as there are scenarios where 
-data transformation is not needed (i.e. raw data ingestion to a landing zone)
+data transformation is not needed, i.e. raw data ingestion to the landing zone (bronze)
 
 Each layer may have a single or multiple implementations, and this is handled automatically in the 
 **Orchestrator**
 
-![Orchestrated ETL](/assets/images/etl-orchestrator.png)
+In Python, an example of an Orchestrator with single implementations of the Extractor, Transformer, and Loader would look something like this:
 
-The framework for this design pattern is implemented in a Python Library called [atc-dataplatform](https://pypi.org/project/atc-dataplatform/) available from PyPi
+```python
+class Orchestrator:
+    def __init__(self,
+                 extractor: Extractor,
+                 transformer: Transformer,
+                 loader: Loader):
+        self.loader = loader
+        self.transformer = transformer
+        self.extractor = extractor
+
+    def execute(self):
+        df = self.extractor.read()
+        df = self.transformer.process(df)
+        self.loader.save(df)
+```
+
+A framework for this design pattern is implemented in a Python Library called [atc-dataplatform](https://pypi.org/project/atc-dataplatform/) available from PyPi
 
     pip install atc-dataplatform
 
