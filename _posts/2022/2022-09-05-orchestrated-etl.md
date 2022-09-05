@@ -461,7 +461,7 @@ etl.execute()
 
 ### Example-6
 
-Using [Example-2](#Example-2), [Example-3](#Example-3) and [Example-5](#Example-5) as reference,
+Using [Example-2](#example-2), [Example-3](#example-3) and [Example-5](#example-5) as reference,
 any combinations for single/multiple implementations of `Extractor`, `Transformer` or `Loader` can be created.
 
 Here's an example of having both multiple `Extractor`, `Transformer` and `Loader` implementations.
