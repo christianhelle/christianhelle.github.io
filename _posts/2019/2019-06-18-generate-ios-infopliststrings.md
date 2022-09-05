@@ -50,7 +50,7 @@ You can get the Document ID from the URL of the Google Sheet
 
 Here's an example output  
 
-![](/assets/images/ios-infoplist-console.png)  
+![](/assets/images/infoplist-console.png)  
 
 Now I can just bring these files into my project and use them directly. Well, almost! There's one little problem, and that is that by default the **Xamarin.iOS** csproj tooling explicitly adds each **InfoPlist.strings** file as a **BundleResource**. Oddly enough, the csproj format allows to specify wild card folders, so if we want to enable dynamic generation of InfoPlist.strings translations then we need to manually edit the csproj.  
 
