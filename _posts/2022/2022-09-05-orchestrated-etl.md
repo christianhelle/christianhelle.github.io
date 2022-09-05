@@ -655,3 +655,5 @@ etl_outer = (
 
 etl_outer.execute()
 ```
+
+If you find this interesting then you should definitely check out [atc-dataplatform on Github](https://github.com/atc-net/atc-dataplatform)
