@@ -152,7 +152,6 @@ etl = (
     .load_into(NoopLoader())
 )
 etl.execute()
-
 ```
 
 The code above produces the following output:
@@ -242,7 +241,6 @@ etl = (
     .load_into(NoopLoader())
 )
 etl.execute()
-
 ```
 
 ### Example-3
@@ -327,7 +325,6 @@ etl = (
     .load_into(NoopLoader())
 )
 etl.execute()
-
 ```
 
 The code above produces the following output:
@@ -385,7 +382,6 @@ class NoopLoader(Loader):
 print("ETL Orchestrator with no transformations")
 etl = Orchestrator().extract_from(GuitarExtractor()).load_into(NoopLoader())
 etl.execute()
-
 ```
 
 ### Example-5
@@ -456,7 +452,6 @@ etl = (
     .load_into(NoopGoldLoader())
 )
 etl.execute()
-
 ```
 
 ### Example-6
@@ -559,7 +554,6 @@ etl = (
     .load_into(NoopGoldLoader())
 )
 etl.execute()
-
 ```
 
 ### Example-7
