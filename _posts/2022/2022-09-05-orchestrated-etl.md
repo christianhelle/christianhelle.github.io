@@ -10,7 +10,7 @@ This article describes ideas based on existing software design patterns that can
 
 As a data platform grows bigger it becomes harder and more complex to maintain a large set of Notebooks. Although, reusing code between Notebooks is possible using the `%run` command, it is neither elegant nor efficient.
 
-The goal in mind when writing this article is to move as much code regarding ***ETL*** operations as possible, if not all, away from Notebooks and into a Python library. This library will also contain reusable components for ingesting data in various formats from various data sources into a variety of data stores
+The goal in mind when writing this is to move as much code regarding ***ETL*** operations as possible, if not all, away from Notebooks and into a Python library. This library should also contain reusable components for ingesting data in various formats from various data sources into a variety of data stores
 
 Databricks Notebooks should be used for only 3 things:
 
@@ -18,7 +18,7 @@ Databricks Notebooks should be used for only 3 things:
 - Executing library code
 - Interacting with the dbutils API (i.e. reading secrets or setting up widgets for parameterized jobs)
 
-All components must be designed with unit and integration testing in mind and tests must execute in the CI/CD pipeline
+All components must be designed with unit and integration testing in mind, and tests must execute in the CI/CD pipeline
 
 In the past, some of us have used and implemented variations on the ***Model-View-Whatever*** (MVC, MVP, MVVM, etc) design pattern. Such patterns solve the problems regarding separating concerns between the following:
 
@@ -68,6 +68,8 @@ class Orchestrator:
         self.loader.save(df)
 ```
 
+# ATC-DataPlatform
+
 A framework for this design pattern is implemented in a Python Library called [atc-dataplatform](https://pypi.org/project/atc-dataplatform/) available from PyPi
 
     pip install atc-dataplatform
@@ -75,7 +77,7 @@ A framework for this design pattern is implemented in a Python Library called [a
 ## Orchestration Fluent Interface
 
 [atc-dataplatform](https://pypi.org/project/atc-dataplatform/) provides common simple implementations and base classes for implementing the OETL design pattern. 
-To simplify object construction, we provide the **Orchestrator** fluent interface from `atc.etl`
+To simplify object construction, this library provides the **Orchestrator** fluent interface from `atc.etl`
 
 ```python
 from atc.etl import Extractor, Transformer, Loader, Orchestrator
