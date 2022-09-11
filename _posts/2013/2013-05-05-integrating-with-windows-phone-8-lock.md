@@ -59,7 +59,7 @@ For this example we’ll show a quick status notification
 
 To update the background image of the lock screen we need use the [LockScreen](http://msdn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreen(v=vs.105).aspx) class of the [UserProfile](http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj207562(v=vs.105).aspx) API. First we check if the user configured the app to be able to set the background of the lock screen, we can do this through [LockScreenManager](http://msdn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreenmanager(v=vs.105).aspx) class. If the app isn’t allowed to change the lock screen background then we can open the lock screen settings page.  
 
-### Lock screen background (C#)
+**Lock screen background (C#)**
 
 ```csharp
 if (await LockScreenManager.RequestAccessAsync() == LockScreenRequestResult.Granted)
@@ -76,7 +76,7 @@ else
 
 To display an icon notification just update the primary application tile with a notification. We can do this by using the [ShellTile](http://msdn.microsoft.com/en-US/library/windowsphone/develop/microsoft.phone.shell.shelltile(v=vs.105).aspx) API
 
-### Display Notification (C#)
+****Display Notification (C#)**
 
 ```csharp
 var tile = ShellTile.ActiveTiles.First();
@@ -90,7 +90,7 @@ tile.Update(data);
 
 To clear the notification just update the primary application tile to its original state  
 
-### Clear Notification (C#)
+**Clear Notification (C#)**
 
 ```csharp
 var tile = ShellTile.ActiveTiles.First();
