@@ -45,15 +45,15 @@ Before our app can display notifications we need to configure our Lock Screen se
 
 To configure the device to display notifications from your app, go to the settings app and select Lock screen  
 
-[![settings](http://lh6.ggpht.com/--tghTed1JPs/UXWn7qFyc7I/AAAAAAAADFg/ih6cMqbzzKk/settings_thumb%25255B1%25255D.png?imgmax=800 "settings")](http://lh5.ggpht.com/-lfeyk0bPGvM/UXWn0xJI-iI/AAAAAAAADFc/NO9mBQR8FA8/s1600-h/settings%25255B3%25255D.png)  
+[![settings](/assets/images/windows-phone-settings.png)](/assets/images/windows-phone-settings.png)
 
 In the lock screen settings, choose the notification type that will display notifications from our app  
 
-[![image](http://lh3.ggpht.com/-C_RetikC3Ok/UXWn9Fzh1pI/AAAAAAAADFw/a7arSl9p5qI/image_thumb%25255B6%25255D.png?imgmax=800 "image")](http://lh3.ggpht.com/-it0vr-dA13A/UXWn8Jmp51I/AAAAAAAADFo/UEflSF2kKLY/s1600-h/image%25255B12%25255D.png)  
+[![image](/assets/images/windows-phone-settings-lock-screen-highlight.png)](/assets/images/windows-phone-settings-lock-screen-highlight.png)
 
 For this example we’ll show a quick status notification  
 
-[![quick status on](http://lh3.ggpht.com/-Blwu72A0ags/UXWn-1FadzI/AAAAAAAADGA/CKrpwD6H_y0/quick%252520status%252520on_thumb%25255B3%25255D.png?imgmax=800 "quick status on")](http://lh3.ggpht.com/-LIB-eOQqh7k/UXWn9s-rG9I/AAAAAAAADF4/IgzfDyNrgSA/s1600-h/quick%252520status%252520on%25255B5%25255D.png)  
+[![quick status on](/assets/images/windows-phone-settings-lock-screen.png)](/assets/images/windows-phone-settings-lock-screen.png)  
 
 **Code**  
 
