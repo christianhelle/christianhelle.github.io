@@ -21,21 +21,21 @@ This website and its owner take a proactive approach to user privacy and ensure 
 
 ## Access logs
 
-The service hosting the **christianhelle.github.io** website stores access logs. This data is not accessible to and not readable for the owner of this website. The hosting service, GitHub, has their privacy policy is available here: [https://docs.github.com/en/github/site-policy/github-privacy-statement](https://docs.github.com/en/github/site-policy/github-privacy-statement)
+The service hosting the **christianhelle.com** website stores access logs. This data is not accessible to and not readable for the owner of this website. The hosting service, GitHub, has their privacy policy is available here: [https://docs.github.com/en/github/site-policy/github-privacy-statement](https://docs.github.com/en/github/site-policy/github-privacy-statement)
 
 ## About cookies
 
 ### Cookie consent
 
-This website uses cookies. By using this website and agreeing to this policy, you consent to **christianhelle.github.io**'s use of cookies in accordance with the terms of this policy. Cookies are information packets sent by web servers to web browsers, and stored by the web browsers. The information is then sent back to the server each time the browser requests a page from the server. This enables a web server to identify and track web browsers.
+This website uses cookies. By using this website and agreeing to this policy, you consent to **christianhelle.com**'s use of cookies in accordance with the terms of this policy. Cookies are information packets sent by web servers to web browsers, and stored by the web browsers. The information is then sent back to the server each time the browser requests a page from the server. This enables a web server to identify and track web browsers.
 
-In order to comply with your preferences, **christianhelle.github.io** may store a small number tiny functional cookies so that you're not asked to make this choice again, to be able to save your settings and to warn you of an updated changelog. Please note that these cookie are only used to guarantee a user-friendly visit and a proper website performance.
+In order to comply with your preferences, **christianhelle.com** may store a small number tiny functional cookies so that you're not asked to make this choice again, to be able to save your settings and to warn you of an updated changelog. Please note that these cookie are only used to guarantee a user-friendly visit and a proper website performance.
 
 ### Google Analytics
 
-**christianhelle.github.io** uses Google Analytics to analyse the use of this website. Google Analytics generates statistical and other information about website use by means of cookies. The information generated relating to this website is used to create reports about the use of the website. Google will store and use this information. Google's privacy policy is available at: [https://www.google.com/policies/privacy](https://www.google.com/policies/privacy/). To opt-out Of Google Analytics Google created a browser add-on that allows you to turn off Google Analytics trackers, and works for Chrome, Firefox, Safari, Opera, and even Internet Explorer 11.
+**christianhelle.com** uses Google Analytics to analyse the use of this website. Google Analytics generates statistical and other information about website use by means of cookies. The information generated relating to this website is used to create reports about the use of the website. Google will store and use this information. Google's privacy policy is available at: [https://www.google.com/policies/privacy](https://www.google.com/policies/privacy/). To opt-out Of Google Analytics Google created a browser add-on that allows you to turn off Google Analytics trackers, and works for Chrome, Firefox, Safari, Opera, and even Internet Explorer 11.
 
-**christianhelle.github.io** does not collect and send any Personal Identifiable Information (PII) to Google Analytics and has taken the following steps to make the use of Google Analytics privacy-friendly (GDPR compliant):
+**christianhelle.com** does not collect and send any Personal Identifiable Information (PII) to Google Analytics and has taken the following steps to make the use of Google Analytics privacy-friendly (GDPR compliant):
 
 - The Google Analytics Data Processing Amendment has been accepted
 - IP addresses are processed anonymously

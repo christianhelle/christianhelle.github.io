@@ -79,7 +79,7 @@ jobs:
         continue-on-error: true
         with:
           # Required:
-          url: "https://christianhelle.github.io/archives"
+          url: "https://christianhelle.com/archives"
           # optional:
           honorRobotExclusions: false
           recursiveLinks: true # Check all URLs on all reachable pages (could take a while)
