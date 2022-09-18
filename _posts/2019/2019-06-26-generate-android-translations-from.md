@@ -8,6 +8,19 @@ modified_time: '2019-06-26T22:35:34.121+02:00'
 thumbnail: https://1.bp.blogspot.com/-Xe0MspUwnQA/XRPOeMGmaMI/AAAAAAAAQWo/xmAfPa_eMgkS--gdCl-7mHkm3VHy3GNiwCLcBGAs/s72-c/sheets-android.png
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1248680433354444596
 blogger_orig_url: https://christian-helle.blogspot.com/2019/06/generate-android-translations-from.html
+redirect_from:
+    - /2019/06/generate-android-translations-from-google-sheets/
+    - /2019/06/generate-android-translations-from-google-sheets
+    - /2019/generate-android-translations-from-google-sheets/
+    - /2019/generate-android-translations-from-google-sheets
+    - /generate-android-translations-from-google-sheets/
+    - /generate-android-translations-from-google-sheets
+    - /2019/06/generate-android-translations-from/
+    - /2019/06/generate-android-translations-from
+    - /2019/generate-android-translations-from/
+    - /2019/generate-android-translations-from
+    - /generate-android-translations-from/
+    - /generate-android-translations-from
 ---
 
 In previous articles [Generating ResX translations from Google Sheets](/2019/06/generate-resx-translations-using-google.html) and [Generate iOS InfoPlist.strings Translations from Google Sheets](/2019/06/generate-ios-infopliststrings.html), I wrote about using Google Sheets as a translation tool by using the [GOOGLETRANSLATE](https://support.google.com/docs/answer/3093331?hl=en) built in function to generate translation files for a **Xamarin** based solution. For this post, I will demonstrate something very similar, but instead of ResX files or InfoPlist.strings, I'll generate **strings.xml** files for Android. For the sake of this article I created [this sample Google Sheets](https://docs.google.com/spreadsheets/d/1mrMkhItrIDsPwEKMlR8JJ3Pgj1K6zUv0AhmBT4jWRqs/edit#gid=0)  
