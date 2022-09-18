@@ -7,6 +7,15 @@ tags: Azure Xamarin AppCenter
 modified_time: '2020-03-01T21:32:22.348+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-6120354957540588816
 blogger_orig_url: https://christian-helle.blogspot.com/2020/03/appcenter-extensions-for-aspnet-core.html
+redirect_from:
+    - /2020/03/appcenter-extensions-for-asp-net-core-and-application-insights/
+    - /2020/03/appcenter-extensions-for-asp-net-core-and-application-insights
+    - /2020/03/appcenter-extensions-for-aspnet-core/
+    - /2020/03/appcenter-extensions-for-aspnet-core
+    - /2020/appcenter-extensions-for-aspnet-core/
+    - /2020/appcenter-extensions-for-aspnet-core
+    - /appcenter-extensions-for-aspnet-core/
+    - /appcenter-extensions-for-aspnet-core
 ---
 
 In my [previous post](/2020/02/appcenter-extensions-for-xamarinforms.html), I wrote about an open source project called [AppCenterExtensions](https://github.com/christianhelle/appcenterextensions) available at Github and nuget.org. I recently updated this project and added a few components for ASP.NET Core that enables including AppCenter diagnostic information in Application Insights.  
