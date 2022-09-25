@@ -199,4 +199,4 @@ What happens in the code above is that when the main page has loaded, the html a
 
 The sample above is a very basic and naive but it demonstrates something that can provide endless platform interop possibilities. I hope you found this useful.
 
-You can grab the full source code the sample above [here](https://1drv.ms/u/s!AnAsdrR_HlPKhk70qLoVRRSQ9M1S?e=bikf6e)
+You can grab the full source code the sample above [here](/assets/samples/MemoryUsage.zip)
