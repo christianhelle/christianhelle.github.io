@@ -13,4 +13,4 @@ blogger_orig_url: https://christian-helle.blogspot.com/2012/03/html5-and-windows
 
 Last week I did a talk on HTML5 and Windows Phone for the Danish Developer Conference 2012\. The talk was quite successful and around 80% of said that they learned something new, which is the whole point of these conferences.  
 
-If you're interested in my presentation then you can download it from [here](/assets/slides/DDC2012-Windows-Phone-and-HTML5.pptx) and code examples from [here](/assets/slides/DDC2012-Windows-Phone-and-HTML5-Samples.zip)
+If you're interested in my presentation then you can download it from [here](/assets/slides/DDC2012-Windows-Phone-and-HTML5.pptx) and code examples from [here](/assets/samples/DDC2012-Windows-Phone-and-HTML5-Samples.zip)
