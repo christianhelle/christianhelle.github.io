@@ -22,20 +22,41 @@ Contains a stand alone GUI application and a Visual Studio Custom Tool for autom
 
 **Features:**
 
-*   Visual Studio 2008 and 2010 Custom Tool Support
-*   Creates entity classes for each table in the database
-*   Generates data access code that implements the Repository Pattern
-*   Generates methods for Create, Read, Update and Delete operations
-*   Generates SelectBy and DeleteBy methods for every column in every table
-*   Generates a Purge method for every table to delete all records
-*   Generates Count() method for retrieving the number of records in each table
-*   Generates CreateDatabase() method for re-creating the database
-*   Generates xml-doc code comments for entities and data access methods
-*   Generates Entity Unit Tests
-*   Generates Data Access Unit Tests
-*   Generates .NET Compact and Full Framework compatible code
-*   Support for SQL Compact Edition version 4.0
-*   Multiple test framework code generation (MSTest, NUnit, xUnit)
-*   Transaction support per DataRepository instance (Begin, Commit, Rollback)
-*   Code generation options to enable/disable unit test code generation
-*   Windows Phone 7 "Mango" support for generating a LINQ to SQL DataContext
+- Visual Studio 2008 and 2010 Custom Tool Support
+- Creates entity classes for each table in the database
+- Generates data access code that implements the Repository Pattern
+- Generates methods for Create, Read, Update and Delete operations
+- Generates SelectBy and DeleteBy methods for every column in every table
+- Generates a Purge method for every table to delete all records
+- Generates Count() method for retrieving the number of records in each table
+- Generates CreateDatabase() method for re-creating the database
+- Generates xml-doc code comments for entities and data access methods
+- Generates Entity Unit Tests
+- Generates Data Access Unit Tests
+- Generates .NET Compact and Full Framework compatible code
+- Support for SQL Compact Edition version 4.0
+- Multiple test framework code generation (MSTest, NUnit, xUnit)
+- Transaction support per DataRepository instance (Begin, Commit, Rollback)
+- Code generation options to enable/disable unit test code generation
+- Windows Phone 7 "Mango" support for generating a LINQ to SQL DataContext
+
+**Data Access Custom Tools:**
+- SQLCECodeGenerator - Generates entity and data access components using a single file.
+- SQLCEMangoCodeGenerator - Generates Windows Phone 7 "Mango" SQLCE entity and data access components using a single file
+- SQLCECodeGeneratorV2 - Generates entity and data access components using several files. One file per class or interface
+- SQLCEMangoCodeGeneratorV2 - Generates Windows Phone 7 "Mango" SQLCE entity and data access components using several files. One file per class or interface
+
+**Data Access Unit Test Custom Tools:**
+- SQLCEMSTestCodeGenerator - Generates entity and data access unit test code that targets MSTest using a single file
+- SQLCENUnitCodeGenerator - Generates entity and data access unit test code that targets NUnit using a single file
+- SQLCEXUnitCodeGenerator - Generates entity and data access unit test code that targets xUnit.net using a single file
+- SQLCEMSTestCodeGeneratorV2 - Generates entity and data access unit test code that targets MSTest using several files. One file per class or interface
+- SQLCENUnitCodeGeneratorV2 - Generates entity and data access unit test code that targets NUnit using several files. One file per class or interface
+- SQLCEXUnitCodeGeneratorV2 - Generates entity and data access unit test code that targets xUnit.net using several files. One file per class or interface
+
+**Screenshots**
+![](/assets/images/sqlcecodegen-entities.png)
+![](/assets/images/sqlcecodegen-dal.png)
+![](/assets/images/sqlcecodegen-mock.png)
+![](/assets/images/sqlcecodegen-export-files.png)
+![](/assets/images/sqlcecodegen-export-output.png)
