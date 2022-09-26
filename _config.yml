@@ -40,5 +40,5 @@ minima:
 
 paginate: 5
 paginate_path: /page/:num/
-google_analytics: UA-141206907-2
+google_analytics: G-NWTG8BT7S6
 permalink: /:categories/:year/:month/:title:output_ext
