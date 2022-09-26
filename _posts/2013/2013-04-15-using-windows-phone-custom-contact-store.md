@@ -161,7 +161,7 @@ Once the contact is created it will be available in the People Hub
 
 When the contact is viewed from the People Hub the owner of the contact will be displayed on top
 
-[![Custom Contact](/assets/images/custom-contract.png)
+[![Custom Contact](/assets/images/custom-contact.png)
 
 I hope you found this useful. You can check out the source code using the link below
 
