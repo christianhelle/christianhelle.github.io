@@ -33,10 +33,11 @@ static extern bool CeFindNextFile(IntPtr hFindFile, ref CE_FIND_DATA lpFindFileD
  
 [DllImport("rapi.dll", CharSet = CharSet.Unicode)]
 static extern bool CeFindClose(IntPtr hFindFile);
-
+```
 
 We also need the CE_FIND_DATA structure
 
+```csharp
 [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 struct CE_FIND_DATA
 {
