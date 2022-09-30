@@ -55,8 +55,13 @@ Contains a stand alone GUI application and a Visual Studio Custom Tool for autom
 - SQLCEXUnitCodeGeneratorV2 - Generates entity and data access unit test code that targets xUnit.net using several files. One file per class or interface
 
 **Screenshots**
+
 ![](/assets/images/sqlcecodegen-entities.png)
+
 ![](/assets/images/sqlcecodegen-dal.png)
+
 ![](/assets/images/sqlcecodegen-mock.png)
+
 ![](/assets/images/sqlcecodegen-export-files.png)
+
 ![](/assets/images/sqlcecodegen-export-output.png)
