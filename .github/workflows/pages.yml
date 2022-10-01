@@ -84,20 +84,10 @@ jobs:
           honorRobotExclusions: false
           recursiveLinks: true # Check all URLs on all reachable pages (could take a while)
       - name: Get the result
-        run: echo "${{steps.link-report.outputs.result}}"
-      - name: Setup Python
-        uses: actions/setup-python@v2
+        run: echo "${{steps.link-report.outputs.result}}" > broken-links-report.txt
+      - name: Publish results
+        uses: actions/upload-artifact@v2
         with:
-          python-version: 3.7
-      - name: Install LinkChecker
-        run: pip3 install linkchecker
-      - name: Run LinkChecker
-        run: linkchecker https://christianhelle.com --check-extern
-      # - name: Print LinkChecker results
-      #   run: cat ./linkchecker_results.txt
-      # - name: Publish LinkChecker results
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: Artifacts
-      #     path: |
-      #       linkchecker_results.txt
+          name: Artifacts
+          path: |
+            broken-links-report.txt
