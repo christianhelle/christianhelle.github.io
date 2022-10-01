@@ -92,12 +92,12 @@ jobs:
       - name: Install LinkChecker
         run: pip3 install linkchecker
       - name: Run LinkChecker
-        run: linkchecker https://christianhelle.com --check-extern > ./linkchecker_results.txt
-      - name: Print LinkChecker results
-        run: cat ./linkchecker_results.txt
-      - name: Publish LinkChecker results
-        uses: actions/upload-artifact@v2
-        with:
-          name: Artifacts
-          path: |
-            linkchecker_results.txt
+        run: linkchecker https://christianhelle.com --check-extern
+      # - name: Print LinkChecker results
+      #   run: cat ./linkchecker_results.txt
+      # - name: Publish LinkChecker results
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Artifacts
+      #     path: |
+      #       linkchecker_results.txt
