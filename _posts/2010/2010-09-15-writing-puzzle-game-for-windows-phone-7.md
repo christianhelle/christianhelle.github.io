@@ -41,7 +41,7 @@ To add Sprite Fonts, right click on the content project, click Add - New Item, t
 
 ![](/assets/images/xna-add-new-item-sprite-font-gametime.jpg)
 
-![](/assets/images/xna-add-sprite-font-congratulations.jpg)
+![](/assets/images/xna-add-new-item-sprite-font-congratulations.jpg)
   
 Let's change the Asset Name of the Sprite Fonts we just added to GameTimeFont and CongratulationsFont  
   
