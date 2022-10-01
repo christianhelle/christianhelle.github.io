@@ -84,8 +84,8 @@ We'll also need an enumeration that describes the state of the game. This state 
 ```csharp  
 enum DrawMode
 {
-    Puzzle,
-    Congratulations
+    Puzzle,
+    Congratulations
 }
 ```
   
