@@ -79,9 +79,25 @@ jobs:
         continue-on-error: true
         with:
           # Required:
-          url: "https://christianhelle.com/archives"
+          url: "https://christianhelle.com"
           # optional:
           honorRobotExclusions: false
           recursiveLinks: true # Check all URLs on all reachable pages (could take a while)
       - name: Get the result
         run: echo "${{steps.link-report.outputs.result}}"
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+      - name: Install LinkChecker
+        run: pip3 install linkchecker
+      - name: Run LinkChecker
+        run: linkchecker https://christianhelle.com --check-extern > ./linkchecker_results.txt
+      - name: Print LinkChecker results
+        run: cat ./linkchecker_results.txt
+      - name: Publish LinkChecker results
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: |
+            linkchecker_results.txt
