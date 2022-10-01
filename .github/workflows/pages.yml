@@ -90,7 +90,7 @@ jobs:
         with:
           python-version: 3.8
       - name: Install LinkChecker
-        run: pip3 install linkchecker
+        run: pip install linkchecker
       - name: Run LinkChecker
         run: linkchecker https://christianhelle.com --check-extern
       # - name: Print LinkChecker results
