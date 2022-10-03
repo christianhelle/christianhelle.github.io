@@ -9,6 +9,8 @@ tags:
 modified_time: '2009-12-21T20:41:39.393+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-7595127709834734069
 blogger_orig_url: https://christian-helle.blogspot.com/2009/12/how-to-switch-onoff-speaker-phone-in.html
+redirect_from:
+- /blog/2009/12/21/how-to-switch-on-off-the-speaker-phone-in-netcf/
 ---
 
 A few years back, I stumbled upon [this article](https://www.pocketmagic.net/controlling-the-speakerphone/) while trying to find a solution on how to switch on/off the speaker phone. It uses a DLL found in Windows Mobile 5 (and higher) devices called ossvcs.dll. This library exposes some pretty neat API's for controlling communication related features in the device (like controlling the wireless/bluetooth radio and other cool stuff).
