@@ -2,7 +2,7 @@
 layout: post
 title: A long break...
 date: '2009-09-28T20:07:00.002+02:00'
-# author: Christian Resma Helle
+author: Christian Resma Helle
 tags: 
 modified_time: '2009-09-28T20:08:59.927+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-4206868694666512366
