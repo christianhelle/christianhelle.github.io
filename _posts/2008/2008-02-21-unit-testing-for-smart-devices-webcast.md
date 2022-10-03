@@ -2,7 +2,7 @@
 layout: post
 title: Unit Testing for Smart Devices Webcast
 date: '2008-02-21T14:32:00.003+01:00'
-# author: Christian Resma Helle
+author: Christian Resma Helle
 tags:
 - Visual Studio
 modified_time: '2009-10-18T22:25:37.322+02:00'
