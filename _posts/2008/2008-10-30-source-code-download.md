@@ -11,6 +11,6 @@ blogger_orig_url: https://christian-helle.blogspot.com/2008/10/source-code-downl
 
 I've published a few articles and quite a deal of code in my blog. I realized that I never properly published the source code as Visual Studio solutions.
 
-I will upload all source code as Visual Studio solutions to my [~~SkyDrive~~ OneDrive](https://1drv.ms/u/s!AnAsdrR_HlPKgSwZbc65G0FiPuEF?e=fJaRh3) account
+I will upload all source code as Visual Studio solutions [here](https://1drv.ms/u/s!AnAsdrR_HlPKgSwZbc65G0FiPuEF?e=fJaRh3)
 
 Special thanks to Caspar de Zinger for porting my Transparent Controls solution to VB.NET
