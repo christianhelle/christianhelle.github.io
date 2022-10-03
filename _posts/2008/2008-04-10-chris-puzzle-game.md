@@ -9,4 +9,8 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-29456773758414073
 blogger_orig_url: https://christian-helle.blogspot.com/2008/04/chris-puzzle-game.html
 ---
 
-I wrote this casual game in my easter holiday. It's an excellent way to pass time while waiting in the airport or sitting in a train :)<br /><br /><a href="http://cid-ca531e7fb4762c70.skydrive.live.com/browse.aspx/Applications/Chris|4%20Puzzle%20Game">Chris' Puzzle Game</a><br /><br />Try it out!
+I wrote this casual game in my easter holiday. It's an excellent way to pass time while waiting in the airport or sitting in a train :)
+
+[Chris' Puzzle Game](/assets/samples/ChrisPuzzleGameWM.zip)
+
+Try it out!
