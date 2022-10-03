@@ -11,4 +11,20 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-61442686739070655
 blogger_orig_url: https://christian-helle.blogspot.com/2009/12/how-to-enumerate-storage-cards-in-netcf.html
 ---
 
-In Windows Mobile, external storage cards are usually represented as the '\SD Card' or '\Storage Card' folder, this varies from device to device. A simple way to enumerate the external storage cards is to check all directories under the root directory that have the temporary attribute flag set.<br /><br />Here's a quick way to do so in .NETCF:<br /><br /><div style="font-family: Fixedsys; font-size: 10pt; color: black; background: white;"><pre style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">static</span> <span style="color: #2b91af;">List</span>&lt;<span style="color: blue;">string</span>&gt; GetStorageCards()</pre><pre style="margin: 0px;">{</pre><pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">var</span> list = <span style="color: blue;">new</span> <span style="color: #2b91af;">List</span>&lt;<span style="color: blue;">string</span>&gt;();</pre><pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">var</span> root = <span style="color: blue;">new</span> <span style="color: #2b91af;">DirectoryInfo</span>(<span style="color: #a31515;">&quot;\\&quot;</span>);</pre><pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">foreach</span> (<span style="color: #2b91af;">DirectoryInfo</span> directory <span style="color: blue;">in</span> root.GetDirectories()) </pre><pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; {</pre><pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (<span style="color: #2b91af;">FileAttributes</span>.Temporary == (directory.Attributes &amp; <span style="color: #2b91af;">FileAttributes</span>.Temporary))</pre><pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; list.Add(directory.Name);</pre><pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; }</pre><pre style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> list;</pre><pre style="margin: 0px;">}</pre></div>
+In Windows Mobile, external storage cards are usually represented as the `'\SD Card'` or `'\Storage Card'` folder, this varies from device to device. A simple way to enumerate the external storage cards is to check all directories under the root directory that have the temporary attribute flag set.
+
+Here's a quick way to do so in .NETCF:
+
+```csharp
+public static List<string> GetStorageCards()
+{
+    var list = new List<string>();
+    var root = new DirectoryInfo("\\");
+    foreach (DirectoryInfo directory in root.GetDirectories()) 
+    {
+        if (FileAttributes.Temporary == (directory.Attributes & FileAttributes.Temporary))
+            list.Add(directory.Name);
+    }
+    return list;
+}
+```
