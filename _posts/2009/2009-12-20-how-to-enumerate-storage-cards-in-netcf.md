@@ -2,7 +2,7 @@
 layout: post
 title: How to enumerate storage cards in .NETCF
 date: '2009-12-20T23:38:00.003+01:00'
-# author: Christian Resma Helle
+author: Christian Resma Helle
 tags:
 - How to
 - ".NET Compact Framework"
