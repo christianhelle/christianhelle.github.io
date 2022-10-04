@@ -2,7 +2,7 @@
 layout: post
 title: WISP Lite in Managed Code
 date: '2007-06-29T20:16:00.000+02:00'
-# author: Christian Resma Helle
+author: Christian Resma Helle
 tags:
 - ".NET Compact Framework"
 - Windows Mobile 6.0
@@ -11,4 +11,4 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-82919296426208701
 blogger_orig_url: https://christian-helle.blogspot.com/2007/06/wisp-lite-in-managed-code.html
 ---
 
-Alex Feinman blogs about a WISP Lite managed wrapper.<br /><br /><a href="http://blog.opennetcf.org/afeinman/PermaLink,guid,e6309045-3f60-4ec4-835f-34a7a98c3ab5.aspx">WISP Lite Managed on Windows Mobile 6</a>
+Alex Feinman blogs about a WISP Lite managed wrapper in Windows Mobile 6
