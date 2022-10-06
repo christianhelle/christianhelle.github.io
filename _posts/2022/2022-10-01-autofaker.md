@@ -94,9 +94,7 @@ from autofaker import Autodata
 @dataclass
 class DataClass:
     id: int
-    first_name: str
-    last_name: str
-    address: str
+    name: str
     job: str
 
 data = Autodata.create(DataClass, use_fake_data=True)
