@@ -1,0 +1,16 @@
+---
+layout: page
+title: Tags
+permalink: /tags/
+---
+
+{% assign sorted_tags = site.tags | sort %}
+{% for tag in sorted_tags %}
+  {% capture tag_name %}{{ tag | first }}{% endcapture %}
+  <h2>{{ tag_name }}</h2>
+  <ul>
+    {% for post in site.tags[tag_name] %}
+    <li><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></li>
+    {% endfor %}
+  </ul>
+{% endfor %}
