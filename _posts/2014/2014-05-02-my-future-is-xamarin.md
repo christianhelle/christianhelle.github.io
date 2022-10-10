@@ -3,7 +3,8 @@ layout: post
 title: My future is Xamarin
 date: '2014-05-02T00:19:00.001+02:00'
 author: Christian Resma Helle
-tags: Xamarin
+tags: 
+- Xamarin
 modified_time: '2018-06-10T20:59:19.816+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-167358165868605425
 blogger_orig_url: https://christian-helle.blogspot.com/2014/05/my-future-is-xamarin.html

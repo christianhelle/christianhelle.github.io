@@ -3,7 +3,8 @@ layout: post
 title: Over 2 years of Xamarin
 date: '2016-08-31T23:35:00.001+02:00'
 # author: Christian Resma Helle
-tags: Xamarin
+tags: 
+- Xamarin
 modified_time: '2016-08-31T23:35:50.448+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5685266482231086810
 blogger_orig_url: https://christian-helle.blogspot.com/2016/08/over-2-years-of-xamarin.html

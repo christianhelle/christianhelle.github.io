@@ -3,7 +3,9 @@ layout: post
 title: Generating a REST API Client from Visual Studio 2017 and 2019
 date: '2019-05-28T18:06:00.002+02:00'
 author: Christian Resma Helle
-tags: Visual Studio REST
+tags: 
+- Visual Studio 
+- REST
 modified_time: '2019-06-11T18:55:15.085+02:00'
 thumbnail: /assets/images/solution-explorer-context-menu.jpg
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1786649372449479397

@@ -3,7 +3,8 @@ layout: post
 title: Integrating with the Windows Phone 8 Lock Screen
 date: '2013-05-05T23:31:00.000+02:00'
 author: Christian Resma Helle
-tags: Windows Phone 8
+tags: 
+- Windows Phone 8
 modified_time: '2013-05-06T17:02:52.269+02:00'
 thumbnail: http://lh6.ggpht.com/--tghTed1JPs/UXWn7qFyc7I/AAAAAAAADFg/ih6cMqbzzKk/s72-c/settings_thumb%25255B1%25255D.png?imgmax=800
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5193764592110998860

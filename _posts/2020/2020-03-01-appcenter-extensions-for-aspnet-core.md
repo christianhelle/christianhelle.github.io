@@ -3,7 +3,10 @@ layout: post
 title: AppCenter Extensions for ASP.NET Core and Application Insights
 date: '2020-03-01T21:31:00.001+01:00'
 author: Christian Helle
-tags: Azure Xamarin AppCenter
+tags: 
+- Azure 
+- Xamarin 
+- AppCenter
 modified_time: '2020-03-01T21:32:22.348+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-6120354957540588816
 blogger_orig_url: https://christian-helle.blogspot.com/2020/03/appcenter-extensions-for-aspnet-core.html

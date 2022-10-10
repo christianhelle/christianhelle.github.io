@@ -3,7 +3,8 @@ layout: post
 title: AutoFaker - A Python library to minimize unit testing ceremony
 date: '2022-10-01'
 author: Christian Helle
-tags: Python
+tags: 
+- Python
 redirect_from:
   - /2022/10/autofaker/
   - /2022/10/autofaker

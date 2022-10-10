@@ -3,7 +3,10 @@ layout: post
 title: Generate Android Translations from Google Sheets
 date: '2019-06-26T22:30:00.001+02:00'
 author: Christian Helle
-tags: Localization Xamarin Android
+tags: 
+- Localization 
+- Xamarin 
+- Android
 modified_time: '2019-06-26T22:35:34.121+02:00'
 thumbnail: https://1.bp.blogspot.com/-Xe0MspUwnQA/XRPOeMGmaMI/AAAAAAAAQWo/xmAfPa_eMgkS--gdCl-7mHkm3VHy3GNiwCLcBGAs/s72-c/sheets-android.png
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1248680433354444596
