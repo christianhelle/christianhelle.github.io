@@ -3,7 +3,9 @@ layout: post
 title: New Challenges in the Cloud
 date: '2018-06-10T21:42:00.000+02:00'
 author: Christian Helle
-tags: Azure Cloud
+tags: 
+- Azure 
+- Cloud
 modified_time: '2018-06-11T15:30:24.359+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1696480164910267799
 blogger_orig_url: https://christian-helle.blogspot.com/2018/06/new-challenges-in-cloud.html

@@ -3,7 +3,10 @@ layout: post
 title: Orchestrated ETL Design Pattern for Apache Spark and Databricks
 date: '2022-09-05'
 author: Christian Helle
-tags: Databricks Spark Python
+tags: 
+- Databricks 
+- Spark 
+- Python
 redirect_from:
   - /2022/09/orchestrated-etl/
   - /2022/09/orchestrated-etl

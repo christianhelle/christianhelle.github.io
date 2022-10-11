@@ -3,7 +3,9 @@ layout: post
 title: Scrollable UISegmentedControl for Xamarin.iOS
 date: '2019-06-09T14:52:00.005+02:00'
 author: Christian Resma Helle
-tags: iOS Xamarin
+tags: 
+- iOS
+- Xamarin
 modified_time: '2019-06-11T18:54:11.769+02:00'
 thumbnail: https://1.bp.blogspot.com/-gC-VaqZBJrI/XPz-aZ02FWI/AAAAAAAAWBs/orVSUyZjkvU7TtX0wxZ2lcqCoLPF5X7OQCLcBGAs/s72-c/scrollablesegmentedcontrol-nuget.png
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1168052297225765485

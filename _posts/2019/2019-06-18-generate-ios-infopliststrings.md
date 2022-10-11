@@ -3,7 +3,10 @@ layout: post
 title: Generate iOS InfoPlist.strings Translations from Google Sheets
 date: '2019-06-18T23:21:00.001+02:00'
 author: Christian Helle
-tags: iOS Localization Xamarin
+tags: 
+- iOS 
+- Localization 
+- Xamarin
 modified_time: '2019-06-20T16:55:49.393+02:00'
 thumbnail: https://1.bp.blogspot.com/-b3CPRXAItU4/XQlNzCtdiaI/AAAAAAAAQVw/QGee8D4WHkMt4QxvvJGqAKRG0BPUxgktQCLcBGAs/s72-c/infoplist-google-sheets.png
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-6206453854170211664

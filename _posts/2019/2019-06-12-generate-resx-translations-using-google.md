@@ -3,7 +3,9 @@ layout: post
 title: Generate Resx Translations from Google Sheets
 date: '2019-06-12T22:30:00.002+02:00'
 author: Christian Resma Helle
-tags: Localization Xamarin
+tags: 
+- Localization 
+- Xamarin
 modified_time: '2019-06-13T09:28:50.488+02:00'
 thumbnail: https://1.bp.blogspot.com/-lldRsH8dOVk/XQFZ1BrC4aI/AAAAAAAAWL4/awcO8fBQ_5UuoCVeLl9ELkta7R051iCpwCEwYBhgL/s72-c/GoogleSheets.png
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-4089591479727741453
