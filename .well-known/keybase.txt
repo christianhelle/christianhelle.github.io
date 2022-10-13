@@ -1,0 +1,75 @@
+==================================================================
+https://keybase.io/christianhelle
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://christianhelle.com
+  * I am christianhelle (https://keybase.io/christianhelle) on keybase.
+  * I have a public key with fingerprint 3147 6B64 7A81 7506 C192  541A DB6A 7B48 24AA D624
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01207abf439cbb7e8a4686d31b4e627a55423ac40e4fc9aa781fee7cf2d5163f6ae90a",
+      "fingerprint": "31476b647a817506c192541adb6a7b4824aad624",
+      "host": "keybase.io",
+      "key_id": "db6a7b4824aad624",
+      "kid": "010127a59ea2411ca5ed59a47620da7de23df5d387e1294dc781ba2aa6c381c2fbcb0a",
+      "uid": "b85da7798afba34e91520e7eb8a9d719",
+      "username": "christianhelle"
+    },
+    "service": {
+      "hostname": "christianhelle.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1665674548,
+  "expire_in": 157680000,
+  "prev": "a3071a41ab0fd15da8bb0e2245ae2745e3ead54fbd902a052f30fa3ed0cace77",
+  "seqno": 27,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.13
+Comment: https://keybase.io/crypto
+
+yMNsAnicbVJ7UFRVHF6Mh2wQBEUYmXYlQFnhvh+LDCIPSaDHACXotJ1777nsXZa7
+eO8uxasRRo21yR6iAT20ASqYMmokG+MhDJJINkQWNipmYc5QQzKpU4TUWSb/8/xz
+5pzf932/7/vNbzj0LpPZ77yjJie264dYv7HBdo9JyllP12CiS67CrDVYGVy6oFOG
+httWpsqYFcMJEueAqNCUIIkiB3lAszwrU4RIQ5bkAMPQJAUkGoe0IgkAcDyhQMhJ
+CikzBEspLIACDjALpqhaKdQrdFVzI1mKoDlWZGkO8ATH4KxECCRDE0AWWcCJNE/S
+AMgsSSOi3WX4GMicCAyYpLrQH3rYluzdAX/bN3KO7AkQkDRBSICBMiMA1JXEZcDJ
+kKRkhZEpnoMEKdCyhIyLgASAlSiekEhFlMQl354lOZFnEIsTeKCIgKKhQDAkDjko
+8kCQOULwAQ2oa6AcIrRk11XDrQLNDp1OiNVZMFSrVCXoG68vzx1xSZKrHOlU6C63
+S3I5Ud3udlcYVh/fXVXhIzwPRdv/UjZR1WQ0U8SohLqhujTMSiCk5FZ92gTLMixH
+MzRvweALFaoObaoPwXAsj6Pj6wMrkSSgcI4AaPQirsgESsmLIg5JkmYAJJEApCCQ
+GVoRZQEnAc6QCoUrgIIyLgEJchzmC7dDc2FWkkM+QSnSNNRSDbg9Ooo+NLjd3+Rn
+NgUGLPMtm8kcHH57BYWfwk3v7kho6nw8r79nZqLkAdvewDXDtsab6ZlfL16nO9vi
+nEfvPpVXG91KHRhkOr8dfjRrqn/8vrrasIiGNQtXPPjnoOjKe/65J7zUhUfmpm8N
+LCYHOhb6Nxxp5T1jns23FjONuW5eOnQ2yvtVQeXGb8LiuufbUywWLpUPirxuhI8+
+dq8hZ5QcPekdcM4/2fL3+AHh322cNl1oT/ntrfgFg0rOP2bl+Ff2Hrxw6MTLryWs
+lmo0QJu+fB+LXF+fyh978/AHR4L9qpdjk/98cVbftVI3osWw3Im41Z+VOZdvmfam
+fBwa2pfgLmh8+sGrcVW2F8XKuYGOVaHnHPV/rb1KPtfRvqImd1P+67NnBofG04tj
+Zi+FJgf/+FG2/eJkU+G5rWZ5asvouj/+bChKbNbT62LeppuTYFf11ieiXvLCd0Km
+jhP7e1ftJB2fRJ/28o1JXSOdIftOb86d6d7WcNzxTFleU0b4h/v4zMbgvl/bD0+e
+gu2DPe6Swu+CzjTHtTVY3ljQ28gctaUsYn9xhLk1pqfkl+gbvSefevj7Ddm7R7p6
+eh3M5bTu2o7e+qyA31/Nn/UfTUzTEuMP8gWXrtkzpI3LWgIu3kyLtBatTQnafv8e
+r5g8/1Bf+jrMLyq+r/zZG5m2kKTUaytii80/7x7KXLlpJCC5mnZgscZYyadZM5d3
+3lMwcd61K1tL/w9d+bQ2
+=RUYf
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/christianhelle
+
+==================================================================
