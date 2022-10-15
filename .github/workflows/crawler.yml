@@ -1,0 +1,30 @@
+name: Test for broken links
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 * * * *'
+
+jobs:
+  
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    name: Test site for broken links
+    steps:
+      - name: Check for broken links
+        id: link-report
+        uses: celinekurpershoek/link-checker@v1.0.2
+        continue-on-error: false
+        with:
+          url: "https://christianhelle.com"
+          honorRobotExclusions: false
+          recursiveLinks: true
+      - name: Get the result
+        run: echo "${{steps.link-report.outputs.result}}" > broken-links-report.txt
+      - name: Publish results
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: |
+            broken-links-report.txt
