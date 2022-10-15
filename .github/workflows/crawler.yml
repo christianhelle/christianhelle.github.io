@@ -9,7 +9,6 @@ jobs:
   
   test:
     runs-on: ubuntu-latest
-    needs: deploy
     name: Test site for broken links
     steps:
       - name: Check for broken links
