@@ -16,6 +16,6 @@ redirect_from:
   - /2007/11/visual-studio-2008-released
 ---
 
-Finally it's out! Download it  [here](https://www.microsoft.com/en-us/download/details.aspx?id=7873?WT.mc_id=DT-MVP-5004822) 
+Finally it's out! Download it [here](https://www.microsoft.com/en-us/download/details.aspx?id=7873) 
 
 Now I can finally upgrade all my production code to the latest IDE!
