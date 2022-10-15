@@ -32,16 +32,14 @@ jobs:
     runs-on: windows-latest
     name: Test site for broken links
     steps:
-      - name: Check for broken links
-        id: link-report
-        uses: celinekurpershoek/link-checker@v1.0.2
-        continue-on-error: false
+      - name: Setup Python
+        uses: actions/setup-python@v2
         with:
-          url: "https://christianhelle.com"
-          honorRobotExclusions: false
-          recursiveLinks: true
-      - name: Get the result
-        run: echo "${{steps.link-report.outputs.result}}" > broken-links-report.txt
+          python-version: ${{ matrix.python_version }}
+      - name: Install LinkChecker
+        run: pip install linkchecker
+      - name: Run LinkChecker
+        run: linkchecker https://christianhelle.com --check-extern
       - name: Publish results
         uses: actions/upload-artifact@v2
         with:
