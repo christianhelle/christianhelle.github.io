@@ -13,7 +13,7 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-57896450343095717
 blogger_orig_url: https://christian-helle.blogspot.com/2009/10/how-to-hide-textbox-caret-in-netcf.html
 ---
 
-I was trying to help a developer today in the smart device forums who wanted to hide the caret in the TextBox control. I started playing around with the Windows Mobile Platform SDK and I stumbled upon the methods [HideCaret()](http://msdn.microsoft.com/en-us/library/ms929930.aspx) and [ShowCaret()](http://msdn.microsoft.com/en-us/library/aa453729.aspx).  
+I was trying to help a developer today in the smart device forums who wanted to hide the caret in the TextBox control. I started playing around with the Windows Mobile Platform SDK and I stumbled upon the methods [HideCaret()](http://msdn.microsoft.com/en-us/library/ms929930.aspx?WT.mc_id=DT-MVP-5004822) and [ShowCaret()](http://msdn.microsoft.com/en-us/library/aa453729.aspx?WT.mc_id=DT-MVP-5004822).  
   
 The outcome is this simple inherited TextBox control I decided to call TextBoxWithoutCaret :)  
 

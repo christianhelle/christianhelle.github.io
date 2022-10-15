@@ -18,7 +18,7 @@ With this tool I can easily switch from NSwag, AutoRest, Swagger Codegen, and Op
 
 [![](/assets/images/solution-explorer-context-menu.jpg)](/assets/images/solution-explorer-context-menu.jpg)
 
-I built [Visual Studio Custom Tools](https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/custom-tools?view=vs-2019) for each code generator so every time I make changes to the OpenAPI specification document in my project, the client code gets automatically re-generated.  
+I built [Visual Studio Custom Tools](https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/custom-tools?view=vs-2019?WT.mc_id=DT-MVP-5004822) for each code generator so every time I make changes to the OpenAPI specification document in my project, the client code gets automatically re-generated.  
 
 [![](/assets/images/autorestcodegenerator-custom-tool.jpg)](/assets/images/autorestcodegenerator-custom-tool.jpg)
 

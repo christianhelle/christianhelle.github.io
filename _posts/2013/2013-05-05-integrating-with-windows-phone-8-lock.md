@@ -58,7 +58,7 @@ For this example we’ll show a quick status notification
 
 **Code**  
 
-To update the background image of the lock screen we need use the [LockScreen](http://msdn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreen(v=vs.105).aspx) class of the [UserProfile](http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj207562(v=vs.105).aspx) API. First we check if the user configured the app to be able to set the background of the lock screen, we can do this through [LockScreenManager](http://msdn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreenmanager(v=vs.105).aspx) class. If the app isn’t allowed to change the lock screen background then we can open the lock screen settings page.  
+To update the background image of the lock screen we need use the [LockScreen](http://msdn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreen(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) class of the [UserProfile](http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj207562(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) API. First we check if the user configured the app to be able to set the background of the lock screen, we can do this through [LockScreenManager](http://msdn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreenmanager(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) class. If the app isn’t allowed to change the lock screen background then we can open the lock screen settings page.  
 
 **Lock screen background (C#)**
 
@@ -75,7 +75,7 @@ else
 }
 ```
 
-To display an icon notification just update the primary application tile with a notification. We can do this by using the [ShellTile](http://msdn.microsoft.com/en-US/library/windowsphone/develop/microsoft.phone.shell.shelltile(v=vs.105).aspx) API
+To display an icon notification just update the primary application tile with a notification. We can do this by using the [ShellTile](http://msdn.microsoft.com/en-US/library/windowsphone/develop/microsoft.phone.shell.shelltile(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) API
 
 ****Display Notification (C#)**
 
@@ -107,6 +107,6 @@ Pretty simple isn’t it?
 
 **Testing on the Emulator**  
 
-To test on the Windows Phone emulator you can use the [Simulation Dashboard](http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206953(v=vs.105).aspx) which integrates directly into Visual Studio. To launch this, go to Tools –> Simulation Dashboard. You can use this tool to Lock and Unlock the emulator to test your apps lock screen integration  
+To test on the Windows Phone emulator you can use the [Simulation Dashboard](http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206953(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) which integrates directly into Visual Studio. To launch this, go to Tools –> Simulation Dashboard. You can use this tool to Lock and Unlock the emulator to test your apps lock screen integration  
 
 I hope you found this interesting. You can grab the source code [here](https://skydrive.live.com/embed?cid=CA531E7FB4762C70&amp;resid=CA531E7FB4762C70%2137080&amp;authkey=AOXEBkTA6wCceKI)

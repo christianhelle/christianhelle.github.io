@@ -26,9 +26,9 @@ The screen shots above contain a semi-transparent PictureBox, Label, and Button 
   
 The container or parent control will be the same code I used in my [previous article](/2008/01/transparent-controls-in-netcf.html).  
   
-Windows Mobile 5 and higher offers 2 ways of alpha blending, one through the function [AlphaBlend (GDI)](http://msdn.microsoft.com/en-us/library/aa452850.aspx) and through the [Imaging API (COM)](http://msdn.microsoft.com/en-us/library/ms925314.aspx). In this example let's use the AlphaBlend function.  
+Windows Mobile 5 and higher offers 2 ways of alpha blending, one through the function [AlphaBlend (GDI)](http://msdn.microsoft.com/en-us/library/aa452850.aspx?WT.mc_id=DT-MVP-5004822) and through the [Imaging API (COM)](http://msdn.microsoft.com/en-us/library/ms925314.aspx?WT.mc_id=DT-MVP-5004822). In this example let's use the AlphaBlend function.  
   
-To begin with we need to define the [BLENDFUNCTION](http://msdn.microsoft.com/en-us/library/aa452889.aspx) structure that we'll use as a parameter to AlphaBlend.  
+To begin with we need to define the [BLENDFUNCTION](http://msdn.microsoft.com/en-us/library/aa452889.aspx?WT.mc_id=DT-MVP-5004822) structure that we'll use as a parameter to AlphaBlend.  
   
 ```csharp
 struct BLENDFUNCTION
@@ -79,7 +79,7 @@ static extern bool AlphaBlend(
     BLENDFUNCTION blendfunction);
 ```
 
-We'll be using the [GradientFill](http://msdn.microsoft.com/en-us/library/aa453192.aspx) method as well in this example. For this we need to define 2 structures, [TRIVERTEX](http://msdn.microsoft.com/en-us/library/aa453818.aspx) and [GRADIENT\_RECT](http://msdn.microsoft.com/en-us/library/aa453193.aspx)  
+We'll be using the [GradientFill](http://msdn.microsoft.com/en-us/library/aa453192.aspx?WT.mc_id=DT-MVP-5004822) method as well in this example. For this we need to define 2 structures, [TRIVERTEX](http://msdn.microsoft.com/en-us/library/aa453818.aspx?WT.mc_id=DT-MVP-5004822) and [GRADIENT\_RECT](http://msdn.microsoft.com/en-us/library/aa453193.aspx?WT.mc_id=DT-MVP-5004822)  
   
 ```csharp
 struct TRIVERTEX
