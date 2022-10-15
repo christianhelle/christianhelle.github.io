@@ -23,7 +23,7 @@ redirect_from:
 
 In my [previous post](/2020/02/appcenter-extensions-for-xamarinforms.html), I wrote about an open source project called [AppCenterExtensions](https://github.com/christianhelle/appcenterextensions) available at Github and nuget.org. I recently updated this project and added a few components for ASP.NET Core that enables including AppCenter diagnostic information in Application Insights.  
   
-The NuGet package is called [AppCenterExtensions.AppInsights](https://www.nuget.org/packages/AppCenterExtensions.AppInsights) and contains extension methods and [ITelemetryInitializer](https://docs.microsoft.com/en-us/dotnet/api/microsoft.applicationinsights.extensibility.itelemetryinitializer) implementations to be used in a ASP.NET Core web app for including AppCenter diagnostic information when logging to Application Insights  
+The NuGet package is called [AppCenterExtensions.AppInsights](https://www.nuget.org/packages/AppCenterExtensions.AppInsights) and contains extension methods and [ITelemetryInitializer](https://docs.microsoft.com/en-us/dotnet/api/microsoft.applicationinsights.extensibility.itelemetryinitializer?WT.mc_id=DT-MVP-5004822) implementations to be used in a ASP.NET Core web app for including AppCenter diagnostic information when logging to Application Insights  
   
 Enabling this is easy. Assuming that the project is already configured to use Application Insights, just add the [AppCenterExtensions.AppInsights](https://www.nuget.org/packages/AppCenterExtensions.AppInsights) NuGet package mentioned above to your ASP.NET Core and call **services.AddAppCenterTelemetry()** in the **ConfigureServices** method of the **Startup** class  
   
@@ -64,4 +64,4 @@ and here's a screenshot of the details of a single request containing AppCenter 
   
 ![](https://github.com/christianhelle/appcenterextensions/blob/master/images/appinsights-search-result-details.png?raw=true)  
   
-With this flow you can now correlate Crash Reports and Analytics data from AppCenter with the HTTP requests for your backend systems in Application Insights. In the systems that I have been involved with building we include the AppCenter diagnostic information from our [API Gateway](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern) to all calls to our internal Microservices
+With this flow you can now correlate Crash Reports and Analytics data from AppCenter with the HTTP requests for your backend systems in Application Insights. In the systems that I have been involved with building we include the AppCenter diagnostic information from our [API Gateway](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern?WT.mc_id=DT-MVP-5004822) to all calls to our internal Microservices

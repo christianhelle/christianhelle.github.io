@@ -18,4 +18,4 @@ To enable the keyboard in the emulator - press the **PAGE UP** key or **PAUSE/BR
 
 To disable the keyboard in the emulator - press the **PAGE DOWN** key **PAUSE/BREAK** key.  
 
-If you want to learn more then I suggest you check out this article called [Keyboard Mapping for Windows Phone Emulator](http://msdn.microsoft.com/en-us/library/ff754352.aspx)
+If you want to learn more then I suggest you check out this article called [Keyboard Mapping for Windows Phone Emulator](http://msdn.microsoft.com/en-us/library/ff754352.aspx?WT.mc_id=DT-MVP-5004822)

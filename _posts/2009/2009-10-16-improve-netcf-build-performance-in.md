@@ -11,7 +11,7 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-50130217048755969
 blogger_orig_url: https://christian-helle.blogspot.com/2009/10/improve-netcf-build-performance-in.html
 ---
 
-A lot of .NETCF developers are surprisingly not aware of the [Platform Verification Task](http://blogs.msdn.com/vsdteam/archive/2006/09/15/756400.aspx) in Visual Studio. Disabling this in the build process will speed up the build of .NETCF projects. To make things quick and short, here's what you need to do:  
+A lot of .NETCF developers are surprisingly not aware of the [Platform Verification Task](http://blogs.msdn.com/vsdteam/archive/2006/09/15/756400.aspx?WT.mc_id=DT-MVP-5004822) in Visual Studio. Disabling this in the build process will speed up the build of .NETCF projects. To make things quick and short, here's what you need to do:  
   
 1) Open the file C:\\WINDOWS\\Microsoft.NET\\Framework\\v3.5\\Microsoft.CompactFramework.Common.targets for editing.  
   
