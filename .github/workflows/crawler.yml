@@ -2,12 +2,17 @@ name: Test for broken links
 
 on:
   workflow_dispatch:
+  push:
+    paths: 
+    - '.github/workflows/crawler.yml'
+    branches: 
+    - '*'
   schedule:
     - cron:  '0 * * * *'
 
 jobs:
   
-  test:
+  linux:
     runs-on: ubuntu-latest
     name: Test site for broken links
     steps:
@@ -21,6 +26,25 @@ jobs:
           recursiveLinks: true
       - name: Get the result
         run: echo "${{steps.link-report.outputs.result}}" > broken-links-report.txt
+      - name: Publish results
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: |
+            broken-links-report.txt
+  
+  windows:
+    runs-on: windows-latest
+    name: Test site for broken links
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python_version }}
+      - name: Install LinkChecker
+        run: pip install linkchecker
+      - name: Run LinkChecker
+        run: linkchecker https://christianhelle.com --check-extern
       - name: Publish results
         uses: actions/upload-artifact@v2
         with:
