@@ -13,7 +13,7 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-44392759567308397
 blogger_orig_url: https://christian-helle.blogspot.com/2010/09/writing-puzzle-game-for-windows-phone-7.html
 ---
 
-This article is a step by step guide on how to write a puzzle game for Windows Phone 7 using XNA. Before we get started you will need the [Windows Phone Developer Tools](https://www.microsoft.com/en-us/download/details.aspx?id=35471?WT.mc_id=DT-MVP-5004822). Please note that I'm not really a game developer and I might not be doing the best practices. The intention of this article is just to demonstrate how easy it is to write a game using XNA even if one has little to no experience in game development.  
+This article is a step by step guide on how to write a puzzle game for Windows Phone 7 using XNA. Before we get started you will need the [Windows Phone Developer Tools](https://www.microsoft.com/en-us/download/details.aspx?id=35471). Please note that I'm not really a game developer and I might not be doing the best practices. The intention of this article is just to demonstrate how easy it is to write a game using XNA even if one has little to no experience in game development.  
   
 I've been playing around with XNA these past few nights and decided to write a few casual games. The first prototype I have is a port of my old Puzzle Game. The game is still really incomplete, like there is no menu or state management which means you can't shut it down properly and stuff. But I thought I'd share some thoughts on my experience with it and at the same time share some code.  
   
