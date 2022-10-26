@@ -25,7 +25,7 @@ In my [previous post](/2020/02/appcenter-extensions-for-xamarinforms.html), I wr
   
 The NuGet package is called [AppCenterExtensions.AppInsights](https://www.nuget.org/packages/AppCenterExtensions.AppInsights) and contains extension methods and [ITelemetryInitializer](https://docs.microsoft.com/en-us/dotnet/api/microsoft.applicationinsights.extensibility.itelemetryinitializer?WT.mc_id=DT-MVP-5004822) implementations to be used in a ASP.NET Core web app for including AppCenter diagnostic information when logging to Application Insights  
   
-Enabling this is easy. Assuming that the project is already configured to use Application Insights, just add the [AppCenterExtensions.AppInsights](https://www.nuget.org/packages/AppCenterExtensions.AppInsights) NuGet package mentioned above to your ASP.NET Core and call **services.AddAppCenterTelemetry()** in the **ConfigureServices** method of the **Startup** class  
+Enabling this is easy. Assuming that the project is already configured to use [Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview?WT.mc_id=DT-MVP-5004822), just add the [AppCenterExtensions.AppInsights](https://www.nuget.org/packages/AppCenterExtensions.AppInsights) NuGet package mentioned above to your ASP.NET Core and call **services.AddAppCenterTelemetry()** in the **ConfigureServices** method of the **Startup** class  
   
 Here's an example:
 
