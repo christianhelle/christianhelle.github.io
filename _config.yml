@@ -27,16 +27,17 @@ whitelist:
 minima:
   skin: dark
   social_links:
-    twitter: christianhelle
-    github: christianhelle
-    stackoverflow: "575374"
-    facebook: christianresmahelle
-    instagram: chresmahelle
-    linkedin: christianhelle
-    pinterest: christianhelle
-    telegram: christianhelle
-    microdotblog: christianhelle
-    keybase: christianhelle
+    - { platform: facebook,       user_url: "https://www.facebook.com/christianresmahelle" }
+    - { platform: github,         user_url: "https://github.com/christianhelle" }
+    - { platform: instagram,      user_url: "https://www.instagram.com/chresmahelle" }
+    - { platform: keybase,        user_url: "https://keybase.io/christianhelle" }
+    - { platform: linkedin,       user_url: "https://www.linkedin.com/in/christianhelle" }
+    - { platform: microdotblog,   user_url: "https://micro.blog/christianhelle" }
+    - { platform: pinterest,      user_url: "https://www.pinterest.com/christianhelle" }
+    - { platform: stackoverflow,  user_url: "https://stackoverflow.com/users/575374" }
+    - { platform: telegram,       user_url: "https://t.me/christianhelle" }
+    - { platform: twitter,        user_url: "https://twitter.com/christianhelle" }
+    
 
 paginate: 5
 paginate_path: /page/:num/
