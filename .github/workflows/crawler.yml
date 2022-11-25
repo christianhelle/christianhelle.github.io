@@ -46,7 +46,7 @@ jobs:
         uses: actions/configure-pages@v2
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll serve
+        run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
       - name: Setup .NET versions
@@ -57,6 +57,7 @@ jobs:
         working-directory: dotnet
         continue-on-error: true
         run: |
+          bundle exec jekyll serve &
           dotnet build
           ./bin/Debug/net6.0/playwright.ps1 install
           dotnet test -c Release
