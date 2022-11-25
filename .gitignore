@@ -4,3 +4,9 @@ _site
 .jekyll-metadata
 vendor
 Gemfile.lock
+
+obj/
+bin/
+**/.vs
+**/.idea
+
