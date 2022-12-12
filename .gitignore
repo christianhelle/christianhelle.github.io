@@ -10,3 +10,5 @@ bin/
 **/.vs
 **/.idea
 
+tests/playwright/obj
+tests/playwright/bin
