@@ -116,7 +116,7 @@ public class BlogArchiveTests : PageTest
         await page.WaitForURLAsync($"{baseUrl}/2012/02/danish-developer-conference-2012.html");
         await page.GoBackAsync();
 
-        await page.Locator("ul:has-text(\"Windows Phone and HTML5 - Danish Developer Conference 2012 Session Recording Acc\")").GetByRole(AriaRole.Link, new() { NameString = "A long break..." }).ClickAsync();
+        await page.GetByRole(AriaRole.Link, new() { NameString = "A long break..." }).ClickAsync();
         await page.WaitForURLAsync($"{baseUrl}/2012/02/long-break.html");
         await page.GoBackAsync();
 
@@ -314,10 +314,6 @@ public class BlogArchiveTests : PageTest
 
         await page.GetByRole(AriaRole.Link, new() { NameString = "How to enumerate running programs in .NETCF" }).ClickAsync();
         await page.WaitForURLAsync($"{baseUrl}/2009/09/how-to-enumerate-running-programs-in.html");
-        await page.GoBackAsync();
-
-        await page.GetByRole(AriaRole.Link, new() { NameString = "A long break..." }).ClickAsync();
-        await page.WaitForURLAsync($"{baseUrl}/2009/09/long-break.html");
         await page.GoBackAsync();
 
         await page.GetByRole(AriaRole.Link, new() { NameString = "Source Code Download" }).ClickAsync();
