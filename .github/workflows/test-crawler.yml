@@ -1,0 +1,45 @@
+name: Playwright Tests
+
+on:
+  workflow_dispatch:
+  pull_request:    
+  push:
+    paths:
+      - ".github/workflows/test-crawler.yml"
+    branches:
+      - "*"
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  playwright:
+    runs-on: windows-latest
+    name: Playwright tests
+    steps:
+      - uses: actions/checkout@v2      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@0a29871fe2b0200a17a4497bae54fe5df0d973aa # v1.115.3
+        with:
+          ruby-version: '3.0' # Not needed with a .ruby-version file
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          cache-version: 0 # Increment this number if you need to re-download cached gems
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v2
+      - name: Build with Jekyll
+        # Outputs to the './_site' directory by default
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+      - name: Setup .NET versions
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: Run tests
+        continue-on-error: true
+        run: |
+          bundle exec jekyll serve &
+          cd dotnet
+          dotnet build
+          ./bin/Debug/net6.0/playwright.ps1 install
+          dotnet test -c Release

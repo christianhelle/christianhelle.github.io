@@ -3,15 +3,14 @@ name: Test for broken links
 on:
   workflow_dispatch:
   push:
-    paths: 
-    - '.github/workflows/crawler.yml'
-    branches: 
-    - '*'
+    paths:
+      - ".github/workflows/production-crawler.yml"
+    branches:
+      - "*"
   schedule:
-    - cron:  '0 * * * *'
+    - cron: "0 * * * *"
 
 jobs:
-  
   windows:
     runs-on: windows-latest
     name: Test site for broken links
