@@ -12,6 +12,7 @@ thumbnail: https://1.bp.blogspot.com/-Xe0MspUwnQA/XRPOeMGmaMI/AAAAAAAAQWo/xmAfPa
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1248680433354444596
 blogger_orig_url: https://christian-helle.blogspot.com/2019/06/generate-android-translations-from.html
 redirect_from:
+    - /blog/2019/07/02/generate-android-translations-from-google-sheets/
     - /2019/06/generate-android-translations-from-google-sheets/
     - /2019/06/generate-android-translations-from-google-sheets
     - /2019/generate-android-translations-from-google-sheets/
