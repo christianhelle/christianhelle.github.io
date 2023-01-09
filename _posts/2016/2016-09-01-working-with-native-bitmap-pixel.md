@@ -8,6 +8,12 @@ tags:
 modified_time: '2016-09-02T14:42:24.871+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-6303647706094978203
 blogger_orig_url: https://christian-helle.blogspot.com/2016/09/working-with-native-bitmap-pixel.html
+redirect_from:
+- /blog/2016/08/31/working-with-native-bitmap-pixel-buffers-in-xamarin-forms/
+- /2016/08/31/working-with-native-bitmap-pixel-buffers-in-xamarin-forms/
+- /2016/08/working-with-native-bitmap-pixel-buffers-in-xamarin-forms/
+- /2016/working-with-native-bitmap-pixel-buffers-in-xamarin-forms/
+- /working-with-native-bitmap-pixel-buffers-in-xamarin-forms/
 ---
 
 I mentioned in my previous post that extracting pixel buffers from native Bitmap API’s can be quite tricky. In this post I would like to share the approach that I took for extracting native Bitmap pixel buffers into an collection of Xamarin.Forms.Colors objects so it can be used from a portable class library. I wrote and used a more complex version of the code mentioned in this post on my last project where I was working with image detection and color analysis for an app using Xamarin.Forms, in this project all my color analysis was done in a Portable Class Library using an abstraction over the native bitmap data.
