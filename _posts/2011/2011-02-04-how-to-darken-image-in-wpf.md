@@ -9,6 +9,12 @@ tags:
 modified_time: '2011-02-04T01:00:04.655+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-7904233113719038040
 blogger_orig_url: https://christian-helle.blogspot.com/2011/02/how-to-darken-image-in-wpf.html
+redirect_from:
+- /blog/2011/02/04/how-to-darken-an-image-in-wpf/
+- /2011/02/04/how-to-darken-an-image-in-wpf/
+- /2011/02/how-to-darken-an-image-in-wpf/
+- /2011/how-to-darken-an-image-in-wpf/
+- /how-to-darken-an-image-in-wpf/
 ---
 
 I'm really getting carried away with playing with image manipulation in WPF. Here's a short post on how to darken an image using the WriteableBitmap class.  
