@@ -9,6 +9,12 @@ tags:
 modified_time: '2009-10-16T14:54:02.265+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5013021704875596972
 blogger_orig_url: https://christian-helle.blogspot.com/2009/10/improve-netcf-build-performance-in.html
+redirect_from:
+- /blog/2009/10/16/improve-netcf-build-performance-in-visual-studio/
+- /2009/10/16/improve-netcf-build-performance-in-visual-studio/
+- /2009/10/improve-netcf-build-performance-in-visual-studio/
+- /2009/improve-netcf-build-performance-in-visual-studio/
+- /improve-netcf-build-performance-in-visual-studio/
 ---
 
 A lot of .NETCF developers are surprisingly not aware of the [Platform Verification Task](http://blogs.msdn.com/vsdteam/archive/2006/09/15/756400.aspx?WT.mc_id=DT-MVP-5004822) in Visual Studio. Disabling this in the build process will speed up the build of .NETCF projects. To make things quick and short, here's what you need to do:  
