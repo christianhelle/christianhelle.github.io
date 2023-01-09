@@ -8,6 +8,12 @@ tags:
 modified_time: '2010-10-25T11:02:03.574+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-6952286049895048299
 blogger_orig_url: https://christian-helle.blogspot.com/2010/10/windows-phone-7-unlocked-emulator.html
+redirect_from:
+- /blog/2010/10/25/windows-phone-7-unlocked-emulator/
+- /2010/10/25/windows-phone-7-unlocked-emulator/
+- /2010/10/windows-phone-7-unlocked-emulator/
+- /2010/windows-phone-7-unlocked-emulator/
+- /windows-phone-7-unlocked-emulator/
 ---
 
 If are not pleased with the emulator that shipped with the Windows Phone 7 developer tools then here's a quick way to replace the trimmed down emulator with the full version  
