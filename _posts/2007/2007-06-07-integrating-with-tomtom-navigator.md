@@ -10,6 +10,12 @@ tags:
 modified_time: "2008-02-07T23:15:11.886+01:00"
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-6470922594105492551
 blogger_orig_url: https://christian-helle.blogspot.com/2007/06/integrating-with-tomtom-navigator.html
+redirect_from:
+- /blog/2007/06/07/integrating-with-tomtom-navigator/
+- /2007/06/07/integrating-with-tomtom-navigator/
+- /2007/06/integrating-with-tomtom-navigator/
+- /2007/integrating-with-tomtom-navigator/
+- /integrating-with-tomtom-navigator/
 ---
 
 PDA's are used for pretty much everything these days. From the bunch of devices the I work (play) with, I took a great liking to devices that have built in GPS receivers. These devices are usually bundled with really cool navigation software from various vendors. Some of these navigation software have SDK's that you can buy separately. By using these SDK's, you can fully integrate navigation features to your mobile solutions.
