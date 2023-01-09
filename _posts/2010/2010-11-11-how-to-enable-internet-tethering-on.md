@@ -8,6 +8,12 @@ tags:
 modified_time: '2010-11-11T12:34:23.132+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5936675458021147546
 blogger_orig_url: https://christian-helle.blogspot.com/2010/11/how-to-enable-internet-tethering-on.html
+redirect_from:
+- /blog/2010/11/11/how-to-enable-internet-tethering-on-a-samsung-omnia-7/
+- /2010/11/11/how-to-enable-internet-tethering-on-a-samsung-omnia-7/
+- /2010/11/how-to-enable-internet-tethering-on-a-samsung-omnia-7/
+- /2010/how-to-enable-internet-tethering-on-a-samsung-omnia-7/
+- /how-to-enable-internet-tethering-on-a-samsung-omnia-7/
 ---
 
 I recently received a Samsung Omnia 7 and I think it's a pretty awesome phone. But, Windows Phone 7 in general lags behind with a few things, one of these things is a built in internet tethering feature (like in the iPhone for example). Since I'm going away for a few days I don't intend on going around with a 3G modem (my laptop doesn't have a built in 3G modem), neither am I to keen on switching back to my iPhone. So I searched for a solution and stumbled upon a hack to enable launch the Omnia 7 Diagnostic Menu and the Micro USB Test.
