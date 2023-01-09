@@ -7,6 +7,12 @@ tags:
 modified_time: '2007-06-04T11:10:36.545+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5968416529503462172
 blogger_orig_url: https://christian-helle.blogspot.com/2007/06/my-first-ever-blog-post.html
+redirect_from:
+- /blog/2018/06/08/hello-world/
+- /2018/06/08/hello-world/
+- /2018/06/hello-world/
+- /2018/hello-world/
+- /hello-world/
 ---
 
 After being asked numerous times why I don't have a blog, I finally decided that maybe I should have one.
