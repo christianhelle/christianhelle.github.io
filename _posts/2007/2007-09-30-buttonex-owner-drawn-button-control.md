@@ -9,6 +9,12 @@ tags:
 modified_time: '2008-10-30T15:41:33.247+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-2320776853180879041
 blogger_orig_url: https://christian-helle.blogspot.com/2007/09/buttonex-owner-drawn-button-control.html
+redirect_from:
+- /blog/2007/09/30/buttonex-owner-drawn-button-control/
+- /2007/09/30/buttonex-owner-drawn-button-control/
+- /2007/09/buttonex-owner-drawn-button-control/
+- /2007/buttonex-owner-drawn-button-control/
+- /buttonex-owner-drawn-button-control/
 ---
 
 Wow 2 posts in 1 day. I must have a lot of spare time today! Actually I'm down with a cold and I just feel sorry for myself when I stay in bed.
