@@ -11,6 +11,14 @@ modified_time: '2019-06-20T16:55:49.393+02:00'
 thumbnail: https://1.bp.blogspot.com/-b3CPRXAItU4/XQlNzCtdiaI/AAAAAAAAQVw/QGee8D4WHkMt4QxvvJGqAKRG0BPUxgktQCLcBGAs/s72-c/infoplist-google-sheets.png
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-6206453854170211664
 blogger_orig_url: https://christian-helle.blogspot.com/2019/06/generate-ios-infopliststrings.html
+redirect_from:
+- /blog/2019/06/20/generate-ios-infoplist-strings-translations-from-google-sheets/
+- /2019/06/20/generate-ios-infoplist-strings-translations-from-google-sheets/
+- /2019/06/generate-ios-infoplist-strings-translations-from-google-sheets/
+- /2019/generate-ios-infoplist-strings-translations-from-google-sheets/
+- /generate-ios-infoplist-strings-translations-from-google-sheets/
+- /2019/generate-ios-infopliststrings/
+- /generate-ios-infopliststrings/
 ---
 
 In my previous article [Generating ResX translations from Google Sheets](/2019/06/generate-resx-translations-using-google.html), I wrote about using Google Sheets as a translation tool by using the [GOOGLETRANSLATE](https://support.google.com/docs/answer/3093331?hl=en) built in function to generate translation files for a **Xamarin.Forms** solution. For this post, I will demonstrate something very similar, but instead of ResX files I'll generate **InfoPlist.strings** files in iOS for localizing the permission request prompts for accessing things like Camera, Location, Photo Gallery, etc. For the sake of this article I created [this sample Google Sheets](https://docs.google.com/spreadsheets/d/125id155PUq-6Odwg8Nf9fmkgBsKahTGbJYaYBD2rpSg)  
