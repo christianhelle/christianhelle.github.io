@@ -12,6 +12,12 @@ modified_time: '2010-01-24T21:33:48.078+01:00'
 thumbnail: http://3.bp.blogspot.com/_kVNAYTvQ3QE/SVH_9-UkIrI/AAAAAAAABjE/5_UGXBzV1ig/s72-c/danfoss+rfid+mobile+1.JPG
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-2869394435067622677
 blogger_orig_url: https://christian-helle.blogspot.com/2010/01/semi-transparent-controls-in-netcf.html
+redirect_from:
+- /blog/2010/01/19/semi-transparent-controls-in-netcf/
+- /2010/01/19/semi-transparent-controls-in-netcf/
+- /2010/01/semi-transparent-controls-in-netcf/
+- /2010/semi-transparent-controls-in-netcf/
+- /semi-transparent-controls-in-netcf/
 ---
 
 Some time ago, I wrote an article called [Transparent Controls in .NETCF](/2008/01/transparent-controls-in-netcf.html) which describes how to accomplish transparency in the .NET Compact Framework. In this article I'd like to discuss how to control the opacity levels of transparent controls. This is made possible by alpha blending the parent controls background image with the child controls background color or image.  
