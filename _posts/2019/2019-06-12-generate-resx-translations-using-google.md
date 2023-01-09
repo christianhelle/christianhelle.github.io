@@ -10,6 +10,12 @@ modified_time: '2019-06-13T09:28:50.488+02:00'
 thumbnail: https://1.bp.blogspot.com/-lldRsH8dOVk/XQFZ1BrC4aI/AAAAAAAAWL4/awcO8fBQ_5UuoCVeLl9ELkta7R051iCpwCEwYBhgL/s72-c/GoogleSheets.png
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-4089591479727741453
 blogger_orig_url: https://christian-helle.blogspot.com/2019/06/generate-resx-translations-using-google.html
+redirect_from:
+- /blog/2019/06/12/generate-resx-translations-from-google-sheets/
+- /2019/06/12/generate-resx-translations-from-google-sheets/
+- /2019/06/generate-resx-translations-from-google-sheets/
+- /2019/generate-resx-translations-from-google-sheets/
+- /generate-resx-translations-from-google-sheets/
 ---
 
 In my career, I have tried multiple translation tools for handling localization. This usually ends up in a spreadsheet sent back and forth that gets imported/exported with the actual translation tool. I have also tried giving my translators and customers direct access to the translation tool but that never really worked as they tend to blindly translate everything they see and usually miss out on the fact that some strings contain important placeholders that executable code expects. Anyway, at the end of the sending a spreadsheet back and forth seems to always work.  
