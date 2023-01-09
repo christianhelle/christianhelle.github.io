@@ -9,6 +9,12 @@ tags:
 modified_time: '2018-06-11T15:30:24.359+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1696480164910267799
 blogger_orig_url: https://christian-helle.blogspot.com/2018/06/new-challenges-in-cloud.html
+redirect_from:
+- /blog/2018/06/10/new-challenges-in-the-cloud/
+- /2018/06/10/new-challenges-in-the-cloud/
+- /2018/06/new-challenges-in-the-cloud/
+- /2018/new-challenges-in-the-cloud/
+- /new-challenges-in-the-cloud/
 ---
 
 I have been building mobile solutions for nearly 2 decades, I have seen things come and go, and I had loads of fun working in this space. A great part of my mobile development career involved consulting and for most of my work, I build the entire solution, including the web services and the data store and I am extremely proud of the things I have built. For the past 4 years I have been working in the Music Streaming industry. Using the tools from Xamarin, we built software for Android and iOS with a very large shared code base. The entire organization shares components through different platforms, it was great. Our products have a very high number of daily active users and has great ratings on the Apple AppStore and Google Play.
