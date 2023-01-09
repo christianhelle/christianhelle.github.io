@@ -8,6 +8,12 @@ tags:
 modified_time: '2018-06-10T20:59:19.816+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-167358165868605425
 blogger_orig_url: https://christian-helle.blogspot.com/2014/05/my-future-is-xamarin.html
+redirect_from:
+- /blog/2014/05/01/my-future-is-xamarin/
+- /2014/05/01/my-future-is-xamarin/
+- /2014/05/my-future-is-xamarin/
+- /2014/my-future-is-xamarin/
+- /my-future-is-xamarin/
 ---
 
 I have been creating software for handheld devices for over a decade now. I’ve seen interesting things come and go and also witnessed a couple of failures. A great part of my mobile development career involved consulting and I had loads of fun working with some very smart people doing all sorts of interesting stuff. But for the past year or so I felt like I fell into a deep whole. Normally I would provide consulting services for up to 6 months then move on to something else, but my last project was not the case. It was retailer solution and was not really interesting, not at all challenging, and was mostly tedious, and to make it worse I was targeting a 10 year old platform and needed to support an even older one. I first went along with this because the company was going through a hard time and could really use some revenue, at that time we had just let go of 1/3 of our staff and I felt lucky that I got to keep my job. I did my job the best I could even and delivered what needed to be shipped. As the project progressed and the requirement changes got out of hand I found myself in an endless loop of fixing then breaking then fixing stuff. Sometimes in life you just have to suck it up and do your job since after all it pays the bills, keeps a roof over our heads, and puts food on the table. This project has taken all of my time and energy. It was the main reason I have not posted a single article for an entire year!
