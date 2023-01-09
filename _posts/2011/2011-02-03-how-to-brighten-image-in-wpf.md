@@ -9,6 +9,12 @@ tags:
 modified_time: '2011-02-03T10:00:17.946+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1929113951975840048
 blogger_orig_url: https://christian-helle.blogspot.com/2011/02/how-to-brighten-image-in-wpf.html
+redirect_from:
+- /blog/2011/02/03/how-to-brighten-an-image-in-wpf/
+- /2011/02/03/how-to-brighten-an-image-in-wpf/
+- /2011/02/how-to-brighten-an-image-in-wpf/
+- /2011/how-to-brighten-an-image-in-wpf/
+- /how-to-brighten-an-image-in-wpf/
 ---
 
 Now I'm just getting carried away with playing with image manipulation in WPF. Here's a short post on how to brighten an image using the WriteableBitmap class.
