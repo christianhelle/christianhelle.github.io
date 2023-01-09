@@ -8,6 +8,12 @@ tags:
 modified_time: '2010-10-26T12:49:00.053+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-9216438525601233997
 blogger_orig_url: https://christian-helle.blogspot.com/2010/10/how-to-use-keyboard-in-windows-phone-7.html
+redirect_from:
+- /blog/2010/10/26/how-to-use-the-keyboard-in-the-windows-phone-7-emulator/
+- /2010/10/26/how-to-use-the-keyboard-in-the-windows-phone-7-emulator/
+- /2010/10/how-to-use-the-keyboard-in-the-windows-phone-7-emulator/
+- /2010/how-to-use-the-keyboard-in-the-windows-phone-7-emulator/
+- /how-to-use-the-keyboard-in-the-windows-phone-7-emulator/
 ---
 
 The one thing that irritated me the most about the Windows Phone 7 emulator the first time I used it was that the host computer keyboard is not directly mapped to the emulator. This means you by default have to use the software input panel that is built in Windows Phone 7.
