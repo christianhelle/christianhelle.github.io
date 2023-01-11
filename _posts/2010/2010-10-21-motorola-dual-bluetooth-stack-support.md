@@ -8,6 +8,12 @@ tags:
 modified_time: '2010-10-21T23:59:03.290+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-2363429546681266049
 blogger_orig_url: https://christian-helle.blogspot.com/2010/10/motorola-dual-bluetooth-stack-support.html
+redirect_from:
+- /blog/2010/10/21/motorola-dual-bluetooth-stack-support/
+- /2010/10/21/motorola-dual-bluetooth-stack-support/
+- /2010/10/motorola-dual-bluetooth-stack-support/
+- /2010/motorola-dual-bluetooth-stack-support/
+- /motorola-dual-bluetooth-stack-support/
 ---
 
 Apparently most Motorola devices support 2 Bluetooth Stacks: Microsoft and StoneStreet. To switch which stack to use you would have to make some changes in the registry and restart the device.  
