@@ -11,6 +11,12 @@ tags:
 modified_time: '2010-01-20T14:22:23.637+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-9155466612543890030
 blogger_orig_url: https://christian-helle.blogspot.com/2010/01/how-to-toggle-wi-fi-radio.html
+redirect_from:
+- /blog/2010/01/20/how-to-toggle-the-wi-fi-radio/
+- /2010/01/20/how-to-toggle-the-wi-fi-radio/
+- /2010/01/how-to-toggle-the-wi-fi-radio/
+- /2010/how-to-toggle-the-wi-fi-radio/
+- /how-to-toggle-the-wi-fi-radio/
 ---
 
 I had a task to complete today where I was to create an application to toggle the Wi-Fi radio. I had two major requirements for this task; I was supposed to not spend more an hour on this and it must run on older devices running Pocket PC 2003 (or older)  
