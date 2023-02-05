@@ -106,3 +106,5 @@ which responds with
    "status":"available"
 }
 ```
+
+I think [Kiota](https://github.com/microsoft/kiota?WT.mc_id=DT-MVP-5004822) is really promising and I think that you should also give it a shot. You can use it via my Visual Studio extension [REST API Client Code Generator](https://marketplace.visualstudio.com/items?itemName=ChristianResmaHelle.ApiClientCodeGenerator), my CLI tool [Rapicgen](https://www.nuget.org/packages/rapicgen#readme-body-tab), or via the Kiota CLI Tool directly
