@@ -52,7 +52,7 @@ After generating code, the extension will install the required NuGet packages an
 
 Currently my tool just installs and runs the [Kiota](https://github.com/microsoft/kiota?WT.mc_id=DT-MVP-5004822) CLI tool, so there is a slight pause in Visual Studio while the custom tool is running, because Visual Studio needs to start an external process and wait for the results
 
-Here's an example of how to use the Kiota generated code from the [Swagger Petstore example OpenAPI specifications](https://petstore3.swagger.io/api/v3/openapi.yaml)
+Here's an example of how to use the Kiota generated code from the [Swagger Petstore](https://petstore3.swagger.io) [OpenAPI specifications example](https://petstore3.swagger.io/api/v3/openapi.yaml).
 
 ```csharp
 using Microsoft.Kiota.Http.HttpClientLibrary;
