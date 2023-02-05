@@ -51,3 +51,58 @@ After generating code, the extension will install the required NuGet packages an
 ![](/assets/images/vs-kiota-generator-after.png)
 
 Currently my tool just installs and runs the [Kiota](https://github.com/microsoft/kiota?WT.mc_id=DT-MVP-5004822) CLI tool, so there is a slight pause in Visual Studio while the custom tool is running, because Visual Studio needs to start an external process and wait for the results
+
+Here's an example of how to use the Kiota generated code from the [Swagger Petstore example OpenAPI specifications](https://petstore3.swagger.io/api/v3/openapi.yaml)
+
+```csharp
+using Microsoft.Kiota.Http.HttpClientLibrary;
+using Microsoft.Kiota.Abstractions.Authentication;
+
+var authProvider = new AnonymousAuthenticationProvider();
+var requestAdapter = new HttpClientRequestAdapter(authProvider);
+requestAdapter.BaseUrl = "https://petstore3.swagger.io/api/v3";
+
+var client = new ApiClient(requestAdapter);
+var pet = await client.Pet["0"].GetAsync(c => c.Headers.Add("accept", "application/json"));
+
+Console.WriteLine($"Name: {pet.Name}");
+Console.WriteLine($"Category: {pet.Category.Name}");
+Console.WriteLine($"Status: {pet.Status}");
+```
+
+The code above outputs the following:
+
+```
+Name: doggie
+Category: Dogs
+Status: Available
+```
+
+It is the equivalent of calling the Swagger Petstore API using cURL
+
+```
+curl -X 'GET' 'https://petstore3.swagger.io/api/v3/pet/0' -H 'accept: application/json'
+```
+
+which responds with
+
+```json
+{
+   "id":0,
+   "category":{
+      "id":1,
+      "name":"Dogs"
+   },
+   "name":"doggie",
+   "photoUrls":[
+      "string"
+   ],
+   "tags":[
+      {
+         "id":0,
+         "name":"string"
+      }
+   ],
+   "status":"available"
+}
+```
