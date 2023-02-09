@@ -99,4 +99,49 @@ For each Cosmos resource you want to access using the `ICosmosReader<T>` and `IC
     }
     ```
     The first call to AddContainer will be scoped to the default options as the passed builder 'b' is always scoped to the default options.
+
     The subsequent call to *ForDatabase* will return a new builder scoped for the options passed to this method and any subsequent calls to this builder will have the same scope.
+
+## Initialize containers
+
+The library supports adding initializers for each container, that can then be used to create the container, and configure it with the correct keys and indexes.
+
+To do this you will need to:
+
+1. Create an initializer by implementing the `ICosmosContainerInitializer` interface.
+
+    Usually the implementation will call the `CreateContainerIfNotExistsAsync()` method on
+    the provided `Database` object with the desired `ContainerProperties`.
+
+2. Setup the initializer to be run during initialization
+
+    This is done on the `ICosmosBuilder` made available using the `ConfigureCosmos()` extension on the `IServiceCollection`, like this:
+
+    ```c#
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.ConfigureCosmos(b => b.AddContainer<MyInitializer>(containerName));
+    }
+    ```
+
+3. Chose a way to run the initialization
+
+    For an AspNet Core services, a HostedService can be used, like this:
+    
+    ```c#
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.ConfigureCosmos(b => b.UseHostedService()));
+    }
+    ```
+
+    For Azure Functions, the `AzureFunctionInitializeCosmosDatabase()` extension method
+    can be used to execute the initialization (synchronously) like this:
+    
+    ```c#
+    public void Configure(IWebJobsBuilder builder)
+    {
+        ConfigureServices(builder.Services);
+        builder.Services.AzureFunctionInitializeCosmosDatabase();
+    }
+    ```
