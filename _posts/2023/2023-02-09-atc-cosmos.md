@@ -145,3 +145,19 @@ To do this you will need to:
         builder.Services.AzureFunctionInitializeCosmosDatabase();
     }
     ```
+## Using the readers and writers
+
+Once the setup is in place, the readers and writers are registered with the [Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/) container, and can be obtained via constructor injection on any service.
+
+The registered interfaces are:
+
+|Name|Description|
+|-|-|
+|`ICosmosReader<T>`| Represents a reader that can read Cosmos resources. |
+|`ICosmosWriter<T>`| Represents a writer that can write Cosmos resources. |
+|`ICosmosBulkReader<T>`| Represents a reader that can perform bulk reads on Cosmos resources. |
+|`ICosmosBulkWriter<T>`| Represents a writer that can perform bulk operations on Cosmos resources. |
+
+The bulk reader and writer are for optimizing performance when executing many operations towards Cosmos. It works by creating all the tasks and then use the `Task.WhenAll()` to await them. This will group operations by partition key and send them in batches of 100.
+
+When not operating with bulks, the normal readers are faster as there is no delay waiting for more work.
