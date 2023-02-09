@@ -27,3 +27,38 @@ The library is installed by adding the NuGet package Atc.Cosmos to your project.
 - `ICosmosBulkWriter<T>`
 
 Where `T` is a document resource represented by a class deriving from the `CosmosResource` base-class, or by implementing the underlying `ICosmosResource` interface directly.
+
+## Configure Cosmos connection
+
+To configure where each resource will be stored in Cosmos DB, the `ConfigureCosmos(builder)` extension method is used on the `IServiceCollection` when setting up dependency injection (usually in a Startup.cs file).
+
+For configuring how the library connects to Cosmos, the library uses the `CosmosOptions` class. This includes the following settings:
+
+| Name | Description |
+|-|-|
+| `AccountEndpoint` | Url to the Cosmos Account. |
+| `AccountKey` | Key for Cosmos Account. |
+| `DatabaseName` | Name of the Cosmos database (will be provisioned by the library). |
+| `DatabaseThroughput` | The throughput provisioned for the database in measurement of Request Units per second in the Azure Cosmos DB service. |
+| `SerializerOptions` | The `JsonSerializerOptions` used for the `System.Text.Json.JsonSerializer`. |
+| `Credential` | The `TokenCredential` used for accessing [Cosmos DB with an Azure AD token](https://docs.microsoft.com/en-us/azure/cosmos-db/managed-identity-based-authentication?WT.mc_id=DT-MVP-5004822). Please note that setting this property will ignore any value specified in `AccountKey`. |
+
+There are 3 ways to provide the `CosmosOptions` to the library:
+1. As an argument to the `ConfigureCosmos()` extension method.
+2. As a `Func<IServiceProvider, CosmosOptions>` factory method argument on the `ConfigureCosmos()` extension method.
+3. As a `IOptions<CosmosOptions>` instance configured using the Options framework and registered in dependency injection.
+
+    This could be done by e.g. reading the `CosmosOptions` from configuration, like this:
+
+    ```c#
+    services.Configure<CosmosOptions>(
+      Configuration.GetSection(configurationSectionName));
+    ```
+
+    Or by using a factory class implementing the `IConfigureOptions<CosmosOptions>` interface and register it like this:
+
+    ```c#
+    services.ConfigureOptions<ConfigureCosmosOptions>();
+    ```
+
+    The latter is the recommended approach.
