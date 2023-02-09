@@ -44,21 +44,59 @@ For configuring how the library connects to Cosmos, the library uses the `Cosmos
 | `Credential` | The `TokenCredential` used for accessing [Cosmos DB with an Azure AD token](https://docs.microsoft.com/en-us/azure/cosmos-db/managed-identity-based-authentication?WT.mc_id=DT-MVP-5004822). Please note that setting this property will ignore any value specified in `AccountKey`. |
 
 There are 3 ways to provide the `CosmosOptions` to the library:
+
 1. As an argument to the `ConfigureCosmos()` extension method.
 2. As a `Func<IServiceProvider, CosmosOptions>` factory method argument on the `ConfigureCosmos()` extension method.
 3. As a `IOptions<CosmosOptions>` instance configured using the Options framework and registered in dependency injection.
 
-    This could be done by e.g. reading the `CosmosOptions` from configuration, like this:
+This could be done by e.g. reading the `CosmosOptions` from configuration, like this:
+
+```c#
+services.Configure<CosmosOptions>(
+    Configuration.GetSection(configurationSectionName));
+```
+
+Or by using a factory class implementing the `IConfigureOptions<CosmosOptions>` interface and register it like this:
+
+```c#
+services.ConfigureOptions<ConfigureCosmosOptions>();
+```
+
+The latter is the recommended approach.
+
+## Configure containers
+
+For each Cosmos resource you want to access using the `ICosmosReader<T>` and `ICosmosWriter<T>` you will need to:
+
+1. Create class representing the Cosmos document resource.
+
+    The class should implement the abstract `CosmosResource` base-class, which requires `GetDocumentId()` and `GetPartitionKey()` methods to be implemented.
+
+    The class will be serialized to Cosmos using the `System.Text.Json.JsonSerializer`, so the `System.Text.Json.Serialization.JsonPropertyNameAttribute` can be used to control the actual property name in the json document.
+
+    This can e.g. be useful when referencing the name of the id and partition key properties in a `ICosmosContainerInitializer` implementation which is described further down.
+
+2. Configure the container used for the Cosmos document resource.
+
+    This is done on the `ICosmosBuilder` made available using the `ConfigureCosmos()` extension on the `IServiceCollection`, like this:
 
     ```c#
-    services.Configure<CosmosOptions>(
-      Configuration.GetSection(configurationSectionName));
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.ConfigureCosmos(b => b.AddContainer<MyResource>(containerName));
+    }
     ```
 
-    Or by using a factory class implementing the `IConfigureOptions<CosmosOptions>` interface and register it like this:
+3. If you want to connect to multiple databases you would need to scope your container to a new `CosmosOptions` instance in the following way:
 
     ```c#
-    services.ConfigureOptions<ConfigureCosmosOptions>();
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.ConfigureCosmos(
+          b => b.AddContainer<MyResource>(containerName)
+                .ForDatabase(secondDbOptions)
+                  .AddContainer<MySecondResource>(containerName));
+    }
     ```
-
-    The latter is the recommended approach.
+    The first call to AddContainer will be scoped to the default options as the passed builder 'b' is always scoped to the default options.
+    The subsequent call to *ForDatabase* will return a new builder scoped for the options passed to this method and any subsequent calls to this builder will have the same scope.
