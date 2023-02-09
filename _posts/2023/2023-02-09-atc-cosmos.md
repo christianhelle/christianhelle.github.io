@@ -26,7 +26,16 @@ The library is installed by adding the NuGet package Atc.Cosmos to your project.
 - `ICosmosBulkReader<T>`
 - `ICosmosBulkWriter<T>`
 
-Where `T` is a document resource represented by a class deriving from the `CosmosResource` base-class, or by implementing the underlying `ICosmosResource` interface directly.
+Where `T` is a document resource represented by a class derived from the `CosmosResource` base-class, or by implementing the underlying `ICosmosResource` interface directly.
+
+### ICosmosReader<T>
+
+Cosmos DB is really good at point read operations, and this is really cheap to do. The `ICosmosReader<T>` interface provides the following methods for point read operations:
+
+- `Task<T> ReadAsync(string documentId, string partitionKey, CancellationToken cancellationToken)`
+- `Task<T?> FindAsync(string documentId, string partitionKey, CancellationToken cancellationToken)`
+
+`ReadAsync()` does a point read look up on the document within the specified partition and throws a `CosmosException` with the Status code NotFound if the resource could not be found. `FindAsync()` on the other hand will return a `null` instance of `T` if the resource count not be found 
 
 ## Configure Cosmos connection
 
@@ -145,6 +154,7 @@ To do this you will need to:
         builder.Services.AzureFunctionInitializeCosmosDatabase();
     }
     ```
+
 ## Using the readers and writers
 
 Once the setup is in place, the readers and writers are registered with the [Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/) container, and can be obtained via constructor injection on any service.
