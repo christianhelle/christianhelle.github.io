@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Atc.Cosmos - CosmosDb with A Touch of Class
+title: Atc.Cosmos - Azure Cosmos DB with A Touch of Class
 date: '2023-02-09'
 author: Christian Helle
 tags: 
