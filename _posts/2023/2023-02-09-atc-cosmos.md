@@ -161,3 +161,40 @@ The registered interfaces are:
 The bulk reader and writer are for optimizing performance when executing many operations towards Cosmos. It works by creating all the tasks and then use the `Task.WhenAll()` to await them. This will group operations by partition key and send them in batches of 100.
 
 When not operating with bulks, the normal readers are faster as there is no delay waiting for more work.
+
+## Change Feeds
+
+The library supports adding change feed processors for a container.
+
+To do this you will need to:
+
+1. Create a processor by implementing the `IChangeFeedProcessor` interface.
+
+2. Setup the change feed processor during initialization
+
+    This is done on the `ICosmosBuilder<T>` made available using the `ConfigureCosmos()` extension on the `IServiceCollection`, like this:
+
+    ```c#
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.ConfigureCosmos(b => b
+        .AddContainer<MyInitializer, MyResource>(containerName)
+        .WithChangeFeedProcessor<MyChangeFeedProcessor>());
+    }
+    ```
+
+    or using the `ICosmosContainerBuilder<T>` like this:
+
+    ```c#
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.ConfigureCosmos(b => b
+        .AddContainer<MyInitializer>(
+          containerName,
+          c => c
+            .AddResource<MyResource>()
+            .WithChangeFeedProcessor<MyChangeFeedProcessor>()));
+    }
+    ```
+
+***Note**: The change feed processor relies on a `HostedService`, which means that this feature is only available in ASP.NET Core services.*
