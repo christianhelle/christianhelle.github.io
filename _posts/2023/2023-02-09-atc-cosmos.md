@@ -224,6 +224,7 @@ To do this you will need to:
     }
     ```
 
+
 ## Using the readers and writers
 
 Once the setup is in place, the readers and writers are registered with the [Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/) container, and can be obtained via constructor injection on any service.
@@ -240,6 +241,7 @@ The registered interfaces are:
 The bulk reader and writer are for optimizing performance when executing many operations towards Cosmos. It works by creating all the tasks and then use the `Task.WhenAll()` to await them. This will group operations by partition key and send them in batches of 100.
 
 When not operating with bulks, the normal readers are faster as there is no delay waiting for more work.
+
 
 ## Change Feeds
 
@@ -277,3 +279,36 @@ To do this you will need to:
     ```
 
 ***Note**: The change feed processor relies on a `HostedService`, which means that this feature is only available in ASP.NET Core services.*
+
+
+## Unit Testing
+
+The reader and writer interfaces can easily be mocked, but in some cases it is nice to have a fake version of a reader or writer to mimic the behavior of the read and write operations. For this purpose the `Atc.Cosmos.Testing` namespace contains the following fakes:
+
+|Name|Description|
+|-|-|
+|`FakeCosmosReader<T>`| Used for faking an `ICosmosReader<T>` or `ICosmosBulkReader<T>` |
+|`FakeCosmosWriter<T>`| Used for faking an `ICosmosWriter<T>` or `ICosmosBulkWriter<T>` |
+|`FakeCosmos<T>`| Used for getting a `FakeCosmosReader` and `FakeCosmosWriter` that share state. |
+
+Using the [Atc.Test](https://github.com/atc-net/atc-test) setup a test using the fakes could look like this:
+
+```cs
+[Theory, AutoNSubstituteData]
+public async Task Should_Update_Cosmos_With_NewData(
+    [Frozen(Matching.ImplementedInterfaces)]
+    FakeCosmos<MyCosmosResource> cosmos,
+    MyCosmosService sut,
+    MyCosmosResource resource,
+    string newData)
+{
+    cosmos.Documents.Add(resource);
+
+    await service.UpdateAsync(resource.Id, newData);
+
+    resource
+        .Data
+        .Should()
+        .Be(newData);
+}
+```
