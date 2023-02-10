@@ -18,8 +18,9 @@ A couple of years ago, me and a group of colleagues and friends, decided that we
 
 For the past 6 years, I have been using [Azure Cosmos DB](https://learn.microsoft.com/en-us/azure/cosmos-db/introduction?WT.mc_id=DT-MVP-5004822) (formerly known as [Document DB](https://azure.microsoft.com/en-us/blog/dear-documentdb-customers-welcome-to-azure-cosmos-db?WT.mc_id=DT-MVP-5004822)) as my go-to data store. Document databases make so much more sense for the things that I have been building over the past 6 years. The library [Atc.Cosmos](https://github.com/atc-net/atc-cosmos) is the result of years of collective experience solving problems using the same patterns. Atc.Cosmos is a library for configuring containers in Azure Cosmos DB and provides easy, efficient, and convenient ways to read and write document resources.
 
-## Getting Started
-The library is installed by adding the NuGet package Atc.Cosmos to your project. Once the library is added to your project, you will have access to the following interfaces, used for reading and writing Cosmos document resources:
+## Getting Started with Atc.Cosmos
+
+The library is installed by adding the [Atc.Cosmos NuGet package](https://www.nuget.org/packages/Atc.Cosmos) to your project. Once the library is added to your project, you will have access to the following interfaces, used for reading and writing Cosmos document resources:
 
 - `ICosmosReader<T>`
 - `ICosmosWriter<T>`
@@ -61,7 +62,7 @@ IAsyncEnumerable<T> QueryAsync(
     CancellationToken cancellationToken = default);
 ```
 
-As the name states, `ReadAllAsync()` reads all documents from the specified partition and returns an asynchronous stream. `QueryAsync()` executes a `QueryDefinition` against the specified partition and returns an asynchronous stream.
+As the name states, `ReadAllAsync()` reads **all documents** from the specified partition and returns an asynchronous stream of individual documents. `QueryAsync()` executes a `QueryDefinition` against the specified partition.
 
 When working with large partitions, you will most likely want to using paging to read out data so that you can return a response to the consumer of your system as fast as possible. `ICosmosReader<T>` provides the following methods for paged queries:
 
@@ -87,7 +88,7 @@ IAsyncEnumerable<IEnumerable<T>> BatchQueryAsync(
     CancellationToken cancellationToken = default);
 ```
 
-Cross partition queries are normally very ineffecient, expensive, and can be slow. Regardless of these facts, there will be times where you will still need them. `ICosmosReader<T>` provides the following methods for performing cross partition read operations
+Cross partition queries are normally very ineffecient, expensive, and slow. Regardless of these facts, there will be times where you will still need them. `ICosmosReader<T>` provides the following methods for performing cross partition read operations
 
 ```cs
 IAsyncEnumerable<T> CrossPartitionQueryAsync(
