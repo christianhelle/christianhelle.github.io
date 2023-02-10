@@ -32,7 +32,7 @@ Where `T` is a document resource represented by a class derived from the `Cosmos
 
 Cosmos DB is really good at point read operations, and this is really cheap to do. The `ICosmosReader<T>` interface provides the following methods for point read operations:
 
-```csharp
+```cs
 Task<T> ReadAsync(
     string documentId, 
     string partitionKey, 
@@ -50,7 +50,7 @@ You will notice that the majority of methods exposed in `ICosmosReader<T>` requi
 
 `ICosmosReader<T>` provides methods for reading multiple documents out. This can be done by reading all the documents within a partition or running a query against the partition. Here are some methods that do exactly that:
 
-```csharp
+```cs
 IAsyncEnumerable<T> ReadAllAsync(
     string partitionKey, 
     CancellationToken cancellationToken = default);
@@ -65,7 +65,7 @@ As the name states, `ReadAllAsync()` reads all documents from the specified part
 
 When working with large partitions, you will most likely want to using paging to read out data so that you can return a response to the consumer of your system as fast as possible. `ICosmosReader<T>` provides the following methods for paged queries:
 
-```csharp
+```cs
 Task<PagedResult<T>> PagedQueryAsync(
     QueryDefinition query,
     string partitionKey, 
@@ -76,7 +76,7 @@ Task<PagedResult<T>> PagedQueryAsync(
 
 When working with large partitions, you might want to parallelize processing of the documents you read from Cosmos DB, and this can be done by streaming a collection of documents instead of individual ones. `ICosmosReader<T>` provides the following methods for batch queries
 
-```csharp
+```cs
 IAsyncEnumerable<IEnumerable<T>> BatchReadAllAsync(
     string partitionKey,
     CancellationToken cancellationToken = default);
@@ -89,7 +89,7 @@ IAsyncEnumerable<IEnumerable<T>> BatchQueryAsync(
 
 Cross partition queries are normally very ineffecient, expensive, and can be slow. Regardless of these facts, there will be times where you will still need them. `ICosmosReader<T>` provides the following methods for performing cross partition read operations
 
-```csharp
+```cs
 IAsyncEnumerable<T> CrossPartitionQueryAsync(
     QueryDefinition query,
     CancellationToken cancellationToken = default);
