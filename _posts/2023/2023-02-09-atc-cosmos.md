@@ -146,6 +146,83 @@ public class FooResource : CosmosResource
 }
 ```
 
+## ICosmosReader<T>
+
+Cosmos DB is really good at point read operations, and this is really cheap to do. The `ICosmosReader<T>` interface provides the following methods for point read operations:
+
+```cs
+Task<T> ReadAsync(
+    string documentId, 
+    string partitionKey, 
+    CancellationToken cancellationToken = default);
+
+Task<T?> FindAsync(
+    string documentId, 
+    string partitionKey, 
+    CancellationToken cancellationToken = default);
+```
+
+`ReadAsync()` does a point read look up on the document within the specified partition and throws a `CosmosException` with the Status code NotFound if the resource could not be found. `FindAsync()` on the other hand will return a `null` instance of `T` if the resource count not be found
+
+You will notice that the majority of methods exposed in `ICosmosReader<T>` require the partition key to be specified. this is because read operations on Azure Cosmos DB are very cheap and efficient as long as you stay within a single partition.
+
+`ICosmosReader<T>` provides methods for reading multiple documents out. This can be done by reading all the documents within a partition or running a query against the partition. Here are some methods that do exactly that:
+
+```cs
+IAsyncEnumerable<T> ReadAllAsync(
+    string partitionKey, 
+    CancellationToken cancellationToken = default);
+
+IAsyncEnumerable<T> QueryAsync(
+    QueryDefinition query, 
+    string partitionKey, 
+    CancellationToken cancellationToken = default);
+```
+
+As the name states, `ReadAllAsync()` reads **all documents** from the specified partition and returns an asynchronous stream of individual documents. `QueryAsync()` executes a `QueryDefinition` against the specified partition.
+
+When working with large partitions, you will most likely want to using paging to read out data so that you can return a response to the consumer of your system as fast as possible. `ICosmosReader<T>` provides the following methods for paged queries:
+
+```cs
+Task<PagedResult<T>> PagedQueryAsync(
+    QueryDefinition query,
+    string partitionKey, 
+    int? pageSize,
+    string? continuationToken = default,
+    CancellationToken cancellationToken = default);
+```
+
+When working with very large partitions, you might want to parallelize processing of the documents you read from Cosmos DB, and this can be done by streaming a collection of documents instead of individual ones. `ICosmosReader<T>` provides the following methods for batch queries
+
+```cs
+IAsyncEnumerable<IEnumerable<T>> BatchReadAllAsync(
+    string partitionKey,
+    CancellationToken cancellationToken = default);
+
+IAsyncEnumerable<IEnumerable<T>> BatchQueryAsync(
+    QueryDefinition query,
+    string partitionKey,
+    CancellationToken cancellationToken = default);
+```
+
+Cross partition queries are normally very ineffecient, expensive, and slow. Regardless of these facts, there will be times where you will still need them. `ICosmosReader<T>` provides the following methods for performing cross partition read operations. `ICosmosReader<T>` provides methods for executing a query, a paged query, or a batch query across multiple partitions
+
+```cs
+IAsyncEnumerable<T> CrossPartitionQueryAsync(
+    QueryDefinition query,
+    CancellationToken cancellationToken = default);
+
+Task<PagedResult<T>> CrossPartitionPagedQueryAsync(
+    QueryDefinition query,
+    int? pageSize,
+    string? continuationToken = default,
+    CancellationToken cancellationToken = default);
+
+IAsyncEnumerable<IEnumerable<T>> BatchCrossPartitionQueryAsync(
+    QueryDefinition query,
+    CancellationToken cancellationToken = default);
+```
+
 ## Unit Testing
 
 The `ICosmosReader<T>` and `ICosmosWriter<T>` interfaces can easily be mocked, but there might be cases where you would want to fake it instead. For this purpose you can use the `FakeCosmosReader<T>` or `FakeCosmosWriter<T>` classes from the `Atc.Cosmos.Testing` namespace contains the following fakes. For convenience, Atc.Cosmos.Testing provides the `FakeCosmos<T>` class which fakes both the reader and writer
