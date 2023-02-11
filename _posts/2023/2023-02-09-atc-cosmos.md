@@ -18,7 +18,7 @@ For the past 6 years, I have been using [Azure Cosmos DB](https://learn.microsof
 
 ## Using Atc.Cosmos
 
-Here's an example usage of Atc.Cosmos in a Minimal API project targetting .NET 7.0
+Here's an example usage of Atc.Cosmos in a Minimal API project targeting .NET 7.0
 
 ```cs
 var builder = WebApplication.CreateBuilder(args);
@@ -148,7 +148,7 @@ public class FooResource : CosmosResource
 
 ## ICosmosReader< T >
 
-Cosmos DB is really good at point read operations, and this is really cheap to do. The `ICosmosReader<T>` interface provides the following methods for point read operations:
+Cosmos DB is very good at point-read operations, and this is cheap to do. The `ICosmosReader<T>` interface provides the following methods for point read operations:
 
 ```cs
 Task<T> ReadAsync(
@@ -162,7 +162,7 @@ Task<T?> FindAsync(
     CancellationToken cancellationToken = default);
 ```
 
-`ReadAsync()` does a point read look up on the document within the specified partition and throws a `CosmosException` with the Status code NotFound if the resource could not be found. `FindAsync()` on the other hand will return a `null` instance of `T` if the resource count not be found
+`ReadAsync()` does a point read look-up on the document within the specified partition and throws a `CosmosException` with the Status code NotFound if the resource could not be found. `FindAsync()` on the other hand will return a `null` instance of `T` if the resource count not be found
 
 You will notice that the majority of methods exposed in `ICosmosReader<T>` require the partition key to be specified. this is because read operations on Azure Cosmos DB are very cheap and efficient as long as you stay within a single partition.
 
@@ -181,7 +181,7 @@ IAsyncEnumerable<T> QueryAsync(
 
 As the name states, `ReadAllAsync()` reads **all documents** from the specified partition and returns an asynchronous stream of individual documents. `QueryAsync()` executes a `QueryDefinition` against the specified partition.
 
-When working with large partitions, you will most likely want to using paging to read out data so that you can return a response to the consumer of your system as fast as possible. `ICosmosReader<T>` provides the following methods for paged queries:
+When working with large partitions, you will most likely want to use paging to read out data so that you can return a response to the consumer of your system as fast as possible. `ICosmosReader<T>` provides the following methods for paged queries:
 
 ```cs
 Task<PagedResult<T>> PagedQueryAsync(
@@ -192,7 +192,7 @@ Task<PagedResult<T>> PagedQueryAsync(
     CancellationToken cancellationToken = default);
 ```
 
-When working with very large partitions, you might want to parallelize processing of the documents you read from Cosmos DB, and this can be done by streaming a collection of documents instead of individual ones. `ICosmosReader<T>` provides the following methods for batch queries
+When working with very large partitions, you might want to parallelize the processing of the documents you read from Cosmos DB, and this can be done by streaming a collection of documents instead of individual ones. `ICosmosReader<T>` provides the following methods for batch queries
 
 ```cs
 IAsyncEnumerable<IEnumerable<T>> BatchReadAllAsync(
@@ -205,7 +205,7 @@ IAsyncEnumerable<IEnumerable<T>> BatchQueryAsync(
     CancellationToken cancellationToken = default);
 ```
 
-Cross partition queries are normally very ineffecient, expensive, and slow. Regardless of these facts, there will be times where you will still need them. `ICosmosReader<T>` provides the following methods for performing cross partition read operations. `ICosmosReader<T>` provides methods for executing a query, a paged query, or a batch query across multiple partitions
+Cross-partition queries are normally very inefficient, expensive, and slow. Regardless of these facts, there will be times when you will still need them. `ICosmosReader<T>` provides the following methods for performing cross-partition read operations. `ICosmosReader<T>` provides methods for executing a query, a paged query, or a batch query across multiple partitions
 
 ```cs
 IAsyncEnumerable<T> CrossPartitionQueryAsync(
@@ -225,7 +225,7 @@ IAsyncEnumerable<IEnumerable<T>> BatchCrossPartitionQueryAsync(
 
 ## ICosmosWriter < T >
 
-There are multiple ways to write to Cosmos DB and my personal prefered way is to do upserts. This is to create when not exists, otherwise update. `ICosmosWriter<T>` provides methods for simple upsert operations and methods that includes retry attempts.
+There are multiple ways to write to Cosmos DB and my preferred way is to do upserts. This is to create when not exist, otherwise, update. `ICosmosWriter<T>` provides methods for simple upsert operations and methods that includes retry attempts.
 
 ```cs
 Task<T> WriteAsync(
@@ -255,7 +255,7 @@ Task<bool> TryDeleteAsync(
 
 ## Unit Testing
 
-The `ICosmosReader<T>` and `ICosmosWriter<T>` interfaces can easily be mocked, but there might be cases where you would want to fake it instead. For this purpose you can use the `FakeCosmosReader<T>` or `FakeCosmosWriter<T>` classes from the `Atc.Cosmos.Testing` namespace contains the following fakes. For convenience, Atc.Cosmos.Testing provides the `FakeCosmos<T>` class which fakes both the reader and writer
+The `ICosmosReader<T>` and `ICosmosWriter<T>` interfaces can easily be mocked, but there might be cases where you would want to fake it instead. For this purpose, you can use the `FakeCosmosReader<T>` or `FakeCosmosWriter<T>` classes from the `Atc.Cosmos.Testing` namespace contains the following fakes. For convenience, Atc.Cosmos.Testing provides the `FakeCosmos<T>` class which fakes both the reader and writer
 
 Based on the example in the beginning of this post, let's say we have a component called `FooService` which can do CRUD operations over the `FooResource`
 
@@ -290,7 +290,7 @@ public class FooService
 }
 ```
 
-Using a combination of `Atc.Cosmos.Testing` and the [Atc.Test](https://github.com/atc-net/atc-test) library, a unit tests using the fakes could look like this:
+Using a combination of `Atc.Cosmos.Testing` and the [Atc.Test](https://github.com/atc-net/atc-test) library, unit tests using the fakes could look like this:
 
 ```cs
 public class FooServiceTests
