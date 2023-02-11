@@ -75,7 +75,7 @@ Task<PagedResult<T>> PagedQueryAsync(
     CancellationToken cancellationToken = default);
 ```
 
-When working with large partitions, you might want to parallelize processing of the documents you read from Cosmos DB, and this can be done by streaming a collection of documents instead of individual ones. `ICosmosReader<T>` provides the following methods for batch queries
+When working with very large partitions, you might want to parallelize processing of the documents you read from Cosmos DB, and this can be done by streaming a collection of documents instead of individual ones. `ICosmosReader<T>` provides the following methods for batch queries
 
 ```cs
 IAsyncEnumerable<IEnumerable<T>> BatchReadAllAsync(
@@ -88,7 +88,7 @@ IAsyncEnumerable<IEnumerable<T>> BatchQueryAsync(
     CancellationToken cancellationToken = default);
 ```
 
-Cross partition queries are normally very ineffecient, expensive, and slow. Regardless of these facts, there will be times where you will still need them. `ICosmosReader<T>` provides the following methods for performing cross partition read operations
+Cross partition queries are normally very ineffecient, expensive, and slow. Regardless of these facts, there will be times where you will still need them. `ICosmosReader<T>` provides the following methods for performing cross partition read operations. `ICosmosReader<T>` provides methods for executing a query, a paged query, or a batch query across multiple partitions
 
 ```cs
 IAsyncEnumerable<T> CrossPartitionQueryAsync(
