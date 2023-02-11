@@ -223,6 +223,36 @@ IAsyncEnumerable<IEnumerable<T>> BatchCrossPartitionQueryAsync(
     CancellationToken cancellationToken = default);
 ```
 
+## ICosmosWriter < T >
+
+There are multiple ways to write to Cosmos DB and my personal prefered way is to do upserts. This is to create when not exists, otherwise update. `ICosmosWriter<T>` provides methods for simple upsert operations and methods that includes retry attempts.
+
+```cs
+Task<T> WriteAsync(
+    T document,
+    CancellationToken cancellationToken = default);
+
+Task<T> UpdateOrCreateAsync(
+    Func<T> getDefaultDocument,
+    Action<T> updateDocument,
+    int retries = 0,
+    CancellationToken cancellationToken = default);
+```
+
+Deleting a resource will usually involve knowing what resource to delete. `ICosmosWriter<T>` provides methods for deleting a resource that MUST exists and another method that returns `true` if the resource was successfully deleted, otherwise `false`
+
+```cs
+Task DeleteAsync(
+    string documentId,
+    string partitionKey,
+    CancellationToken cancellationToken = default);
+
+Task<bool> TryDeleteAsync(
+    string documentId,
+    string partitionKey,
+    CancellationToken cancellationToken = default);
+```
+
 ## Unit Testing
 
 The `ICosmosReader<T>` and `ICosmosWriter<T>` interfaces can easily be mocked, but there might be cases where you would want to fake it instead. For this purpose you can use the `FakeCosmosReader<T>` or `FakeCosmosWriter<T>` classes from the `Atc.Cosmos.Testing` namespace contains the following fakes. For convenience, Atc.Cosmos.Testing provides the `FakeCosmos<T>` class which fakes both the reader and writer
