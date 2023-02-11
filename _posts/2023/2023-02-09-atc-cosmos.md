@@ -146,7 +146,7 @@ public class FooResource : CosmosResource
 }
 ```
 
-## ICosmosReader<T>
+## ICosmosReader< T >
 
 Cosmos DB is really good at point read operations, and this is really cheap to do. The `ICosmosReader<T>` interface provides the following methods for point read operations:
 
