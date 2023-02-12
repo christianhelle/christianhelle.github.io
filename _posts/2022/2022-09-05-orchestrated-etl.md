@@ -78,7 +78,7 @@ class Orchestrator:
         self.loader.save(df)
 ```
 
-# ATC-DataPlatform
+## ATC-DataPlatform
 
 A framework for this design pattern is implemented in a Python Library called [atc-dataplatform](https://pypi.org/project/atc-dataplatform/) available from PyPi
 
