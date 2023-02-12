@@ -4,6 +4,7 @@ title: Atc.Cosmos - Azure Cosmos DB with A Touch of Class
 date: '2023-02-09'
 author: Christian Helle
 tags: 
+- Azure
 - CosmosDb
 redirect_from:
 - /2023/02/atc-cosmos
