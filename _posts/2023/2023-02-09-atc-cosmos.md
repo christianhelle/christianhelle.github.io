@@ -338,3 +338,5 @@ public class FooServiceTests
     }
 }
 ```
+
+If you're interested in the full source code then you can grab it [here](/assets/samples/AtcCosmosMinimalApi.zip).
