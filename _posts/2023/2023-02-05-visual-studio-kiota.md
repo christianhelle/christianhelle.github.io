@@ -5,6 +5,9 @@ date: '2023-02-05'
 author: Christian Helle
 tags: 
 - REST
+- OpenAPI
+- Kiota
+- Visual Studio
 redirect_from:
 - /2023/02/visual-studio-kiota
 - /2023/02/visual-studio-kiota
