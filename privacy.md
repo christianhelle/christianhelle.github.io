@@ -1,9 +1,8 @@
 ---
 layout: page
+title: Privacy Policy
 permalink: /privacy/
 ---
-
-# Privacy Policy
 
 - The website owner doesn't steal or sell any of your data.
 - The website uses Google Analytics in a GDPR compliant way.
