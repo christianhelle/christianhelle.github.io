@@ -26,7 +26,6 @@ Here's how a csproj file for an empty Visual Studio for Mac extension project lo
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudioMac.Sdk" Version="17.0.0" />
@@ -34,43 +33,68 @@ Here's how a csproj file for an empty Visual Studio for Mac extension project lo
 </Project>
 ```
 
-With the new SDK's you can build the project from the command line simply by using `dotnet build`. You may have noticed that I explicitly set `<CopyLocalLockFileAssemblies>` to `true`. This is because if I don't do this then the DLL's won't be copied over to the build output folder and won't be included in the final .mpack package either, which will in the end make your extension not work
+With the new SDK's you can build the project from the command line simply by using `dotnet build`. Running `dotnet build` will ONLY build the project, it will not create the distributable .mpack package. To create the .mpack package, we need to run the **Visual Studio Tool Runner** a.k.a. `vstool`. The Visual Studio Tool Runner is included in the Visual Studio for Mac installation.
 
-Without explicitly setting `<CopyLocalLockFileAssemblies>` to `true` the build output folder will look a bit empty
+The **Visual Studio Tool Runner** is available from the following path
 
 ```bash
-$ ls -l bin/Debug/net7.0
-
-total 168
--rw-r--r--  1 christian  staff  55858 Mar  8 23:32 MyExtension.VSMac.deps.json
--rw-r--r--  1 christian  staff   5120 Mar  8 23:32 MyExtension.VSMac.dll
--rw-r--r--  1 christian  staff  18344 Mar  8 23:32 MyExtension.VSMac.pdb
-drwxr-xr-x  4 christian  staff    128 Mar  8 23:31 runtimes
+$ /Applications/Visual\ Studio.app/Contents/MacOS/vstool
 ```
 
-and with `<CopyLocalLockFileAssemblies>` set to `true`
+To create the .mpack package, you need to run the **Visual Studio Extension Setup Utility** `pack` command
 
 ```bash
-$ ls -l bin/Debug/net7.0
+$ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack [absolute path to main output DLL] -d:[absolute path to output folder]
+```
 
-total 6024
--rwxr--r--  1 christian  staff   212584 Oct 21  2021 Microsoft.Build.Framework.dll
--rwxr--r--  1 christian  staff  1028208 Oct 21  2021 Microsoft.Build.Tasks.Core.dll
--rwxr--r--  1 christian  staff   300648 Oct 21  2021 Microsoft.Build.Utilities.Core.dll
--rwxr--r--  1 christian  staff    28560 May 13  2021 Microsoft.NET.StringTools.dll
--rwxr--r--  1 christian  staff    26224 Oct 23  2021 Microsoft.Win32.SystemEvents.dll
--rw-r--r--  1 christian  staff    55858 Mar  8 23:36 MyExtension.VSMac.deps.json
--rw-r--r--  1 christian  staff     5120 Mar  8 23:36 MyExtension.VSMac.dll
--rw-r--r--  1 christian  staff    18344 Mar  8 23:36 MyExtension.VSMac.pdb
--rwxr--r--  1 christian  staff   184944 Oct 23  2021 System.CodeDom.dll
--rwxr--r--  1 christian  staff   395376 Oct 23  2021 System.Configuration.ConfigurationManager.dll
--rwxr--r--  1 christian  staff   175216 Oct 23  2021 System.Drawing.Common.dll
--rwxr--r--  1 christian  staff    54136 Sep 13  2019 System.Resources.Extensions.dll
--rwxr--r--  1 christian  staff   246912 Oct 23  2021 System.Security.Cryptography.Pkcs.dll
--rwxr--r--  1 christian  staff    20592 Oct 23  2021 System.Security.Cryptography.ProtectedData.dll
--rwxr--r--  1 christian  staff   160632 Nov 15  2019 System.Security.Cryptography.Xml.dll
--rwxr--r--  1 christian  staff   104048 Oct 23  2021 System.Security.Permissions.dll
--rwxr--r--  1 christian  staff    25712 Oct 23  2021 System.Windows.Extensions.dll
-drwxr-xr-x  3 christian  staff       96 Mar  8 23:36 ref
-drwxr-xr-x  4 christian  staff      128 Mar  8 23:31 runtimes
+Before you can build the .mpack package, the extension project will need an AddIn manifest file called `Manifest.addin.xml` in the project folder
+
+Why don't we build a simple extension project that adds a menu item to the Edit menu that just inserts the text "Hello" to wherever the cursor is
+
+Let's start with creating a `Manifest.addin.xml` file
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionModel>
+    <Extension path = "/MonoDevelop/Ide/Commands/Edit">
+        <Command id = "Sample.SampleCommands.InsertText"
+            _label = "Insert Text"
+            defaultHandler = "Sample.InsertTextHandler" />
+    </Extension>
+
+    <Extension path = "/MonoDevelop/Ide/MainMenu/Edit">
+        <CommandItem id="Sample.SampleCommands.InsertText" />
+    </Extension>
+</ExtensionModel>
+```
+
+Next we will need to implement a `CommandHandler` that is only avaiable when an active document is open
+
+```cs
+using MonoDevelop.Components.Commands;
+using MonoDevelop.Ide;
+using MonoDevelop.Ide.Gui;
+using System;
+
+namespace Sample
+{
+    public class InsertTextHandler : CommandHandler
+    {
+        protected override void Run()
+        {
+            var editor = IdeApp.Workbench.ActiveDocument.Editor;
+            editor.InsertAtCaret("Hello");
+        }
+
+        protected override void Update(CommandInfo info)
+        {
+            info.Enabled = IdeApp.Workbench.ActiveDocument?.Editor != null;
+        }
+    }
+
+    public enum SampleCommands
+    {
+        InsertText,
+    }
+}
 ```
