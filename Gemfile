@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "github-pages"
-gem "minima", git: "https://github.com/jekyll/minima"
+gem "minima", :github => 'christianhelle/minima'
 gem 'jekyll-sitemap'
 gem 'jekyll-redirect-from'
 
