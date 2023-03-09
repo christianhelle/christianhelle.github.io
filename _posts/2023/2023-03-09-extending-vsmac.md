@@ -14,7 +14,7 @@ redirect_from:
 - /extending-vsmac
 ---
 
-This post is meant to be a step by step walkthrough guide to developing extensions for [Visual Studio for Mac 2022](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) with explanations, code examples, and a couple of links to offical documentation
+This is step by step walkthrough guide to getting started with developing extensions for [Visual Studio for Mac 2022](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) with explanations, code examples, and a couple of links to offical documentation
 
 The extensibility story for [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) was almost non-existent for a while, and the [documentation for getting started](https://learn.microsoft.com/en-us/previous-versions/visualstudio/mac/extending-visual-studio-mac-walkthrough?WT.mc_id=DT-MVP-5004822) was really outdated. [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) was originally a re-branding of Xamarin Studio, which was built over MonoDevelop and the extensibility SDK's we used for the longest time was all from the old MonoDevelop Addin libraries. The original [getting started guide from MonoDevelop](https://www.monodevelop.com/developers/articles/creating-a-simple-add-in/) is still somewhat correct, but the libraries referred to in the guide will no longer build.
 
