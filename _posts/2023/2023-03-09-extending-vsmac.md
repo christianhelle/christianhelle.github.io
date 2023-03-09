@@ -20,6 +20,14 @@ For [Visual Studio for Mac 2022](https://visualstudio.microsoft.com/vs/mac?WT.mc
 
 As of the time I'm writing this, there is still no File->New->Extension Project, but it's not hard to get started either. 
 
+## Walkthrough
+
+In this walkthrough, we will build a Visual Studio for Mac simple extension that adds a menu item to the **Edit** menu that just inserts the text `"// Hello"` to the active document from the current cursor position
+
+### Step 1 - Create New Project
+
+Let's start with creating a new project called `Sample.csproj`
+
 Here's how a csproj file for an empty Visual Studio for Mac extension project looks like:
 
 ```xml
@@ -33,33 +41,9 @@ Here's how a csproj file for an empty Visual Studio for Mac extension project lo
 </Project>
 ```
 
-With the new SDK's you can build the project from the command line simply by using `dotnet build`. Running `dotnet build` will ONLY build the project, it will not create the distributable `.mpack` package. To create the `.mpack` package, we need to run the **Visual Studio Tool Runner** a.k.a. `vstool`. The Visual Studio Tool Runner is included in the Visual Studio for Mac installation.
+### Step 2 - Addin Manifest
 
-The **Visual Studio Tool Runner** is available from the following path
-
-```bash
-$ /Applications/Visual\ Studio.app/Contents/MacOS/vstool
-```
-
-To create the `.mpack` package, you need to run the **Visual Studio Extension Setup Utility** `pack` command
-
-```bash
-$ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack [absolute path to main output DLL] -d:[absolute path to output folder]
-```
-
-A little tip for getting the absolute path is to use the `$PWD` command so if let's say you're in the `~/projects/my-extension` folder you can do something like
-
-```bash
-$ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $PWD/my-extension.dll -d:$PWD
-```
-
-The command above will produce the output `~/projects/my-extension.mpack`
-
-But before you can build the `.mpack` package, the extension project will need an AddIn manifest file called `Manifest.addin.xml` in the project folder
-
-Why don't we build a simple extension project that adds a menu item to the Edit menu that just inserts the text `"// Hello"` to wherever the cursor is
-
-Let's start with creating a `Manifest.addin.xml` file
+Then we create a `Manifest.addin.xml` file
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -75,6 +59,8 @@ Let's start with creating a `Manifest.addin.xml` file
     </Extension>
 </ExtensionModel>
 ```
+
+### Step 3 - Implementation
 
 Next we will need to implement the `InsertTextHandler` that is only avaiable when an active document is open
 
@@ -115,3 +101,56 @@ namespace Sample
     }
 }
 ```
+
+### Step 4 - Addin info
+
+Now we need to brand and version the extension, we do this by specifying some `AddIn` information
+
+```cs
+using Mono.Addins;
+using Mono.Addins.Description;
+
+[assembly: Addin(
+    "Sample",
+    Namespace = "Sample",
+    Version = "1.0"
+)]
+
+[assembly: AddinName("My First Extension")]
+[assembly: AddinCategory("IDE extensions")]
+[assembly: AddinDescription("My first Visual Studio for Mac extension")]
+[assembly: AddinAuthor("Christian Resma Helle")]
+```
+
+### Step 5 - Package the extension
+
+With the new SDK's you can build the project from the command line simply by using `dotnet build`. Running `dotnet build` will ONLY build the project, it will not create the distributable `.mpack` package. 
+
+Let's start with building the project
+
+```bash
+$ dotnet build -c Release Sample.csproj
+```
+
+This will produce the `bin/Release/net7.0/Sample.dll` file
+
+To create the `.mpack` package, we need to run the **Visual Studio Tool Runner** a.k.a. `vstool`. The Visual Studio Tool Runner is included in the Visual Studio for Mac installation. The **Visual Studio Tool Runner** is available from the following path
+
+```bash
+$ /Applications/Visual\ Studio.app/Contents/MacOS/vstool
+```
+
+To create the `.mpack` package, you need to run the **Visual Studio Extension Setup Utility** `pack` command
+
+```bash
+$ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack [absolute path to main output DLL] -d:[absolute path to output folder]
+```
+
+A little tip for getting the absolute path is to use `$PWD`. So if you created your project under the `~/projects/my-extension` folder and this is currently your working directory then you can do something like
+
+```bash
+$ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $PWD/Sample.dll -d:$PWD
+```
+
+The command above will produce the output `~/projects/my-extension/Sample.mpack`
+
