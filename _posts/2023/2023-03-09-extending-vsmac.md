@@ -76,7 +76,7 @@ Let's start with creating a `Manifest.addin.xml` file
 </ExtensionModel>
 ```
 
-Next we will need to implement a `CommandHandler` that is only avaiable when an active document is open
+Next we will need to implement the `InsertTextHandler` that is only avaiable when an active document is open
 
 ```cs
 using MonoDevelop.Components.Commands;
@@ -90,13 +90,22 @@ namespace Sample
     {
         protected override void Run()
         {
-            var editor = IdeApp.Workbench.ActiveDocument.Editor;
-            editor.InsertAtCaret("Hello");
+            var textBuffer = IdeApp.Workbench.ActiveDocument.GetContent<ITextBuffer>();
+            var textView = IdeApp.Workbench.ActiveDocument.GetContent<ITextView>();
+            textBuffer.Insert(textView.Caret.Position.BufferPosition.Position, "// Hello");
         }
 
         protected override void Update(CommandInfo info)
         {
-            info.Enabled = IdeApp.Workbench.ActiveDocument?.Editor != null;
+            var textBuffer = IdeApp.Workbench.ActiveDocument.GetContent<ITextBuffer>();
+            if (textBuffer != null && textBuffer.AsTextContainer() is SourceTextContainer container)
+            {
+                var document = container.GetTextBuffer();
+                if (document != null)
+                {
+                    info.Enabled = true;
+                }
+           }
         }
     }
 
