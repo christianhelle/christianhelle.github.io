@@ -33,7 +33,7 @@ Here's how a csproj file for an empty Visual Studio for Mac extension project lo
 </Project>
 ```
 
-With the new SDK's you can build the project from the command line simply by using `dotnet build`. Running `dotnet build` will ONLY build the project, it will not create the distributable .mpack package. To create the .mpack package, we need to run the **Visual Studio Tool Runner** a.k.a. `vstool`. The Visual Studio Tool Runner is included in the Visual Studio for Mac installation.
+With the new SDK's you can build the project from the command line simply by using `dotnet build`. Running `dotnet build` will ONLY build the project, it will not create the distributable `.mpack` package. To create the `.mpack` package, we need to run the **Visual Studio Tool Runner** a.k.a. `vstool`. The Visual Studio Tool Runner is included in the Visual Studio for Mac installation.
 
 The **Visual Studio Tool Runner** is available from the following path
 
@@ -41,7 +41,7 @@ The **Visual Studio Tool Runner** is available from the following path
 $ /Applications/Visual\ Studio.app/Contents/MacOS/vstool
 ```
 
-To create the .mpack package, you need to run the **Visual Studio Extension Setup Utility** `pack` command
+To create the `.mpack` package, you need to run the **Visual Studio Extension Setup Utility** `pack` command
 
 ```bash
 $ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack [absolute path to main output DLL] -d:[absolute path to output folder]
