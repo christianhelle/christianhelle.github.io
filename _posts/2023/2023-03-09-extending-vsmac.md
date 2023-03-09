@@ -41,7 +41,29 @@ Here's how a csproj file for an empty [Visual Studio for Mac](https://visualstud
 </Project>
 ```
 
-### Step 2 - Addin Manifest
+### Step 2 - Addin info
+
+Now we need to brand and version the extension, we do this by specifying some `AddIn` information
+
+```cs
+using Mono.Addins;
+using Mono.Addins.Description;
+
+[assembly: Addin(
+    "Sample",
+    Namespace = "Sample",
+    Version = "1.0"
+)]
+
+[assembly: AddinName("My First Extension")]
+[assembly: AddinCategory("IDE extensions")]
+[assembly: AddinDescription("My first Visual Studio for Mac extension")]
+[assembly: AddinAuthor("Christian Resma Helle")]
+```
+
+The combined `Namespace` and `Id` from `Addin` should be unique among all [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) addins. The other attributes are self-explanator
+
+### Step 3 - Addin Manifest
 
 Then we create a `Manifest.addin.xml` file
 
@@ -60,7 +82,7 @@ Then we create a `Manifest.addin.xml` file
 </ExtensionModel>
 ```
 
-### Step 3 - Implementation
+### Step 4 - Implementation
 
 Next we will need to implement the `InsertTextHandler` that is only avaiable when an active document is open
 
@@ -100,26 +122,6 @@ namespace Sample
         InsertText,
     }
 }
-```
-
-### Step 4 - Addin info
-
-Now we need to brand and version the extension, we do this by specifying some `AddIn` information
-
-```cs
-using Mono.Addins;
-using Mono.Addins.Description;
-
-[assembly: Addin(
-    "Sample",
-    Namespace = "Sample",
-    Version = "1.0"
-)]
-
-[assembly: AddinName("My First Extension")]
-[assembly: AddinCategory("IDE extensions")]
-[assembly: AddinDescription("My first Visual Studio for Mac extension")]
-[assembly: AddinAuthor("Christian Resma Helle")]
 ```
 
 ### Step 5 - Package the extension
