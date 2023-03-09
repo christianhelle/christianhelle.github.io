@@ -225,4 +225,4 @@ You need to restart [Visual Studio for Mac](https://visualstudio.microsoft.com/v
 
 ![](/assets/images/extending-vsmac-edit-menu.png)
 
-I hope you found this useful and get inspired to start building extensions of your own
+I hope you found this useful and get inspired to start building extensions of your own. If you're interested in the full source code then you can grab it [here](/assets/samples/extending-vsmac-sample.zip)
