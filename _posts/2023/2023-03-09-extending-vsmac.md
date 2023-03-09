@@ -147,13 +147,13 @@ $ dotnet build -c Release Sample.csproj
 
 This will produce the `bin/Release/net7.0/Sample.dll` file
 
-To create the `.mpack` package, we need to use the **Visual Studio Tool Runner** a.k.a. `vstool`. The Visual Studio Tool Runner is included in the [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) installation. The **Visual Studio Tool Runner** is available from the following path
+To create the `.mpack` package from the command line, we need to use the **Visual Studio Tool Runner** a.k.a. `vstool`. The **Visual Studio Tool Runner** is included in the [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) installation. The **Visual Studio Tool Runner** is available from the following path
 
 ```bash
 $ /Applications/Visual\ Studio.app/Contents/MacOS/vstool
 ```
 
-To create the `.mpack` package, you need to run the **Visual Studio Extension Setup Utility** `pack` command
+We need to run the **Visual Studio Extension Setup Utility** `pack` command
 
 ```bash
 $ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack [absolute path to main output DLL] -d:[absolute path to output folder]
@@ -209,7 +209,7 @@ Try it out and if all goes well the **Edit** menu should have the **Insert Text*
 
 ### Step 7 - Install extension
 
-If you followed Step 5, then you should already have a `.mpack` at hand. 
+If you followed Step 5, then you should already have a `.mpack` at hand. To install a [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) extension, you need to follow these steps:
 
 ![](/assets/images/extending-vsmac-extensions.png)
 
@@ -224,3 +224,5 @@ If you followed Step 5, then you should already have a `.mpack` at hand.
 You need to restart [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) at this point before you can see our new extension under the **Edit** menu
 
 ![](/assets/images/extending-vsmac-edit-menu.png)
+
+I hope you found this useful and get inspired to start building extensions of your own
