@@ -133,9 +133,13 @@ namespace Sample
 
 ### Step 5 - Package the extension
 
-With the new SDK's you can build the project from the command line simply by using `dotnet build`. Running `dotnet build` will ONLY build the project, it will not create the distributable `.mpack` package. 
+This can be by right clicking on the extension project from Visual Studio for Mac then selecting **Pack** from the context menu
 
-Let's start with building the project
+![](/assets/images/extending-vsmac-pack-project.png)
+
+You can also do it from the command line. With the new SDK, [Microsoft.VisualStudioMac.Sdk](https://www.nuget.org/packages/Microsoft.VisualStudioMac.Sdk), you can build the project from the command line simply by using `dotnet build`. Running `dotnet build` will ONLY build the project, it will not create the distributable `.mpack` package. 
+
+Let's start with building the project in Release configuration
 
 ```bash
 $ dotnet build -c Release Sample.csproj
@@ -143,7 +147,7 @@ $ dotnet build -c Release Sample.csproj
 
 This will produce the `bin/Release/net7.0/Sample.dll` file
 
-To create the `.mpack` package, we need to run the **Visual Studio Tool Runner** a.k.a. `vstool`. The Visual Studio Tool Runner is included in the [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) installation. The **Visual Studio Tool Runner** is available from the following path
+To create the `.mpack` package, we need to use the **Visual Studio Tool Runner** a.k.a. `vstool`. The Visual Studio Tool Runner is included in the [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) installation. The **Visual Studio Tool Runner** is available from the following path
 
 ```bash
 $ /Applications/Visual\ Studio.app/Contents/MacOS/vstool
