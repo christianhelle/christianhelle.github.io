@@ -193,3 +193,21 @@ Try it out and if all goes well the **Edit** menu should have the **Insert Text*
 ![](/assets/images/extending-vsmac-debug.png)
 
 ![](/assets/images/extending-vsmac-edit-menu.png)
+
+### Step 7 - Install extension
+
+If you followed Step 5, then you should already have a `.mpack` at hand. 
+
+![](/assets/images/extending-vsmac-extensions.png)
+
+![](/assets/images/extending-vsmac-install-from-file.png)
+
+![](/assets/images/extending-vsmac-open-file.png)
+
+![](/assets/images/extending-vsmac-install.png)
+
+![](/assets/images/extending-vsmac-installed.png)
+
+You need to restart Visual Studio for Mac at this point before you can see our new extension under the **Edit** menu
+
+![](/assets/images/extending-vsmac-edit-menu.png)
