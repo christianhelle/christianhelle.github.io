@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Extending Visual Studio for Mac 2022
-date: '2023-03-08'
+date: '2023-03-09'
 author: Christian Helle
 tags: 
 - Visual Studio for Mac
