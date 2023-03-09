@@ -43,29 +43,28 @@ Here's how a csproj file for an empty [Visual Studio for Mac](https://visualstud
 
 ### Step 2 - Addin info
 
-Now we need to brand and version the extension, we do this by specifying some `AddIn` information
+A [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) extension has metadata about its name, version, dependencies, etc. It also defines any number of extensions that plug into extension points defined by other extensions, and can also define extension points that other extensions can extend.
+
+Let's defining some `AddIn` information
 
 ```cs
 using Mono.Addins;
 using Mono.Addins.Description;
 
-[assembly: Addin(
-    "Sample",
-    Namespace = "Sample",
-    Version = "1.0"
-)]
-
+[assembly: Addin(Id = "Sample", Namespace = "Sample", Version = "1.0")]
 [assembly: AddinName("My First Extension")]
 [assembly: AddinCategory("IDE extensions")]
 [assembly: AddinDescription("My first Visual Studio for Mac extension")]
 [assembly: AddinAuthor("Christian Resma Helle")]
 ```
 
-The combined `Namespace` and `Id` from `Addin` should be unique among all [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) addins. The other attributes are self-explanator
+The combined `Id` and `Namespace` from `Addin` should be **unique among all [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) extensions**. The other attributes are self-explanatory
 
 ### Step 3 - Addin Manifest
 
-Then we create a `Manifest.addin.xml` file
+Now that the `Addin` is defined, we can add some extensions.
+
+We do this by by defining the `Manifest.addin.xml` file
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -82,9 +81,17 @@ Then we create a `Manifest.addin.xml` file
 </ExtensionModel>
 ```
 
-### Step 4 - Implementation
+This extension defines a command for the command system. The `Command ID` should correspond to an `enum` value. The `_label` attribute is the display name of the command. The `defaultHandler` attribute is the full type name of the `CommandHandler` implementation that will execute when the extension executes
 
-Next we will need to implement the `InsertTextHandler` that is only avaiable when an active document is open
+The [Command System](https://www.monodevelop.com/developers/articles/the-command-system/) provides ways to control the availability, visibility and handling of commands depending on context.
+
+Commands can be bound to keyboard shortcuts and can be inserted into menus. We’re going to insert the `InsertText` command into the main **Edit** menu with another extension.
+
+### Step 4 - Implement the CommandHandler
+
+Now that the `InsertText` command is registered, we need to implement a command handler.  The simplest way to use it is with a default handler, which is a class that implements `MonoDevelop.Components.Commands.CommandHandler`. Let's implement `CommandHandler` as `InsertTextHandler` to be only avaiable when an active document is open
+
+We will also need to create the `SampleCommands` enum
 
 ```cs
 using MonoDevelop.Components.Commands;
