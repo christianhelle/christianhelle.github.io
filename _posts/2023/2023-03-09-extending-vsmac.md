@@ -47,9 +47,17 @@ To create the .mpack package, you need to run the **Visual Studio Extension Setu
 $ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack [absolute path to main output DLL] -d:[absolute path to output folder]
 ```
 
-Before you can build the .mpack package, the extension project will need an AddIn manifest file called `Manifest.addin.xml` in the project folder
+A little tip for getting the absolute path is to use the `$PWD` command so if let's say you're in the `~/projects/my-extension` folder you can do something like
 
-Why don't we build a simple extension project that adds a menu item to the Edit menu that just inserts the text "Hello" to wherever the cursor is
+```bash
+$ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $PWD/my-extension.dll -d:$PWD
+```
+
+The command above will produce the output `~/projects/my-extension.mpack`
+
+But before you can build the `.mpack` package, the extension project will need an AddIn manifest file called `Manifest.addin.xml` in the project folder
+
+Why don't we build a simple extension project that adds a menu item to the Edit menu that just inserts the text `"// Hello"` to wherever the cursor is
 
 Let's start with creating a `Manifest.addin.xml` file
 
