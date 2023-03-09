@@ -190,4 +190,6 @@ Debugging the extension will basically start another instance of Visual Studio f
 
 Try it out and if all goes well the **Edit** menu should have the **Insert Text** item at the bottom
 
+![](/assets/images/extending-vsmac-debug.png)
+
 ![](/assets/images/extending-vsmac-edit-menu.png)
