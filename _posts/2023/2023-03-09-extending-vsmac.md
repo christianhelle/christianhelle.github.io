@@ -187,3 +187,7 @@ Now our Sample project should look something like this:
 ```
 
 Debugging the extension will basically start another instance of Visual Studio for Mac where you can test your extension
+
+Try it out and if all goes well the **Edit** menu should have the **Insert Text** item at the bottom
+
+![](/assets/images/extending-vsmac-edit-menu.png)
