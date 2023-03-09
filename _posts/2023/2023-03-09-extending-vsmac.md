@@ -154,3 +154,36 @@ $ /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $PWD/Sample.
 
 The command above will produce the output `~/projects/my-extension/Sample.mpack`
 
+### Step 6 - Test the extension
+
+Debugging a Visual Studio for Mac is possible, but doesn't come out of the box. To enable Debugging the extension from Visual Studio for Mac we need to add the following to our C# project
+
+```xml
+<PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+  <StartAction>Program</StartAction>
+  <StartProgram>\Applications\Visual Studio.app\Contents\MacOS\VisualStudio</StartProgram>
+  <StartArguments>--no-redirect</StartArguments>
+  <ExternalConsole>true</ExternalConsole>
+</PropertyGroup>
+```
+
+Now our Sample project should look something like this:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <StartAction>Program</StartAction>
+    <StartProgram>\Applications\Visual Studio.app\Contents\MacOS\VisualStudio</StartProgram>
+    <StartArguments>--no-redirect</StartArguments>
+    <ExternalConsole>true</ExternalConsole>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudioMac.Sdk" Version="17.0.0" />
+  </ItemGroup>
+</Project>
+```
+
+Debugging the extension will basically start another instance of Visual Studio for Mac where you can test your extension
