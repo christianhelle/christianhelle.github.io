@@ -22,7 +22,7 @@ As of the time I'm writing this, there is still no **File -> New -> Extension Pr
 
 ## Walkthrough
 
-In this walkthrough, we will build a [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) simple extension that adds the **Insert Text** menu item to the **Edit** menu. All this can do is to insert the text `// Hello` to the active document from the current cursor position
+In this walkthrough, we will build a simple [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) extension that adds the **Insert Text** menu item to the **Edit** menu. All this can do is to insert the text `// Hello` to the active document from the current cursor position
 
 ### Step 1 - Create New Project
 
@@ -45,7 +45,7 @@ Here's how a csproj file for an empty [Visual Studio for Mac](https://visualstud
 
 A [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) extension has metadata about its name, version, dependencies, etc. It also defines any number of extensions that plug into extension points defined by other extensions, and can also define extension points that other extensions can extend.
 
-Let's defining some `AddIn` information
+Let's define some `AddIn` information in a file called `AddinInfo.cs`
 
 ```cs
 using Mono.Addins;
@@ -64,7 +64,7 @@ The combined `Id` and `Namespace` from `Addin` should be **unique among all [Vis
 
 Now that the `Addin` is defined, we can add some extensions.
 
-We do this by by defining the `Manifest.addin.xml` file
+We do this by defining the `Manifest.addin.xml` file
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -85,7 +85,7 @@ This extension defines a command for the command system. The `Command ID` should
 
 The [Command System](https://www.monodevelop.com/developers/articles/the-command-system/) provides ways to control the availability, visibility and handling of commands depending on context.
 
-Commands can be bound to keyboard shortcuts and can be inserted into menus. We’re going to insert the `InsertText` command into the main **Edit** menu with another extension.
+Commands can be bound to keyboard shortcuts and can be inserted into menus. In this exaple, we are going to insert the `InsertText` command into the main **Edit** menu with another extension.
 
 ### Step 4 - Implement the CommandHandler
 
@@ -133,7 +133,7 @@ namespace Sample
 
 ### Step 5 - Package the extension
 
-This can be by right clicking on the extension project from Visual Studio for Mac then selecting **Pack** from the context menu
+This can be done by right clicking on the extension project from [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) then selecting **Pack** from the context menu
 
 ![](/assets/images/extending-vsmac-pack-project.png)
 
