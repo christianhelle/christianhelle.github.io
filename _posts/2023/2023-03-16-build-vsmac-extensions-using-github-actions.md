@@ -88,7 +88,7 @@ Let's break the workflow job steps down into detail...
 Pretty a much a standard first for most Github Action workflows
 
 ### Step 2) Update the version info of the extension. 
-For this naive example let's just call it version `1.0.xxx` where `xxx` is the workflow run number. We get the Github Action workflow run number from `${{ github.run_number }}`. We then want to update the version number in the `AddinInfo.cs` file
+For this naive example let's just call it version `1.0.xxx` where `xxx` is the workflow run number. We get the Github Action workflow run number from `${{ github.run_number }}`. Let's store this in an environment variable called `VERSION`. We then want to update the version number in the `AddinInfo.cs` file
 
 To do this, we use the the `sed` (stream editor) command to replace all instances of `1.0` with `1.0.xxx`. 
 
