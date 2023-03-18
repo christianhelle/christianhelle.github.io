@@ -153,7 +153,7 @@ $ zip -r Binaries.zip src/bin/Release/net7.0/
 In this step we will publish the newly created `Binaries.zip` as a build artifact
 
 ### Step 7) Rename built output
-We do this so to help users who might have download multiple verssions of the app be able to keep older versions of the app
+We do this so to help users who might have download multiple verssions of the extension be able to keep older versions of the extension. This is completely optional, but is something I find to be a good practice
 
 Uploading artifacts uses the `actions/upload-artifact@v2` task
 
@@ -162,8 +162,11 @@ Uploading artifacts uses the `actions/upload-artifact@v2` task
 This is pretty straight forward. You start off by using the `actions/upload-artifact@v2` task. This workflow allows the developer to the filename of the artifact, and also which folder to publish as build artifacts
 
 ## Build Output
-If everything succeeds then we should be able to see the results of the build in Github Actions. At the bottom of the content section for every build should have 2 artifacts, the binary files and the .mpack file itself
+If everything succeeds then we should be able to see the results of the build in Github Actions. At the bottom of the content section for every build should have 2 artifacts, the binary files and the .mpack file itself. 
+
+There are 2 artifacts in the build called `Binaries` and `Extensions`. They are packed as zip files when downloaded
 
 ![](/assets/images/extending-vsmac-workflow-artifacts.png)
+
 
 I hope you found this useful and get inspired to start building extensions of your own. If you're interested in the full source code then you can grab it [here](/assets/samples/extending-vsmac-sample-with-github-action-workflows.zip)
