@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Building Visual Studio for Mac Extensions using Github Actions
+title: Build Visual Studio for Mac Extensions using Github Actions
 date: '2023-03-16'
 author: Christian Helle
 tags: 
