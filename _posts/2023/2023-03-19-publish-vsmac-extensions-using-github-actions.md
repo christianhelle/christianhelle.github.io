@@ -44,19 +44,23 @@ git remote add origin git@github.com:christianhelle/my-vsmac-extension-repo.git
 git push -u origin main
 ```
 
-Now that we have a repository, we need to [Create a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token?WT.mc_id=DT-MVP-5004822) and give it access to push commits to our new repository by giving the PAT the `public_repo` scope
+Now that we have a repository, we need to [Create a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token?WT.mc_id=DT-MVP-5004822)
 
 ![](/assets/images/github-developer-settings-pat.png)
 
+and give it access to push commits to our new repository by giving the PAT the `public_repo` scope
+
 ![](/assets/images/github-pat-scope-public-repo.png)
+
+Copy the PAT to the clipboard as we will use this PAT
 
 ![](/assets/images/github-pat-copy.png)
 
-Copy the PAT to the clipboard as we will use this PAT and store it as a Github Actions Secret in the repository that builds the Visual Studio for Mac extension. From the Settings page of that repo, unfold **Secrets and variables**, select **Actions**, then click on **New Repository Secret**.
+Store the PAT as a Github Actions Secret in the repository that builds the Visual Studio for Mac extension. From the Settings page of that repo, unfold **Secrets and variables**, select **Actions**, then click on **New Repository Secret**.
 
 ![](/assets/images/github-actions-secret-new.png)
 
-Give the **Secret** a name, for example `ACTIONS_GITHUB_TOKEN` and paste the PAT that we just created
+Give the **Secret** a name, in this case `ACTIONS_GITHUB_TOKEN` and paste the PAT that we just created
 
 ![](/assets/images/github-actions-secret-new-save.png)
 
