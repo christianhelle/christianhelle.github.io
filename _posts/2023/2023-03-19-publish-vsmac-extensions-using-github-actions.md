@@ -318,5 +318,12 @@ And lastly, `index.html` is a naive attempt to create a HTML page describing the
 </body></html>
 ```
 
+## Add extension repository to Visual Studio
+
+Now all we need is to add a new custom extension repository to Visual Studio for Mac so we can download the extensions all from the IDE, and also see when there are updates coming in. To do this, we need to get the URL to the **Raw** `main.mrep` file. We do this by opening `main.mrep` from Github and getting the URL from the **Raw** link
+
+![](/assets/images/github-extensions-repo-main-raw.png)
+
+This should be something like `https://raw.githubusercontent.com/christianhelle/my-vsmac-extension-repo/main/main.mrep`. We need to add this as an **Extension Source** to Visual Studio for Mac
 
 I hope you found this useful and get inspired to start building extensions of your own. If you're interested in the full source code then you can checkout the [Example VSMac extension project](https://github.com/christianhelle/extending-vsmac-sample) and the [Visual Studio for Mac extension repository](https://github.com/christianhelle/my-vsmac-extension-repo)
