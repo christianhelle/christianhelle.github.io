@@ -324,6 +324,14 @@ Now all we need is to add a new custom extension repository to Visual Studio for
 
 ![](/assets/images/github-extensions-repo-main-raw.png)
 
-This should be something like `https://raw.githubusercontent.com/christianhelle/my-vsmac-extension-repo/main/main.mrep`. We need to add this as an **Extension Source** to Visual Studio for Mac
+This should be something like `https://raw.githubusercontent.com/christianhelle/my-vsmac-extension-repo/main/main.mrep`. We need to add this as an **Extension Source** to Visual Studio for Mac. This is done from **Preferences**, then scroll down on the side menu to **Extensions**, select **Sources**, then click on **Add**, then paste the **Raw** link to `main.mrep`
+
+![](/assets/images/vsmac-extension-sources.png)
+
+![](/assets/images/vsmac-extension-sources-add.png)
+
+After this we should be able to see our extension from the Visual Studio for Mac Extensions screen
+
+![](/assets/images/vsmac-extensions-custom-source.png)
 
 I hope you found this useful and get inspired to start building extensions of your own. If you're interested in the full source code then you can checkout the [Example VSMac extension project](https://github.com/christianhelle/extending-vsmac-sample) and the [Visual Studio for Mac extension repository](https://github.com/christianhelle/my-vsmac-extension-repo)
