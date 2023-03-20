@@ -32,7 +32,7 @@ $ gh repo create my-vsmac-extension-repo --public
 
 We need this to be a **Public** repository as we will need to access the raw contents of our repository and add it to Visual Studio for Mac
 
-Now that we have an initial repo, we need to create a branch to commit to
+Now that we have an initial repo, we need to create a branch to commit to. You can't push commits to an empty repo
 
 ```bash
 echo "# delete-me" >> README.md
