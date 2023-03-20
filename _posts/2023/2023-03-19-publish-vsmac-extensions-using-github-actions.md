@@ -64,8 +64,8 @@ Give the **Secret** a name, for example `ACTIONS_GITHUB_TOKEN` and paste the PAT
 
 The next thing we need to is to update our workflow to publish the `.mpack` file to the new repo we created. We do this by adding a new job to our existing workflow:
 
-```yml
 {% raw %}
+```yml
   deploy:
 
     runs-on: ubuntu-latest
@@ -96,17 +96,15 @@ The next thing we need to is to update our workflow to publish the `.mpack` file
         git add Sample.mpack
         git commit -m "Update .mpack file to version ${{ env.VERSION }}"
         git push
-{% endraw %}     
 ```
-
-You can't push commits to an empty repo
+{% endraw %}     
 
 This new job will checkout our new Visual Studio for Mac extension repository, which in this example I called `my-vsmac-extension-repo`. We set the `token` parameter because we will be committing back to this repository. Then it downloads the build artifacts from the previous `build` job to a folder called `artifacts`. You can only provide one version of your extension at a time in a Visual Studio for Mac extension repository so we need to strip the version number out of the filename. Lastly, add and commit the `.mpack` file to the extensions repository
 
 Here's the full contents of our workflow:
 
-```yml
 {% raw %}
+```yml
 name: Build
 
 on:
@@ -191,8 +189,8 @@ jobs:
         git add Sample.mpack
         git commit -m "Update .mpack file to version ${{ env.VERSION }}"
         git push
-{% endraw %}
 ```
+{% endraw %}
 
 A successful run of this build should look like something like this:
 
