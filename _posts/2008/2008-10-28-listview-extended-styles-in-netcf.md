@@ -11,6 +11,8 @@ tags:
 modified_time: '2009-10-08T16:25:33.886+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-3665746400716942844
 blogger_orig_url: https://christian-helle.blogspot.com/2008/10/listview-extended-styles-in-netcf.html
+redirect_from:
+- /blog/2008/10/28/listview-extended-styles-in-netcf/
 ---
 
 In this article I would like to demonstrate how to extend the ListView control in the .NET Compact Framework. We will focus on enabling some of the ListView Extended Styles. If we take a look at the Windows Mobile 5.0 Pocket PC SDK we will see that there are certain features of ListView that aren't provided by the .NET Compact Framework.
