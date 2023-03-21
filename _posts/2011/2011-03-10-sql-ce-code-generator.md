@@ -9,6 +9,8 @@ tags:
 modified_time: '2012-01-19T14:45:35.026+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-3941131121333901945
 blogger_orig_url: https://christian-helle.blogspot.com/2011/03/sql-ce-code-generator.html
+redirect_from:
+- /blog/2010/01/24/sqlce-code-generator/
 ---
 
 More than a year ago, I published a project on CodePlex called [SQL Compact Code Generator](http://github.com/christianhelle/sqlcecodegen). Unfortunately, I never managed to find the time to do some work on it and the project was set on a very long hold. A year after I suddenly really needed such a tool and decided that I should put in some hours on the project.  
