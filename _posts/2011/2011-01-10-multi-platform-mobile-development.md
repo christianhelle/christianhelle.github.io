@@ -8,6 +8,9 @@ tags:
 modified_time: '2011-01-10T14:37:34.170+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-6313747424614316363
 blogger_orig_url: https://christian-helle.blogspot.com/2011/01/multi-platform-mobile-development.html
+redirect_from:
+- /blog/2011/01/10/multi-platform-mobile-development/
+- /blog/2011/01/10/multi-platform-mobile-development
 ---
 
 I've been away from the blog sphere for a few months due to contracts I had to complete. I can't and won't complain about that since its these piles of work that get the bills payed. The types of jobs I've been getting lately have been changing, I've seen customers requesting for 3 different platform implementations of mobile applications. So these past few months I've been working on Android, Windows Mobile, Windows Phone 7, and as of last week iPhone. I find these challenges to be really fun even though the initial start up with a new platform doesn't always go that fast. Once you get a hang of it you learn to appreciate the architectural difference of each platform.
