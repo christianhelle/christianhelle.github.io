@@ -10,6 +10,8 @@ tags:
 modified_time: '2010-04-29T19:32:31.886+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5976418551323130243
 blogger_orig_url: https://christian-helle.blogspot.com/2010/04/how-to-enumerate-files-on-windows-ce.html
+redirect_from:
+- /blog/2010/04/29/how-to-enumerate-files-on-a-windows-ce-based-device-from-the-desktop/
 ---
 
 In this article I'd like to demonstrate how to enumerate files on a Windows CE based device from the desktop.  
