@@ -9,6 +9,9 @@ tags:
 modified_time: '2011-02-02T00:22:46.986+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1726784415064280006
 blogger_orig_url: https://christian-helle.blogspot.com/2011/02/how-to-alpha-blend-2-images-in-wpf.html
+redirect_from:
+- /2011/02/how-to-alpha-blend-2-images-in-wpf/
+- /2011/02/how-to-alpha-blend-2-images-in-wpf
 ---
 
 After having such fun trying to find optimal ways of manipulating images in WPF I decided to write another short post on image manipulation. This time I'd like to demonstrate how to alpha blend 2 images using the WriteableBitmap class.
