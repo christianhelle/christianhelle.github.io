@@ -8,6 +8,8 @@ tags:
 modified_time: '2012-02-21T11:20:29.650+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-8029180074364801730
 blogger_orig_url: https://christian-helle.blogspot.com/2011/06/sql-compact-query-analyzer.html
+redirect_from:
+- /blog/2011/06/07/sql-compact-query-analyzer/
 ---
 
 I’ve been working extensively on enterprise mobility projects lately. These applications integrate into large SAP based systems and when testing the system it can get very tedious to set up some temporary data from the backend. I’m also working with some not-so-technical testers that get intimidated by the Visual Studio or the SQL Server Management Studio. This led me to writing an open source project called [SQL Compact Query Analyzer](http://github.com/christianhelle/sqlcequery)  
