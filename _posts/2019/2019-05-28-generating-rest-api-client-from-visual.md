@@ -10,6 +10,8 @@ modified_time: '2019-06-11T18:55:15.085+02:00'
 thumbnail: /assets/images/solution-explorer-context-menu.jpg
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1786649372449479397
 blogger_orig_url: https://christian-helle.blogspot.com/2019/05/generating-rest-api-client-from-visual.html
+redirect_from:
+- /blog/2019/05/28/generating-a-rest-api-client-from-visual-studio-2017-and-2019/
 ---
 
 For the past year or so, I have been doing a lot of development that involves producing an OpenAPI specification document from a .NET Core based REST API and generating client code using things like [AutoRest](https://github.com/Azure/autorest), [Swagger Codegen](https://github.com/swagger-api/swagger-codegen), [OpenAPI Codegen](https://github.com/OpenAPITools/openapi-generator), and [NSwag](https://github.com/RicoSuter/NSwag). My problem with these tools is that I often need to leave Visual Studio and quite often update the tool before I can re-generate my REST API client code. After doing this a couple of times I thought that I should just build a Visual Studio extension to make my life easier. At the end of last year I started work on a Visual Studio extension called the [REST API Client Code Generator](https://marketplace.visualstudio.com/items?itemName=ChristianResmaHelle.APIClientCodeGenerator), A collection of Visual Studio custom tools for generating a strongly typed REST API Client from an Open API / Swagger specification file
