@@ -6,7 +6,7 @@ author: Christian Helle
 tags: 
 - Visual Studio for Mac
 redirect_from:
-- /2023/03/publish-vsmac-extensions-using-github-actions
+- /2023/03/publish-vsmac-extensions-using-github-actions/
 - /2023/03/publish-vsmac-extensions-using-github-actions
 - /2023/publish-vsmac-extensions-using-github-actions/
 - /2023/publish-vsmac-extensions-using-github-actions

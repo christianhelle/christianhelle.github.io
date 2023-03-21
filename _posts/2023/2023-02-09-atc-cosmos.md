@@ -7,7 +7,7 @@ tags:
 - Azure
 - CosmosDb
 redirect_from:
-- /2023/02/atc-cosmos
+- /2023/02/atc-cosmos/
 - /2023/02/atc-cosmos
 - /2023/atc-cosmos/
 - /2023/atc-cosmos

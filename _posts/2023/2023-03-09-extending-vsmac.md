@@ -6,7 +6,7 @@ author: Christian Helle
 tags: 
 - Visual Studio for Mac
 redirect_from:
-- /2023/03/extending-vsmac
+- /2023/03/extending-vsmac/
 - /2023/03/extending-vsmac
 - /2023/extending-vsmac/
 - /2023/extending-vsmac

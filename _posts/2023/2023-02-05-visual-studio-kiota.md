@@ -9,7 +9,7 @@ tags:
 - Kiota
 - Visual Studio
 redirect_from:
-- /2023/02/visual-studio-kiota
+- /2023/02/visual-studio-kiota/
 - /2023/02/visual-studio-kiota
 - /2023/visual-studio-kiota/
 - /2023/visual-studio-kiota
