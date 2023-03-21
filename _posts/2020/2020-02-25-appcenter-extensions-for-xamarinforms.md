@@ -11,12 +11,12 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-32013853457135156
 blogger_orig_url: https://christian-helle.blogspot.com/2020/02/appcenter-extensions-for-xamarinforms.html
 redirect_from:
     - /blog/2020/02/25/appcenter-extensions-for-xamarin-forms/
-    - /2020/02/appcenter-extensions-for-xamarinforms/
-    - /2020/02/appcenter-extensions-for-xamarinforms
-    - /2020/appcenter-extensions-for-xamarinforms/
-    - /2020/appcenter-extensions-for-xamarinforms
-    - /appcenter-extensions-for-xamarinforms/
-    - /appcenter-extensions-for-xamarinforms
+    - /2020/02/appcenter-extensions-for-xamarin-forms/
+    - /2020/02/appcenter-extensions-for-xamarin-forms
+    - /2020/appcenter-extensions-for-xamarin-forms/
+    - /2020/appcenter-extensions-for-xamarin-forms
+    - /appcenter-extensions-for-xamarin-forms/
+    - /appcenter-extensions-for-xamarin-forms
 ---
 
 For the past 3 years or so I have been AppCenter for Crash Reporting and Analytics in Xamarin based apps. During this time, I have mostly built enterprise focused apps using Xamarin.Forms and as a developer I always think about code reuse which usually comes in the form of a library. Early this year, I decided to create and open source a set of convenience classes and extension methods to simplify Crash Reporting and Analytics using AppCenter and called it **[AppCenterExtensions](https://github.com/christianhelle/appcenterextensions)**.  
