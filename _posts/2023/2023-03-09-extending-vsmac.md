@@ -91,7 +91,7 @@ Commands can be bound to keyboard shortcuts and can be inserted into menus. In t
 
 ### Step 4 - Implement the CommandHandler
 
-Now that the `InsertText` command is registered, we need to implement a command handler.  The simplest way to use it is with a default handler, which is a class that implements `MonoDevelop.Components.Commands.CommandHandler`. Let's implement `CommandHandler` as `InsertTextHandler` to be only avaiable when an active document is open
+Now that the `InsertText` command is registered, we need to implement a command handler.  The simplest way to use it is with a default handler, which is a class that implements `MonoDevelop.Components.Commands.CommandHandler`. Let's implement `CommandHandler` as `InsertTextHandler` to be only available when an active document is open
 
 We will also need to create the `SampleCommands` enum
 
