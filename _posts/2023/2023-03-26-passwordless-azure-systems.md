@@ -23,7 +23,7 @@ This overly simplified setup is a common theme in most of the Azure systems that
 
 ## Azure Key Vault
 
-If we were to build a similar system **without** using [**RBAC**](https://learn.microsoft.com/en-us/azure/role-based-access-control/overview?WT.mc_id=DT-MVP-5004822) then we would probably include an [**Azure Key Vault**](https://learn.microsoft.com/en-us/azure/key-vault/general/basic-concepts?WT.mc_id=DT-MVP-5004822) to securely store our secrets, and grant only our App Services LIST and GET access to those secrets. These secrets will most likely be provisioned from some CI/CD pipeline which will also be responsible for rotating secrets upon every deployment. The problem with that setup is that anyone who can access the Keyvault can also access the secrets. Another problem with that is that you need to build some infrastructure yourself for rotating secrets to avoid down time, this could be something in the lines of creating a new secret (connection string, access key, password, etc) and storing that to the same Keyvault Secret entry, then ensuring that the App has loaded the new secret, then deleting the old secret (connection string, access key, password, etc) from whatever system owns it. There are couple of ways to automate rotating secrets, all of which I find to be rather troublesome. 
+If we were to build a similar system **without** using [**RBAC**](https://learn.microsoft.com/en-us/azure/role-based-access-control/overview?WT.mc_id=DT-MVP-5004822) then we would probably include an [**Azure Key Vault**](https://learn.microsoft.com/en-us/azure/key-vault/general/basic-concepts?WT.mc_id=DT-MVP-5004822) to securely store our secrets, and grant only our App Services LIST and GET access to those secrets. These secrets will most likely be provisioned from some CI/CD pipeline which will also be responsible for rotating secrets upon every deployment. The problem with that setup is that anyone who can access the Keyvault can also access the secrets. Another problem with that is that you need to build some infrastructure yourself for rotating secrets to avoid down time, this could be something in the lines of creating a new secret (connection string, access key, password, etc) and storing that to the same Keyvault Secret entry, then ensuring that the App has loaded the new secret, then deleting the old secret (connection string, access key, password, etc) from whatever system owns it. There are couple of ways to automate rotating secrets, all of which I find to be rather troublesome.
 
 ## Managed Service Identity
 
@@ -36,3 +36,5 @@ Before we can do anything, our application, the REST API and Azure Functions, ru
 which will create a application in Azure Active Directory to which we will assign roles to
 
 ![](/assets/images/passwordless-azure-appservice-msi-ad.png)
+
+We need to do this for both the REST API and the Azure Functions.
