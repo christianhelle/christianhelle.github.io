@@ -12,6 +12,15 @@ tags:
 modified_time: '2010-05-17T20:57:02.158+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5663003056614670748
 blogger_orig_url: https://christian-helle.blogspot.com/2010/05/themed-image-button-in-netcf.html
+redirect_from:
+- /2010/05/17/themed-image-button-in-netcf/
+- /2010/05/17/themed-image-button-in-netcf
+- /2010/05/themed-image-button-in-netcf/
+- /2010/05/themed-image-button-in-netcf
+- /2010/themed-image-button-in-netcf/
+- /2010/themed-image-button-in-netcf
+- /themed-image-button-in-netcf/
+- /themed-image-button-in-netcf
 ---
 
 In this article I'd like to demonstrate how to create a themed image button control. I'll be using the same techniques in my previous article, [How to draw a textured rounded rectangle](/2010/01/how-to-draw-textured-rounded-rectangle.html) and [Semi-Transparent Controls in .NETCF](/2010/01/semi-transparent-controls-in-netcf.html).  
