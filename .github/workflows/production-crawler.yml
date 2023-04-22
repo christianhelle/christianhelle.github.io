@@ -22,7 +22,9 @@ jobs:
       - name: Install LinkChecker
         run: pip install linkchecker
       - name: Run LinkChecker
-        run: linkchecker https://christianhelle.com --check-extern > broken-links-report.txt
+        run: |
+          linkchecker https://christianhelle.com --check-extern > broken-links-report.txt
+          cat broken-links-report.txt
       - name: Publish results
         uses: actions/upload-artifact@v2
         with:
