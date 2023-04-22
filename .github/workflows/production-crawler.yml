@@ -23,7 +23,6 @@ jobs:
         run: pip install linkchecker
       - name: Run LinkChecker
         run: linkchecker https://christianhelle.com --check-extern > broken-links-report.txt
-        continue-on-error: true
       - name: Publish results
         uses: actions/upload-artifact@v2
         with:
