@@ -17,7 +17,7 @@ redirect_from:
 - /visual-studio-kiota
 ---
 
-A week ago while I was browsing around what's trending on Github, I stumbled upon something called [Microsoft Kiota](https://github.com/microsoft/kiota?WT.mc_id=DT-MVP-5004822). [Kiota](https://github.com/microsoft/kiota?WT.mc_id=DT-MVP-5004822) is a command line tool for generating an API client to call any OpenAPI described API you are interested in. Getting started was quite a good experience as documentation from project Kiota is quite decent, especially for [Building SDK's in .NET](https://microsoft.github.io/kiota/get-started/dotnet.html?WT.mc_id=DT-MVP-5004822). 
+A week ago while I was browsing around what's trending on Github, I stumbled upon something called [Microsoft Kiota](https://github.com/microsoft/kiota?WT.mc_id=DT-MVP-5004822). [Kiota](https://github.com/microsoft/kiota?WT.mc_id=DT-MVP-5004822) is a command line tool for generating an API client to call any OpenAPI described API you are interested in. Getting started was quite a good experience as documentation from project Kiota is quite decent, especially for [Building SDK's in .NET](https://learn.microsoft.com/en-us/openapi/kiota/quickstarts/dotnet?WT.mc_id=DT-MVP-5004822). 
 
 Since [Kiota](https://github.com/microsoft/kiota?WT.mc_id=DT-MVP-5004822) is a .NET Tool and distributed on [nuget.org](https://www.nuget.org/packages/Microsoft.OpenApi.Kiota), installation is as simple as
 
