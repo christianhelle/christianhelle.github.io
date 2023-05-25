@@ -107,6 +107,6 @@ Pretty simple isn’t it?
 
 **Testing on the Emulator**  
 
-To test on the Windows Phone emulator you can use the [Simulation Dashboard](http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206953(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) which integrates directly into Visual Studio. To launch this, go to Tools –> Simulation Dashboard. You can use this tool to Lock and Unlock the emulator to test your apps lock screen integration  
+To test on the Windows Phone emulator you can use the [Simulation Dashboard](https://learn.microsoft.com/en-us/previous-versions/windows/apps/jj206953(v=vs.105)?WT.mc_id=DT-MVP-5004822) which integrates directly into Visual Studio. To launch this, go to Tools –> Simulation Dashboard. You can use this tool to Lock and Unlock the emulator to test your apps lock screen integration  
 
 I hope you found this interesting. You can grab the source code [here](/assets/samples/LockScreenSample.zip)
