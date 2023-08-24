@@ -32,7 +32,7 @@ The screen shots above contain a semi-transparent PictureBox, Label, and Button 
   
 The container or parent control will be the same code I used in my [previous article](/2008/01/transparent-controls-in-netcf.html).  
   
-Windows Mobile 5 and higher offers 2 ways of alpha blending, one through the function [AlphaBlend (GDI)](https://learn.microsoft.com/en-us/previous-versions/windows/embedded/aa452850(v=msdn.10)?WT.mc_id=DT-MVP-5004822) and through the [Imaging API (COM)](http://msdn.microsoft.com/en-us/library/ms925314.aspx?WT.mc_id=DT-MVP-5004822). In this example let's use the AlphaBlend function.  
+Windows Mobile 5 and higher offers 2 ways of alpha blending, one through the function [AlphaBlend (GDI)](https://learn.microsoft.com/en-us/previous-versions/windows/embedded/aa452850(v=msdn.10)?WT.mc_id=DT-MVP-5004822) and through the [Imaging API (COM)](https://learn.microsoft.com/en-us/previous-versions/windows/embedded/ms925314(v=msdn.10)?WT.mc_id=DT-MVP-5004822). In this example let's use the AlphaBlend function.  
   
 To begin with we need to define the [BLENDFUNCTION](http://msdn.microsoft.com/en-us/library/aa452889.aspx?WT.mc_id=DT-MVP-5004822) structure that we'll use as a parameter to AlphaBlend.  
   
