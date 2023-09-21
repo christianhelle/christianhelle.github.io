@@ -15,7 +15,7 @@ I've been helping someone out in the MSDN Smart Device Forums lately with enumer
   
 To enumerate top-level windows we use the [EnumWindows](https://learn.microsoft.com/en-us/previous-versions/ms960376(v=msdn.10)?redirectedfrom=MSDN) method. To enumerate the running programs the same way the Task manager in Windows Mobile does, we just filter out what we don't need. What we don't want are windows that:  
   
-1. Have a parent window - We check by calling [GetParent()](http://msdn.microsoft.com/en-us/library/ms960750.aspx?WT.mc_id=DT-MVP-5004822)  
+1. Have a parent window - We check by calling [GetParent()](https://learn.microsoft.com/en-us/previous-versions/ms960750(v=msdn.10)?redirectedfrom=MSDN)  
 2. Is not visible - We check by calling [IsWindowVisible()](http://msdn.microsoft.com/en-us/library/ms915286.aspx?WT.mc_id=DT-MVP-5004822)  
 3. Tool windows - We check by getting the current extended style (through [GetWindowLong()](http://msdn.microsoft.com/en-us/library/ms960886.aspx?WT.mc_id=DT-MVP-5004822) of the window and checking if `WS_EX_TOOLWINDOW` is set  
   
