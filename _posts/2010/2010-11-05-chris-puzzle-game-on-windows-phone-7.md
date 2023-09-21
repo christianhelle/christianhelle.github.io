@@ -6,7 +6,7 @@ author: Christian Resma Helle
 tags:
 - Windows Phone 7
 modified_time: '2010-11-05T10:39:39.644+01:00'
-thumbnail: http://1.bp.blogspot.com/_kVNAYTvQ3QE/TNPOj-gBg3I/AAAAAAAACsI/mBxypFG3iGE/s72-c/Chris'+Puzzle+Game+on+Marketplace.png
+thumbnail: https://1.bp.blogspot.com/_kVNAYTvQ3QE/TNPOj-gBg3I/AAAAAAAACsI/mBxypFG3iGE/s72-c/Chris'+Puzzle+Game+on+Marketplace.png
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-3646266930041184440
 blogger_orig_url: https://christian-helle.blogspot.com/2010/11/chris-puzzle-game-on-windows-phone-7.html
 ---

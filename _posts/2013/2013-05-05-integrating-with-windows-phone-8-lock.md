@@ -6,7 +6,7 @@ author: Christian Resma Helle
 tags: 
 - Windows Phone 8
 modified_time: '2013-05-06T17:02:52.269+02:00'
-thumbnail: http://lh6.ggpht.com/--tghTed1JPs/UXWn7qFyc7I/AAAAAAAADFg/ih6cMqbzzKk/s72-c/settings_thumb%25255B1%25255D.png?imgmax=800
+thumbnail: https://lh6.ggpht.com/--tghTed1JPs/UXWn7qFyc7I/AAAAAAAADFg/ih6cMqbzzKk/s72-c/settings_thumb%25255B1%25255D.png?imgmax=800
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5193764592110998860
 blogger_orig_url: https://christian-helle.blogspot.com/2013/05/integrating-with-windows-phone-8-lock.html
 ---
@@ -58,7 +58,7 @@ For this example we’ll show a quick status notification
 
 **Code**  
 
-To update the background image of the lock screen we need use the [LockScreen](http://learn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreen(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) class of the [UserProfile](http://learn.microsoft.com/en-us/library/windowsphone/develop/jj207562(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) API. First we check if the user configured the app to be able to set the background of the lock screen, we can do this through [LockScreenManager](http://learn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreenmanager(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) class. If the app isn’t allowed to change the lock screen background then we can open the lock screen settings page.  
+To update the background image of the lock screen we need use the [LockScreen](https://learn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreen(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) class of the [UserProfile](https://learn.microsoft.com/en-us/library/windowsphone/develop/jj207562(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) API. First we check if the user configured the app to be able to set the background of the lock screen, we can do this through [LockScreenManager](https://learn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.system.userprofile.lockscreenmanager(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) class. If the app isn’t allowed to change the lock screen background then we can open the lock screen settings page.  
 
 **Lock screen background (C#)**
 
@@ -75,7 +75,7 @@ else
 }
 ```
 
-To display an icon notification just update the primary application tile with a notification. We can do this by using the [ShellTile](http://learn.microsoft.com/en-US/library/windowsphone/develop/microsoft.phone.shell.shelltile(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) API
+To display an icon notification just update the primary application tile with a notification. We can do this by using the [ShellTile](https://learn.microsoft.com/en-US/library/windowsphone/develop/microsoft.phone.shell.shelltile(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) API
 
 ****Display Notification (C#)**
 

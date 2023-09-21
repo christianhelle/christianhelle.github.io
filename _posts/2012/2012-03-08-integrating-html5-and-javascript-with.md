@@ -8,7 +8,7 @@ tags:
 - Javascript
 - HTML5
 modified_time: '2012-03-09T23:29:57.513+01:00'
-thumbnail: http://4.bp.blogspot.com/-Q2YUMg7r0PI/T1Zqdn7__UI/AAAAAAAAC2E/7PqcN7PY25Y/s72-c/JavascriptCSharpInterop.jpg
+thumbnail: https://4.bp.blogspot.com/-Q2YUMg7r0PI/T1Zqdn7__UI/AAAAAAAAC2E/7PqcN7PY25Y/s72-c/JavascriptCSharpInterop.jpg
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-2972343304265197073
 blogger_orig_url: https://christian-helle.blogspot.com/2012/03/integrating-html5-and-javascript-with.html
 ---
@@ -117,12 +117,12 @@ The code below is the main page of the Silverlight application that will host th
 
 ```xaml
 <phone:PhoneApplicationPage x:Class="PhoneApp.MainPage"
-                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                           xmlns="https://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                           xmlns:x="https://schemas.microsoft.com/winfx/2006/xaml"
                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-                           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                           xmlns:d="https://schemas.microsoft.com/expression/blend/2008"
+                           xmlns:mc="https://schemas.openxmlformats.org/markup-compatibility/2006"
                            mc:Ignorable="d"
                            d:DesignWidth="480"
                            d:DesignHeight="768"

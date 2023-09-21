@@ -7,7 +7,7 @@ tags:
 - Controls
 - ".NET Compact Framework"
 modified_time: '2009-10-22T10:08:36.968+02:00'
-thumbnail: http://2.bp.blogspot.com/_kVNAYTvQ3QE/SuASOXn-KaI/AAAAAAAACKE/M8rAy4xfGDo/s72-c/Bordered+TextBox.BMP
+thumbnail: https://2.bp.blogspot.com/_kVNAYTvQ3QE/SuASOXn-KaI/AAAAAAAACKE/M8rAy4xfGDo/s72-c/Bordered+TextBox.BMP
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-8654290608807268729
 blogger_orig_url: https://christian-helle.blogspot.com/2009/10/generic-bordered-control-base-for-netcf.html
 ---

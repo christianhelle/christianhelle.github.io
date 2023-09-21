@@ -20,11 +20,11 @@ redirect_from:
 - /2011/sql-compact-code-generator
 ---
 
-More than a year ago, I published a project on CodePlex called [SQL Compact Code Generator](http://github.com/christianhelle/sqlcecodegen). Unfortunately, I never managed to find the time to do some work on it and the project was set on a very long hold. A year after I suddenly really needed such a tool and decided that I should put in some hours on the project.  
+More than a year ago, I published a project on CodePlex called [SQL Compact Code Generator](https://github.com/christianhelle/sqlcecodegen). Unfortunately, I never managed to find the time to do some work on it and the project was set on a very long hold. A year after I suddenly really needed such a tool and decided that I should put in some hours on the project.  
 
 I'm currently working on a large enterprise project where changes to the database schema is done rather frequently, to avoid the pain of updating my data layer after every change I decided to use my code generator.  
 
-Here's some details I pulled directly off the ~~CodePlex~~ [Github](http://github.com/christianhelle/sqlcecodegen) page.
+Here's some details I pulled directly off the ~~CodePlex~~ [Github](https://github.com/christianhelle/sqlcecodegen) page.
 
 ### Project Description
 Contains a stand alone GUI application and a Visual Studio Custom Tool for automatically generating a .NET data access layer code for objects in a SQL Server Compact Edition database.  

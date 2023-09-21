@@ -12,7 +12,7 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-52973364458442600
 blogger_orig_url: https://christian-helle.blogspot.com/2010/01/how-to-draw-rounded-rectangle-in-netcf.html
 ---
 
-In this short article I'd like to demonstrate how to draw rounded rectangles by P/Invoking the GDI function [RoundRect](http://learn.microsoft.com/en-us/library/aa929212.aspx?WT.mc_id=DT-MVP-5004822). Let's create an extension method called FillRoundedRectangle to the Graphics class.  
+In this short article I'd like to demonstrate how to draw rounded rectangles by P/Invoking the GDI function [RoundRect](https://learn.microsoft.com/en-us/library/aa929212.aspx?WT.mc_id=DT-MVP-5004822). Let's create an extension method called FillRoundedRectangle to the Graphics class.  
   
 In order to use the function we need to create a few GDI objects: a Pen to draw the border, and a Brush to fill the rectangle. We will mostly use P/Invoke for creating and releasing GDI objects  
   
@@ -46,7 +46,7 @@ static extern bool RoundRect(
     int nHeight);
 ```
 
-The CreateSolidBrush function in native code actually takes a [COLORREF](http://learn.microsoft.com/en-us/library/aa923096.aspx?WT.mc_id=DT-MVP-5004822) parameter, and the developer would normally use the [RGB](http://learn.microsoft.com/en-us/library/aa927387.aspx?WT.mc_id=DT-MVP-5004822) macro to create it. We need to translate that macro into a .NET function  
+The CreateSolidBrush function in native code actually takes a [COLORREF](https://learn.microsoft.com/en-us/library/aa923096.aspx?WT.mc_id=DT-MVP-5004822) parameter, and the developer would normally use the [RGB](https://learn.microsoft.com/en-us/library/aa927387.aspx?WT.mc_id=DT-MVP-5004822) macro to create it. We need to translate that macro into a .NET function  
   
 ```csharp
 static uint GetColorRef(Color value)

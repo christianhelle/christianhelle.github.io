@@ -8,7 +8,7 @@ tags:
 - ".NET Compact Framework"
 - TextBox
 modified_time: '2009-10-22T10:14:52.939+02:00'
-thumbnail: http://4.bp.blogspot.com/_kVNAYTvQ3QE/SuAURsLv9DI/AAAAAAAACKU/P219Ia9hhRI/s72-c/Extended+TextBox.jpg
+thumbnail: https://4.bp.blogspot.com/_kVNAYTvQ3QE/SuAURsLv9DI/AAAAAAAACKU/P219Ia9hhRI/s72-c/Extended+TextBox.jpg
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5141829400233523679
 blogger_orig_url: https://christian-helle.blogspot.com/2009/10/extending-textbox-control-in-netcf.html
 ---
@@ -19,7 +19,7 @@ In this example I will demonstrate how how to display a border around the TextBo
   
 To draw the border I make sure that there is 1 pixel of space around the actual TextBox control. In the OnResize event of the composite control I set the bounds of the inner TextBox the bounds of the composite control minus 1 pixel on each side. If the inner TextBox is not in Multiline mode then the height of the control is forced to match its font size, if so then I resize the composite control to be 1 pixel taller. And draw the border I just clear the drawing surface with the highlight system color if it is Focused, and with white if not.  
   
-To enable and disable the caret, we add a boolean property called EnableCaret. This property is checked every time the control receives or loses focus, to call the native [HideCaret()](http://learn.microsoft.com/en-us/library/ms929930.aspx?WT.mc_id=DT-MVP-5004822) and [ShowCaret()](http://learn.microsoft.com/en-us/library/aa453729.aspx?WT.mc_id=DT-MVP-5004822). As I demonstrated in my previous article called [How to hide the TextBox caret in .NETCF](/2009/10/how-to-hide-textbox-caret-in-netcf.html)  
+To enable and disable the caret, we add a boolean property called EnableCaret. This property is checked every time the control receives or loses focus, to call the native [HideCaret()](https://learn.microsoft.com/en-us/library/ms929930.aspx?WT.mc_id=DT-MVP-5004822) and [ShowCaret()](https://learn.microsoft.com/en-us/library/aa453729.aspx?WT.mc_id=DT-MVP-5004822). As I demonstrated in my previous article called [How to hide the TextBox caret in .NETCF](/2009/10/how-to-hide-textbox-caret-in-netcf.html)  
   
 Here's how it looks like:  
 

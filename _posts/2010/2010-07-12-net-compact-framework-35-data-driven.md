@@ -13,6 +13,6 @@ blogger_orig_url: https://christian-helle.blogspot.com/2010/07/net-compact-frame
 I recently discovered a new book called .NET Compact Framework 3.5 Data Driven Applications. I've so far only read a few chapters but it seems like a promising book providing a lot of examples.  
   
 Here's a downloadable free chapter :  
-[http://www.packtpub.com/data-driven-applications-with-.net-compact-framework-3-5/book?utm\_source=christian-helle.blogspot.com&utm\_medium=bookrev&utm\_content=blog&utm\_campaign=mdb\_003787](http://www.packtpub.com/data-driven-applications-with-.net-compact-framework-3-5/book?utm_source=christian-helle.blogspot.com&utm_medium=bookrev&utm_content=blog&utm_campaign=mdb_003787)  
+[https://www.packtpub.com/data-driven-applications-with-.net-compact-framework-3-5/book?utm\_source=christian-helle.blogspot.com&utm\_medium=bookrev&utm\_content=blog&utm\_campaign=mdb\_003787](https://www.packtpub.com/data-driven-applications-with-.net-compact-framework-3-5/book?utm_source=christian-helle.blogspot.com&utm_medium=bookrev&utm_content=blog&utm_campaign=mdb_003787)  
   
 I plan to write a detailed review of the book once I'm done reading it

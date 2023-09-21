@@ -9,7 +9,7 @@ tags:
 - Windows Mobile
 - ".NET Compact Framework"
 modified_time: '2009-10-12T16:00:03.529+02:00'
-thumbnail: http://4.bp.blogspot.com/_kVNAYTvQ3QE/R4dD2V0d_VI/AAAAAAAAAu0/nxNdlVu_suI/s72-c/pc_capture4.jpg
+thumbnail: https://4.bp.blogspot.com/_kVNAYTvQ3QE/R4dD2V0d_VI/AAAAAAAAAu0/nxNdlVu_suI/s72-c/pc_capture4.jpg
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-7179409956875335575
 blogger_orig_url: https://christian-helle.blogspot.com/2008/01/transparent-controls-in-netcf.html
 redirect_from:

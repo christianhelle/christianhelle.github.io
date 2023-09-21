@@ -9,7 +9,7 @@ tags:
 - Android
 - Windows Mobile
 modified_time: '2011-01-19T21:42:08.095+01:00'
-thumbnail: http://2.bp.blogspot.com/_kVNAYTvQ3QE/TTRCGWEKb6I/AAAAAAAACss/MAOLmek1544/s72-c/wp7%2Blist.png
+thumbnail: https://2.bp.blogspot.com/_kVNAYTvQ3QE/TTRCGWEKb6I/AAAAAAAACss/MAOLmek1544/s72-c/wp7%2Blist.png
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-6203645804872199357
 blogger_orig_url: https://christian-helle.blogspot.com/2011/01/multi-platform-mobile-development_19.html
 ---
@@ -578,7 +578,7 @@ Here's how the XML layout file is for the list item (list_item.xml)
 <?xml version="1.0" encoding="utf-8"?>
  
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:android="https://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:orientation="vertical">

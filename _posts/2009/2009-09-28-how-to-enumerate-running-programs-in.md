@@ -17,7 +17,7 @@ To enumerate top-level windows we use the [EnumWindows](https://learn.microsoft.
   
 1. Have a parent window - We check by calling [GetParent()](https://learn.microsoft.com/en-us/previous-versions/ms960750(v=msdn.10)?redirectedfrom=MSDN)  
 2. Is not visible - We check by calling [IsWindowVisible()](https://learn.microsoft.com/en-us/previous-versions/ms915286(v=msdn.10)?redirectedfrom=MSDN)  
-3. Tool windows - We check by getting the current extended style (through [GetWindowLong()](http://learn.microsoft.com/en-us/library/ms960886.aspx?WT.mc_id=DT-MVP-5004822) of the window and checking if `WS_EX_TOOLWINDOW` is set  
+3. Tool windows - We check by getting the current extended style (through [GetWindowLong()](https://learn.microsoft.com/en-us/library/ms960886.aspx?WT.mc_id=DT-MVP-5004822) of the window and checking if `WS_EX_TOOLWINDOW` is set  
   
 Here's a simple smart device console application the loads and displays a list of running programs:
 

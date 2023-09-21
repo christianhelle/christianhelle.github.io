@@ -6,7 +6,7 @@ author: Christian Resma Helle
 tags: 
 - Windows Phone 8
 modified_time: '2019-06-11T18:56:03.181+02:00'
-thumbnail: http://lh5.ggpht.com/-d_5My4CT_Gg/UWv1X_a6jpI/AAAAAAAADEY/8DdL5NTtKe0/s72-c/id_cap_contacts_thumb%25255B2%25255D.png?imgmax=800
+thumbnail: https://lh5.ggpht.com/-d_5My4CT_Gg/UWv1X_a6jpI/AAAAAAAADEY/8DdL5NTtKe0/s72-c/id_cap_contacts_thumb%25255B2%25255D.png?imgmax=800
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-975202751219361332
 blogger_orig_url: https://christian-helle.blogspot.com/2013/04/using-windows-phone-custom-contact-store.html
 ---
@@ -21,12 +21,12 @@ So here’s the code…
 
 ```xaml
 <phone:PhoneApplicationPage x:Class="CustomContactStore.MainPage"
-                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                           xmlns="https://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                           xmlns:x="https://schemas.microsoft.com/winfx/2006/xaml"
                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-                           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                           xmlns:d="https://schemas.microsoft.com/expression/blend/2008"
+                           xmlns:mc="https://schemas.openxmlformats.org/markup-compatibility/2006"
                            mc:Ignorable="d"
                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
                            FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -141,7 +141,7 @@ namespace CustomContactStore
 }
 ```
 
-To create a custom contact we need to use the [ContactStore](http://learn.microsoft.com/en-us/library/windowsphone/develop/jj207529(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) API, we create an instance of this using the helper method [CreateOrOpenAsync()](http://learn.microsoft.com/en-us/library/windowsphone/develop/jj207576(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822). Now that we have an instance of the contact store, we create an instance of a [StoredContact](http://learn.microsoft.com/en-us/library/windowsphone/develop/jj207727(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) and set the DisplayName property to the value of the display name entered in the UI. The StoredContact object is very limited but we can add [KnownContactProperties](http://learn.microsoft.com/en-US/library/windowsphone/develop/windows.phone.personalinformation.knowncontactproperties(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) such as Email and MobileTelephone. This is done by using the [GetPropertiesAsync()](http://learn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.personalinformation.storedcontact.getpropertiesasync(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) method of the StoredContact instance. The photos can be attached using the [CameraCaptureTask](http://learn.microsoft.com/en-us/library/windowsphone/develop/hh394006(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) or the [PhotoChooserTask](http://learn.microsoft.com/en-us/library/windowsphone/develop/hh394019(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822). We attach the photos by calling the [SetDisplayPictureAsync()](http://learn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.personalinformation.storedcontact.getdisplaypictureasync(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) method of the StoredContact instance. The API’s for the custom contact store are pretty straight forward and easy to use.
+To create a custom contact we need to use the [ContactStore](https://learn.microsoft.com/en-us/library/windowsphone/develop/jj207529(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) API, we create an instance of this using the helper method [CreateOrOpenAsync()](https://learn.microsoft.com/en-us/library/windowsphone/develop/jj207576(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822). Now that we have an instance of the contact store, we create an instance of a [StoredContact](https://learn.microsoft.com/en-us/library/windowsphone/develop/jj207727(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) and set the DisplayName property to the value of the display name entered in the UI. The StoredContact object is very limited but we can add [KnownContactProperties](https://learn.microsoft.com/en-US/library/windowsphone/develop/windows.phone.personalinformation.knowncontactproperties(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) such as Email and MobileTelephone. This is done by using the [GetPropertiesAsync()](https://learn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.personalinformation.storedcontact.getpropertiesasync(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) method of the StoredContact instance. The photos can be attached using the [CameraCaptureTask](https://learn.microsoft.com/en-us/library/windowsphone/develop/hh394006(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) or the [PhotoChooserTask](https://learn.microsoft.com/en-us/library/windowsphone/develop/hh394019(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822). We attach the photos by calling the [SetDisplayPictureAsync()](https://learn.microsoft.com/en-us/library/windowsphone/develop/windows.phone.personalinformation.storedcontact.getdisplaypictureasync(v=vs.105).aspx?WT.mc_id=DT-MVP-5004822) method of the StoredContact instance. The API’s for the custom contact store are pretty straight forward and easy to use.
 
 **Manifest**
 

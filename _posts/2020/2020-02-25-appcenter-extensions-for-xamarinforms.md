@@ -150,10 +150,10 @@ XAML Example:
 ```csharp
 <?xml version="1.0" encoding="utf-8"?>
 <ext:TrackingContentPage 
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design" 
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns="https://xamarin.com/schemas/2014/forms" 
+    xmlns:x="https://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:d="https://xamarin.com/schemas/2014/forms/design" 
+    xmlns:mc="https://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ext="clr-namespace:AppCenterExtensions.XamarinForms;assembly=AppCenterExtensions.XamarinForms"
     mc:Ignorable="d" 
     x:Class="SampleApp.Views.ItemDetailPage" 

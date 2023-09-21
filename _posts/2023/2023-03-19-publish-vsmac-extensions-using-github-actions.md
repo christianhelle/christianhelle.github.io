@@ -272,7 +272,7 @@ The `root.mrep` file describes the files in th repository and looks something li
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<Repository xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="https://www.w3.org/2001/XMLSchema">
   <Addin>
     <Url>Sample.mpack</Url>
     <Addin>
@@ -300,7 +300,7 @@ The `main.mrep` files points to the `root.mrep` file. You will be adding the dir
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<Repository xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="https://www.w3.org/2001/XMLSchema">
   <Repository>
     <Url>root.mrep</Url>
     <LastModified>2023-03-20T15:31:42.3222075+00:00</LastModified>

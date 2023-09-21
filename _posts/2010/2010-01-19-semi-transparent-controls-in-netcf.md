@@ -9,7 +9,7 @@ tags:
 - Windows Mobile
 - ".NET Compact Framework"
 modified_time: '2010-01-24T21:33:48.078+01:00'
-thumbnail: http://3.bp.blogspot.com/_kVNAYTvQ3QE/SVH_9-UkIrI/AAAAAAAABjE/5_UGXBzV1ig/s72-c/danfoss+rfid+mobile+1.JPG
+thumbnail: https://3.bp.blogspot.com/_kVNAYTvQ3QE/SVH_9-UkIrI/AAAAAAAABjE/5_UGXBzV1ig/s72-c/danfoss+rfid+mobile+1.JPG
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-2869394435067622677
 blogger_orig_url: https://christian-helle.blogspot.com/2010/01/semi-transparent-controls-in-netcf.html
 redirect_from:
@@ -85,7 +85,7 @@ static extern bool AlphaBlend(
     BLENDFUNCTION blendfunction);
 ```
 
-We'll be using the [GradientFill](http://learn.microsoft.com/en-us/library/aa453192.aspx?WT.mc_id=DT-MVP-5004822) method as well in this example. For this we need to define 2 structures, [TRIVERTEX](http://learn.microsoft.com/en-us/library/aa453818.aspx?WT.mc_id=DT-MVP-5004822) and [GRADIENT\_RECT](http://learn.microsoft.com/en-us/library/aa453193.aspx?WT.mc_id=DT-MVP-5004822)  
+We'll be using the [GradientFill](https://learn.microsoft.com/en-us/library/aa453192.aspx?WT.mc_id=DT-MVP-5004822) method as well in this example. For this we need to define 2 structures, [TRIVERTEX](https://learn.microsoft.com/en-us/library/aa453818.aspx?WT.mc_id=DT-MVP-5004822) and [GRADIENT\_RECT](https://learn.microsoft.com/en-us/library/aa453193.aspx?WT.mc_id=DT-MVP-5004822)  
   
 ```csharp
 struct TRIVERTEX
