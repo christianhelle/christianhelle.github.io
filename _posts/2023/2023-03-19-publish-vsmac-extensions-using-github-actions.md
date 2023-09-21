@@ -44,7 +44,7 @@ git remote add origin git@github.com:christianhelle/my-vsmac-extension-repo.git
 git push -u origin main
 ```
 
-Now that we have a repository, we need to [Create a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token?WT.mc_id=DT-MVP-5004822)
+Now that we have a repository, we need to [Create a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens?WT.mc_id=DT-MVP-5004822)
 
 ![](/assets/images/github-developer-settings-pat.png)
 
