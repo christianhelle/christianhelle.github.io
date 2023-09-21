@@ -14,9 +14,9 @@ redirect_from:
 - /build-vsmac-extensions-using-github-actions
 ---
 
-In my previous article on [Extending Visual Studio for Mac 2022](/2023/03/extending-vsmac.html), I went through a step-by-step walkthrough to build a simple [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) extension that does adds a menu item under the Edit menu, which when clicked, will write `// Hello` at the current cursor position of the currently active document. 
+In my previous article on [Extending Visual Studio for Mac 2022](/2023/03/extending-vsmac.html), I went through a step-by-step walkthrough to build a simple [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/?WT.mc_id=DT-MVP-5004822) extension that does adds a menu item under the Edit menu, which when clicked, will write `// Hello` at the current cursor position of the currently active document. 
 
-[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac?WT.mc_id=DT-MVP-5004822) extensions can be created using SDK Style .NET projects use .NET 7.0 as the target framework. The first requirement for setting up a build pipeline is being able to build the project from the command line. Using the example from the [the previous article](/2023/03/extending-vsmac.html), let's build the Sample project using a Github Actions workflow
+[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/?WT.mc_id=DT-MVP-5004822) extensions can be created using SDK Style .NET projects use .NET 7.0 as the target framework. The first requirement for setting up a build pipeline is being able to build the project from the command line. Using the example from the [the previous article](/2023/03/extending-vsmac.html), let's build the Sample project using a Github Actions workflow
 
 In case you are new to [Github Actions](https://docs.github.com/en/actions/quickstart?WT.mc_id=DT-MVP-5004822), you should create the folder `/.github/workflows` in your git repo, then create a workflow file under the folder we just created.
 
