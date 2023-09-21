@@ -85,7 +85,7 @@ static extern bool AlphaBlend(
     BLENDFUNCTION blendfunction);
 ```
 
-We'll be using the [GradientFill](http://msdn.microsoft.com/en-us/library/aa453192.aspx?WT.mc_id=DT-MVP-5004822) method as well in this example. For this we need to define 2 structures, [TRIVERTEX](http://msdn.microsoft.com/en-us/library/aa453818.aspx?WT.mc_id=DT-MVP-5004822) and [GRADIENT\_RECT](http://msdn.microsoft.com/en-us/library/aa453193.aspx?WT.mc_id=DT-MVP-5004822)  
+We'll be using the [GradientFill](http://learn.microsoft.com/en-us/library/aa453192.aspx?WT.mc_id=DT-MVP-5004822) method as well in this example. For this we need to define 2 structures, [TRIVERTEX](http://learn.microsoft.com/en-us/library/aa453818.aspx?WT.mc_id=DT-MVP-5004822) and [GRADIENT\_RECT](http://learn.microsoft.com/en-us/library/aa453193.aspx?WT.mc_id=DT-MVP-5004822)  
   
 ```csharp
 struct TRIVERTEX

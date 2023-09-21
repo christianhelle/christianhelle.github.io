@@ -15,7 +15,7 @@ blogger_orig_url: https://christian-helle.blogspot.com/2012/03/accessing-acceler
 
 In my [previous post](/2012/03/integrating-html5-and-javascript-with.html) I discussed how to have Javascript code hosted in a WebBrowser control execute .NET code in the host application and vice versa. I also demonstrated how to retrieve and display device status information using HTML5 hosted in a WebBrowser control.  
 
-For this sample I would like to demonstrate how to access the [Accelerometer](http://msdn.microsoft.com/en-us/library/microsoft.devices.sensors.accelerometer.aspx?WT.mc_id=DT-MVP-5004822) sensor from HTML5 and Javascript. To make things more interesting, the Accelerometer reading data will be constantly updated every 100 milliseconds and .NET code will repeatedly call a Javascript method as Accelerometer reading data gets updated  
+For this sample I would like to demonstrate how to access the [Accelerometer](http://learn.microsoft.com/en-us/library/microsoft.devices.sensors.accelerometer.aspx?WT.mc_id=DT-MVP-5004822) sensor from HTML5 and Javascript. To make things more interesting, the Accelerometer reading data will be constantly updated every 100 milliseconds and .NET code will repeatedly call a Javascript method as Accelerometer reading data gets updated  
 
 [![](/assets/images/accelerometer-emulator.png)
 
@@ -182,6 +182,6 @@ public partial class MainPage : PhoneApplicationPage
 }
 ```
 
-What happens in the code above is that a Javascript method is executed that notifies the host application telling it to start the Accelerometer when the HTML has loaded. We then add an event handler to the Accelerometers [CurrentValueChanged](http://msdn.microsoft.com/en-us/library/hh239103.aspx?WT.mc_id=DT-MVP-5004822) event that invokes the accelerometerCallback Javascript method and passing in Accelerometer reading data as the arguments. Notice that I use **eval** as the Javascript method to invoke and passing the method call as an argument, this is because the accelerometer reading data is retrieved on a worker thread and for some reason an unknown system error occurs even when executing code on the UI thread through the Page Dispatcher.BeginInvoke() method. I figured out that using **eval** was the only way to execute Javascript code from a .NET worker thread.  
+What happens in the code above is that a Javascript method is executed that notifies the host application telling it to start the Accelerometer when the HTML has loaded. We then add an event handler to the Accelerometers [CurrentValueChanged](http://learn.microsoft.com/en-us/library/hh239103.aspx?WT.mc_id=DT-MVP-5004822) event that invokes the accelerometerCallback Javascript method and passing in Accelerometer reading data as the arguments. Notice that I use **eval** as the Javascript method to invoke and passing the method call as an argument, this is because the accelerometer reading data is retrieved on a worker thread and for some reason an unknown system error occurs even when executing code on the UI thread through the Page Dispatcher.BeginInvoke() method. I figured out that using **eval** was the only way to execute Javascript code from a .NET worker thread.  
 
 I hope you found this useful. You can grab the full source code for the example [here](/assets/samples/Accelerometer.zip)

@@ -21,7 +21,7 @@ redirect_from:
 
 I had a task to complete today where I was to create an application to toggle the Wi-Fi radio. I had two major requirements for this task; I was supposed to not spend more an hour on this and it must run on older devices running Pocket PC 2003 (or older)  
   
-This is what I came up with, 1 function (the entry point) and it uses only 3 power management API calls; [GetDevicePower](http://msdn.microsoft.com/en-us/library/ms889220.aspx?WT.mc_id=DT-MVP-5004822), [DevicePowerNotify](http://msdn.microsoft.com/en-us/library/ms896927.aspx?WT.mc_id=DT-MVP-5004822), and [SetDevicePower](http://msdn.microsoft.com/en-us/library/ms889493.aspx?WT.mc_id=DT-MVP-5004822)  
+This is what I came up with, 1 function (the entry point) and it uses only 3 power management API calls; [GetDevicePower](http://learn.microsoft.com/en-us/library/ms889220.aspx?WT.mc_id=DT-MVP-5004822), [DevicePowerNotify](http://learn.microsoft.com/en-us/library/ms896927.aspx?WT.mc_id=DT-MVP-5004822), and [SetDevicePower](http://learn.microsoft.com/en-us/library/ms889493.aspx?WT.mc_id=DT-MVP-5004822)  
   
 Basically I spent most of the time finding the device name for the wireless device. It seems to be pretty used for Intermec devices as I tested it on 3 different devices (or it could also be that only those 3 devices used the same device name)  
   
