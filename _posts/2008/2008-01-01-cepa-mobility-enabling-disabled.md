@@ -15,4 +15,4 @@ Yesterday, while I was checking out what's new on MSDN's Channel 9 website I saw
   
 Here are some very interesting and inspiring videos of the guys and their work:  
   
-[YouTube - Mobile Communicator for People with Disabilities](http://www.youtube.com/watch?v=-8stlsIN3tU&)
+[YouTube - Mobile Communicator for People with Disabilities](https://www.youtube.com/watch?v=-8stlsIN3tU&)
