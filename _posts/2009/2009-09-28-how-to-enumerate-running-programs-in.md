@@ -13,7 +13,7 @@ blogger_orig_url: https://christian-helle.blogspot.com/2009/09/how-to-enumerate-
 
 I've been helping someone out in the MSDN Smart Device Forums lately with enumerating running programs. I thought I should share it since I don't much results from internet search engines on the topic. So here we go...  
   
-To enumerate top-level windows we use the [EnumWindows](http://msdn.microsoft.com/en-us/library/ms960376.aspx?WT.mc_id=DT-MVP-5004822) method. To enumerate the running programs the same way the Task manager in Windows Mobile does, we just filter out what we don't need. What we don't want are windows that:  
+To enumerate top-level windows we use the [EnumWindows](https://learn.microsoft.com/en-us/previous-versions/ms960376(v=msdn.10)?redirectedfrom=MSDN) method. To enumerate the running programs the same way the Task manager in Windows Mobile does, we just filter out what we don't need. What we don't want are windows that:  
   
 1. Have a parent window - We check by calling [GetParent()](http://msdn.microsoft.com/en-us/library/ms960750.aspx?WT.mc_id=DT-MVP-5004822)  
 2. Is not visible - We check by calling [IsWindowVisible()](http://msdn.microsoft.com/en-us/library/ms915286.aspx?WT.mc_id=DT-MVP-5004822)  
