@@ -38,4 +38,4 @@ public class Vibrate
 }
 ```
 
-For more information on the Vibrate API, you might want to check the [MSDN Documentation](https://learn.microsoft.com/en-us/library/bb416473.aspx?WT.mc_id=DT-MVP-5004822) out.
+For more information on the Vibrate API, you might want to check the [MSDN Documentation](https://learn.microsoft.com/en-us/previous-versions/bb416473(v=msdn.10)?WT.mc_id=DT-MVP-5004822) out.
