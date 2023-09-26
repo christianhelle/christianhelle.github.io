@@ -12,7 +12,7 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-52973364458442600
 blogger_orig_url: https://christian-helle.blogspot.com/2010/01/how-to-draw-rounded-rectangle-in-netcf.html
 ---
 
-In this short article I'd like to demonstrate how to draw rounded rectangles by P/Invoking the GDI function [RoundRect](https://learn.microsoft.com/en-us/library/aa929212.aspx?WT.mc_id=DT-MVP-5004822). Let's create an extension method called FillRoundedRectangle to the Graphics class.  
+In this short article I'd like to demonstrate how to draw rounded rectangles by P/Invoking the GDI function [RoundRect](https://learn.microsoft.com/en-us/previous-versions/aa929212(v=msdn.10)?WT.mc_id=DT-MVP-5004822). Let's create an extension method called FillRoundedRectangle to the Graphics class.  
   
 In order to use the function we need to create a few GDI objects: a Pen to draw the border, and a Brush to fill the rectangle. We will mostly use P/Invoke for creating and releasing GDI objects  
   
