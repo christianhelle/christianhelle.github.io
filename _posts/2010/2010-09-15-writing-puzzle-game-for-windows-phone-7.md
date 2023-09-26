@@ -23,7 +23,7 @@ Enough said and let's get started. The first step is to of course fire up Visual
   
 ![](/assets/images/xna-create-new-project.jpg)
   
-Now that we have a project we can start adding some [content](https://learn.microsoft.com/en-us/library/bb447756.aspx?WT.mc_id=DT-MVP-5004822) or game assets. For this simple project, we will use 3 different game assets: the puzzle image, and 2 [Sprite Font](https://learn.microsoft.com/en-us/library/bb447673.aspx?WT.mc_id=DT-MVP-5004822) for drawing the elapsed playing time and to draw text to congratulate the player once they complete the puzzle. To add content, right click on the PuzzleGameContent project, then click on Add.  
+Now that we have a project we can start adding some [content](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822) or game assets. For this simple project, we will use 3 different game assets: the puzzle image, and 2 [Sprite Font](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822) for drawing the elapsed playing time and to draw text to congratulate the player once they complete the puzzle. To add content, right click on the PuzzleGameContent project, then click on Add.  
 
 ![](/assets/images/xna-add-existing-item.jpg)
   
@@ -114,7 +114,7 @@ public PuzzleGame()
 }
 ```  
 
-Next step is to implement the [Initialize()](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.game.initialize.aspx?WT.mc_id=DT-MVP-5004822) method. This method allows the game to perform any initialization it needs before it starts to run. With a simple game such as this one could debate where to put the initialization code, I could easily see myself having my initialize code in the constructor method. To make this example as XNA'ish let's initialize our non-content variables in the [Initialize()](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.game.initialize.aspx?WT.mc_id=DT-MVP-5004822) method.  
+Next step is to implement the [Initialize()](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822) method. This method allows the game to perform any initialization it needs before it starts to run. With a simple game such as this one could debate where to put the initialization code, I could easily see myself having my initialize code in the constructor method. To make this example as XNA'ish let's initialize our non-content variables in the [Initialize()](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822) method.  
   
 
 ```csharp
@@ -135,7 +135,7 @@ protected override void Initialize()
 }
 ```  
 
-Next we implement the [LoadContent](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.game.loadcontent.aspx?WT.mc_id=DT-MVP-5004822)() and [UnloadContent](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.game.unloadcontent.aspx?WT.mc_id=DT-MVP-5004822)()  
+Next we implement the [LoadContent()](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822) and [UnloadContent()](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822)
   
 ```csharp
 /// <summary>
@@ -174,7 +174,7 @@ protected override void UnloadContent()
 
 You probably noticed that LoadContent calls methods called Divide() and Scramble().  
   
-The Divide() method splits the puzzle image into tiny pieces represented by the PuzzlePiece class. The full puzzle image is stored in a [Texture2D](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.graphics.texture2d.aspx?WT.mc_id=DT-MVP-5004822) object called previewTexture, to split this into pieces I copy the color information of the puzzle image within a specified bounds into an array of type Color and then I set this color information in a new instance of Texture2D.  
+The Divide() method splits the puzzle image into tiny pieces represented by the PuzzlePiece class. The full puzzle image is stored in a [Texture2D](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822) object called previewTexture, to split this into pieces I copy the color information of the puzzle image within a specified bounds into an array of type Color and then I set this color information in a new instance of Texture2D.  
   
 ```csharp
 private void Divide()
@@ -201,7 +201,7 @@ private void Divide()
 }
 ```  
 
-The Scramble() method does exactly what the method name describes, it scrambles the puzzle. The field called scrambledPieces is a key/value pair collection that uses the index of the puzzlePieces collection as the key and the bounds of this image to be drawn on the screen as the value. The bounds of the image is stored in a [Vector2](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.vector2.aspx?WT.mc_id=DT-MVP-5004822) object.  
+The Scramble() method does exactly what the method name describes, it scrambles the puzzle. The field called scrambledPieces is a key/value pair collection that uses the index of the puzzlePieces collection as the key and the bounds of this image to be drawn on the screen as the value. The bounds of the image is stored in a [Vector2](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822) object.  
   
 ```csharp
 private void Scramble()
@@ -236,9 +236,9 @@ private void Scramble()
 }
 ```  
 
-All we need now is to implement the [Game Loop](https://learn.microsoft.com/en-us/library/bb203873.aspx?WT.mc_id=DT-MVP-5004822).  
+All we need now is to implement the [Game Loop](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822).  
   
-The [Update](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.game.update.aspx?WT.mc_id=DT-MVP-5004822)() method will contain the game logic. The game logic will be used for updating the game surface, collision detection, accepting and handling user input, background music, sounds effects, etc. In our game we use it for accepting and handling user input. We accept the user input through polling the Mouse state by calling the static method [Mouse.GetState()](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.input.mouse.getstate.aspx?WT.mc_id=DT-MVP-5004822). We handle the user input by doing a hit test to get which puzzle piece was clicked and moving this piece. Only one piece can be moved at a time and this piece can only move up, down, left, or right. For those who are not familiar with what a hit test is, here's my attempt to define it: A hit test is a way of detecting if 2 objects are touching or intersecting with each other. In our case, we use hit testing to figure out which puzzle piece was clicked by checking all the pieces of the puzzle if the mouse position is inside its bounds. Moving a puzzle piece is implemented as a very basic animation that runs on a separate thread. User input is not handled while the puzzle pieces are being moved around. The update method also updates the game playing time which we later on draw on the screen.  
+The [Update()](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822) method will contain the game logic. The game logic will be used for updating the game surface, collision detection, accepting and handling user input, background music, sounds effects, etc. In our game we use it for accepting and handling user input. We accept the user input through polling the Mouse state by calling the static method [Mouse.GetState()](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822). We handle the user input by doing a hit test to get which puzzle piece was clicked and moving this piece. Only one piece can be moved at a time and this piece can only move up, down, left, or right. For those who are not familiar with what a hit test is, here's my attempt to define it: A hit test is a way of detecting if 2 objects are touching or intersecting with each other. In our case, we use hit testing to figure out which puzzle piece was clicked by checking all the pieces of the puzzle if the mouse position is inside its bounds. Moving a puzzle piece is implemented as a very basic animation that runs on a separate thread. User input is not handled while the puzzle pieces are being moved around. The update method also updates the game playing time which we later on draw on the screen.  
   
 ```csharp
 /// <summary>
@@ -442,7 +442,7 @@ private void CheckForCompletion()
 }
 ```  
 
-Last but not the least we implement the [Draw](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.game.draw.aspx?WT.mc_id=DT-MVP-5004822)() method. This is where we render the screen. We always start by clearing the screen and afterwards adding sprites to our [SpriteBatch](https://learn.microsoft.com/en-us/library/microsoft.xna.framework.graphics.spritebatch.aspx?WT.mc_id=DT-MVP-5004822). In our game we only have 2 ways of rendering the screen: rendering the puzzle game in play; and rendering if the puzzle was solved.  
+Last but not the least we implement the [Draw()](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822) method. This is where we render the screen. We always start by clearing the screen and afterwards adding sprites to our [SpriteBatch](https://learn.microsoft.com/en-us/previous-versions/windows/xna/bb200104(v=xnagamestudio.41)?WT.mc_id=DT-MVP-5004822). In our game we only have 2 ways of rendering the screen: rendering the puzzle game in play; and rendering if the puzzle was solved.  
   
 To render the puzzle game I add a sprite that draws the game playing time on the top left corner then I add a sprite for each piece of the puzzle by iterating through my scrambledPieces collection..  
   
