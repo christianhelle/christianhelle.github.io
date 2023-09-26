@@ -16,7 +16,7 @@ redirect_from:
 
 In this article I'd like to demonstrate how to enumerate files on a Windows CE based device from the desktop.  
   
-Listing the contents of a directly on a Windows CE from the desktop is something I found to be useful every now and then. It involves using the [Remote API](https://learn.microsoft.com/en-us/library/aa920177.aspx?WT.mc_id=DT-MVP-5004822) and ActiveSync / Windows Mobile Device Center  
+Listing the contents of a directly on a Windows CE from the desktop is something I found to be useful every now and then. It involves using the [Remote API](https://learn.microsoft.com/en-us/previous-versions/aa920177(v=msdn.10)?WT.mc_id=DT-MVP-5004822) and ActiveSync / Windows Mobile Device Center  
   
 As usual this will involve a few P/Invokes:  
 
@@ -62,7 +62,7 @@ struct FILETIME
 }
 ```
 
-The [CeRapiInit](https://learn.microsoft.com/en-us/library/aa922061.aspx?WT.mc_id=DT-MVP-5004822) method has be always called before performing Remote API operations. Once done, the [CeRapiUninit](https://learn.microsoft.com/en-us/library/aa918093.aspx?WT.mc_id=DT-MVP-5004822) must be called. For listing the files in a directory, I use [CeFindFirstFile](https://learn.microsoft.com/en-us/library/aa917424.aspx?WT.mc_id=DT-MVP-5004822), [CeFindNextFile](https://learn.microsoft.com/en-us/library/aa918923.aspx?WT.mc_id=DT-MVP-5004822), and [CeFindClose](https://learn.microsoft.com/en-us/library/aa917593.aspx?WT.mc_id=DT-MVP-5004822). How this works: If the file(s) exists CeFindFirstFile will return a valid handle that can be used for calling CeFindNextFile. After going through all the files CeFindNextFile will return false and a call to CeFindClose needs to be called.  
+The [CeRapiInit](https://learn.microsoft.com/en-us/previous-versions/aa922061(v=msdn.10)?WT.mc_id=DT-MVP-5004822) method has be always called before performing Remote API operations. Once done, the [CeRapiUninit](https://learn.microsoft.com/en-us/previous-versions/aa918093(v=msdn.10)?WT.mc_id=DT-MVP-5004822) must be called. For listing the files in a directory, I use [CeFindFirstFile](https://learn.microsoft.com/en-us/previous-versions/aa917424(v=msdn.10)?WT.mc_id=DT-MVP-5004822), [CeFindNextFile](https://learn.microsoft.com/en-us/previous-versions/aa918923(v=msdn.10)?WT.mc_id=DT-MVP-5004822), and [CeFindClose](https://learn.microsoft.com/en-us/previous-versions/aa917593(v=msdn.10)?WT.mc_id=DT-MVP-5004822). How this works: If the file(s) exists CeFindFirstFile will return a valid handle that can be used for calling CeFindNextFile. After going through all the files CeFindNextFile will return false and a call to CeFindClose needs to be called.  
 
 ```csharp
 public static string[] GetFiles(string remoteDirectory)
