@@ -163,4 +163,4 @@ When the contact is viewed from the People Hub the owner of the contact will be 
 
 [![Custom Contact](/assets/images/custom-contact.png)
 
-I hope you found this useful. You can check out the source code [here](assets/samples/CustomContactStore.zip)
+I hope you found this useful. You can check out the source code [here](/assets/samples/CustomContactStore.zip)
