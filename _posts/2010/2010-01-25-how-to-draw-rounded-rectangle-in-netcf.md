@@ -46,7 +46,7 @@ static extern bool RoundRect(
     int nHeight);
 ```
 
-The CreateSolidBrush function in native code actually takes a [COLORREF](https://learn.microsoft.com/en-us/library/aa923096.aspx?WT.mc_id=DT-MVP-5004822) parameter, and the developer would normally use the [RGB](https://learn.microsoft.com/en-us/library/aa927387.aspx?WT.mc_id=DT-MVP-5004822) macro to create it. We need to translate that macro into a .NET function  
+The CreateSolidBrush function in native code actually takes a [COLORREF](https://learn.microsoft.com/en-us/previous-versions/aa923096(v=msdn.10)?WT.mc_id=DT-MVP-5004822) parameter, and the developer would normally use the [RGB](https://learn.microsoft.com/en-us/previous-versions/aa927387(v=msdn.10)?WT.mc_id=DT-MVP-5004822) macro to create it. We need to translate that macro into a .NET function  
   
 ```csharp
 static uint GetColorRef(Color value)
