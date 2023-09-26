@@ -163,6 +163,4 @@ When the contact is viewed from the People Hub the owner of the contact will be 
 
 [![Custom Contact](/assets/images/custom-contact.png)
 
-I hope you found this useful. You can check out the source code using the link below
-
-<iframe height="120" src="https://skydrive.live.com/embed?cid=CA531E7FB4762C70&amp;resid=CA531E7FB4762C70%2136984&amp;authkey=AE6ctkxSOjg-Xgo" frameborder="0" width="98" scrolling="no"></iframe>
+I hope you found this useful. You can check out the source code [here](assets/samples/CustomContactStore.zip)
