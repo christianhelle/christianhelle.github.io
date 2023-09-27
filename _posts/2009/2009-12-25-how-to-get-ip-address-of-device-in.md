@@ -17,4 +17,4 @@ Here's something I see asked every now and then in the community forums. The sol
 IPAddress[] addresses = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
 ```
 
-The code above retrieves the IP addresses for each connected network adapter of the device. The [Dns](https://learn.microsoft.com/en-us/dotnet/api/system.net.dns?WT.mc_id=DT-MVP-5004822) and [IPAddress](https://learn.microsoft.com/en-us/dotnet/api/system.net.ipaddress?WT.mc_id=DT-MVP-5004822) classes belong to the [System.Net](https://learn.microsoft.com/en-us/dotnet/api/system.net?WT.mc_id=DT-MVP-5004822) namespace.
+The code above retrieves the IP addresses for each connected network adapter of the device. The [Dns](https://learn.microsoft.com/en-us/dotnet/api/system.net.dns?view=net-7.0&WT.mc_id=DT-MVP-5004822) and [IPAddress](https://learn.microsoft.com/en-us/dotnet/api/system.net.ipaddress?view=net-7.0&WT.mc_id=DT-MVP-5004822) classes belong to the [System.Net](https://learn.microsoft.com/en-us/dotnet/api/system.net?view=net-7.0&WT.mc_id=DT-MVP-5004822) namespace.

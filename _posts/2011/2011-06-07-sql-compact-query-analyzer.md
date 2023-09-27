@@ -19,7 +19,7 @@ Here’s some details I pulled directly off the ~~CodePlex~~ [Github](https://gi
 ## Project Description
 A SQL Server Compact Edition Database Query Analyzer
 
-#### Download latest release [here](https://github.com/christianhelle/sqlcequery/releases/latest)
+#### Download latest release [here](https://github.com/christianhelle/sqlcequery/releases/tag/1.3.3)
 
 
 *Features:*
@@ -51,28 +51,28 @@ A SQL Server Compact Edition Database Query Analyzer
 
 *Screenshots*
 
-![alt text](https://github.com/christianhelle/sqlcequery/raw/master/Screenshots/QueryResultMessages.png)
+![alt text](https://raw.githubusercontent.com/christianhelle/sqlcequery/master/Screenshots/QueryResultMessages.png)
 - Displays database and schema information and executes multiple SQL queries directly
 
-![alt text](https://github.com/christianhelle/sqlcequery/raw/master/Screenshots/EditTable.png)
+![alt text](https://raw.githubusercontent.com/christianhelle/sqlcequery/master//Screenshots/EditTable.png)
 - Edit the table data directly
 
-![alt text](https://github.com/christianhelle/sqlcequery/raw/master/Screenshots/ContentWithImages.png)
+![alt text](https://raw.githubusercontent.com/christianhelle/sqlcequery/master//Screenshots/ContentWithImages.png)
 - Display the contents of IMAGE fields
 
-![alt text](https://github.com/christianhelle/sqlcequery/raw/master/Screenshots/QueryResultMessages.png)
+![alt text](https://raw.githubusercontent.com/christianhelle/sqlcequery/master/Screenshots/QueryResultMessages.png)
 - Performance numbers for queries
 
-![alt text](https://github.com/christianhelle/sqlcequery/raw/master/Screenshots/QueryResultErrors.png)
+![alt text](https://raw.githubusercontent.com/christianhelle/sqlcequery/master//Screenshots/QueryResultErrors.png)
 - Query errors
 
-![alt text](https://github.com/christianhelle/sqlcequery/raw/master/Screenshots/ResultsAsXml.png)
+![alt text](https://raw.githubusercontent.com/christianhelle/sqlcequery/master//Screenshots/ResultsAsXml.png)
 - Output result set as XML
 
-![alt text](https://github.com/christianhelle/sqlcequery/raw/master/Screenshots/CreateDatabase.png)
+![alt text](https://raw.githubusercontent.com/christianhelle/sqlcequery/master//Screenshots/CreateDatabase.png)
 - Create new database
 
-![alt text](https://github.com/christianhelle/sqlcequery/raw/master/Screenshots/Shrink.png)
+![alt text](https://raw.githubusercontent.com/christianhelle/sqlcequery/master//Screenshots/Shrink.png)
 - Shrink, compact, script database
 
 *Prerequisites:*
