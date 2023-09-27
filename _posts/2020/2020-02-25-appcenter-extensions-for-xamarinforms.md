@@ -57,7 +57,7 @@ The reason for the `async` API here is because `anonymizeAppCenterUser` internal
 **Anonymous User Information**  
 The component `AppCenterSetup` exposes a method called `UseAnonymousUserIdAsync()` which sets the UserId in AppCenter to the first 8 characters a GUID that is unique per app installation. This can be used as a **support key** for uniquely identifying application users for instrumentation and troubleshooting. The **support key** can be attached to all HTTP calls by using the `DiagnosticDelegatingHandler`  
 
-![AppCenter Crash Report](https://github.com/christianhelle/appcenterextensions/raw/master/images/appcenter-crash-report.png?raw=true)  
+![AppCenter Crash Report](https://raw.githubusercontent.com/christianhelle/appcenterextensions/master/images/appcenter-crash-report.png?raw=true)  
 
 **Error Reporting**  
 The library exposes extension methods to the `Exception` class for conveniently reporting Exceptions to AppCenter  
@@ -87,7 +87,7 @@ await httpClient.GetAsync("https://entbpr4b9bdpo.x.pipedream.net/");
   
 In the example above we made an HTTP GET call to the [RequestBin](https://pipedream.com/requestbin) endpoint [https://entbpr4b9bdpo.x.pipedream.net](https://entbpr4b9bdpo.x.pipedream.net/). This will result in the following we inspected in [RequestBin](https://pipedream.com/requestbinr/entbpr4b9bdpo/1XO0uroL0xZlDfvPNKlFBZaRLo0)  
   
-![AppCenter Crash Report](https://github.com/christianhelle/appcenterextensions/raw/master/images/http-diagnostic-headers.png?raw=true)  
+![AppCenter Crash Report](https://raw.githubusercontent.com/christianhelle/appcenterextensions/master/images/http-diagnostic-headers.png?raw=true)  
 **ITrackingCommand** 
 
 This library provides 3 convenience implementations of `ICommand` that will report the action to AppCenter Analytics after successfully invoking the execute callback method  
