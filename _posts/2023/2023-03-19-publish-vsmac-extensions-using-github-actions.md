@@ -18,7 +18,7 @@ In my previous article on [Build Visual Studio for Mac Extensions using Github A
 
 ## Create extensions repository
 
-First thing we need to is to [Create a new Github repository](https://github.com/new?WT.mc_id=DT-MVP-5004822) to publish our builds to. You can do this by either clicking on the **New** button from your Github Profile page under **Repositories** or by clicking [Here](https://github.com/new?WT.mc_id=DT-MVP-5004822)
+First thing we need to is to create a new Github repository to publish our builds to. You can do this by either clicking on the **New** button from your Github Profile page under **Repositories**
 
 ![](/assets/images/new-vsmac-extension-repo-from-profile.png)
 
