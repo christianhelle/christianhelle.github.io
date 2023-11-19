@@ -84,7 +84,7 @@ OPTIONS:
         --base-url <BASE-URL>                                  Default Base URL to use for all requests. Use this if the OpenAPI spec doesn't explicitly specify a server URL
 ```
 
-An example usage would be 
+An example usage would be something like this:
 
 ```sh
 httpgenerator https://petstore.swagger.io/v2/swagger.json
@@ -135,18 +135,17 @@ and produces the following files:
 -rw-r--r--  1 christian  staff  135 Nov 13 22:40 UploadFile.http
 ```
 
-For me, `.http` files seems to be the way going forward. 
+For me, .http files seems to be the way going forward.
 
-There are of course a few challenges in adopting this in my daily workflows. Swagger UI has [Authentication and Authorization)(https://swagger.io/docs/specification/authentication/) built-in and is extremely easy to implement and enable. In fact, enabling security is the first thing I do when I setup a new API project. 
+There are of course a few challenges in adopting this in my daily workflows. Swagger UI has [Authentication and Authorization](https://swagger.io/docs/specification/authentication/) built-in and is extremely easy to implement and enable. In fact, enabling security is the first thing I do when I setup a new API project. 
 
-With the tool HTTP File Generator, adding `Authorization` headers to a `.http` file is trivial, as you can just specify it from the tool like this:
+With the tool HTTP File Generator, adding `Authorization` headers to a .http file is trivial, as you can just specify it from the tool like this:
 
 ```sh
 httpgenerator ./openapi.json --authorization-header Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 
 which will generate `.http` files that look something like this:
-
 
 ```sh
 ### POST /pet Request
@@ -177,7 +176,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
 
 The problem here is that you are not really interested in retrieving or even knowing what Authorization headers your HTTP requests are using. They should just be there if required
 
-I spend all my working hours building software that runs on Microsoft Azure and I extensively use the Azure CLI for various purposes. One of them is for retrieving an access token for the user I'm currently signed in as. With Azure CLI, you can request an access token based on a scope. This works if your API uses roles that are specified in Microsoft Entra ID.
+### Get Authorization header from Azure CLI
+
+I spend all my working hours building software that runs on Microsoft Azure and I extensively use the Azure CLI for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With Azure CLI, you can request an access token based on a scope. This works great if your API uses roles that are specified in Microsoft Entra ID.
 
 Here's an advanced example of generating `.http` files for a REST API hosted on Microsoft Azure that uses the Microsoft Entra ID service as an STS. For this example, I use PowerShell and Azure CLI to retrieve an access token for the user I'm currently logged in with.
 
@@ -193,4 +194,4 @@ az account get-access-token --scope [Some Application ID URI]/.default `
 }
 ```
 
-I run the script above every time I debug my API and I configure git to ignore `.http` files
+I run the script above every time I debug my API and I configure git to ignore `.http` files.
