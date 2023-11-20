@@ -176,7 +176,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
 
 The problem here is that you are not really interested in retrieving or even knowing what Authorization headers your HTTP requests are using. They should just be there if required
 
-### Get Authorization header from Azure CLI
+### Using .http files from Visual Studio Code
+
+If you don't already have the REST Client extension installed then go search for **REST Client**
+
+![](/assets/images/vscode-rest-client-install.png)
+
+Once the **REST Client** extension installed you should be able to see a **Send Request** label when openning .http files. Clicking on **Send Request** will open a tab containing the response
+
+![](/assets/images/vscode-rest-client-request.png)
+
+### Acquire Authorization header from Azure CLI
 
 I spend all my working hours building software that runs on Microsoft Azure and I extensively use the Azure CLI for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With Azure CLI, you can request an access token based on a scope. This works great if your API uses roles that are specified in Microsoft Entra ID.
 
