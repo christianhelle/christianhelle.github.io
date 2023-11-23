@@ -223,7 +223,7 @@ I find that the JetBrains HTTP Client is much smoother than the Visual Studio Co
 
 ### Using .http files from Visual Studio 2022
 
-The latest version of Visual Studio 2022 v17.5 now comes with a built-in HTTP Client that supports `.http` files.
+The newer versions of Visual Studio 2022 (Since 17.5) comes with a built-in HTTP Client that supports `.http` files.
 
 ![Visual Studio 2022 .http file](/assets/images/vs-http-file-request.png)
 
@@ -234,3 +234,5 @@ The Visual Studio 2022 unfortunately doesn't give a very smooth experience. Curr
 The response is pretty decent and gives you options to view the response headers in tabular form
 
 ![Visual Studio 2022 .http response headers](/assets/images/vs-http-file-response-headers.png)
+
+There are some official guidance documentation on how to [Use .http files in Visual Studio 2022](https://learn.microsoft.com/en-us/aspnet/core/test/http-files?view=aspnetcore-8.0&WT.mc_id=DT-MVP-5004822) from [Microsoft Learn](https://learn.microsoft.com/?WT.mc_id=DT-MVP-5004822)
