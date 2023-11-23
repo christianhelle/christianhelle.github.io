@@ -210,11 +210,14 @@ The response is pretty decent and gives you options to view the response headers
 
 ![Visual Studio 2022 .http response headers](/assets/images/vs-http-file-response-headers.png)
 
-### Acquire Authorization header from Azure CLI
 
-I spend all my working hours building software that runs on Microsoft Azure and I extensively use the Azure CLI for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With Azure CLI, you can request an access token based on a scope. This works great if your API uses roles that are specified in Microsoft Entra ID.
+### Replacing SwaggerUI
 
-Here's an advanced example of generating `.http` files for a REST API hosted on Microsoft Azure that uses the Microsoft Entra ID service as an STS. For this example, I use PowerShell and Azure CLI to retrieve an access token for the user I'm currently logged in with. This script is something that I have in all projects and I also configure git to ignore `.http` files, since I re-generated them multiple times a day
+I spend all my working hours building software that runs on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) and I extensively use the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822) for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822), you can request an access token based on a scope. This works great if your API uses roles that are specified in [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822).
+
+Here's an advanced example of generating `.http` files for a REST API hosted on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) that uses the [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822) service as an STS. 
+
+For this example, I use [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/learn/more-powershell-learning?WT.mc_id=DT-MVP-5004822) and [Azure CLI to retrieve an access token for the user I'm currently logged in](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/user-aad-token?WT.mc_id=DT-MVP-5004822) with then I pipe the [access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) to [HttpGenerator](https://github.com/christianhelle/httpgenerator).
 
 ```powershell
 dotnet tool update --global httpgenerator
@@ -230,4 +233,4 @@ az account get-access-token --scope [Some Application ID URI]/.default `
 }
 ```
 
-I run the script above every time I want to debug or test my API's and I have pretty much stopped using Swagger UI
+This script is something that I have in all projects and I also configure git to ignore `.http` files, since I re-generated them multiple times a day. I basically run the script above every time I want to debug or test my API's and I have pretty much stopped using Swagger UI.
