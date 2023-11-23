@@ -214,9 +214,11 @@ The response is pretty decent and gives you options to view the response headers
 
 I spend all my working hours building software that runs on Microsoft Azure and I extensively use the Azure CLI for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With Azure CLI, you can request an access token based on a scope. This works great if your API uses roles that are specified in Microsoft Entra ID.
 
-Here's an advanced example of generating `.http` files for a REST API hosted on Microsoft Azure that uses the Microsoft Entra ID service as an STS. For this example, I use PowerShell and Azure CLI to retrieve an access token for the user I'm currently logged in with.
+Here's an advanced example of generating `.http` files for a REST API hosted on Microsoft Azure that uses the Microsoft Entra ID service as an STS. For this example, I use PowerShell and Azure CLI to retrieve an access token for the user I'm currently logged in with. This script is something that I have in all projects and I also configure git to ignore `.http` files, since I re-generated them multiple times a day
 
 ```powershell
+dotnet tool update --global httpgenerator
+
 az account get-access-token --scope [Some Application ID URI]/.default `
 | ConvertFrom-Json `
 | %{
@@ -228,4 +230,4 @@ az account get-access-token --scope [Some Application ID URI]/.default `
 }
 ```
 
-I run the script above every time I debug my API and I configure git to ignore `.http` files.
+I run the script above every time I want to debug or test my API's and I have pretty much stopped using Swagger UI
