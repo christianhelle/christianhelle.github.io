@@ -17,7 +17,7 @@ redirect_from:
 
 For a quite some time now, when building HTTP based API, I have been [Swagger UI](https://swagger.io/tools/swagger-ui/) for local API endpoint testing. Lately, I've been working on projects with rather large response payloads and Swagger UI gets really slow with this. I didn't take long before I completely swapped out using Swagger UI and went over to using `.http` files.
 
-`.http` files were made popular by the Visual Studio Code extension [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client), which then was adopted by JetBrains IDE's, and later on [Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient). Eventually, the 3rd party extension, REST Client, got baked into Visual Studio 2022 v17.5
+`.http` files were made popular by the Visual Studio Code extension [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client), which then was adopted in [JetBrains IDE's](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html), and later on [Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient) as an extension. Eventually, the 3rd party extension, [REST Client](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient), got baked into Visual Studio 2022 version 17.6 (or later) with the **ASP.NET and Web Development** workload installed.
 
 The contents of a `.http` file contains the verb, path, headers, and the request body. It looks something like this:
 
@@ -49,9 +49,11 @@ Content-Type: application/json
 
 A single `.http` file may contain multiple requests, but I found it more convenient if each endpoint has its own `.http` file. This is a personal preference and I'm in no way saying that this is the correct or best way to use `.http` files.
 
-Most, if not all, ASP.NET API projects will expose a Swagger spec or more correctly, an OpenAPI specifications document. This lead me to take advantage of knowledge and experience OpenAPI specifications and with authoring code generators to create the tool [HTTP File Generator](https://github.com/christianhelle/httpgenerator).
+Most, if not all, ASP.NET API projects will expose a Swagger spec or more correctly, an OpenAPI specifications document. This lead me to take advantage of my knowledge and experience of OpenAPI specifications and with authoring code generators to create the tool [HTTP File Generator](https://github.com/christianhelle/httpgenerator).
 
-HTTP File Generator is distributed as a .NET Tool via NuGet.org. To install, simply use the following command
+[HTTP File Generator](https://github.com/christianhelle/httpgenerator) is distributed as a .NET Tool via [NuGet.org](https://www.nuget.org/packages/HttpGenerator). 
+
+To install, simply use the following command
 
 ```bash
 dotnet tool install --global httpgenerator
@@ -139,7 +141,7 @@ For me, .http files seems to be the way going forward.
 
 There are of course a few challenges in adopting this in my daily workflows. Swagger UI has [Authentication and Authorization](https://swagger.io/docs/specification/authentication/) built-in and is extremely easy to implement and enable. In fact, enabling security is the first thing I do when I setup a new API project.
 
-With the tool HTTP File Generator, adding `Authorization` headers to a .http file is trivial, as you can just specify it from the tool like this:
+With the tool [HTTP File Generator](https://github.com/christianhelle/httpgenerator), adding `Authorization` headers to a .http file is trivial, as you can just specify it from the tool like this:
 
 ```sh
 httpgenerator ./openapi.json --authorization-header Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
@@ -174,15 +176,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
 }
 ```
 
-The problem here is that you are not really interested in retrieving or even knowing what Authorization headers your HTTP requests are using. They should just be there if required
+The problem here is that you are not really interested in retrieving or even knowing what `Authorization` headers your HTTP requests are using. They should just be there if required. **These .http files containing `Authorization` headers should ***NEVER*** be committed to source control**
 
 ### Replacing SwaggerUI
 
-I spend all my working hours building software that runs on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) and I extensively use the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822) for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822), you can request an access token based on a scope. This works great if your API uses roles that are specified in [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822).
+I spend all my working hours building software that runs on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) and I extensively use the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822) for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822), you can [request an access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) based on a [scope](https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc?WT.mc_id=DT-MVP-5004822). This works great if your API uses roles that are specified in [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822).
 
 Here's an advanced example of generating `.http` files for a REST API hosted on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) that uses the [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822) service as an STS.
 
-For this example, I use [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/learn/more-powershell-learning?view=powershell-7.4&WT.mc_id=DT-MVP-5004822) and [Azure CLI to retrieve an access token for the user I'm currently logged in](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/user-aad-token?WT.mc_id=DT-MVP-5004822) with then I pipe the [access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) to [HttpGenerator](https://github.com/christianhelle/httpgenerator).
+For this example, I use [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/learn/more-powershell-learning?view=powershell-7.4&WT.mc_id=DT-MVP-5004822) and [Azure CLI to retrieve an access token for the user I'm currently logged in with](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/user-aad-token?WT.mc_id=DT-MVP-5004822) then I pipe the [access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) to [HTTP File Generator](https://github.com/christianhelle/httpgenerator).
 
 ```powershell
 dotnet tool update --global httpgenerator
@@ -198,8 +200,7 @@ az account get-access-token --scope [Some Application ID URI]/.default `
 }
 ```
 
-This script is something that I have in all projects and I also configure git to ignore `.http` files, since I re-generated them multiple times a day. I basically run the script above every time I want to debug or test my API's and I have pretty much stopped using Swagger UI.
-
+This script is something that I have in all projects and I also configure git to ignore `*.http` files, since I re-generated them multiple times a day and they always contain `Authorization` headers. I basically run the script above every time I want to debug or test my API's and I have pretty much stopped using Swagger UI. In fact, I stay within my IDE of choice entirely while coding, testing, and debugging my API's.
 
 ### Using .http files from Visual Studio Code
 
@@ -223,7 +224,7 @@ I find that the JetBrains HTTP Client is much smoother than the Visual Studio Co
 
 ### Using .http files from Visual Studio 2022
 
-The newer versions of Visual Studio 2022 (Since 17.5) comes with a built-in HTTP Client that supports `.http` files.
+The newer versions of Visual Studio 2022 (Since 17.6) comes with a built-in HTTP Client that supports `.http` files. Older versions require the [Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient) extension
 
 ![Visual Studio 2022 .http file](/assets/images/vs-http-file-request.png)
 
