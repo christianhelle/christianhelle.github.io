@@ -1,6 +1,7 @@
 2023
 ----
 
+*   [Generate .http files from OpenAPI specifications](https://christianhelle.com/2023/11/http-file-generator.html)
 *   [Publish Visual Studio for Mac Extensions using Github Actions](https://christianhelle.com/2023/03/publish-vsmac-extensions-using-github-actions.html)
 *   [Build Visual Studio for Mac Extensions using Github Actions](https://christianhelle.com/2023/03/build-vsmac-extensions-using-github-actions.html)
 *   [Extending Visual Studio for Mac 2022](https://christianhelle.com/2023/03/extending-vsmac.html)
