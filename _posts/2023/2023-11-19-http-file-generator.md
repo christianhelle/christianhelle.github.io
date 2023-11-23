@@ -193,9 +193,9 @@ az account get-access-token --scope [Some Application ID URI]/.default `
 | ConvertFrom-Json `
 | %{
     httpgenerator `
-        https://api.example.com/swagger/v1/swagger.json `
+        https://localhost:5001/swagger/v1/swagger.json `
         --authorization-header ("Bearer " + $_.accessToken) `
-        --base-url https://api.example.com `
+        --base-url https://localhost:5001 `
         --output ./HttpFiles 
 }
 ```
