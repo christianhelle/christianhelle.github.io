@@ -15,9 +15,9 @@ redirect_from:
 - /generate-http-files-from-openapi-spec
 ---
 
-For a quite some time now, when building HTTP based API, I have been [Swagger UI](https://swagger.io/tools/swagger-ui/) for local API endpoint testing. Lately, I've been working on projects with rather large response payloads and Swagger UI gets really slow with this. I didn't take long before I completely swapped out using Swagger UI and went over to using `.http` files. 
+For a quite some time now, when building HTTP based API, I have been [Swagger UI](https://swagger.io/tools/swagger-ui/) for local API endpoint testing. Lately, I've been working on projects with rather large response payloads and Swagger UI gets really slow with this. I didn't take long before I completely swapped out using Swagger UI and went over to using `.http` files.
 
-`.http` files were made popular by the Visual Studio Code extension [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client), which then was adopted by JetBrains IDE's, and later on [Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient). Eventually, the 3rd party extension, REST Client, got baked into Visual Studio 2022 itself
+`.http` files were made popular by the Visual Studio Code extension [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client), which then was adopted by JetBrains IDE's, and later on [Visual Studio 2022](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient). Eventually, the 3rd party extension, REST Client, got baked into Visual Studio 2022 v17.5
 
 The contents of a `.http` file contains the verb, path, headers, and the request body. It looks something like this:
 
@@ -47,7 +47,7 @@ Content-Type: application/json
 }
 ```
 
-A single `.http` file may contain multiple requests, but I found it more convenient if each endpoint has its own `.http` file. This is a personal preference and I'm in no way saying that this is the correct or best way to use `.http` files. 
+A single `.http` file may contain multiple requests, but I found it more convenient if each endpoint has its own `.http` file. This is a personal preference and I'm in no way saying that this is the correct or best way to use `.http` files.
 
 Most, if not all, ASP.NET API projects will expose a Swagger spec or more correctly, an OpenAPI specifications document. This lead me to take advantage of knowledge and experience OpenAPI specifications and with authoring code generators to create the tool [HTTP File Generator](https://github.com/christianhelle/httpgenerator).
 
@@ -137,7 +137,7 @@ and produces the following files:
 
 For me, .http files seems to be the way going forward.
 
-There are of course a few challenges in adopting this in my daily workflows. Swagger UI has [Authentication and Authorization](https://swagger.io/docs/specification/authentication/) built-in and is extremely easy to implement and enable. In fact, enabling security is the first thing I do when I setup a new API project. 
+There are of course a few challenges in adopting this in my daily workflows. Swagger UI has [Authentication and Authorization](https://swagger.io/docs/specification/authentication/) built-in and is extremely easy to implement and enable. In fact, enabling security is the first thing I do when I setup a new API project.
 
 With the tool HTTP File Generator, adding `Authorization` headers to a .http file is trivial, as you can just specify it from the tool like this:
 
@@ -180,11 +180,35 @@ The problem here is that you are not really interested in retrieving or even kno
 
 If you don't already have the REST Client extension installed then go search for **REST Client**
 
-![](/assets/images/vscode-rest-client-install.png)
+![VS Code REST Client Extension Install](/assets/images/vscode-rest-client-install.png)
 
 Once the **REST Client** extension installed you should be able to see a **Send Request** label when openning .http files. Clicking on **Send Request** will open a tab containing the response
 
-![](/assets/images/vscode-rest-client-request.png)
+![VS Code REST Client Extension Usage](/assets/images/vscode-rest-client-request.png)
+
+### Using .http files from JetBrains Rider
+
+JetBrains IDE's come with a built-in HTTP Client that supports `.http` files.
+
+![Rider HTTP Client - .http file](/assets/images/rider-http-file.png)
+
+I find that the JetBrains HTTP Client is much smoother than the Visual Studio Code extension, but this is only noticeable when working with very large payloads.
+
+![Rider HTTP Client Console](/assets/images/rider-http-file-console.png)
+
+### Using .http files from Visual Studio 2022
+
+The latest version of Visual Studio 2022 v17.5 now comes with a built-in HTTP Client that supports `.http` files.
+
+![Visual Studio 2022 .http file](/assets/images/vs-http-file-request.png)
+
+The Visual Studio 2022 unfortunately doesn't give a very smooth experience. Currently, it's a little slow but I'm hopeful that this will improve over time.
+
+![Visual Studio 2022 .http response](/assets/images/vs-http-file-response.png)
+
+The response is pretty decent and gives you options to view the response headers in tabular form
+
+![Visual Studio 2022 .http response headers](/assets/images/vs-http-file-response-headers.png)
 
 ### Acquire Authorization header from Azure CLI
 
