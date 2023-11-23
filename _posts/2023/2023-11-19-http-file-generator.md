@@ -59,7 +59,7 @@ dotnet tool install --global httpgenerator
 
 This command line tool allows me to generate a set of `.http` files from an OpenAPI specifications document (locally and from a URL).
 
-```
+```sh
 USAGE:
     httpgenerator [URL or input file] [OPTIONS]
 
@@ -92,7 +92,7 @@ httpgenerator https://petstore.swagger.io/v2/swagger.json
 
 which outputs the following:
 
-```
+```sh
 HTTP File Generator v0.1.1
 Support key: mbmbqvd
 
@@ -210,12 +210,11 @@ The response is pretty decent and gives you options to view the response headers
 
 ![Visual Studio 2022 .http response headers](/assets/images/vs-http-file-response-headers.png)
 
-
 ### Replacing SwaggerUI
 
 I spend all my working hours building software that runs on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) and I extensively use the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822) for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822), you can request an access token based on a scope. This works great if your API uses roles that are specified in [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822).
 
-Here's an advanced example of generating `.http` files for a REST API hosted on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) that uses the [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822) service as an STS. 
+Here's an advanced example of generating `.http` files for a REST API hosted on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) that uses the [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822) service as an STS.
 
 For this example, I use [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/learn/more-powershell-learning?WT.mc_id=DT-MVP-5004822) and [Azure CLI to retrieve an access token for the user I'm currently logged in](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/user-aad-token?WT.mc_id=DT-MVP-5004822) with then I pipe the [access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) to [HttpGenerator](https://github.com/christianhelle/httpgenerator).
 
