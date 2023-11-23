@@ -182,7 +182,7 @@ I spend all my working hours building software that runs on [Microsoft Azure](ht
 
 Here's an advanced example of generating `.http` files for a REST API hosted on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) that uses the [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822) service as an STS.
 
-For this example, I use [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/learn/more-powershell-learning?WT.mc_id=DT-MVP-5004822) and [Azure CLI to retrieve an access token for the user I'm currently logged in](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/user-aad-token?WT.mc_id=DT-MVP-5004822) with then I pipe the [access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) to [HttpGenerator](https://github.com/christianhelle/httpgenerator).
+For this example, I use [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/learn/more-powershell-learning?view=powershell-7.4&WT.mc_id=DT-MVP-5004822) and [Azure CLI to retrieve an access token for the user I'm currently logged in](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/user-aad-token?WT.mc_id=DT-MVP-5004822) with then I pipe the [access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) to [HttpGenerator](https://github.com/christianhelle/httpgenerator).
 
 ```powershell
 dotnet tool update --global httpgenerator
