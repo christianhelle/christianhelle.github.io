@@ -236,4 +236,4 @@ The response is pretty decent and gives you options to view the response headers
 
 ![Visual Studio 2022 .http response headers](/assets/images/vs-http-file-response-headers.png)
 
-There are some official guidance documentation on how to [Use .http files in Visual Studio 2022](https://learn.microsoft.com/en-us/aspnet/core/test/http-files?view=aspnetcore-8.0&WT.mc_id=DT-MVP-5004822) from [Microsoft Learn](https://learn.microsoft.com/?WT.mc_id=DT-MVP-5004822)
+There are some official guidance documentation on how to [Use .http files in Visual Studio 2022](https://learn.microsoft.com/en-us/aspnet/core/test/http-files?view=aspnetcore-8.0&WT.mc_id=DT-MVP-5004822) from [Microsoft Learn](https://learn.microsoft.com/en-us/?WT.mc_id=DT-MVP-5004822)
