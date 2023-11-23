@@ -176,7 +176,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
 }
 ```
 
-The problem here is that you are not really interested in retrieving or even knowing what `Authorization` headers your HTTP requests are using. They should just be there if required. **These .http files containing `Authorization` headers should NEVER be committed to source control**
+The problem here is that you are not really interested in retrieving or even knowing what `Authorization` headers your HTTP requests are using. They should just be there if required. **These .http files containing Authorization headers should NEVER be committed to source control**
 
 ### Replacing SwaggerUI
 
