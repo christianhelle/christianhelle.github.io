@@ -40,7 +40,7 @@ minima:
     - { platform: mastodon,         user_url: "https://techhub.social/@christianhelle" }
     - { platform: mastodon,         user_url: "https://mastodon.social/@christianhelle" }
 
-paginate: 3
+paginate: 1
 paginate_path: /page/:num/
 defaults:
   - 

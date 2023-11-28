@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{71E1A3ED-9E4A-4C71-BF00-E24EE3E35B79}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlaywrightTests", "tests\playwright\PlaywrightTests.csproj", "{D06B77E7-EF08-4F21-BED5-3A35040098F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_site", "_site", "{88C2DA0B-C884-4895-AAA6-BCB816B5BC55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8C866D12-7461-409E-B903-8789E3EB7E81}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlaywrightTests", "_site\tests\playwright\PlaywrightTests.csproj", "{CB6CAA72-0821-4F65-BAF2-62AA9C5D4389}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D06B77E7-EF08-4F21-BED5-3A35040098F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06B77E7-EF08-4F21-BED5-3A35040098F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D06B77E7-EF08-4F21-BED5-3A35040098F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D06B77E7-EF08-4F21-BED5-3A35040098F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB6CAA72-0821-4F65-BAF2-62AA9C5D4389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB6CAA72-0821-4F65-BAF2-62AA9C5D4389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB6CAA72-0821-4F65-BAF2-62AA9C5D4389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB6CAA72-0821-4F65-BAF2-62AA9C5D4389}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D06B77E7-EF08-4F21-BED5-3A35040098F0} = {71E1A3ED-9E4A-4C71-BF00-E24EE3E35B79}
+		{8C866D12-7461-409E-B903-8789E3EB7E81} = {88C2DA0B-C884-4895-AAA6-BCB816B5BC55}
+		{CB6CAA72-0821-4F65-BAF2-62AA9C5D4389} = {8C866D12-7461-409E-B903-8789E3EB7E81}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66B53786-7E01-4FD7-89DF-E7A46D10FAC8}
+	EndGlobalSection
+EndGlobal
