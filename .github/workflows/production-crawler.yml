@@ -16,7 +16,7 @@ jobs:
     name: Test site for broken links
     steps:
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python_version }}
       - name: Install LinkChecker
