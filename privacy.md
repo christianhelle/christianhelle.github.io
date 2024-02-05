@@ -20,7 +20,7 @@ This website and its owner take a proactive approach to user privacy and ensure 
 
 ## Access logs
 
-The service hosting the **christianhelle.com** website stores access logs. This data is not accessible to and not readable for the owner of this website. The hosting service, GitHub, has their privacy policy is available here: [https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement)
+The service hosting the **christianhelle.com** website stores access logs. This data is not accessible to and not readable for the owner of this website. The hosting service, GitHub, has their privacy policy is available [here](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
 
 ## About cookies
 
@@ -32,7 +32,7 @@ In order to comply with your preferences, **christianhelle.com** may store a sma
 
 ### Google Analytics
 
-**christianhelle.com** uses Google Analytics to analyse the use of this website. Google Analytics generates statistical and other information about website use by means of cookies. The information generated relating to this website is used to create reports about the use of the website. Google will store and use this information. Google's privacy policy is available at: [https://www.google.com/policies/privacy](https://www.google.com/policies/privacy/). To opt-out Of Google Analytics Google created a browser add-on that allows you to turn off Google Analytics trackers, and works for Chrome, Firefox, Safari, Opera, and even Internet Explorer 11.
+**christianhelle.com** uses Google Analytics to analyse the use of this website. Google Analytics generates statistical and other information about website use by means of cookies. The information generated relating to this website is used to create reports about the use of the website. Google will store and use this information. Google's privacy policy is available [here](https://www.google.com/policies/privacy/). To opt-out Of Google Analytics Google created a browser add-on that allows you to turn off Google Analytics trackers, and works for Chrome, Firefox, Safari, Opera, and even Internet Explorer 11.
 
 **christianhelle.com** does not collect and send any Personal Identifiable Information (PII) to Google Analytics and has taken the following steps to make the use of Google Analytics privacy-friendly (GDPR compliant):
 
