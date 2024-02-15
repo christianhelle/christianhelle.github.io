@@ -226,3 +226,5 @@ curlgenerator `
     --base-url https://api.example.com `
     --output ./HttpFiles 
 ```
+
+I hope you found this useful and get inspired to try new things or to start building tools like this of your own. [cURL Request Generator](https://github.com/christianhelle/curlgenerator) is free and open-source so please check it out.
