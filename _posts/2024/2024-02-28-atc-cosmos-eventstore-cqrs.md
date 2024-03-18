@@ -362,7 +362,7 @@ public class SampleProjection(
         EventStreamId id,
         CancellationToken cancellationToken)
     {
-        var streamId = (SampleEventStreamId)id;
+        var streamId = new SampleEventStreamId(id);
         view = await reader.FindAsync(
                    streamId.Id,
                    streamId.Id,
@@ -416,7 +416,6 @@ For a system that has been running for some time, it's probably not a good idea 
 
 To configure a projection to start at a specified date, use the `WithProjectionStartsFrom()` method and specify the start date using `SubscriptionStartOptions.FromDateTime()`
 
-
 ```csharp
 services.AddEventStore(
     builder => builder.UseCQRS(
@@ -426,3 +425,4 @@ services.AddEventStore(
                 SubscriptionStartOptions.FromDateTime(
                     new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc))));))
 ```
+
