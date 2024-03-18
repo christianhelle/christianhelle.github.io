@@ -162,3 +162,151 @@ public sealed class SampleEventStreamId : EventStreamId, IEquatable<SampleEventS
         => HashCode.Combine(Value);
 }
 ```
+
+### Commands
+
+Commands always come in two parts, a command and a command handler. To implement a command, we extend `CommandBase<EventStreamId>`
+
+```csharp
+public record CreateCommand(string Id, string Name, string Address)
+    : CommandBase<SampleEventStreamId>(new SampleEventStreamId(Id));
+```
+
+To implement a command handler, we implement `ICommandHandler<Command>`
+
+```csharp
+public class CreateCommandHandler :
+    ICommandHandler<CreateCommand>
+{
+    public ValueTask ExecuteAsync(
+        CreateCommand command,
+        ICommandContext context,
+        CancellationToken cancellationToken)
+        => ValueTask.CompletedTask;
+}
+```
+
+To use commands, we need to tell the system where to find these commands. With `Atc.Cosmos.EventStore.Cqrs`, you only need to specify which assembly the commands are available. This is done from `AddEventStore(builder => builder.UseCQRS())` like this:
+
+```csharp
+services.AddEventStore(
+    builder => builder.UseCQRS(
+        cqrs => cqrs.AddCommandsFromAssembly<CreateCommand>()))
+```
+
+The outcome of a command is an event. To persist an event, use the `AddEvent()` method of the `ICommandContext`. There are times where there is no outcome because the event had already happened. For example, for session XxxxXxxxXxxx, a user was added using the name and address. The command implementation can prevent inserting a duplicate event by checking if the event had already been recorded. To do this, the command must implement `IConsumeEvent<TEvent>` where `TEvent` is the event in the stream. This looks something like this:
+
+```csharp
+public class CreateCommandHandler :
+    ICommandHandler<CreateCommand>,
+    IConsumeEvent<AddedEvent>
+{
+    private bool created;
+
+    public void Consume(AddedEvent evt, EventMetadata metadata)
+    {
+        this.created = true;
+    }
+
+    public ValueTask ExecuteAsync(
+        CreateCommand command,
+        ICommandContext context,
+        CancellationToken cancellationToken)
+    {
+        if (!created)
+        {
+            context.AddEvent(new AddedEvent(command.Name, command.Address));
+        }
+
+        return ValueTask.CompletedTask;
+    }
+}
+```
+
+The `ICommandContext` also exposes the `ResponseObject` property which you can use to return values to the consumer of the command. The `ResponseObject` is a nullable object type and may contain anything, or nothing. Here's an example of the same command we created previously but now it sets the value `true` to the `ResponseObject` when successful, otherwise the value `false` is set to the `ResponseObject`
+
+```csharp
+public class CreateCommandHandler :
+    ICommandHandler<CreateCommand>,
+    IConsumeEvent<AddedEvent>
+{
+    private bool created;
+
+    public void Consume(AddedEvent evt, EventMetadata metadata)
+    {
+        this.created = true;
+    }
+
+    public ValueTask ExecuteAsync(
+        CreateCommand command,
+        ICommandContext context,
+        CancellationToken cancellationToken)
+    {
+        if (!created)
+        {
+            context.AddEvent(new AddedEvent(command.Name, command.Address));
+            context.ResponseObject = true;
+            return ValueTask.CompletedTask;
+        }
+
+        context.ResponseObject = false;
+        return ValueTask.CompletedTask;
+    }
+}
+```
+
+It is possible to consume events asynchronously by using `IConsumeEventAsync<TEvent>`. This can be useful for calling external API's for whatever reason
+
+```csharp
+public class CreateCommandHandler :
+    ICommandHandler<CreateCommand>,
+    IConsumeEventAsync<AddedEvent>
+{
+    private bool created;
+
+    public Task ConsumeAsync(
+        AddedEvent evt,
+        EventMetadata metadata,
+        CancellationToken cancellationToken)
+    {
+        created = true;
+        // Do something
+        return Task.CompletedTask;
+    }
+
+    public ValueTask ExecuteAsync(
+        CreateCommand command,
+        ICommandContext context,
+        CancellationToken cancellationToken)
+    {
+        if (!created)
+        {
+            context.AddEvent(new AddedEvent(command.Name, command.Address));
+            context.ResponseObject = true;
+        }
+
+        return ValueTask.CompletedTask;
+    }
+}
+```
+
+Executing commands are done through the `ICommandProcessorFactory` interface. This is injected to the `IServiceCollection` IoC container upon `AddEventStore(builder => builder.UseCQRS())`. If we were to execute the `CreateCommand` above, it would look something like this:
+
+```csharp
+public class ConsoleHostedService(ICommandProcessorFactory commandProcessorFactory) : IHostedService
+{
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+        var commandResult = await commandProcessorFactory
+            .Create<CreateCommand>()
+            .ExecuteAsync(
+                new CreateCommand(
+                    Guid.NewGuid().ToString("N"),
+                    "Christian Helle", 
+                    "Address 1, 2100 Copenhagen, Denmark"),
+                cancellationToken);
+
+        Console.WriteLine("Command Response: " + commandResult.Response);
+    }
+}
+```
