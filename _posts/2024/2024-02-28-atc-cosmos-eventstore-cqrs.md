@@ -95,3 +95,33 @@ The required containers are the following:
 - event-store
 - stream-index
 - subscriptions
+
+### Events
+
+To define events, you need to do is to create a record (or class) that is decorated with the `StreamEvent` attribute
+
+```csharp
+[StreamEvent("added-event:v1")]
+public record AddedEvent(string Name, string Address);
+```
+
+The Atc.Cosmos.EventStore library can detect all events within an assembly, this needs to be configured from the `AddEventStore()` extension method
+
+```csharp
+services.AddEventStore(
+    builder =>
+    {
+        builder.UseEvents(catalogBuilder => catalogBuilder.FromAssembly<AddedEvent>());
+    });
+```
+
+It is very important that stream event records/classes are never deleted. The commands and projections engine in Atc.Cosmos.EventStore require that event types are NEVER deleted or changed. If you want to make changes to these event types then you need to create a new version of it. So if we wanted to modify `added-event:v1`, you would deprecate v1 and introduce a `added-event:v2` event
+
+```csharp
+[Obsolete]
+[StreamEvent("added-event:v1")]
+public record AddedEvent(string Name, string Address);
+
+[StreamEvent("added-event:v2")]
+public record AddedEvent(string FirstName, string LastName, string Address);
+```
