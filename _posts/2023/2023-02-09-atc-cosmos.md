@@ -5,7 +5,7 @@ date: '2023-02-09'
 author: Christian Helle
 tags: 
 - Azure
-- CosmosDb
+- Cosmos DB
 redirect_from:
 - /2023/02/atc-cosmos/
 - /2023/02/atc-cosmos

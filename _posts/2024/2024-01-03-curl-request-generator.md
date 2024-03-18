@@ -6,11 +6,11 @@ author: Christian Helle
 tags: 
 - REST
 - OpenAPI
-redirect_from:
-- /2023/11/generate-curl-requests-from-openapi-spec/
-- /2023/11/generate-curl-requests-from-openapi-spec
-- /2023/generate-curl-requests-from-openapi-spec/
-- /2023/generate-curl-requests-from-openapi-spec
+redirect_from: 
+- /2024/01/generate-curl-requests-from-openapi-spec/
+- /2024/01/generate-curl-requests-from-openapi-spec
+- /2024/generate-curl-requests-from-openapi-spec/
+- /2024/generate-curl-requests-from-openapi-spec
 - /generate-curl-requests-from-openapi-spec/
 - /generate-curl-requests-from-openapi-spec
 ---
