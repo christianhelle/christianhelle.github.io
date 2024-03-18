@@ -125,3 +125,40 @@ public record AddedEvent(string Name, string Address);
 [StreamEvent("added-event:v2")]
 public record AddedEvent(string FirstName, string LastName, string Address);
 ```
+
+### Event Stream
+
+Events are always persisted to CosmosDb under a partition key that describes the event stream. To specify the name of the partition key, you need to extend `EventStreamId`and implement `IEquatable<SampleEventStreamId?>`
+
+Let's say that you want to create an event stream called `samples` that contains events for a given session. For this, we want to create an event stream that could be called `samples.[session id]`
+
+```csharp
+public sealed class SampleEventStreamId : EventStreamId, IEquatable<SampleEventStreamId?>
+{
+    private const string TypeName = "samples";
+    public const string FilterIncludeAllEvents = TypeName + ".*";
+
+    public SampleEventStreamId(string id)
+        : base(TypeName, id)
+    {
+        Id = id;
+    }
+
+    public SampleEventStreamId(EventStreamId id)
+        : base(id.Parts.ToArray())
+    {
+        Id = id.Parts[1];
+    }
+
+    public string Id { get; }
+
+    public override bool Equals(object? obj)
+        => Equals(obj as SampleEventStreamId);
+
+    public bool Equals(SampleEventStreamId? other)
+        => other != null && Value == other.Value;
+
+    public override int GetHashCode()
+        => HashCode.Combine(Value);
+}
+```
