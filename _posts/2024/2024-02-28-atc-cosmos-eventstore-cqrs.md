@@ -39,3 +39,59 @@ To be able to run background jobs in a console app to implement a [.NET Generic 
 ```xml
 <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 ```
+
+### Configuration
+
+Like any other modern .NET application, we configure our dependencies and services from `IServiceCollection`
+
+```csharp
+void ConfigureServices(IServiceCollection services)
+{
+}
+```
+
+To setup the event store database, you need to call the `AddEventStore()` extension method. Do this when you configure services used by your system
+
+```csharp
+services.AddEventStore(
+    builder =>
+    {
+        builder.UseCosmosDb();
+        builder.UseCQRS(
+            c =>
+            {
+                c.AddInitialization(
+                    4000,
+                    serviceProvider => serviceProvider
+                        .GetRequiredService<ICosmosInitializer>()
+                        .InitializeAsync(CancellationToken.None));
+            });
+        });
+```
+
+The event store requires that you configure options for `EventStoreClientOptions` so let's implement `IConfigureOptions<EventStoreClientOptions>`
+
+```csharp
+public class ConfigureEventStoreOptions : IConfigureOptions<EventStoreClientOptions>
+{
+    public void Configure(EventStoreClientOptions options)
+    {
+        options.UseCosmosEmulator();
+        options.EventStoreDatabaseId = "CQRS";
+    }
+}
+```
+
+And register the options to `IServiceCollection` using
+
+```csharp
+services.ConfigureOptions<ConfigureEventStoreOptions>();
+```
+
+The event store library will create the database and the required containers if they do not already exist. When you use the library from non-local environments you will need to ensure that the application using the library has rights to create a cosmos database and containers. If you use managed identity from Microsoft Azure, then I suggest that you provision the database and required containers.
+
+The required containers are the following:
+
+- event-store
+- stream-index
+- subscriptions
