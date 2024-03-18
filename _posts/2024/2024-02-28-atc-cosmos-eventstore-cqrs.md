@@ -310,3 +310,119 @@ public class ConsoleHostedService(ICommandProcessorFactory commandProcessorFacto
     }
 }
 ```
+
+### Projections
+
+The `Atc.Cosmos.EventStore.CQRS` library provides infrastructure to run projection jobs. Projections take advantage of the Cosmos DB Change Feed. The change feed in Azure Cosmos DB is a persistent record of changes to a container in the order they occur, which is perfect for Event Sourcing and CQRS as the order of events matter a lot. When introducing a new projection job it will by default start with events from the begining of the `event-store` container. To create projection jobs, you need to implement the `IProjection` interface. The `IProjection` implementation must be decorated with the `[ProjectionFilter]` attribute to specify the stream to read. Projections can be used to build read-models based on the events that have occurred.
+
+```csharp
+[ProjectionFilter(SampleEventStreamId.FilterIncludeAllEvents)]
+public class SampleProjection : IProjection
+{
+    public Task<ProjectionAction> FailedAsync(
+        Exception exception,
+        CancellationToken cancellationToken)
+        => Task.FromResult(ProjectionAction.Continue);
+
+    public Task InitializeAsync(
+        EventStreamId id,
+        CancellationToken cancellationToken)
+        => Task.CompletedTask;
+
+    public Task CompleteAsync(
+        CancellationToken cancellationToken)
+        => Task.CompletedTask;
+}
+```
+
+In the example above, the projection job will execute on all streams where the filter applies. The `InitializeAsync()` method is invoked every time an event is written or updated. Use the `InitializeAsync()` method to load the last known state of the read-model the projection built or prepare the initial state required for the read-model that is going to build. The `CompleteAsync()` method should be used to persist the changes to the read-model.
+
+Here's an example of a projection that builds a read-model based on the events that have occurred. The example will also handle deletion events by deleting the read-model from the persistent store
+
+```csharp
+[ProjectionFilter(SampleEventStreamId.FilterIncludeAllEvents)]
+public class SampleProjection(
+    ICosmosReader<SampleReadModel> reader,
+    ICosmosWriter<SampleReadModel> writer) :
+    IProjection,
+    IConsumeEvent<AddedEvent>,
+    IConsumeEvent<NameChangedEvent>,
+    IConsumeEvent<AddressChangedEvent>,
+    IConsumeEvent<DeletedEvent>
+{
+    private SampleReadModel view = null!;
+    private bool deleted = false;
+
+    public Task<ProjectionAction> FailedAsync(
+        Exception exception,
+        CancellationToken cancellationToken) =>
+        Task.FromResult(ProjectionAction.Continue);
+
+    public async Task InitializeAsync(
+        EventStreamId id,
+        CancellationToken cancellationToken)
+    {
+        var streamId = (SampleEventStreamId)id;
+        view = await reader.FindAsync(
+                   streamId.Id,
+                   streamId.Id,
+                   cancellationToken) ??
+               new SampleReadModel
+               {
+                   Id = streamId.Id
+               };
+    }
+
+    public Task CompleteAsync(
+        CancellationToken cancellationToken) =>
+        deleted
+            ? writer.TryDeleteAsync(view!.Id, view!.PartitionKey, cancellationToken)
+            : writer.WriteAsync(view, cancellationToken);
+
+    public void Consume(AddedEvent evt, EventMetadata metadata)
+    {
+        view.Name = evt.Name;
+        view.Address = evt.Address;
+    }
+
+    public void Consume(NameChangedEvent evt, EventMetadata metadata)
+    {
+        view.Name = evt.NewName;
+    }
+
+    public void Consume(AddressChangedEvent evt, EventMetadata metadata)
+    {
+        view.Address = evt.NewAddress;
+    }
+
+    public void Consume(DeletedEvent evt, EventMetadata metadata)
+    {
+        deleted = true;
+    }
+}
+```
+
+There is no requirement that the read-model should be persisted in the same database that contains the events. Actually, the projection doesn't even need to produce read-models. A projection can also be used as a work flow engine that performs certain operations based on the events that have occurred, a projection should not has no means of persisting new events directly, but there is nothing preventing a projection from executing commands, which in turn, record events to the event stream.
+
+To use projections, we need to configure the projection job from `AddEventStore(builder => builder.UseCQRS())`. This needs to be done for every projection that is used in the system
+
+```csharp
+services.AddEventStore(
+    builder => builder.UseCQRS(
+        cqrs => cqrs.AddProjectionJob<SampleProjection>(nameof(SampleProjection)))
+```
+
+For a system that has been running for some time, it's probably not a good idea to introduce a new projection as by default, this will always start processing events by looking at all the events in the event-store container. If you have events in the millions, billions, or trillions, or more, then `Atc.Cosmos.EventStore.Cqrs` will be unneccessarily consuming request units on the Cosmos DB account. A projection can be configured start from a specified date. This makes sense if a new feature was introduced at a later time hence no events related to the new projection will exist before the features release date.
+
+To configure a projection to start at a specified date, use the `WithProjectionStartsFrom()` method and specify the start date using `SubscriptionStartOptions.FromDateTime()`
+
+
+```csharp
+services.AddEventStore(
+    builder => builder.UseCQRS(
+        cqrs => cqrs.AddProjectionJob<SampleProjection>(
+            nameof(SampleProjection),
+            projection => projection.WithProjectionStartsFrom(
+                SubscriptionStartOptions.FromDateTime(
+                    new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc))));))
+```
