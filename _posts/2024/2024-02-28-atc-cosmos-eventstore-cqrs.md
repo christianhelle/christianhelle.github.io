@@ -20,3 +20,22 @@ For the past 6 or 7 years, I have been using [Azure Cosmos DB](https://learn.mic
 One of the things I use Azure Cosmos DB is for implementing [CQRS](https://www.eventstore.com/cqrs-pattern), a pattern I first heard about from [Mark Seemann](https://blog.ploeh.dk/), an old colleague from a decade and a half ago. I first started really working with Event Sourcing and CQRS 6 or 7 years ago, when I started working with a colleague named [Lars Skovslund](https://www.linkedin.com/in/larsskovslund) 
 
 I must begin this post by stating that I am in no way an expert in the subject and this article is about implementing the pattern with Azure Cosmos DB using a library called [Atc.Cosmos.EventStore](https://github.com/atc-net/atc-cosmos-eventstore)
+
+## Getting started with Atc.Cosmos.EventStore
+
+Let's keep it simple and start off with a simple example .NET 8 Console App that records a few events using commands, and build a real-model using a projection job.
+
+### Packages
+
+To get started, let's bring in the [Atc.Cosmos.EventStore.Cqrs](https://www.nuget.org/packages/Atc.Cosmos.EventStore.Cqrs) NuGet package and for convenience let's add the [Atc.Cosmos](https://www.nuget.org/packages/Atc.Cosmos) package as well
+
+```xml
+<PackageReference Include="Atc.Cosmos.EventStore.Cqrs" Version="1.12.6" />
+<PackageReference Include="Atc.Cosmos" Version="1.1.40" />
+```
+
+To be able to run background jobs in a console app to implement a [.NET Generic Host](https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host?tabs=appbuilder). To get started with implementing a generic host we need to import the [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) package reference
+
+```xml
+<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+```
