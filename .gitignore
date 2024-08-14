@@ -12,3 +12,4 @@ bin/
 
 tests/playwright/obj
 tests/playwright/bin
+_config.yml
