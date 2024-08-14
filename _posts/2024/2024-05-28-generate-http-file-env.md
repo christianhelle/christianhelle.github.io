@@ -27,7 +27,10 @@ Security Token Service (STS).
 - They are deployed to at least 3 environments: Development, Staging, and Production.
 - They can run locally, in development, staging, and production environments.
 
-One of the first things I do when working with an API is to generate `.http` files using HTTP File Generator and generate an `.env` file with the necessary environment variables. I use the Azure CLI to get the access token for the API, in every environment and use it to generate the `.env` file.
+One of the first things I do when working with an API is to generate `.http`
+files using HTTP File Generator and generate an `.env` file with the necessary
+environment variables. I use the Azure CLI to get the access token for the API,
+in every environment and use it to generate the `.env` file.
 
 Here's an example of how I do this using PowerShell:
 
