@@ -1,6 +1,7 @@
 rm _config.yml
 cp _config_dev.yml _config.yml
 
+rm -rf _site
 bundle install && bundle exec jekyll serve --incremental
 
 rm _config.yml
