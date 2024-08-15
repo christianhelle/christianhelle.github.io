@@ -19,10 +19,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-redirect-from
-
-whitelist:
-  - jekyll-redirect-from
 
 minima:
   skin: dark
@@ -43,11 +39,11 @@ minima:
 paginate: 1
 paginate_path: /page/:num/
 defaults:
-  - 
-    scope:
-      path: "page"
-    values:
-      sitemap: false
+ - 
+   scope:
+     path: "page"
+   values:
+     sitemap: false
 
 google_analytics: G-NWTG8BT7S6
 permalink: /:categories/:year/:month/:title:output_ext
