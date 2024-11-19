@@ -96,8 +96,10 @@ The script above will generate an `.env` file with the following content:
 }
 ```
 
-When opening any of the .http files generated in a JetBrains IntelliJ IDE, you will be able to select which environment to use when executing the requests.
+When opening any of the `.http` files generated in a JetBrains IntelliJ IDE,
+you will be able to select which environment to use when executing the requests.
 
-![](/assets/images/rider-http-file-env.png)
+![IntelliJ IDE](/assets/images/rider-http-file-env.png)
 
-At some point the JWT tokens acquired from Azure CLI will expire and you will need to re-generate the `.env` file.
+At some point the JWT tokens acquired from Azure CLI will expire
+and you will need to re-generate the `.env` file.
