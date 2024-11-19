@@ -32,17 +32,21 @@ files using HTTP File Generator and generate an `.env` file with the necessary
 environment variables. I use the Azure CLI to get the access token for the API,
 in every environment and use it to generate the `.env` file.
 
-Here's an example of how I do this using PowerShell:
+To generate `.http` files, I do the following:
 
-```PowerShell
+```powershell
 httpgenerator `
    https://localhost:5001/swagger/v1/swagger.js `
    --load-authorization-header-from-environment `
    --base-url "{{baseUrl}}" `
    --skip-validation `
    --output .http
+```
 
-$api = "service.some.api"
+To generate the `.env` file, I do the following:
+
+```PowerShell
+$api = "api.something.com"
 $devJson = az account get-access-token --scope api://$api/dev/.default | ConvertFrom-Json
 $stagingJson = az account get-access-token --scope api://$api/staging/.default | ConvertFrom-Json
 $prodJson = az account get-access-token --scope api://$api/prod/.default | ConvertFrom-Json
@@ -54,17 +58,46 @@ $environment = @{
   }
   development = @{
     authorization = "Bearer " + $devJson.accessToken
-    baseUrl = "https://clcpmsdevroaming.azurewebsites.net"
+    baseUrl = "https://api.dev.something.com"
   }
   staging = @{
     authorization = "Bearer " + $stagingJson.accessToken
-    baseUrl = "https://clcpmsstagingroaming.azurewebsites.net"
+    baseUrl = "https://api.staging.something.com"
   }
   production = @{
     authorization = "Bearer " + $prodJson.accessToken
-    baseUrl = "https://clcpmsprodroaming.azurewebsites.net"
+    baseUrl = "https://api.something.com"
   }
 }
 
 Set-Content -Path .http/http-client.env.json -Value ($environment | ConvertTo-Json -Depth 10)
 ```
+
+The script above will generate an `.env` file with the following content:
+
+```json
+{
+  "local": {
+    "authorization" : "Bearer [some jwt token]",
+    "baseUrl": "https://localhost:5001"
+  },
+  "staging": {
+    "authorization": "Bearer [some jwt token]",
+    "baseUrl": "https://api.dev.something.com"
+  },
+  "development": {
+    "authorization": "Bearer [some jwt token]",
+    "baseUrl": "https://api.staging.something.com"
+  },
+  "production": {
+    "authorization": "Bearer [some jwt token]",
+    "baseUrl": "https://api.something.com"
+  }
+}
+```
+
+When opening any of the .http files generated in a JetBrains IntelliJ IDE, you will be able to select which environment to use when executing the requests.
+
+![](/assets/images/rider-http-file-env.png)
+
+At some point the JWT tokens acquired from Azure CLI will expire and you will need to re-generate the `.env` file.
