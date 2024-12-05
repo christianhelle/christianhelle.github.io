@@ -128,7 +128,7 @@ public record AddedEvent(string FirstName, string LastName, string Address);
 
 ### Event Stream
 
-Events are always persisted to CosmosDb under a partition key that describes the event stream. To specify the name of the partition key, you need to extend `EventStreamId`and implement `IEquatable<SampleEventStreamId?>`
+Events are always persisted to CosmosDb under a partition key that describes the event stream. To specify the name of the partition key, you need to extend `EventStreamId` (from the `Atc.Cosmos.EventStore.Cqrs` namespace) and implement `IEquatable<SampleEventStreamId?>`
 
 Let's say that you want to create an event stream called `samples` that contains events for a given session. For this, we want to create an event stream that could be called `samples.[session id]`
 
