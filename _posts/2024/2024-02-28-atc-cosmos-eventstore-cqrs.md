@@ -165,7 +165,7 @@ public sealed class SampleEventStreamId : EventStreamId, IEquatable<SampleEventS
 
 ### Commands
 
-Commands always come in two parts, a command and a command handler. To implement a command, we extend `CommandBase<EventStreamId>`
+Commands always come in two parts, a Command and a Command Handler. To implement a command, we extend `CommandBase<EventStreamId>`
 
 ```csharp
 public record CreateCommand(string Id, string Name, string Address)
