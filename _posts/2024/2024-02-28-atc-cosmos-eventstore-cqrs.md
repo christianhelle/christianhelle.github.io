@@ -115,7 +115,7 @@ services.AddEventStore(
     });
 ```
 
-It is very important that stream event records/classes are never deleted. The commands and projections engine in Atc.Cosmos.EventStore require that event types are NEVER deleted or changed. If you want to make changes to these event types then you need to create a new version of it. So if we wanted to modify `added-event:v1`, you would deprecate v1 and introduce a `added-event:v2` event
+It is very important that stream event records/classes are never deleted. The commands and projections engine in [Atc.Cosmos.EventStore](https://github.com/atc-net/atc-cosmos-eventstore) require that event types are ***NEVER*** deleted or changed. If you want to make changes to these event types then you need to create a new version of it. So if we wanted to modify `added-event:v1`, you would deprecate v1 and introduce a `added-event:v2` event
 
 ```csharp
 [Obsolete]
