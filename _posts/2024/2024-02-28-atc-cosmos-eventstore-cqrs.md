@@ -120,7 +120,7 @@ It is very important that stream event records/classes are never deleted. The co
 ```csharp
 [Obsolete]
 [StreamEvent("added-event:v1")]
-public record AddedEvent(string Name, string Address);
+public record AddedEventV1(string Name, string Address);
 
 [StreamEvent("added-event:v2")]
 public record AddedEvent(string FirstName, string LastName, string Address);
