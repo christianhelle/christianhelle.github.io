@@ -23,7 +23,7 @@ I must begin this post by stating that I am in no way an expert in the subject a
 
 ## Getting started with Atc.Cosmos.EventStore
 
-Let's keep it simple and start off with a simple example .NET 8 Console App that records a few events using commands, and build a real-model using a projection job.
+Let's keep it simple and start off with a simple example .NET 8 Console App that records a few events using commands, and build a read-model using a projection job.
 
 ### Packages
 
