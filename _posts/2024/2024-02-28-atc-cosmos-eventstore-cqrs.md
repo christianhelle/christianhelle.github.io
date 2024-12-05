@@ -98,7 +98,7 @@ The required containers are the following:
 
 ### Events
 
-To define events, you need to do is to create a record (or class) that is decorated with the `StreamEvent` attribute
+To define events, you need to do is to create a record (or class) that is decorated with the `StreamEvent` attribute from the `Atc.Cosmos.EventStore.Cqrs` namespace
 
 ```csharp
 [StreamEvent("added-event:v1")]
