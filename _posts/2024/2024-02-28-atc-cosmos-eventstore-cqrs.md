@@ -61,8 +61,8 @@ services.AddEventStore(
             c =>
             {
                 c.AddInitialization(
-                    4000,
-                    serviceProvider => serviceProvider
+                    4000, // Request units to provision
+                    serviceProvider => serviceProvider // Callback to execute post initialization
                         .GetRequiredService<ICosmosInitializer>()
                         .InitializeAsync(CancellationToken.None));
             });
