@@ -88,7 +88,7 @@ And register the options to `IServiceCollection` using
 services.ConfigureOptions<ConfigureEventStoreOptions>();
 ```
 
-The event store library will create the database and the required containers if they do not already exist. When you use the library from non-local environments you will need to ensure that the application using the library has rights to create a cosmos database and containers. If you use managed identity from Microsoft Azure, then I suggest that you provision the database and required containers.
+The event store library will create the database and the required containers if they do not already exist. When you use the library from non-local environments you will need to ensure that the application using the library has rights to create a cosmos database and containers. If you use managed identity from Microsoft Azure, then I suggest that you provision the database and required containers from your deployment pipeline.
 
 The required containers are the following:
 
