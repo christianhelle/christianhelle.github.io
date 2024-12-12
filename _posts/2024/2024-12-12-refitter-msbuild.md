@@ -29,6 +29,27 @@ What happens in the code above is that the Refitter will run before the build pr
 
 The code above also assumes that you already have Refitter installed as a global .NET Tool and that the project folder contains a file called `.refitter`. This might not be the case if you're running on a build agent from a CI/CD environment. In this case you might want to install Refitter as a local tool using a manifest file, as described in [this tutorial](https://learn.microsoft.com/en-us/dotnet/core/tools/local-tools-how-to-use?WT.mc_id=DT-MVP-5004822)
 
+Installing Refitter as a local .NET tool would produce a `dotnet-tools.json` file in the `.config` folder, which you can use to restore the tool before running Refitter. This can be done by adding a `dotnet tool restore` command before running Refitter.
+
+An example of a .NET tool manifest file would be something like this:
+
+```json
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "refitter": {
+      "version": "1.4.0",
+      "commands": [
+        "refitter"
+      ]
+    }
+  }
+}
+```
+
+To use the `dotnet tool restore` command you can modify the MSBuild target to look like this:
+
 ```xml
 <Target Name="Refitter" AfterTargets="PreBuildEvent">
     <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />
