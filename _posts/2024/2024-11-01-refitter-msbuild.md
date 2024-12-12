@@ -23,7 +23,8 @@ To use [Refitter](https://github.com/christianhelle/refitter) from MSBuild you c
 
 ```xml
 <Target Name="Refitter" AfterTargets="PreBuildEvent">
-  <Exec WorkingDirectory="$(ProjectDir)" Command="refitter --settings-file .refitter --skip-validation" />
+  <Exec WorkingDirectory="$(ProjectDir)"
+        Command="refitter --settings-file .refitter --skip-validation" />
 </Target>
 ```
 
@@ -54,8 +55,10 @@ To use the `dotnet tool restore` command you can modify the MSBuild target to lo
 
 ```xml
 <Target Name="Refitter" AfterTargets="PreBuildEvent">
-  <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />
-  <Exec WorkingDirectory="$(ProjectDir)" Command="refitter --settings-file .refitter --skip-validation" />
+  <Exec WorkingDirectory="$(ProjectDir)"
+        Command="dotnet tool restore" />
+  <Exec WorkingDirectory="$(ProjectDir)"
+        Command="refitter --settings-file .refitter --skip-validation" />
 </Target>
 ```
 
@@ -77,8 +80,10 @@ You might want to place the `nuget.config` file in another folder to avoid using
 
 ```xml
 <Target Name="Refitter" AfterTargets="PreBuildEvent">
-  <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore --configfile refitter/nuget.config" />
-  <Exec WorkingDirectory="$(ProjectDir)" Command="refitter --settings-file .refitter --skip-validation" />
+  <Exec WorkingDirectory="$(ProjectDir)"
+        Command="dotnet tool restore --configfile refitter/nuget.config" />
+  <Exec WorkingDirectory="$(ProjectDir)"
+        Command="refitter --settings-file .refitter --skip-validation" />
 </Target>
 ```
 
@@ -88,8 +93,10 @@ Files that are generated during the `PreBuildEvent`` are not automatically inclu
 
 ```xml
 <Target Name="Refitter" AfterTargets="PreBuildEvent">
-  <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore --configfile refitter/nuget.config" />
-  <Exec WorkingDirectory="$(ProjectDir)" Command="refitter --settings-file .refitter --skip-validation" />
+  <Exec WorkingDirectory="$(ProjectDir)"
+        Command="dotnet tool restore --configfile refitter/nuget.config" />
+  <Exec WorkingDirectory="$(ProjectDir)"
+        Command="refitter --settings-file .refitter --skip-validation" />
   <ItemGroup>
     <Compile Include="**\*.Generated.cs" />
   </ItemGroup>
@@ -100,10 +107,13 @@ In the example above, I know that [Refitter](https://github.com/christianhelle/r
 
 ```xml
 <Target Name="Refitter" AfterTargets="PreBuildEvent">
-  <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore --configfile refitter/nuget.config" />
-  <Exec WorkingDirectory="$(ProjectDir)" Command="refitter --settings-file .refitter --skip-validation" />
+  <Exec WorkingDirectory="$(ProjectDir)"
+        Command="dotnet tool restore --configfile refitter/nuget.config" />
+  <Exec WorkingDirectory="$(ProjectDir)"
+        Command="refitter --settings-file .refitter --skip-validation" />
   <ItemGroup>
-    <Compile Include="Petstore.cs" Condition="!Exists('Petstore.cs')" />
+    <Compile Include="Petstore.cs"
+             Condition="!Exists('Petstore.cs')" />
   </ItemGroup>
 </Target>
 ```
