@@ -118,3 +118,72 @@ In the example above, I know that [Refitter](https://github.com/christianhelle/r
 </Target>
 ```
 
+When running into situations where the build fails due to [Refitter](https://github.com/christianhelle/refitter) failing to generate the files and no error is shown when running `dotnet build` then you can use the `--verbosity detailed` argument, `dotnet build --verbosity detailed` or `dotnet build -v d` for short. If for example, `.refitter` contained an incorrect URL to the OpenAPI specifications document and the operation fails, the build output will look something like this:
+
+```bash
+$ dotnet build -v d
+
+Restore complete (0.1s)
+    Determining projects to restore...
+    All projects are up-to-date for restore.
+  refitter-from-msbuild succeeded (2.1s) → bin/Debug/net9.0/refitter-from-msbuild.dll
+    Refitter v1.4.1.0
+    Support key: 7o5ljuh
+
+    Error: Response status code does not indicate success: 404 (Not Found).
+    Exception: System.Net.Http.HttpRequestException
+    Stack Trace:
+       at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+       at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request,
+    CancellationToken cancellationToken)
+       at Refitter.Core.OpenApiDocumentFactory.GetHttpContent(String openApiPath) in
+    /_/src/Refitter.Core/OpenApiDocumentFactory.cs:line 100
+       at Refitter.Core.OpenApiDocumentFactory.CreateUsingNSwagAsync(String
+    openApiPath) in /_/src/Refitter.Core/OpenApiDocumentFactory.cs:line 49
+       at Refitter.Core.OpenApiDocumentFactory.CreateAsync(String openApiPath) in
+    /_/src/Refitter.Core/OpenApiDocumentFactory.cs:line 41
+       at Refitter.Core.RefitGenerator.GetOpenApiDocument(RefitGeneratorSettings
+    settings) in /_/src/Refitter.Core/RefitGenerator.cs:line 35
+       at Refitter.Core.RefitGenerator.CreateAsync(RefitGeneratorSettings settings)
+    in /_/src/Refitter.Core/RefitGenerator.cs:line 19
+       at Refitter.GenerateCommand.ExecuteAsync(CommandContext context, Settings
+    settings) in /_/src/Refitter/GenerateCommand.cs:line 48
+
+    ####################################################################
+    #  Consider reporting the problem if you are unable to resolve it  #
+    #  https://github.com/christianhelle/refitter/issues               #
+    ####################################################################
+
+
+Build succeeded in 2.4s
+```
+
+That gives you a chance to figure out what went wrong, and perhaps report an issue to the Refitter repository. Once you resolve the problem, you can run `dotnet build -v d` again and see that the build now succeeds. An output of something like this is what you want:
+
+```bash
+$ dotnet build -v d
+
+Restore complete (0.1s)
+    Determining projects to restore...
+    All projects are up-to-date for restore.
+  refitter-from-msbuild succeeded (3.0s) → bin/Debug/net9.0/refitter-from-msbuild.dll
+    Refitter v1.4.1.0
+    Support key: 7o5ljuh
+    Output: /Users/christianhelle/projects/refitter-from-msbuild/Petstore.cs
+    Length: 27405 bytes
+    Duration: 00:00:02.1367434
+
+    ###################################################################
+    #  Do you find this tool useful and feel a bit generous?          #
+    #  https://github.com/sponsors/christianhelle                     #
+    #  https://www.buymeacoffee.com/christianhelle                    #
+    #                                                                 #
+    #  Does this tool not work or does it lack something you need?    #
+    #  https://github.com/christianhelle/refitter/issues              #
+    ###################################################################
+
+
+Build succeeded in 3.3s
+```
+
+
