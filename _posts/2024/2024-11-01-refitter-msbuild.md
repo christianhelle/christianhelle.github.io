@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Generate Refit interface from OpenAPI specifications on build time with MSBuild
+title: Generate Refit interfaces from OpenAPI specifications on build time with MSBuild
 date: '2024-11-01'
 author: Christian Helle
 tags: 
