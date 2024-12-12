@@ -82,7 +82,7 @@ You might want to place the `nuget.config` file in another folder to avoid using
 
 In the example above, the `nuget.config` file is placed under the `refitter` folder.
 
-Files that are generated during the PreBuildEvent are not automatically included in the project. To include the generated files, you can add them to the project file using the `ItemGroup` element. You can either specify the files directly or use a wild card to include all files with a specific extension, or files in a specific folder, or you can explicitly specify the files that should be included.
+Files that are generated during the `PreBuildEvent` are not automatically included in the project. To include the generated files, you can add them to the project file using the `ItemGroup` element. You can either specify the files directly or use a wild card to include all files with a specific extension, or files in a specific folder, or you can explicitly specify the files that should be included.
 
 ```xml
 <Target Name="Refitter" AfterTargets="PreBuildEvent">
@@ -94,20 +94,15 @@ Files that are generated during the PreBuildEvent are not automatically included
 </Target>
 ```
 
-In the example above, I know that Refitter will output files ending in `.Generated.cs`, so I'm including all files with that extension. You can also specify the files explicitly like this:
+In the example above, I know that Refitter will output files ending in `.Generated.cs`, so I'm including all files with that extension. An issue with including generated files like this is that the compiler will complain if the file already exists, a way around this would be to use the `Condition` parameter and only include the file if it doesn't already exist. Something like this:
 
 ```xml
 <Target Name="Refitter" AfterTargets="PreBuildEvent">
   <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore --configfile refitter/nuget.config" />
   <Exec WorkingDirectory="$(ProjectDir)" Command="refitter --settings-file .refitter --skip-validation" />
   <ItemGroup>
-    <Compile Include="Petstore.cs" />
+    <Compile Include="Petstore.cs" Condition="!Exists('Petstore.cs')" />
   </ItemGroup>
 </Target>
 ```
 
-An issue with including generated files like this is that the compiler will complain if the file already exists, a way around this would be to delete the files before the build process starts. This can be done by adding an `Exec` command before the `ItemGroup` element.
-
-```xml
-```
-```
