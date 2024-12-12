@@ -158,7 +158,7 @@ Restore complete (0.1s)
 Build succeeded in 2.4s
 ```
 
-That gives you a chance to figure out what went wrong, and perhaps report an issue to the Refitter repository. Once you resolve the problem, you can run `dotnet build -v d` again and see that the build now succeeds. An output of something like this is what you want:
+That gives you a chance to figure out what went wrong, and perhaps report an issue to the [Refitter](https://github.com/christianhelle/refitter) repository. Once you resolve the problem, you can run `dotnet build -v d` again and see that the build now succeeds. An output of something like this is what you want:
 
 ```bash
 $ dotnet build -v d
