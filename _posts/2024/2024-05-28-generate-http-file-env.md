@@ -14,7 +14,7 @@ redirect_from:
 - /generate-http-file-env
 ---
 
-Some time ago, I built a tool called [HTTP File Generator](2023/11/http-file-generator.html)
+Some time ago, I built a tool called [HTTP File Generator](/2023/11/http-file-generator.html)
 to replace Swagger UI and keep my workflow as much as possible
 from within my editor.
 
