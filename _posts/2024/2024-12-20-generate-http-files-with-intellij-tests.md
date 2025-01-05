@@ -18,7 +18,7 @@ redirect_from:
 ---
 {% raw %}
 
-Some time ago, I built a tool called [HTTP File Generator](2023/11/http-file-generator.html) to replace Swagger UI and keep my workflow as much as possible from within my editor.
+Some time ago, I built a tool called [HTTP File Generator](/2023/11/http-file-generator.html) to replace Swagger UI and keep my workflow as much as possible from within my editor.
 
 These days, for .NET development I'm mostly on JetBrains Rider. Most, if not all, JetBrains IDE's are built on top of IntelliJ IDEA and supports executing javascript code from `.http` files using their built in [HTTP Client](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html). This is very useful for chaining HTTP requests and handling responses.
 
