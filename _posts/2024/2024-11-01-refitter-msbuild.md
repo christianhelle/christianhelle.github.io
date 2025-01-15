@@ -89,7 +89,7 @@ You might want to place the `nuget.config` file in another folder to avoid using
 
 In the example above, the `nuget.config` file is placed under the `refitter` folder.
 
-Files that are generated during the `PreBuildEvent`` are not automatically included in the project. To include the generated files, you can add them to the project file using the `ItemGroup` element. You can either specify the files directly or use a wild card to include all files with a specific extension, or files in a specific folder, or you can explicitly specify the files that should be included.
+Files that are generated during the `PreBuildEvent` are not automatically included in the project. To include the generated files, you can add them to the project file using the `ItemGroup` element. You can either specify the files directly or use a wild card to include all files with a specific extension, or files in a specific folder, or you can explicitly specify the files that should be included.
 
 ```xml
 <Target Name="Refitter" AfterTargets="PreBuildEvent">
