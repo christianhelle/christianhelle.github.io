@@ -32,14 +32,9 @@ The solution will also contain a unit test project.
 The API code is defined as follows:
 
 ```csharp
+using Contracts;
+
 var builder = WebApplication.CreateSlimBuilder(args);
-builder.Services.ConfigureHttpJsonOptions(
-    options =>
-    {
-        options.SerializerOptions.TypeInfoResolverChain.Insert(
-            0,
-            AppJsonSerializerContext.Default);
-    });
 
 var app = builder.Build();
 
@@ -62,12 +57,6 @@ todosApi.MapGet(
             : Results.NotFound());
 
 app.Run();
-
-[JsonSerializable(typeof(Todo[]))]
-internal partial class AppJsonSerializerContext
-    : JsonSerializerContext
-{
-}
 
 public partial class Program
 {
