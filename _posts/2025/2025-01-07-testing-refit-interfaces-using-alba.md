@@ -130,3 +130,5 @@ The code above configures Refit using the Refit.HttpClientFactory library
 to use the Test HTTP Client instance provided by the Alba host.
 This way, we don't need to run the actual API project before we can test
 if the Refit interface works as expected.
+
+I published an example project to [Github](https://github.com/christianhelle/TestingRefitWithAlba) if you want to try it out yourself.
