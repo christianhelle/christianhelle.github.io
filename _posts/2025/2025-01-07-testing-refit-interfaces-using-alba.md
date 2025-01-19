@@ -126,7 +126,7 @@ public class ApiClientTests
 }
 ```
 
-The code above configures Refit using the Refit.HttpClientFactory library
+The code above configures [Refit](https://github.com/reactiveui/refit) using the [Refit.HttpClientFactory](https://www.nuget.org/packages/refit.httpclientfactory) library
 to use the Test HTTP Client instance provided by the Alba host.
 This way, we don't need to run the actual API project before we can test
 if the Refit interface works as expected.
