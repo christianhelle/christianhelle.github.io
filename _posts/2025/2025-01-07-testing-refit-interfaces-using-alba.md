@@ -34,10 +34,6 @@ The API code is defined as follows:
 ```csharp
 using Contracts;
 
-var builder = WebApplication.CreateSlimBuilder(args);
-
-var app = builder.Build();
-
 var sampleTodos = new Todo[]
 {
     new(1, "Walk the dog"),
@@ -46,6 +42,9 @@ var sampleTodos = new Todo[]
     new(4, "Clean the bathroom"),
     new(5, "Clean the car", DateOnly.FromDateTime(DateTime.Now.AddDays(2)))
 };
+
+var builder = WebApplication.CreateSlimBuilder(args);
+var app = builder.Build();
 
 var todosApi = app.MapGroup("/todos");
 todosApi.MapGet("/", () => sampleTodos);
