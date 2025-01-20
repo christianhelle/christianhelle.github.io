@@ -20,7 +20,7 @@ redirect_from:
 Both tools have come with benefits and problems,
 but that said, most .NET developers have gotten used to it.
 
-In May 2024, Microsoft [announced that Swashbuckle.AspNetCore will be removed from .NET 9.0](https://github.com/dotnet/aspnetcore/issues/54599). For the past year or so, I started using .http files in favor of Swagger UI. Using .http files immediately lead me to develop a [HTTP File Generator](https://github.com/christianhelle/httpgenerator) that can [generate a suite of .http files from OpenAPI specifications](/2023/11/http-file-generator.html)
+In May 2024, Microsoft [announced that Swashbuckle.AspNetCore will be removed from .NET 9.0](https://github.com/dotnet/aspnetcore/issues/54599). For the past year or so, I started using .http files in favor of Swagger UI. Using .http files immediately lead me to develop [HTTP File Generator](https://github.com/christianhelle/httpgenerator), a tool that can [generate a suite of .http files from OpenAPI specifications](/2023/11/http-file-generator.html)
 
 The use of .http files were not immediately adopted by my teams so I started looking at other alternatives, particularly, [Scalar](https://scalar.com). Other teams I work with have built a work flow based on sharing [Postman Collections](https://www.postman.com/collection/) configured with Authentication and multiple environments, like Dev, Test, and Production.
 [Scalar](https://scalar.com) feels a lot like [Postman](https://www.postman.com) which caught the interest of teams around me
