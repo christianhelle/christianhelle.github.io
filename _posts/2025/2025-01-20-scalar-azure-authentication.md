@@ -148,7 +148,7 @@ app.UseOpenApi();
 ...
 ```
 
-Next, we configure Scalar. This is done registering setting up the Scalar middleware calling `MapScalarApiReference()` on the `WebApplication`. You will need to import the `Scalar.AspNetCore` namespace
+Next, we configure Scalar. This is done setting up the Scalar middleware calling `MapScalarApiReference()` on the `WebApplication`. You will need to import the `Scalar.AspNetCore` namespace
 
 ```csharp
 using Scalar.AspNetCore;
@@ -171,3 +171,69 @@ With this, we should be able to see the Scalar page on `/scalar/v1`. It looks so
 Clicking on the **Test Request** button from the `GET /todos` section will allow you to perform tests against the endpoint. With the current setup, it would look something like this:
 
 ![scalar get todos result](/assets/images/scalar-get-todos-results.png)
+
+By now, we have a fully functional API without any security.
+
+Next, let's secure the API. For this example we use JWT Bearer tokens containing the audience and role claims. To do this, we use `AddAuthentication()` and `AddAuthorization()` on the `IServiceCollection` and enable middleware using `UseAuthentication()` and `UseAuthorization()` on the `WebApplication`.
+
+We need to configure the API require the JWT Bearer token to have the following claims
+
+- `aud` - Identifies the intended recipient of the token. In access_tokens and id_tokens, the audience is the App Registration Application URI ID, specified under the **Expose an API** section of your App Registration, or if not specified it is the App Registration Application ID assigned to your app in the Azure portal. Your app should validate this value, and reject the token if the value does not match.
+
+- `iss`- Identifies the security token service (STS) that constructs and returns the token, and the Azure Entra ID tenant in which the user was authenticated. If the token was issued by the v2.0 endpoint, the URI will end in /v2.0. The app should use the GUID portion of the claim to restrict the set of tenants that can sign in to the app, if applicable.
+
+- `role` - The set of permissions exposed by your application that the requesting application has been given permission to call. This is used during the client-credentials flow in place of user scopes, and is only present in applications tokens.
+
+```csharp
+var builder = WebApplication.CreateSlimBuilder(args);
+builder.Services.ConfigureHttpJsonOptions(
+    options =>
+    {
+        options.SerializerOptions.TypeInfoResolverChain.Insert(
+            0,
+            AppJsonSerializerContext.Default);
+    })
+    .AddOpenApi()
+    .AddAuthorization()
+    .AddAuthentication()
+    .AddJwtBearer(o =>
+        {
+            o.Audience = "api://[app registration client id]";
+            o.Authority = "https://login.microsoftonline.com/[your tenant id]";
+        });
+
+...
+
+var app = builder.Build();
+app.UseOpenApi();
+app.UseAuthentication();
+app.UseAuthorization();
+
+...
+```
+
+Now we need to require roles to access our `todos` endpoints. Let's keep it simple, and use a single role called `todo.read`. To setup this up we the `RequireAuthorization()` extension method and configure it's options to use `RequireRole("todo.read")`
+
+```csharp
+...
+
+var todosApi = app.MapGroup("/todos");
+todosApi
+    .MapGet("/", () => sampleTodos)
+    .RequireAuthorization(o => o.RequireRole("todo.read"));
+
+todosApi
+    .MapGet("/{id}", (int id) =>
+        sampleTodos.FirstOrDefault(a => a.Id == id) is { } todo
+            ? Results.Ok(todo)
+            : Results.NotFound())
+    .RequireAuthorization(o => o.RequireRole("todo.read"));
+
+...
+```
+
+Right now, we have no way of retrieving an JWT Bearer token from Scalar itself. But you can always acquire an access token yourself, one way to do this is to use [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/account?view=azure-cli-latest#az-account-get-access-token?WT.mc_id=DT-MVP-5004822) with the following command, assuming that you are logged in to the same tenant and have been granted the `todo.read` role on the Azure Entra ID Enterprise Application associated to the App Registration.
+
+```powershell
+az account get-access-token --scope [Some Application ID URI]/.default
+```
