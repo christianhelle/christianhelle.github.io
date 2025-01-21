@@ -16,7 +16,7 @@ redirect_from:
 - /scalar-azure-authentication
 ---
 
-[Swagger UI](https://swagger.io/tools/swagger-ui/) and [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) are two popular libraries for working with OpenAPI for ASP.NET Core Web APIs.
+[Swagger UI](https://swagger.io/tools/swagger-ui/) and [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) are two popular tools for working with OpenAPI for ASP.NET Core Web APIs.
 Both tools have come with benefits and problems,
 but that said, most .NET developers have gotten used to it.
 
@@ -199,17 +199,31 @@ builder.Services.ConfigureHttpJsonOptions(
     .AddJwtBearer(o =>
         {
             o.Audience = "api://[app registration client id]";
-            o.Authority = "https://login.microsoftonline.com/[your tenant id]";
+            o.Authority = "https://login.microsoftonline.com/[tenant id]";
         });
 
 ...
 
 var app = builder.Build();
 app.UseOpenApi();
-app.UseAuthentication();
 app.UseAuthorization();
+app.UseAuthentication();
+app.MapScalarApiReference();
 
 ...
+```
+
+The Audience and Authority will be used in multiple places so its best to extract a constants class for this. While we're at it, let's add some other constants that will be used later
+
+```csharp
+internal class Constants
+{
+    public const string Authority = "https://login.microsoftonline.com/[tenant id]";
+    public const string ClientId = "[Scalar App Registration Application ID]";
+    public const string Audience = "api://[app registration client id]";
+    public const string DefaultScope = $"{Audience}/.default";
+    public const string Scheme = "Bearer";
+}
 ```
 
 Now we need to require roles to access our `todos` endpoints. Let's keep it simple, and use a single role called `todo.read`. To setup this up we the `RequireAuthorization()` extension method and configure it's options to use `RequireRole("todo.read")`
@@ -237,3 +251,143 @@ Right now, we have no way of retrieving an JWT Bearer token from Scalar itself. 
 ```powershell
 az account get-access-token --scope [Some Application ID URI]/.default
 ```
+
+To enable OAuth2 authentication on Scalar, we need to ensure that the OpenAPI document exposed by the API defines this [securitySchemes](https://learn.openapis.org/specification/security.html).
+To do so, we need to setup a [Document Transformer](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/customize-openapi?WT.mc_id=DT-MVP-5004822) things in `AddOpenApi()`. A Document Transformer implements the `IOpenApiDocumentTransformer` interface. If you have previously worked with [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore), then this should feel familiar to you.
+
+The following code confgures a security scheme that enables the OAuth2 Implicit grant flow
+
+```csharp
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.OpenApi.Models;
+
+public class OpenApiSecuritySchemeTransformer
+    : IOpenApiDocumentTransformer
+{
+    public Task TransformAsync(
+        OpenApiDocument document, 
+        OpenApiDocumentTransformerContext context,
+        CancellationToken cancellationToken)
+    {
+        var securitySchema =
+            new OpenApiSecurityScheme
+            {
+                Type = SecuritySchemeType.OAuth2,
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                Flows = new OpenApiOAuthFlows
+                {
+                    Implicit = new OpenApiOAuthFlow
+                    {
+                        AuthorizationUrl = new Uri($"{Constants.Authority}/oauth2/v2.0/authorize"),
+                        TokenUrl = new Uri($"{Constants.Authority}/oauth2/v2.0/token"),
+                        Scopes = new Dictionary<string, string>
+                        {
+                            { Constants.DefaultScope, "Access the API" }
+                        }
+                    }
+                }
+            };
+
+        var securityRequirement =
+            new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Id = "Bearer",
+                            Type = ReferenceType.SecurityScheme,
+                        },
+                    },
+                    []
+                }
+            };
+
+        document.SecurityRequirements.Add(securityRequirement);
+        document.Components = new OpenApiComponents()
+        {
+            SecuritySchemes = new Dictionary<string, OpenApiSecurityScheme>()
+            {
+                { "Bearer", securitySchema }
+            }
+        };
+
+        return Task.CompletedTask;
+    }
+}
+```
+
+Now that we have a Document Transformer, we need to use it by calling `AddDocumentTransformer<OpenApiSecuritySchemeTransformer>()` in the `OpenApiOptions` provided upon `AddOpenApi()`
+
+```csharp
+var builder = WebApplication.CreateSlimBuilder(args);
+builder.Services.ConfigureHttpJsonOptions(
+    options =>
+    {
+        options.SerializerOptions.TypeInfoResolverChain.Insert(
+            0,
+            AppJsonSerializerContext.Default);
+    })
+    .AddOpenApi(o => o.AddDocumentTransformer<OpenApiSecuritySchemeTransformer>())
+    .AddAuthorization()
+    .AddAuthentication()
+    .AddJwtBearer(o =>
+        {
+            o.Audience = "api://[app registration client id]";
+            o.Authority = "https://login.microsoftonline.com/[tenant id]";
+        });
+
+...
+
+var app = builder.Build();
+app.UseOpenApi();
+app.UseAuthorization();
+app.UseAuthentication();
+app.MapScalarApiReference();
+
+...
+```
+
+This should add the `securityScheme` to the OpenAPI document `components` when retrieving it from the `/openapi/v1.json` URL
+
+```json
+"components": {
+  ...
+  "securitySchemes": {
+    "Bearer": {
+      "type": "oauth2",
+      "flows": {
+        "implicit": {
+          "authorizationUrl": "https://login.microsoftonline.com/[tenant id]/oauth2/v2.0authorize",
+          "tokenUrl": "https://login.microsoftonline.com/[tenant id]/oauth2/v2.0/token",
+          "scopes": {
+            "api://[app registration client id]/.default": "Access the API"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+When we run the API and browser to the Scalar page then we should now see that the **Auth Type** dropdown now has a **Bearer** option
+
+![Scalar bearer auth type option](/assets/images/scalar-auth-bearer.png)
+
+and when selecting **Bearer** you will see pre-populated options for OAuth2 and a pre-checked scope
+
+![Scalar implicit grant flow](/assets/images/scalar-authorize.png)
+
+Clicking on **Authorize** should open a window prompting for user credentials
+
+![Azure login](/assets/images/scalar-azure.png)
+
+and upon successful authentication, the access token is copied over to Scalar
+
+![Scalar bearer token](/assets/images/scalar-token.png)
+
+and is automatically used when sending API requests from Scalar
+
+![Scalar use bearer token](/assets/images/scalar-use-token.png)
