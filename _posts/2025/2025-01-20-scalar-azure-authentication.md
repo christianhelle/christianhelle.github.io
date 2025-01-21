@@ -391,3 +391,5 @@ and upon successful authentication, the access token is copied over to Scalar
 and is automatically used when sending API requests from Scalar
 
 ![Scalar use bearer token](/assets/images/scalar-use-token.png)
+
+I published an example project to [Github](https://github.com/christianhelle/ScalarAzureAuthentication) if you want to try it out yourself.
