@@ -35,3 +35,139 @@ This usually uses [OAuth2 with the implicit (or authorization code) flow](https:
 This post will show you how to setup a .NET 9.0 project that produces an OpenAPI docment
 and will demonstrate how to use [Scalar](https://scalar.com) instead of Swagger UI.
 We will configure Scalar to authenticate against Azure Entra ID.
+
+Let's start by creating a simple API with .NET 9.0 (AOT)
+
+By default, the `.csproj` file looks something like this:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <PublishAot>true</PublishAot>
+  </PropertyGroup>
+
+</Project>
+```
+
+and the `Program.cs`
+
+```csharp
+var builder = WebApplication.CreateSlimBuilder(args);
+builder.Services.ConfigureHttpJsonOptions(
+    options =>
+    {
+        options.SerializerOptions.TypeInfoResolverChain.Insert(
+            0,
+            AppJsonSerializerContext.Default);
+    })
+
+var app = builder.Build();
+var todosApi = app.MapGroup("/todos");
+
+var sampleTodos = new Todo[]
+{
+    new(1, "Walk the dog"),
+    new(2, "Do the dishes", DateOnly.FromDateTime(DateTime.Now)),
+    new(3, "Do the laundry", DateOnly.FromDateTime(DateTime.Now.AddDays(1))),
+    new(4, "Clean the bathroom"),
+    new(5, "Clean the car", DateOnly.FromDateTime(DateTime.Now.AddDays(2)))
+};
+
+todosApi.MapGet("/", () => sampleTodos);
+todosApi.MapGet(
+    "/{id}",
+    (int id) =>
+        sampleTodos.FirstOrDefault(a => a.Id == id) is { } todo
+            ? Results.Ok(todo)
+            : Results.NotFound());
+
+app.Run();
+
+public record Todo(
+    int Id,
+    string? Title,
+    DateOnly? DueBy = null,
+    bool IsComplete = false);
+
+[JsonSerializable(typeof(Todo[]))]
+internal partial class AppJsonSerializerContext : JsonSerializerContext
+{
+}
+```
+
+Next, we need to install a couple of NuGet packages
+- [Microsoft.AspNetCore.Authentication.JwtBearer](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer) - as of writing v9.0.1
+- [Microsoft.AspNetCore.OpenApi](https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi) - as of writing v9.0.1
+- [Scalar.AspNetCore](https://www.nuget.org/packages/Scalar.AspNetCore) - as of writing v1.2.*
+
+The `.csproj` file should now look like this:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <PublishAot>true</PublishAot>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
+    <PackageReference Include="Scalar.AspNetCore" Version="1.2.*" />
+  </ItemGroup>
+
+</Project>
+```
+
+Next, we need to configure the API to expose OpenAPI specifications using the Microsoft OpenAPI toolset. We need to register the Microsoft OpenAPI dependencies using the `AddOpenApi()` extension method to `IServiceCollection` and configure the middleware using the `UseOpenApi()` on the `WebApplication`
+
+```csharp
+var builder = WebApplication.CreateSlimBuilder(args);
+builder.Services.ConfigureHttpJsonOptions(
+    options =>
+    {
+        options.SerializerOptions.TypeInfoResolverChain.Insert(
+            0,
+            AppJsonSerializerContext.Default);
+    })
+    .AddOpenApi();
+
+...
+
+var app = builder.Build();
+app.UseOpenApi();
+
+...
+```
+
+Next, we configure Scalar. This is done registering setting up the Scalar middleware calling `MapScalarApiReference()` on the `WebApplication`. You will need to import the `Scalar.AspNetCore` namespace
+
+```csharp
+using Scalar.AspNetCore;
+
+...
+
+var app = builder.Build();
+app.UseOpenApi();
+app.MapScalarApiReference();
+
+...
+```
+
+With this, we should be able to see the Scalar page on `/scalar/v1`. It looks something like this:
+
+![scalar default](/assets/images/scalar-default.png)
+
+![scalar get todos](/assets/images/scalar-get-todos-preview.png)
+
+Clicking on the **Test Request** button from the `GET /todos` section will allow you to perform tests against the endpoint. With the current setup, it would look something like this:
+
+![scalar get todos result](/assets/images/scalar-get-todos-results.png)
