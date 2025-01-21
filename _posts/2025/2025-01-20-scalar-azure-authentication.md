@@ -30,7 +30,7 @@ You can try out Scalar [here](https://docs.scalar.com/swagger-editor) and it loo
 ![Scalar demo](/assets/images/scalar.png)
 
 In any project I'm involved in, one of the first thing I do, even before setting up a CI/CD pipeline, is to configure security.
-This usually uses [OAuth2 with the implicit (or authorization code) flow](https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-implicit-grant-flow) and Azure Entra ID as a Secure Token Service (STS) for authentication.
+This usually uses [OAuth2 with the implicit (or authorization code) flow](https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-implicit-grant-flow?WT.mc_id=DT-MVP-5004822) and Azure Entra ID as a Secure Token Service (STS) for authentication.
 
 This post will show you how to setup a .NET 9.0 project that produces an OpenAPI docment
 and will demonstrate how to use [Scalar](https://scalar.com) instead of Swagger UI.
