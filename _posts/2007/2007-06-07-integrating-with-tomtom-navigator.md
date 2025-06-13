@@ -277,7 +277,7 @@ Once the references and files are in place, we can start adding some code to For
 
 To retrieve a list of contacts we need to create a global instance of `Microsoft.WindowsMobile.PocketOutlook.OutlookSession` and `Microsoft.WindowsMobile.PocketOutlook.ContactsCollection`, once we instantiate our `OutlookSession`, we can then retrieve a list of Contacts through `OutlookSession.Contacts.Items`
 
-To communicate with TomTom, we create an instance of `Navigator`. The default constructor for Navigator will need a typeName for loading the TomTom wrapper as INavigator. It would be a smart idea to store the typeName in a seperate file, text or xml would be perfect. Once again, we do this so that if we want our application to integrate with different navigation software, we don't have to re-write everything. In this demo, the typeName will just be a hard coded string constant.
+To communicate with TomTom, we create an instance of `Navigator`. The default constructor for Navigator will need a typeName for loading the TomTom wrapper as INavigator. It would be a smart idea to store the typeName in a separate file, text or xml would be perfect. Once again, we do this so that if we want our application to integrate with different navigation software, we don't have to re-write everything. In this demo, the typeName will just be a hard coded string constant.
 
 [C# CODE]
 

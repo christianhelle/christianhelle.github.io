@@ -26,7 +26,7 @@ void PlaySound()
 ```
   
   
-In the previous sample, we are playing a sound file synchronously. Now, this is interesting in a way that its very very easy to play an audio file. But what really gets interesting is that the new Sound API provides methods for playing sound files asynchronously.  
+In the previous sample, we are playing a sound file synchronously. Now, this is interesting in a way that it's very very easy to play an audio file. But what really gets interesting is that the new Sound API provides methods for playing sound files asynchronously.  
   
 To play audio files asynchronously, we will need to call 4 methods from the Sound API.  
   

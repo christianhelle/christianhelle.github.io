@@ -16,7 +16,7 @@ var resources = new ResourceLoader();
 var localizedString = resources.GetString("SomeResourceName");
 ```
 
-This of course can easily lead to a lot of errors. In my case I got a little to eager while refactoring and forgot to notice that I was also changing hard coded strings. This broke the code quite a lot. Because of this frustration I decided to implement my own custom tool since Microsoft didn't provide one  
+This of course can easily lead to a lot of errors. In my case I got a little too eager while refactoring and forgot to notice that I was also changing hard coded strings. This broke the code quite a lot. Because of this frustration I decided to implement my own custom tool since Microsoft didn't provide one  
 
 The project is open source and is available at [Github](https://github.com/christianhelle/reswcodegen/). Here's a preview of the description which I took directly from my CodePlex project site.  
 

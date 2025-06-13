@@ -52,4 +52,4 @@ to
 </Target>
 ```
 
-The following configuration above was an excert from an article called [Platform Verification Task leading to slow builds on compact framework projects](https://flexy-dev.blogspot.com/2009/07/platform-verification-task-leading-to.html)
+The following configuration above was an excerpt from an article called [Platform Verification Task leading to slow builds on compact framework projects](https://flexy-dev.blogspot.com/2009/07/platform-verification-task-leading-to.html)
