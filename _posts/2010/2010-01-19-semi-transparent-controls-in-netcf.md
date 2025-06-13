@@ -142,7 +142,7 @@ static extern bool GradientFill(
     uint dwMode);
 ```
   
-And then lets wrap those neatly in some extension methods to the Graphics class  
+And then let's wrap those neatly in some extension methods to the Graphics class  
   
 ```csharp
 public static class GraphicsExtension

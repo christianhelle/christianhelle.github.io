@@ -32,7 +32,7 @@ Before we dig into more detail, let's go through our software requirements. We n
 4. The TomTom Navigator SDK  
 5. ActiveSync 4.2 or higher (for Vista, the Mobile Device Center)
 
-Now, Lets get started...
+Now, Let's get started...
 
 Here is what we need to make:
 
@@ -47,7 +47,7 @@ Sounds pretty simple doesn't it?
 
 We will first need a little help from native code to access the TomTom SDK. We cannot access the TomTom SDK directly from .NET due to the architecture of the SDK. We have to wrap around the TomTom SDK C++ classes and methods and expose them as C type functions.
 
-In your native wrapper, lets say we want to wrap the following TomTom SDK functions:  
+In your native wrapper, let's say we want to wrap the following TomTom SDK functions:  
   - GetApplicationVersion(TError* err, TVersion* ver)  
   - FlashMessage(TError* err, char* msg, int ms)  
   - NavigateToAddress(TError* aError, char* aCity, char* aStreet, char* aHouseNr, char\* aPostcode)
@@ -146,7 +146,7 @@ Let's set the output of the project to be called **TTSDK.dll**
 
 Once we've gotten our native wrapper up and running, we create a generic navigator wrapper. We start off by creating a smart device class library project. Once the project is created, add the following classes: INavigator.cs, Navigator.cs, and Common.cs
 
-Lets go and define the common objects we want to use in Common.cs
+Let's go and define the common objects we want to use in Common.cs
 
 [C# CODE]
 
@@ -158,7 +158,7 @@ public struct NVersion
 }
 ```
 
-INavigator.cs will be an interface defining the how the wrapper will look like. Lets add methods for the 3 TomTom SDK methods we want to use.
+INavigator.cs will be an interface defining the how the wrapper will look like. Let's add methods for the 3 TomTom SDK methods we want to use.
 
 [C# CODE]
 
@@ -216,7 +216,7 @@ The default constructor for Navigator accepts a type name. The format for type n
 
 Here we create a new smart device class library. Once the project is created, add a reference to the generic navigator wrapper since we will implement the INavigator interface and add a class called TomTom.cs
 
-Lets implement TomTom.cs as INavigator
+Let's implement TomTom.cs as INavigator
 
 [C# CODE]
 
@@ -273,7 +273,7 @@ In our application, we want to integrate with TomTom Navigator for navigating to
 
 In order to do this, we will need the Windows Mobile 5.0 SDK for Pocket PC to be installed. Let's start off by creating a Windows Mobile 5.0 device application project. Once the project is created, add a reference to the Navigator wrapper and the TomTom wrapper. Next we have to build the Native wrapper project, and add the output file TTSDK.dll to our project. Set TTSDK.dll to be "Copied if Newer". To retrieve address information from contacts, we must add a reference to Microsoft.WindowsMobile.PocketOutlook.dll.
 
-Once the references and files are in place, we can start adding some code to Form1.cs. No need to change the name of the main form since this is only a small demo. We need to have a control that can contain the contacts, lets use the ComboBox control for now. Add a ComboBox control to the form and call it _cbContacts_. Lets add a "Navigate to" button to the form as well and call it _btnNavigate_.
+Once the references and files are in place, we can start adding some code to Form1.cs. No need to change the name of the main form since this is only a small demo. We need to have a control that can contain the contacts, let's use the ComboBox control for now. Add a ComboBox control to the form and call it _cbContacts_. Let's add a "Navigate to" button to the form as well and call it _btnNavigate_.
 
 To retrieve a list of contacts we need to create a global instance of `Microsoft.WindowsMobile.PocketOutlook.OutlookSession` and `Microsoft.WindowsMobile.PocketOutlook.ContactsCollection`, once we instantiate our `OutlookSession`, we can then retrieve a list of Contacts through `OutlookSession.Contacts.Items`
 
