@@ -19,7 +19,7 @@ I took a full month off work to play daddy and to assist my wife with everything
 
 My hands were completely tied from work the day I got back from my leave. Luckily the projects were all very exciting and challenging, but did require me to spend a ton of hours on work. I had the chance to work on an online music service called TDC Play for a rather large danish based telecom company called TDC. I unfortunately only took part in the design and development of the Windows Phone 7 version, but the app is also available on the iOS and Android.  
 
-The app was extremely fun to make and I got the to work with my old colleages from the Microsoft Development Center in Copenhagen. I expect to post some articles on performance, background agents, Implementing a MediaStreamSource for streaming or progressive downloads, and loads of other fun stuff.  
+The app was extremely fun to make and I got to work with my old colleagues from the Microsoft Development Center in Copenhagen. I expect to post some articles on performance, background agents, Implementing a MediaStreamSource for streaming or progressive downloads, and loads of other fun stuff.  
 
 I also got started again in doing some speaking events. In February 29 in Horsons, Denmark I'll be doing a talk on **Windows Phone 7 and HTML5** for the **Danish Developer Conference** and on February 13 I'll be doing an online talk on **Background Agents on Windows Phone 7**
 

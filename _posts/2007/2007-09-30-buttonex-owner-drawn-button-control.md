@@ -19,7 +19,7 @@ redirect_from:
 
 Wow 2 posts in 1 day. I must have a lot of spare time today! Actually I'm down with a cold and I just feel sorry for myself when I stay in bed.
 
-In this article I'd like to share another piece of code that I use quite often. Its a simple owner drawn button control that can have a nice 3D shadow. Drawing the 3D shadow effect was by complete accident though. I was trying to just draw a simple control that acts like a button. When I was drawing the borders the first time I drawn the rectangle a pixel bigger hence the control had a 1 pixel line of just black on the right and bottom side. Anyway, my graphic artist loved it and decided that we keep it.
+In this article I'd like to share another piece of code that I use quite often. It's a simple owner drawn button control that can have a nice 3D shadow. Drawing the 3D shadow effect was by complete accident though. I was trying to just draw a simple control that acts like a button. When I was drawing the borders the first time I drawn the rectangle a pixel bigger hence the control had a 1 pixel line of just black on the right and bottom side. Anyway, my graphic artist loved it and decided that we keep it.
 
 The control has the following properties added:
   1) PushedColor (Color) - The color the control will be filled with once the MouseDown is fired

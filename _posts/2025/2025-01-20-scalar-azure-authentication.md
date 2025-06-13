@@ -252,7 +252,7 @@ app.MapScalarApiReference();
 ...
 ```
 
-The Audience and Authority will be used in multiple places so its best to extract a constants class for this. While we're at it, let's add some other constants that will be used later
+The Audience and Authority will be used in multiple places so it's best to extract a constants class for this. While we're at it, let's add some other constants that will be used later
 
 ```csharp
 internal class Constants

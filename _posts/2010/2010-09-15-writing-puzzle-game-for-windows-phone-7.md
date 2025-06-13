@@ -17,7 +17,7 @@ This article is a step by step guide on how to write a puzzle game for Windows P
   
 I've been playing around with XNA these past few nights and decided to write a few casual games. The first prototype I have is a port of my old Puzzle Game. The game is still really incomplete, like there is no menu or state management which means you can't shut it down properly and stuff. But I thought I'd share some thoughts on my experience with it and at the same time share some code.  
   
-The structure of the game is fairly simple. I have 2 collections: one contains an image, another contains an index to the each of the elements of the first collection and its the area where to display the image on the screen. The collection that contains the indexes is my scrambled puzzle. Each time a piece is moved, I update the order of my scrambled list afterwards I check if all the items in my scrambled list are correctly sorted in an ascending fashion. If all the items are sorted properly then it means that the puzzle was solved.  
+The structure of the game is fairly simple. I have 2 collections: one contains an image, another contains an index to the each of the elements of the first collection and it's the area where to display the image on the screen. The collection that contains the indexes is my scrambled puzzle. Each time a piece is moved, I update the order of my scrambled list afterwards I check if all the items in my scrambled list are correctly sorted in an ascending fashion. If all the items are sorted properly then it means that the puzzle was solved.  
   
 Enough said and let's get started. The first step is to of course fire up Visual Studio and create a new XNA Game Studio 4.0 - Windows Phone Game project. Let's call the project PuzzleGame  
   
