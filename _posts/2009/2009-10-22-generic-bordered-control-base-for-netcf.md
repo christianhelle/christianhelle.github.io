@@ -104,7 +104,7 @@ public abstract class BorderedControlBase<T> : Control
 }
 ```
 
-Now that we have this base control we can easily add borders to any control. Here's an example of how to use the the bordered control base:
+Now that we have this base control we can easily add borders to any control. Here's an example of how to use the bordered control base:
 
 ```csharp
 public class BorderedTextBox : BorderedControlBase<TextBox> 

@@ -13,7 +13,7 @@ blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-29723433042651970
 blogger_orig_url: https://christian-helle.blogspot.com/2012/03/integrating-html5-and-javascript-with.html
 ---
 
-Everyone, everywhere is talking about HTML5 these days. I myself did a recent talk at the [Danish Developer Conference 2012 on Windows Phone and HTML5](/2012/03/html5-and-windows-phone-7.html). I get the point and I see the power and beauty of HTML5. But, HTML5 is as far as I can see not entirely ready yet and as for mobile applications, I would always choose writing a native application that takes full advantage of the platform and not just an application that runs in a browser, even if the the browser component is hosted in a native application. I think developers should really learn to appreciate the platform more.  
+Everyone, everywhere is talking about HTML5 these days. I myself did a recent talk at the [Danish Developer Conference 2012 on Windows Phone and HTML5](/2012/03/html5-and-windows-phone-7.html). I get the point and I see the power and beauty of HTML5. But, HTML5 is as far as I can see not entirely ready yet and as for mobile applications, I would always choose writing a native application that takes full advantage of the platform and not just an application that runs in a browser, even if the browser component is hosted in a native application. I think developers should really learn to appreciate the platform more.  
 
 In this article I would like to explain how to integrate HTML5 + Javascript in a Windows Phone application and the same demonstrate how to call a .NET method from Javascript and how to call a Javascript method from .NET  
 
