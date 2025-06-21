@@ -15,13 +15,17 @@ redirect_from:
 - /http-file-runner-zig-tool
 ---
 
-I'm excited to share my latest project: [HTTP File Runner](https://github.com/christianhelle/httprunner), a command-line tool written in Zig that parses `.http` files and executes HTTP requests. This tool provides colored output with emojis to indicate success or failure, making it easy to test APIs and web services directly from your terminal.
+I'm excited to share my latest project: [HTTP File Runner](https://github.com/christianhelle/httprunner), a command-line tool written in Zig that parses `.http` files and executes HTTP requests. This tool provides colored output to indicate success or failure, making it easy to test APIs and web services directly from your terminal.
 
-As developers, we often find ourselves testing REST APIs manually through various tools like Postman, Insomnia, or browser-based testing interfaces. While these tools are excellent for interactive testing, they can become cumbersome when you need to run the same tests repeatedly, integrate them into automated workflows, or share them with team members in a version-controlled manner. This is where HTTP File Runner shines - it bridges the gap between manual testing and automation by bringing the simplicity of `.http` files to the command line.
+This project started as a learning exercise to explore Zig's capabilities for systems programming. Having previously built [HTTP File Generator](https://github.com/christianhelle/httpgenerator), a tool that generates `.http` files from OpenAPI specifications, it felt natural to create a companion tool that could execute these generated files outside of an IDE environment. The combination of these two tools creates a complete workflow: generate HTTP files from your API specifications, then run them from the command line for testing and validation.
+
+As developers, we often find ourselves testing REST APIs manually through various tools like Scalar, SwaggerUI, Postman, or Insomnia. While these tools are excellent for interactive testing, they can become cumbersome when you need to run the same tests repeatedly, integrate them into automated workflows, or share them with team members in a version-controlled manner. This is where HTTP File Runner shines - it bridges the gap between manual testing and automation by bringing the simplicity of `.http` files to the command line.
 
 ## What is HTTP File Runner?
 
 HTTP File Runner is a simple yet powerful tool that reads `.http` files (the same format used by popular IDEs like Visual Studio Code and JetBrains) and executes the HTTP requests defined within them. It's designed to be fast, reliable, and developer-friendly.
+
+As a learning exercise in Zig, this project allowed me to explore systems programming concepts while building something genuinely useful. The choice to create an HTTP file runner was driven by practical needs: having already developed [HTTP File Generator](https://github.com/christianhelle/httpgenerator) to create `.http` files from OpenAPI specifications, I needed a reliable way to execute these files in automated environments without relying on IDE extensions or GUI tools.
 
 The beauty of this approach lies in its simplicity and universality. `.http` files are plain text files that can be version-controlled, shared between team members, and executed across different environments. Unlike proprietary formats used by GUI tools, these files are human-readable and can be edited with any text editor. This makes them perfect for documentation, onboarding new team members, and ensuring consistency across development environments.
 
@@ -31,23 +35,23 @@ What sets HTTP File Runner apart from other command-line HTTP tools is its focus
 
 The tool comes packed with features that make API testing a breeze, each designed to address common pain points in API development and testing workflows:
 
-🚀 **Parse and execute HTTP requests** from `.http` files - The core functionality that reads standard HTTP file format and executes requests sequentially  
-📁 **Support for multiple files** - Run several `.http` files in a single command, perfect for organizing tests by feature or service  
-🔍 **Discovery mode** - Recursively find and run all `.http` files in a directory tree, ideal for comprehensive test suites  
-📝 **Verbose mode** for detailed request and response information - See exactly what's being sent and received, invaluable for debugging  
-📋 **Logging mode** to save all output to a file for analysis and reporting - Essential for CI/CD pipelines and audit trails  
-✅ **Color-coded output** (green for success, red for failure) - Immediate visual feedback on test results  
-📊 **Summary statistics** showing success/failure counts per file and overall - Quick overview of test suite health  
-🌐 **Support for various HTTP methods** (GET, POST, PUT, DELETE, PATCH) - Covers all standard REST operations  
-🔧 **Variables support** with substitution in URLs, headers, and request bodies - Enables dynamic and reusable test scenarios  
-🔍 **Response assertions** for status codes, body content, and headers - Automated validation of API responses  
-🛡️ **Robust error handling** for network issues - Graceful handling of timeouts, connection failures, and other network problems  
+- **Parse and execute HTTP requests** from `.http` files - The core functionality that reads standard HTTP file format and executes requests sequentially
+- **Support for multiple files** - Run several `.http` files in a single command, perfect for organizing tests by feature or service
+- **Discovery mode** - Recursively find and run all `.http` files in a directory tree, ideal for comprehensive test suites
+- **Verbose mode** for detailed request and response information - See exactly what's being sent and received, invaluable for debugging
+- **Logging mode** to save all output to a file for analysis and reporting - Essential for CI/CD pipelines and audit trails
+- **Color-coded output** (green for success, red for failure) - Immediate visual feedback on test results
+- **Summary statistics** showing success/failure counts per file and overall - Quick overview of test suite health
+- **Support for various HTTP methods** (GET, POST, PUT, DELETE, PATCH) - Covers all standard REST operations
+- **Variables support** with substitution in URLs, headers, and request bodies - Enables dynamic and reusable test scenarios
+- **Response assertions** for status codes, body content, and headers - Automated validation of API responses
+- **Robust error handling** for network issues - Graceful handling of timeouts, connection failures, and other network problems
 
 These features work together to create a comprehensive testing solution that scales from simple smoke tests to complex integration test suites. The combination of batch processing, detailed reporting, and assertion capabilities makes it suitable for both development-time testing and production monitoring.
 
 ## Why Zig?
 
-I chose Zig for this project for several compelling reasons that align perfectly with the goals of creating a fast, reliable command-line tool:
+Choosing Zig for this project was intentional - this started as a learning exercise to explore newer programming language. I primarily work with higher-level languages like C# in my day job, and I wanted to understand what Zig brings to the table. The decision proved to be an excellent choice for several compelling reasons:
 
 - **Performance**: Zig compiles to highly optimized native code without the overhead of a runtime or garbage collector. This means HTTP File Runner starts instantly and processes requests with minimal memory footprint, crucial for CI/CD environments where every second counts.
 
@@ -61,7 +65,9 @@ I chose Zig for this project for several compelling reasons that align perfectly
 
 - **Excellent tooling**: The built-in build system, package manager, and testing framework provided everything needed to create a professional-grade tool without external dependencies.
 
-The learning curve was worth it - Zig strikes an excellent balance between low-level control and high-level ergonomics, making it an ideal choice for systems programming projects like this one.
+- **Learning value**: As someone primarily working in managed languages, exploring manual memory management and system-level programming concepts in Zig provided valuable insights into how software works at a lower level.
+
+The learning curve was worth it - Zig strikes an excellent balance between low-level control and high-level ergonomics, making it an ideal choice for systems programming projects like this one. The experience has given me a deeper appreciation for performance-critical software and the trade-offs involved in language design.
 
 ## Installation
 
@@ -330,17 +336,17 @@ This comprehensive logging makes HTTP File Runner suitable not just for testing,
 
 ## Output Examples
 
-The tool provides beautiful, emoji-rich output:
+The tool provides beautiful, color-coded output:
 
 ```text
-🚀 HTTP File Runner - Processing file: examples/simple.http
+HTTP File Runner - Processing file: examples/simple.http
 ==================================================
 Found 4 HTTP request(s)
 
-✅ GET https://httpbin.org/status/200 - Status: 200
-❌ GET https://httpbin.org/status/404 - Status: 404
-✅ GET https://api.github.com/zen - Status: 200
-✅ GET https://jsonplaceholder.typicode.com/users/1 - Status: 200
+✓ GET https://httpbin.org/status/200 - Status: 200
+✗ GET https://httpbin.org/status/404 - Status: 404
+✓ GET https://api.github.com/zen - Status: 200
+✓ GET https://jsonplaceholder.typicode.com/users/1 - Status: 200
 
 ==================================================
 Summary: 3/4 requests succeeded
@@ -381,13 +387,27 @@ I'm excited to continue evolving the tool to meet the diverse needs of the devel
 
 ## Conclusion
 
-HTTP File Runner represents my exploration into systems programming with Zig while solving a real-world problem that affects developers daily. The journey of building this tool has been both educational and rewarding, demonstrating how the right language choice can lead to software that is both performant and maintainable.
+HTTP File Runner represents my exploration into systems programming with Zig while solving a real-world problem that affects developers daily. What started as a learning exercise to understand systems programming evolved into a genuinely useful tool that complements my existing [HTTP File Generator](https://github.com/christianhelle/httpgenerator) project.
+
+### The Learning Journey
+
+This project provided an excellent introduction to Zig and systems programming concepts. Coming from a background primarily in managed languages like C# and TypeScript, working with manual memory management and understanding the intricacies of cross-platform compilation was both challenging and rewarding. The experience has given me a deeper appreciation for performance-critical software and the careful considerations that go into building reliable system tools.
+
+### A Complete Workflow
+
+Together with HTTP File Generator, these tools create a complete API testing workflow:
+
+1. Generate `.http` files from OpenAPI specifications using HTTP File Generator
+2. Execute and validate those files using HTTP File Runner
+3. Integrate the execution into CI/CD pipelines for automated testing
+
+This workflow addresses the full lifecycle of API testing, from specification to automation.
 
 ### Why This Tool Matters
 
 In today's microservices-driven world, APIs are the backbone of modern applications. Testing these APIs effectively requires tools that are fast, reliable, and integrate well with development workflows. HTTP File Runner fills a specific niche: providing the simplicity of `.http` files with the power of command-line automation.
 
-The tool's design philosophy centers around developer experience. From the colorful, emoji-rich output that makes test results immediately understandable, to the comprehensive logging that supports both debugging and reporting, every feature has been crafted with the developer in mind.
+The tool's design philosophy centers around developer experience. From the colorful output that makes test results immediately understandable, to the comprehensive logging that supports both debugging and reporting, every feature has been crafted with the developer in mind.
 
 ### Technical Achievements
 
