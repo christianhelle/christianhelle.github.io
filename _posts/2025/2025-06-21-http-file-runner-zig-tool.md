@@ -27,7 +27,7 @@ HTTP File Runner is a simple yet powerful tool that reads `.http` files (the sam
 
 As a learning exercise in Zig, this project allowed me to explore systems programming concepts while building something genuinely useful. The choice to create an HTTP file runner was driven by practical needs: having already developed [HTTP File Generator](https://github.com/christianhelle/httpgenerator) to create `.http` files from OpenAPI specifications, I needed a reliable way to execute these files in automated environments without relying on IDE extensions or GUI tools.
 
-The beauty of this approach lies in its simplicity and universality. `.http` files are plain text files that can be version-controlled, shared between team members, and executed across different environments. Unlike proprietary formats used by GUI tools, these files are human-readable and can be edited with any text editor. This makes them perfect for documentation, onboarding new team members, and ensuring consistency across development environments.
+The beauty of this approach lies in its simplicity. `.http` files are plain text files that can be generated, version-controlled, shared between team members, and executed across different environments. Unlike proprietary formats used by GUI tools, these files are human-readable and can be edited with any text editor. This makes them perfect for documentation, onboarding new team members, and ensuring consistency across development environments.
 
 What sets HTTP File Runner apart from other command-line HTTP tools is its focus on batch processing and developer experience. While tools like `curl` are excellent for single requests, HTTP File Runner excels at running multiple related requests, providing comprehensive reporting, and offering features specifically designed for API testing workflows.
 
@@ -53,21 +53,53 @@ These features work together to create a comprehensive testing solution that sca
 
 Choosing Zig for this project was intentional - this started as a learning exercise to explore newer programming language. I primarily work with higher-level languages like C# in my day job, and I wanted to understand what Zig brings to the table. The decision proved to be an excellent choice for several compelling reasons:
 
-- **Performance**: Zig compiles to highly optimized native code without the overhead of a runtime or garbage collector. This means HTTP File Runner starts instantly and processes requests with minimal memory footprint, crucial for CI/CD environments where every second counts.
+### Performance
 
-- **Memory safety**: Unlike C/C++, Zig provides compile-time safety checks that catch memory-related bugs before they reach production. The language's approach to manual memory management gives you control without the footguns, resulting in more reliable software.
+Zig compiles to highly optimized native code without the overhead of a runtime or garbage collector. This means HTTP File Runner starts instantly and processes requests with minimal memory footprint, crucial for CI/CD environments where every second counts.
 
-- **Cross-platform**: Zig's excellent cross-compilation support made it trivial to build binaries for Linux, macOS, and Windows from a single codebase. The build system handles platform-specific details seamlessly, which is essential for a tool that needs to work everywhere developers do.
+### Memory management
 
-- **Simple syntax**: Zig's philosophy of "no hidden control flow" means the code does exactly what it appears to do. This makes the codebase easier to understand, debug, and maintain. Coming from higher-level languages, I appreciated how Zig forces you to be explicit about your intentions.
+Zig gives you explicit control over memory allocation and deallocation (similar to C/C++), but with helpful features to reduce errors. One standout is Zig's `defer` statement, which ensures resources are released when a scope exits—making it easy to prevent memory leaks and resource leaks. While Zig does not provide full memory safety guarantees, its compile-time checks, clear ownership model, and `defer` help you write reliable low-level code more safely than traditional C.
 
-- **No runtime**: Zero-cost abstractions and no garbage collector mean predictable performance characteristics. This is particularly important for a command-line tool that might be called thousands of times in automated testing scenarios.
+### Cross-platform
 
-- **Excellent tooling**: The built-in build system, package manager, and testing framework provided everything needed to create a professional-grade tool without external dependencies.
+Zig's excellent cross-compilation support made it trivial to build binaries for Linux, macOS, and Windows from a single codebase. The build system handles platform-specific details seamlessly, which is essential for a tool that needs to work everywhere developers do.
 
-- **Learning value**: As someone primarily working in managed languages, exploring manual memory management and system-level programming concepts in Zig provided valuable insights into how software works at a lower level.
+### Simple syntax
 
-The learning curve was worth it - Zig strikes an excellent balance between low-level control and high-level ergonomics, making it an ideal choice for systems programming projects like this one. The experience has given me a deeper appreciation for performance-critical software and the trade-offs involved in language design.
+Zig's philosophy of "no hidden control flow" means the code does exactly what it appears to do. This makes the codebase easier to understand, debug, and maintain. Coming from higher-level languages, I appreciated how Zig forces you to be explicit about your intentions.
+
+### No runtime
+
+Zero-cost abstractions and no garbage collector mean predictable performance characteristics. This is particularly important for a command-line tool that might be called thousands of times in automated testing scenarios.
+
+### Great editor support
+
+Zig's Language Server Protocol (LSP) implementation provides excellent code completion, diagnostics, and navigation features in editors like Visual Studio Code or Neovim. This made development smooth and productive, with real-time feedback and powerful refactoring tools available out of the box.
+
+### Learning value
+
+As someone who's day job is working in managed languages, exploring manual memory management and system-level programming concepts in Zig provided valuable insights into how software works at a lower level.
+
+Compared to Rust, I found Zig's learning curve to be less steep. Zig offers a straightforward syntax and fewer abstractions, which made it easier to grasp the core concepts quickly. While both languages provide low-level control and strong performance, Zig's simplicity and explicitness helped me become productive faster, making it an appealing choice for systems programming projects like this one.
+
+### The Zig Zen
+
+Zig's development philosophy, known as "The Zen of Zig," emphasizes simplicity, clarity, and explicitness. The language avoids hidden control flow, magic behaviors, and unnecessary abstractions, making it easier to reason about code and debug issues. This philosophy encourages writing code that is straightforward and predictable, which is especially valuable in systems programming where reliability and transparency are critical. By adhering to these principles, Zig helps developers build robust tools with minimal surprises, fostering a mindset of intentional and maintainable software design.
+
+- Communicate intent precisely.
+- Edge cases matter.
+- Favor reading code over writing code.
+- Only one obvious way to do things.
+- Runtime crashes are better than bugs.
+- Compile errors are better than runtime crashes.
+- Incremental improvements.
+- Avoid local maximums.
+- Reduce the amount one must remember.
+- Focus on code rather than style.
+- Resource allocation may fail; resource deallocation must succeed.
+- Memory is a resource.
+- Together we serve the users.
 
 ## Installation
 
@@ -339,17 +371,17 @@ This comprehensive logging makes HTTP File Runner suitable not just for testing,
 The tool provides beautiful, color-coded output:
 
 ```text
-HTTP File Runner - Processing file: examples/simple.http
+🚀 HTTP File Runner - Processing file: .\examples\simple.http
 ==================================================
 Found 4 HTTP request(s)
 
-✓ GET https://httpbin.org/status/200 - Status: 200
-✗ GET https://httpbin.org/status/404 - Status: 404
-✓ GET https://api.github.com/zen - Status: 200
-✓ GET https://jsonplaceholder.typicode.com/users/1 - Status: 200
+✅ GET https://httpbin.org/status/200 - Status: 200 - 557ms
+❌ GET https://httpbin.org/status/404 - Status: 404 - 542ms
+✅ GET https://api.github.com/zen - Status: 200 - 85ms
+✅ GET https://jsonplaceholder.typicode.com/users/1 - Status: 200 - 91ms
 
 ==================================================
-Summary: 3/4 requests succeeded
+File Summary: 3/4 requests succeeded
 ```
 
 ## What's Next?
@@ -368,30 +400,11 @@ I'm continuously improving the tool based on user feedback and real-world usage 
 
 - **Export results to different formats** - JSON, XML, CSV, and HTML reports for integration with various reporting and analysis tools.
 
-- **Performance metrics** - Detailed timing information including DNS resolution, connection establishment, SSL handshake, and transfer times.
-
 - **Parallel execution** - Option to run multiple requests concurrently for faster test suite execution.
-
-- **WebSocket support** - Extending beyond HTTP to support WebSocket connections and message testing.
-
-### Community Feedback
-
-The development of HTTP File Runner is heavily influenced by community feedback. Users have requested features like:
-
-- Integration with popular CI/CD platforms
-- Support for gRPC and GraphQL
-- Template systems for complex test scenarios
-- Plugin architecture for custom extensions
-
-I'm excited to continue evolving the tool to meet the diverse needs of the development community.
 
 ## Conclusion
 
-HTTP File Runner represents my exploration into systems programming with Zig while solving a real-world problem that affects developers daily. What started as a learning exercise to understand systems programming evolved into a genuinely useful tool that complements my existing [HTTP File Generator](https://github.com/christianhelle/httpgenerator) project.
-
-### The Learning Journey
-
-This project provided an excellent introduction to Zig and systems programming concepts. Coming from a background primarily in managed languages like C# and TypeScript, working with manual memory management and understanding the intricacies of cross-platform compilation was both challenging and rewarding. The experience has given me a deeper appreciation for performance-critical software and the careful considerations that go into building reliable system tools.
+HTTP File Runner represents my exploration into newer programming languages with Zig while solving a real-world problem that affects developers daily. What started as a learning exercise to understand Zig evolved into a genuinely useful tool that complements my existing [HTTP File Generator](https://github.com/christianhelle/httpgenerator) project.
 
 ### A Complete Workflow
 
