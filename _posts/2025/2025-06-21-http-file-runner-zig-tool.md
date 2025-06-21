@@ -172,7 +172,7 @@ httprunner --discover --verbose --log full-test-report.log
 
 **Environment Testing**: When deploying to a new environment, run `httprunner health-checks.http --env production --log deployment-validation.log` to verify everything is working correctly.
 
-**Performance Monitoring**: Set up automated runs with `httprunner monitoring/*.http --log $(date +%Y%m%d-%H%M%S)-performance.log` to track API performance over time.
+**Performance Monitoring**: Set up automated runs with `httprunner monitoring.http --log performance.log` to track API performance over time.
 
 ## HTTP File Format
 
