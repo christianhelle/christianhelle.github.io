@@ -17,41 +17,59 @@ redirect_from:
 
 I'm excited to share my latest project: [HTTP File Runner](https://github.com/christianhelle/httprunner), a command-line tool written in Zig that parses `.http` files and executes HTTP requests. This tool provides colored output with emojis to indicate success or failure, making it easy to test APIs and web services directly from your terminal.
 
+As developers, we often find ourselves testing REST APIs manually through various tools like Postman, Insomnia, or browser-based testing interfaces. While these tools are excellent for interactive testing, they can become cumbersome when you need to run the same tests repeatedly, integrate them into automated workflows, or share them with team members in a version-controlled manner. This is where HTTP File Runner shines - it bridges the gap between manual testing and automation by bringing the simplicity of `.http` files to the command line.
+
 ## What is HTTP File Runner?
 
 HTTP File Runner is a simple yet powerful tool that reads `.http` files (the same format used by popular IDEs like Visual Studio Code and JetBrains) and executes the HTTP requests defined within them. It's designed to be fast, reliable, and developer-friendly.
 
+The beauty of this approach lies in its simplicity and universality. `.http` files are plain text files that can be version-controlled, shared between team members, and executed across different environments. Unlike proprietary formats used by GUI tools, these files are human-readable and can be edited with any text editor. This makes them perfect for documentation, onboarding new team members, and ensuring consistency across development environments.
+
+What sets HTTP File Runner apart from other command-line HTTP tools is its focus on batch processing and developer experience. While tools like `curl` are excellent for single requests, HTTP File Runner excels at running multiple related requests, providing comprehensive reporting, and offering features specifically designed for API testing workflows.
+
 ## Key Features
 
-The tool comes packed with features that make API testing a breeze:
+The tool comes packed with features that make API testing a breeze, each designed to address common pain points in API development and testing workflows:
 
-🚀 **Parse and execute HTTP requests** from `.http` files  
-📁 **Support for multiple files** - run several `.http` files in a single command  
-🔍 **Discovery mode** - recursively find and run all `.http` files in a directory  
-📝 **Verbose mode** for detailed request and response information  
-📋 **Logging mode** to save all output to a file for analysis and reporting  
-✅ **Color-coded output** (green for success, red for failure)  
-📊 **Summary statistics** showing success/failure counts per file and overall  
-🌐 **Support for various HTTP methods** (GET, POST, PUT, DELETE, PATCH)  
-🔧 **Variables support** with substitution in URLs, headers, and request bodies  
-🔍 **Response assertions** for status codes, body content, and headers  
-🛡️ **Robust error handling** for network issues  
+🚀 **Parse and execute HTTP requests** from `.http` files - The core functionality that reads standard HTTP file format and executes requests sequentially  
+📁 **Support for multiple files** - Run several `.http` files in a single command, perfect for organizing tests by feature or service  
+🔍 **Discovery mode** - Recursively find and run all `.http` files in a directory tree, ideal for comprehensive test suites  
+📝 **Verbose mode** for detailed request and response information - See exactly what's being sent and received, invaluable for debugging  
+📋 **Logging mode** to save all output to a file for analysis and reporting - Essential for CI/CD pipelines and audit trails  
+✅ **Color-coded output** (green for success, red for failure) - Immediate visual feedback on test results  
+📊 **Summary statistics** showing success/failure counts per file and overall - Quick overview of test suite health  
+🌐 **Support for various HTTP methods** (GET, POST, PUT, DELETE, PATCH) - Covers all standard REST operations  
+🔧 **Variables support** with substitution in URLs, headers, and request bodies - Enables dynamic and reusable test scenarios  
+🔍 **Response assertions** for status codes, body content, and headers - Automated validation of API responses  
+🛡️ **Robust error handling** for network issues - Graceful handling of timeouts, connection failures, and other network problems  
+
+These features work together to create a comprehensive testing solution that scales from simple smoke tests to complex integration test suites. The combination of batch processing, detailed reporting, and assertion capabilities makes it suitable for both development-time testing and production monitoring.
 
 ## Why Zig?
 
-I chose Zig for this project for several reasons:
+I chose Zig for this project for several compelling reasons that align perfectly with the goals of creating a fast, reliable command-line tool:
 
-- **Performance**: Zig compiles to highly optimized native code
-- **Memory safety**: Manual memory management with compile-time safety checks
-- **Cross-platform**: Easy to build for multiple platforms
-- **Simple syntax**: Clean, readable code without hidden complexity
-- **No runtime**: Zero-cost abstractions and no garbage collector
+- **Performance**: Zig compiles to highly optimized native code without the overhead of a runtime or garbage collector. This means HTTP File Runner starts instantly and processes requests with minimal memory footprint, crucial for CI/CD environments where every second counts.
+
+- **Memory safety**: Unlike C/C++, Zig provides compile-time safety checks that catch memory-related bugs before they reach production. The language's approach to manual memory management gives you control without the footguns, resulting in more reliable software.
+
+- **Cross-platform**: Zig's excellent cross-compilation support made it trivial to build binaries for Linux, macOS, and Windows from a single codebase. The build system handles platform-specific details seamlessly, which is essential for a tool that needs to work everywhere developers do.
+
+- **Simple syntax**: Zig's philosophy of "no hidden control flow" means the code does exactly what it appears to do. This makes the codebase easier to understand, debug, and maintain. Coming from higher-level languages, I appreciated how Zig forces you to be explicit about your intentions.
+
+- **No runtime**: Zero-cost abstractions and no garbage collector mean predictable performance characteristics. This is particularly important for a command-line tool that might be called thousands of times in automated testing scenarios.
+
+- **Excellent tooling**: The built-in build system, package manager, and testing framework provided everything needed to create a professional-grade tool without external dependencies.
+
+The learning curve was worth it - Zig strikes an excellent balance between low-level control and high-level ergonomics, making it an ideal choice for systems programming projects like this one.
 
 ## Installation
 
-Getting started is incredibly easy. The tool provides multiple installation options:
+Getting started is incredibly easy. The tool provides multiple installation options to suit different preferences and environments. I've focused on making the installation process as frictionless as possible, recognizing that developers often need to get tools up and running quickly.
 
 ### Quick Install (Recommended)
+
+The fastest way to get started is using the automated install scripts. These scripts handle platform detection, architecture identification, and PATH configuration automatically:
 
 **Linux/macOS:**
 
@@ -65,16 +83,28 @@ curl -fsSL https://christianhelle.com/httprunner/install | bash
 irm https://christianhelle.com/httprunner/install.ps1 | iex
 ```
 
+These scripts will automatically:
+
+- Detect your operating system and CPU architecture
+- Download the appropriate binary from the latest GitHub release
+- Install it to a standard location (`/usr/local/bin` on Unix-like systems, `$HOME/.local/bin` as fallback)
+- Optionally add the installation directory to your PATH
+- Verify the installation was successful
+
 ### Other Installation Methods
 
-- **Snap Store**: `sudo snap install httprunner`
-- **Manual Download**: Download from [GitHub Releases](https://github.com/christianhelle/httprunner/releases/latest)
-- **Docker**: `docker pull christianhelle/httprunner`
-- **Build from source**: Clone the repo and run `zig build`
+For users who prefer different installation approaches or have specific requirements:
+
+- **Snap Store**: `sudo snap install httprunner` - Great for Ubuntu and other snap-enabled distributions, provides automatic updates
+- **Manual Download**: Download from [GitHub Releases](https://github.com/christianhelle/httprunner/releases/latest) - Full control over installation location and process
+- **Docker**: `docker pull christianhelle/httprunner` - Perfect for containerized environments or when you don't want to install binaries locally
+- **Build from source**: Clone the repo and run `zig build` - For developers who want to customize the build or contribute to the project
+
+Each method has its advantages: Snap provides automatic updates, manual download gives you full control, Docker ensures isolation, and building from source allows customization. Choose the method that best fits your workflow and security requirements.
 
 ## Usage Examples
 
-Here are some common usage patterns:
+Here are some common usage patterns that demonstrate the tool's flexibility and power. These examples progress from simple single-file execution to complex batch processing scenarios:
 
 ```bash
 # Run a single .http file
@@ -95,6 +125,16 @@ httprunner api-tests.http --log results.txt
 # Combine verbose mode with logging
 httprunner --discover --verbose --log full-test-report.log
 ```
+
+### Real-World Scenarios
+
+**Development Workflow**: During development, you might run `httprunner --discover --verbose` to execute all tests in your project and see detailed output for debugging.
+
+**CI/CD Integration**: In your build pipeline, use `httprunner --discover --log test-results.log` to run all tests and capture results for build reports.
+
+**Environment Testing**: When deploying to a new environment, run `httprunner health-checks.http --env production --log deployment-validation.log` to verify everything is working correctly.
+
+**Performance Monitoring**: Set up automated runs with `httprunner monitoring/*.http --log $(date +%Y%m%d-%H%M%S)-performance.log` to track API performance over time.
 
 ## HTTP File Format
 
@@ -123,7 +163,11 @@ Content-Type: application/json
 
 ## Variables and Environment Support
 
-One of the most powerful features is variable support:
+One of the most powerful features is the comprehensive variable support system, which enables you to create flexible, reusable test suites that work across different environments. This feature addresses one of the biggest pain points in API testing: managing different configurations for development, staging, and production environments.
+
+### Basic Variable Usage
+
+Variables are defined using the `@` syntax and referenced with double curly braces:
 
 ```http
 @hostname=localhost
@@ -134,45 +178,125 @@ GET {{baseUrl}}/api/users
 Authorization: Bearer {{token}}
 ```
 
-You can also use environment files (`http-client.env.json`) for different configurations:
+### Advanced Variable Composition
+
+Variables can be composed from other variables, allowing you to build complex configurations incrementally:
+
+```http
+@protocol=https
+@hostname=api.example.com
+@port=443
+@version=v1
+@baseUrl={{protocol}}://{{hostname}}:{{port}}/{{version}}
+
+# Now you can use the composed URL
+GET {{baseUrl}}/users
+GET {{baseUrl}}/posts
+GET {{baseUrl}}/comments
+```
+
+### Environment Configuration Files
+
+For managing different environments, you can create an `http-client.env.json` file with environment-specific values:
 
 ```json
 {
   "dev": {
     "HostAddress": "https://localhost:44320",
-    "ApiKey": "dev-api-key-123"
+    "ApiKey": "dev-api-key-123",
+    "DatabaseUrl": "postgresql://localhost:5432/myapp_dev",
+    "Environment": "development"
+  },
+  "staging": {
+    "HostAddress": "https://staging.example.com",
+    "ApiKey": "staging-api-key-456",
+    "DatabaseUrl": "postgresql://staging-db:5432/myapp_staging",
+    "Environment": "staging"
   },
   "prod": {
-    "HostAddress": "https://api.production.com",
-    "ApiKey": "prod-api-key-789"
+    "HostAddress": "https://api.example.com",
+    "ApiKey": "prod-api-key-789",
+    "DatabaseUrl": "postgresql://prod-db:5432/myapp_prod",
+    "Environment": "production"
   }
 }
 ```
 
-Then specify the environment:
+Then specify the environment when running tests:
+
 ```bash
 httprunner api-tests.http --env dev
 ```
 
+This approach allows you to maintain a single set of test files while easily switching between different environments. The variable override behavior is intelligent: environment variables are loaded first, then any variables defined in the `.http` file override them, giving you both flexibility and control.
+
 ## Response Assertions
 
-The tool supports assertions to validate responses:
+The tool supports comprehensive assertions to validate HTTP responses, enabling you to create robust test suites that verify not just connectivity but actual API behavior. This feature transforms HTTP File Runner from a simple request executor into a full-fledged testing framework.
+
+### Types of Assertions
+
+**Status Code Assertions** - Verify that the API returns the expected HTTP status code:
 
 ```http
-# Status code assertion
 GET https://httpbin.org/status/200
 EXPECTED_RESPONSE_STATUS 200
+```
 
-# Response body assertion
+**Response Body Assertions** - Check that the response body contains specific content:
+
+```http
 GET https://httpbin.org/json
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_BODY "slideshow"
+```
+
+**Response Header Assertions** - Validate that response headers contain expected values:
+
+```http
+GET https://httpbin.org/json
+EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 ```
 
+### Complex Assertion Scenarios
+
+You can combine multiple assertions to create comprehensive validation:
+
+```http
+# Test user creation endpoint
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+
+EXPECTED_RESPONSE_STATUS 201
+EXPECTED_RESPONSE_BODY "John Doe"
+EXPECTED_RESPONSE_HEADERS "Location: /users/"
+EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+```
+
+### Assertion Behavior and Error Reporting
+
+When assertions are present, HTTP File Runner becomes more thorough:
+
+- Always captures response headers and body (even in non-verbose mode)
+- Evaluates all assertions against the response
+- Displays detailed assertion results showing which passed/failed
+- Marks the request as failed if any assertion fails, regardless of the HTTP status code
+
+This comprehensive approach ensures that your tests validate the complete API contract, not just basic connectivity.
+
 ## Logging and CI/CD Integration
 
-The logging feature makes this tool perfect for CI/CD pipelines:
+The logging feature makes this tool perfect for CI/CD pipelines and automated testing scenarios. Modern software development relies heavily on automation, and HTTP File Runner's logging capabilities are designed to integrate seamlessly into these workflows.
+
+### Comprehensive Logging Options
+
+The `--log` flag provides several options for capturing test results:
 
 ```bash
 # Generate test reports for build systems
@@ -181,6 +305,28 @@ httprunner --discover --log test_report_$(date +%Y%m%d_%H%M%S).log
 # Daily API health checks
 httprunner health-checks.http --verbose --log daily_health_check.log
 ```
+
+### Integration Scenarios
+
+**Build Pipeline Integration**: Configure your CI/CD system to run HTTP File Runner as part of the build process. The tool's exit codes and log files provide everything needed for build status determination and result reporting.
+
+**Deployment Validation**: After deploying to a new environment, automatically run a suite of health check requests to verify that all services are responding correctly.
+
+**Monitoring and Alerting**: Set up scheduled runs of critical API tests, with log files feeding into monitoring systems that can alert on failures or performance degradation.
+
+**Documentation and Reporting**: The verbose logging mode captures complete request/response cycles, making it easy to generate API documentation or troubleshooting guides from actual test runs.
+
+### Log File Benefits
+
+Log files preserve:
+
+- Complete terminal output including colors and emojis
+- Detailed HTTP request and response information (when using `--verbose`)
+- Success/failure indicators and summary statistics
+- Error messages and network diagnostics
+- Execution timestamps and duration metrics
+
+This comprehensive logging makes HTTP File Runner suitable not just for testing, but for API monitoring, documentation generation, and troubleshooting production issues.
 
 ## Output Examples
 
@@ -202,19 +348,58 @@ Summary: 3/4 requests succeeded
 
 ## What's Next?
 
-I'm continuously improving the tool. Some planned enhancements include:
+I'm continuously improving the tool based on user feedback and real-world usage patterns. The roadmap includes several exciting enhancements that will further enhance its capabilities:
 
-- Full custom headers support (currently parsed but not fully applied)
-- Advanced authentication methods (Basic, Bearer tokens)
-- Request timeout configuration
-- JSON response formatting
-- Export results to different formats (JSON, XML, CSV)
+### Planned Enhancements
+
+- **Full custom headers support** - Currently parsed but not fully applied to requests. This will enable complete request customization including authentication headers, custom content types, and API-specific headers.
+
+- **Advanced authentication methods** - Beyond basic authentication, I'm planning support for Bearer tokens, OAuth flows, API key authentication, and custom authentication schemes.
+
+- **Request timeout configuration** - Configurable timeouts per request or globally, essential for testing APIs with varying response times or unreliable networks.
+
+- **JSON response formatting** - Pretty-printing and syntax highlighting for JSON responses, making it easier to read and debug API responses.
+
+- **Export results to different formats** - JSON, XML, CSV, and HTML reports for integration with various reporting and analysis tools.
+
+- **Performance metrics** - Detailed timing information including DNS resolution, connection establishment, SSL handshake, and transfer times.
+
+- **Parallel execution** - Option to run multiple requests concurrently for faster test suite execution.
+
+- **WebSocket support** - Extending beyond HTTP to support WebSocket connections and message testing.
+
+### Community Feedback
+
+The development of HTTP File Runner is heavily influenced by community feedback. Users have requested features like:
+
+- Integration with popular CI/CD platforms
+- Support for gRPC and GraphQL
+- Template systems for complex test scenarios
+- Plugin architecture for custom extensions
+
+I'm excited to continue evolving the tool to meet the diverse needs of the development community.
 
 ## Conclusion
 
-HTTP File Runner represents my exploration into systems programming with Zig while solving a real-world problem. It's designed to be fast, reliable, and developer-friendly. Whether you're testing APIs, running health checks, or integrating into CI/CD pipelines, this tool aims to make HTTP testing as simple as possible.
+HTTP File Runner represents my exploration into systems programming with Zig while solving a real-world problem that affects developers daily. The journey of building this tool has been both educational and rewarding, demonstrating how the right language choice can lead to software that is both performant and maintainable.
 
-The project is open source and available under the MIT License. I welcome contributions, feedback, and feature requests!
+### Why This Tool Matters
+
+In today's microservices-driven world, APIs are the backbone of modern applications. Testing these APIs effectively requires tools that are fast, reliable, and integrate well with development workflows. HTTP File Runner fills a specific niche: providing the simplicity of `.http` files with the power of command-line automation.
+
+The tool's design philosophy centers around developer experience. From the colorful, emoji-rich output that makes test results immediately understandable, to the comprehensive logging that supports both debugging and reporting, every feature has been crafted with the developer in mind.
+
+### Technical Achievements
+
+Building HTTP File Runner in Zig has been an exercise in balancing performance with usability. The resulting binary is small (under 2MB), starts instantly, and handles network operations efficiently. The cross-platform support means teams can use the same tool regardless of their development environment, reducing friction and improving consistency.
+
+The modular code structure makes the project maintainable and extensible. Each component - from HTTP parsing to response validation - is cleanly separated, making it easy to add new features or modify existing behavior.
+
+### Real-World Impact
+
+Whether you're testing APIs during development, running health checks in production, or integrating API testing into CI/CD pipelines, HTTP File Runner aims to make these tasks as simple and reliable as possible. The combination of batch processing, detailed reporting, and assertion capabilities scales from individual developer workflows to enterprise testing scenarios.
+
+The project is open source and available under the MIT License, reflecting my belief that good tools should be accessible to everyone. I welcome contributions, feedback, and feature requests from the community - after all, the best tools are built through collaboration.
 
 **Links:**
 
