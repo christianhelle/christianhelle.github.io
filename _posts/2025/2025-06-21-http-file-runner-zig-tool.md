@@ -270,63 +270,478 @@ This approach allows you to maintain a single set of test files while easily swi
 
 ## Response Assertions
 
-The tool supports comprehensive assertions to validate HTTP responses, enabling you to create robust test suites that verify not just connectivity but actual API behavior. This feature transforms HTTP File Runner from a simple request executor into a full-fledged testing framework.
+The response assertion system is one of HTTP File Runner's most powerful features, transforming it from a simple request executor into a comprehensive API testing framework. This system enables you to validate not just that your API responds, but that it responds correctly with the expected data, status codes, and headers. By incorporating assertions into your `.http` files, you can create robust test suites that catch regressions, validate API contracts, and ensure your services behave correctly across different environments.
+
+### Understanding Assertion Philosophy
+
+HTTP File Runner's assertion system is designed around the principle of explicit validation. Rather than assuming that any response is acceptable, assertions force you to define what constitutes a successful interaction with your API. This approach catches subtle bugs that might otherwise go unnoticed, such as:
+
+- APIs returning 200 status codes with error messages in the body
+- Correct data with unexpected content types or encoding
+- Missing or incorrect security headers
+- Performance regressions indicated by unexpected response patterns
 
 ### Types of Assertions
 
-**Status Code Assertions** - Verify that the API returns the expected HTTP status code:
+#### Status Code Assertions
+
+Status code assertions are the foundation of API testing, ensuring your endpoints return the correct HTTP status codes for different scenarios:
 
 ```http
+# Test successful resource retrieval
 GET https://httpbin.org/status/200
+EXPECTED_RESPONSE_STATUS 200
+
+# Test resource not found scenario
+GET https://httpbin.org/status/404
+EXPECTED_RESPONSE_STATUS 404
+
+# Test server error handling
+GET https://httpbin.org/status/500
+EXPECTED_RESPONSE_STATUS 500
+
+# Test created resource
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{"name": "test"}
+
 EXPECTED_RESPONSE_STATUS 200
 ```
 
-**Response Body Assertions** - Check that the response body contains specific content:
+Status code assertions are particularly valuable for testing error conditions and edge cases. You can verify that your API correctly returns 400 for bad requests, 401 for unauthorized access, 403 for forbidden operations, and 404 for missing resources.
+
+#### Response Body Assertions
+
+Response body assertions validate the actual content returned by your API. These assertions use substring matching, making them flexible enough to work with various response formats while being specific enough to catch content errors:
 
 ```http
+# Test JSON response content
 GET https://httpbin.org/json
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_BODY "slideshow"
+EXPECTED_RESPONSE_BODY "title"
+EXPECTED_RESPONSE_BODY "Sample Slide Show"
+
+# Test API response structure
+GET https://jsonplaceholder.typicode.com/users/1
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_BODY "Leanne Graham"
+EXPECTED_RESPONSE_BODY "email"
+EXPECTED_RESPONSE_BODY "@hildegard.org"
+
+# Test error message content
+GET https://httpbin.org/status/400
+EXPECTED_RESPONSE_STATUS 400
+EXPECTED_RESPONSE_BODY "Bad Request"
+
+# Test XML response content
+GET https://httpbin.org/xml
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_BODY "<slideshow"
+EXPECTED_RESPONSE_BODY "title=\"Sample Slide Show\""
 ```
 
-**Response Header Assertions** - Validate that response headers contain expected values:
+Body assertions are case-sensitive and look for exact substring matches. This approach allows you to validate:
+
+- Specific field values in JSON responses
+- Error messages and codes
+- HTML content and structure
+- XML elements and attributes
+- Plain text responses
+- Binary content markers
+
+#### Response Header Assertions
+
+Header assertions validate the metadata returned with your API responses. These are crucial for testing security headers, content types, caching directives, and custom application headers:
 
 ```http
+# Test content type headers
 GET https://httpbin.org/json
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+
+# Test security headers
+GET https://httpbin.org/response-headers?X-Frame-Options=DENY
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_HEADERS "X-Frame-Options: DENY"
+
+# Test caching headers
+GET https://httpbin.org/cache/60
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_HEADERS "Cache-Control"
+
+# Test custom application headers
+GET https://httpbin.org/response-headers?X-API-Version=1.0
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_HEADERS "X-API-Version: 1.0"
+
+# Test multiple header values
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{"test": "data"}
+
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+EXPECTED_RESPONSE_HEADERS "Server: gunicorn"
+EXPECTED_RESPONSE_HEADERS "Access-Control-Allow-Origin"
 ```
 
-### Complex Assertion Scenarios
+Header assertions use substring matching on the full header line (including both name and value). This flexibility allows you to:
 
-You can combine multiple assertions to create comprehensive validation:
+- Validate exact header values
+- Check for the presence of headers without specifying exact values
+- Test multiple values for the same header
+- Verify security and compliance headers
+
+### Advanced Assertion Patterns
+
+#### Comprehensive API Endpoint Testing
+
+Here's an example of thoroughly testing a user management API endpoint:
 
 ```http
-# Test user creation endpoint
+# Test user creation with comprehensive validation
+POST https://api.example.com/users
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "role": "user",
+  "preferences": {
+    "theme": "dark",
+    "notifications": true
+  }
+}
+
+EXPECTED_RESPONSE_STATUS 201
+EXPECTED_RESPONSE_BODY "Jane Smith"
+EXPECTED_RESPONSE_BODY "jane.smith@example.com"
+EXPECTED_RESPONSE_BODY "\"id\":"
+EXPECTED_RESPONSE_BODY "\"created_at\":"
+EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+EXPECTED_RESPONSE_HEADERS "Location: /users/"
+EXPECTED_RESPONSE_HEADERS "X-RateLimit-Remaining"
+
+###
+
+# Test retrieving the created user
+GET https://api.example.com/users/{{user_id}}
+Authorization: Bearer {{auth_token}}
+
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_BODY "Jane Smith"
+EXPECTED_RESPONSE_BODY "jane.smith@example.com"
+EXPECTED_RESPONSE_BODY "\"role\": \"user\""
+EXPECTED_RESPONSE_BODY "\"theme\": \"dark\""
+EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+EXPECTED_RESPONSE_HEADERS "ETag:"
+
+###
+
+# Test user update
+PUT https://api.example.com/users/{{user_id}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "name": "Jane Smith-Johnson",
+  "preferences": {
+    "theme": "light",
+    "notifications": false
+  }
+}
+
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_BODY "Jane Smith-Johnson"
+EXPECTED_RESPONSE_BODY "\"theme\": \"light\""
+EXPECTED_RESPONSE_BODY "\"notifications\": false"
+EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+
+###
+
+# Test user deletion
+DELETE https://api.example.com/users/{{user_id}}
+Authorization: Bearer {{auth_token}}
+
+EXPECTED_RESPONSE_STATUS 204
+EXPECTED_RESPONSE_HEADERS "X-Deleted-At:"
+
+###
+
+# Verify user is actually deleted
+GET https://api.example.com/users/{{user_id}}
+Authorization: Bearer {{auth_token}}
+
+EXPECTED_RESPONSE_STATUS 404
+EXPECTED_RESPONSE_BODY "User not found"
+EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+```
+
+#### Error Condition Testing
+
+Testing error conditions is just as important as testing success scenarios:
+
+```http
+# Test validation errors
 POST https://api.example.com/users
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "",
+  "email": "invalid-email"
 }
 
-EXPECTED_RESPONSE_STATUS 201
-EXPECTED_RESPONSE_BODY "John Doe"
-EXPECTED_RESPONSE_HEADERS "Location: /users/"
+EXPECTED_RESPONSE_STATUS 400
+EXPECTED_RESPONSE_BODY "validation error"
+EXPECTED_RESPONSE_BODY "name is required"
+EXPECTED_RESPONSE_BODY "invalid email format"
+EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+
+###
+
+# Test authentication errors
+GET https://api.example.com/users
+Authorization: Bearer invalid-token
+
+EXPECTED_RESPONSE_STATUS 401
+EXPECTED_RESPONSE_BODY "unauthorized"
+EXPECTED_RESPONSE_HEADERS "WWW-Authenticate: Bearer"
+
+###
+
+# Test authorization errors
+GET https://api.example.com/admin/users
+Authorization: Bearer {{user_token}}
+
+EXPECTED_RESPONSE_STATUS 403
+EXPECTED_RESPONSE_BODY "insufficient permissions"
+EXPECTED_RESPONSE_BODY "admin role required"
+
+###
+
+# Test rate limiting
+GET https://api.example.com/users
+
+EXPECTED_RESPONSE_STATUS 429
+EXPECTED_RESPONSE_BODY "rate limit exceeded"
+EXPECTED_RESPONSE_HEADERS "Retry-After:"
+EXPECTED_RESPONSE_HEADERS "X-RateLimit-Reset:"
+```
+
+### Assertion Execution and Behavior
+
+#### Processing Order and Logic
+
+When HTTP File Runner encounters assertions in a `.http` file, it follows a specific execution pattern:
+
+1. **Request Execution**: The HTTP request is sent normally, following all redirects and handling authentication
+2. **Response Capture**: The complete response is captured, including status code, headers, and body
+3. **Assertion Evaluation**: Each assertion is evaluated in the order it appears in the file
+4. **Result Aggregation**: All assertion results are collected and reported
+5. **Request Status Determination**: The request is marked as successful only if ALL assertions pass
+
+#### Enhanced Logging and Reporting
+
+When assertions are present, HTTP File Runner automatically enables enhanced logging, even in non-verbose mode:
+
+```text
+🚀 HTTP File Runner - Processing file: .\tests\user-api.http
+==================================================
+Found 3 HTTP request(s)
+
+✅ POST https://api.example.com/users - Status: 201 - 245ms
+   ✅ Status assertion passed: 201
+   ✅ Body assertion passed: "Jane Smith"
+   ✅ Body assertion passed: "jane.smith@example.com"
+   ✅ Header assertion passed: "Content-Type: application/json"
+   ✅ Header assertion passed: "Location: /users/"
+
+❌ GET https://api.example.com/users/invalid - Status: 404 - 123ms
+   ✅ Status assertion passed: 404
+   ❌ Body assertion failed: Expected "user not found" but got "Resource not found"
+   ✅ Header assertion passed: "Content-Type: application/json"
+
+✅ DELETE https://api.example.com/users/123 - Status: 204 - 156ms
+   ✅ Status assertion passed: 204
+   ✅ Header assertion passed: "X-Deleted-At:"
+
+==================================================
+File Summary: 2/3 requests succeeded
+Total Assertions: 9 passed, 1 failed
+```
+
+#### Verbose Mode Enhancement
+
+In verbose mode, HTTP File Runner provides even more detailed information about assertion evaluation:
+
+```text
+🚀 HTTP File Runner - Processing file: .\tests\detailed-test.http
+==================================================
+
+📤 Request: POST https://api.example.com/users
+Headers:
+  Content-Type: application/json
+  Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+
+Body:
+{
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com"
+}
+
+📥 Response: 201 Created (245ms)
+Headers:
+  Content-Type: application/json; charset=utf-8
+  Location: /users/12345
+  X-RateLimit-Remaining: 99
+  Content-Length: 156
+
+Body:
+{
+  "id": 12345,
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "created_at": "2025-06-21T10:30:00Z",
+  "role": "user"
+}
+
+🔍 Assertion Results:
+   ✅ EXPECTED_RESPONSE_STATUS 201
+      Expected: 201, Actual: 201 ✓
+
+   ✅ EXPECTED_RESPONSE_BODY "Jane Smith"
+      Found substring "Jane Smith" in response body ✓
+
+   ✅ EXPECTED_RESPONSE_BODY "jane.smith@example.com"
+      Found substring "jane.smith@example.com" in response body ✓
+
+   ✅ EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+      Found header match "Content-Type: application/json" ✓
+
+   ✅ EXPECTED_RESPONSE_HEADERS "Location: /users/"
+      Found header match "Location: /users/" ✓
+
+✅ Request completed successfully - All assertions passed
+```
+
+### Best Practices for Assertion Design
+
+#### Start Simple, Build Complex
+
+Begin with basic status code assertions and gradually add more specific validations:
+
+```http
+# Level 1: Basic connectivity
+GET https://api.example.com/health
+EXPECTED_RESPONSE_STATUS 200
+
+# Level 2: Add content validation
+GET https://api.example.com/health
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_BODY "healthy"
+
+# Level 3: Full contract validation
+GET https://api.example.com/health
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_BODY "healthy"
+EXPECTED_RESPONSE_BODY "\"uptime\":"
+EXPECTED_RESPONSE_BODY "\"version\":"
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 ```
 
-### Assertion Behavior and Error Reporting
+#### Use Specific but Resilient Assertions
 
-When assertions are present, HTTP File Runner becomes more thorough:
+Make your assertions specific enough to catch real issues, but resilient enough to not break on minor changes:
 
-- Always captures response headers and body (even in non-verbose mode)
-- Evaluates all assertions against the response
-- Displays detailed assertion results showing which passed/failed
-- Marks the request as failed if any assertion fails, regardless of the HTTP status code
+```http
+# Good: Validates presence of key fields
+EXPECTED_RESPONSE_BODY "\"id\":"
+EXPECTED_RESPONSE_BODY "\"name\":"
+EXPECTED_RESPONSE_BODY "\"email\":"
 
-This comprehensive approach ensures that your tests validate the complete API contract, not just basic connectivity.
+# Avoid: Too specific, breaks on formatting changes
+EXPECTED_RESPONSE_BODY "  \"id\": 123,"
+EXPECTED_RESPONSE_BODY "  \"name\": \"John Doe\","
+```
+
+#### Test Both Success and Failure Scenarios
+
+Comprehensive testing includes validating that your API fails correctly:
+
+```http
+# Test success case
+POST https://api.example.com/login
+Content-Type: application/json
+
+{"username": "valid@example.com", "password": "correct"}
+
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_BODY "\"token\":"
+EXPECTED_RESPONSE_BODY "\"expires_at\":"
+
+###
+
+# Test failure case
+POST https://api.example.com/login
+Content-Type: application/json
+
+{"username": "invalid@example.com", "password": "wrong"}
+
+EXPECTED_RESPONSE_STATUS 401
+EXPECTED_RESPONSE_BODY "invalid credentials"
+EXPECTED_RESPONSE_BODY "\"error\": \"authentication_failed\""
+```
+
+### Integration with Development Workflows
+
+#### Pre-commit Testing
+
+Use assertions in pre-commit hooks to catch API regressions before they reach version control:
+
+```bash
+# In your pre-commit script
+httprunner tests/api-contracts.http --verbose
+if [ $? -ne 0 ]; then
+    echo "API contract tests failed. Commit blocked."
+    exit 1
+fi
+```
+
+#### Environment Validation
+
+After deployments, run assertion-heavy test suites to validate the new environment:
+
+```bash
+# Validate staging deployment
+httprunner tests/smoke-tests.http --env staging --log staging-validation.log
+
+# Validate production deployment
+httprunner tests/critical-paths.http --env production --log prod-validation.log
+```
+
+#### Performance and Regression Testing
+
+Combine assertions with regular execution to catch both functional and performance regressions:
+
+```http
+# This request should complete quickly and return valid data
+GET https://api.example.com/users?page=1&limit=10
+EXPECTED_RESPONSE_STATUS 200
+EXPECTED_RESPONSE_BODY "\"users\":"
+EXPECTED_RESPONSE_BODY "\"total\":"
+EXPECTED_RESPONSE_BODY "\"page\": 1"
+EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
+EXPECTED_RESPONSE_HEADERS "X-Total-Count:"
+
+# If this takes longer than usual, investigate performance issues
+# The timing information in the output helps track performance trends
+```
+
+This comprehensive assertion system ensures that your API tests are thorough, reliable, and provide meaningful feedback when things go wrong. By incorporating detailed assertions into your HTTP files, you create living documentation of your API contracts while building robust test suites that catch issues early in the development cycle.
 
 ## Logging and CI/CD Integration
 
