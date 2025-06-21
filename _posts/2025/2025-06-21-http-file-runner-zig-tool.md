@@ -242,19 +242,16 @@ For managing different environments, you can create an `http-client.env.json` fi
   "dev": {
     "HostAddress": "https://localhost:44320",
     "ApiKey": "dev-api-key-123",
-    "DatabaseUrl": "postgresql://localhost:5432/myapp_dev",
     "Environment": "development"
   },
   "staging": {
     "HostAddress": "https://staging.example.com",
     "ApiKey": "staging-api-key-456",
-    "DatabaseUrl": "postgresql://staging-db:5432/myapp_staging",
     "Environment": "staging"
   },
   "prod": {
     "HostAddress": "https://api.example.com",
     "ApiKey": "prod-api-key-789",
-    "DatabaseUrl": "postgresql://prod-db:5432/myapp_prod",
     "Environment": "production"
   }
 }
@@ -295,18 +292,6 @@ EXPECTED_RESPONSE_STATUS 200
 # Test resource not found scenario
 GET https://httpbin.org/status/404
 EXPECTED_RESPONSE_STATUS 404
-
-# Test server error handling
-GET https://httpbin.org/status/500
-EXPECTED_RESPONSE_STATUS 500
-
-# Test created resource
-POST https://httpbin.org/post
-Content-Type: application/json
-
-{"name": "test"}
-
-EXPECTED_RESPONSE_STATUS 200
 ```
 
 Status code assertions are particularly valuable for testing error conditions and edge cases. You can verify that your API correctly returns 400 for bad requests, 401 for unauthorized access, 403 for forbidden operations, and 404 for missing resources.
@@ -320,63 +305,28 @@ Response body assertions validate the actual content returned by your API. These
 GET https://httpbin.org/json
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_BODY "slideshow"
-EXPECTED_RESPONSE_BODY "title"
 EXPECTED_RESPONSE_BODY "Sample Slide Show"
 
 # Test API response structure
 GET https://jsonplaceholder.typicode.com/users/1
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_BODY "Leanne Graham"
-EXPECTED_RESPONSE_BODY "email"
 EXPECTED_RESPONSE_BODY "@hildegard.org"
-
-# Test error message content
-GET https://httpbin.org/status/400
-EXPECTED_RESPONSE_STATUS 400
-EXPECTED_RESPONSE_BODY "Bad Request"
-
-# Test XML response content
-GET https://httpbin.org/xml
-EXPECTED_RESPONSE_STATUS 200
-EXPECTED_RESPONSE_BODY "<slideshow"
-EXPECTED_RESPONSE_BODY "title=\"Sample Slide Show\""
 ```
 
-Body assertions are case-sensitive and look for exact substring matches. This approach allows you to validate:
-
-- Specific field values in JSON responses
-- Error messages and codes
-- HTML content and structure
-- XML elements and attributes
-- Plain text responses
-- Binary content markers
+Body assertions are case-sensitive and look for exact substring matches. This approach allows you to validate specific field values in JSON responses, error messages, HTML content, XML elements, and plain text responses.
 
 #### Response Header Assertions
 
 Header assertions validate the metadata returned with your API responses. These are crucial for testing security headers, content types, caching directives, and custom application headers:
 
 ```http
-# Test content type headers
+# Test content type and security headers
 GET https://httpbin.org/json
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 
-# Test security headers
-GET https://httpbin.org/response-headers?X-Frame-Options=DENY
-EXPECTED_RESPONSE_STATUS 200
-EXPECTED_RESPONSE_HEADERS "X-Frame-Options: DENY"
-
-# Test caching headers
-GET https://httpbin.org/cache/60
-EXPECTED_RESPONSE_STATUS 200
-EXPECTED_RESPONSE_HEADERS "Cache-Control"
-
 # Test custom application headers
-GET https://httpbin.org/response-headers?X-API-Version=1.0
-EXPECTED_RESPONSE_STATUS 200
-EXPECTED_RESPONSE_HEADERS "X-API-Version: 1.0"
-
-# Test multiple header values
 POST https://httpbin.org/post
 Content-Type: application/json
 
@@ -385,15 +335,9 @@ Content-Type: application/json
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 EXPECTED_RESPONSE_HEADERS "Server: gunicorn"
-EXPECTED_RESPONSE_HEADERS "Access-Control-Allow-Origin"
 ```
 
-Header assertions use substring matching on the full header line (including both name and value). This flexibility allows you to:
-
-- Validate exact header values
-- Check for the presence of headers without specifying exact values
-- Test multiple values for the same header
-- Verify security and compliance headers
+Header assertions use substring matching on the full header line (including both name and value). This flexibility allows you to validate exact header values, check for header presence, test multiple values for the same header, and verify security and compliance headers.
 
 ### Advanced Assertion Patterns
 
@@ -410,75 +354,32 @@ Authorization: Bearer {{auth_token}}
 {
   "name": "Jane Smith",
   "email": "jane.smith@example.com",
-  "role": "user",
-  "preferences": {
-    "theme": "dark",
-    "notifications": true
-  }
+  "role": "user"
 }
 
 EXPECTED_RESPONSE_STATUS 201
 EXPECTED_RESPONSE_BODY "Jane Smith"
 EXPECTED_RESPONSE_BODY "jane.smith@example.com"
 EXPECTED_RESPONSE_BODY "\"id\":"
-EXPECTED_RESPONSE_BODY "\"created_at\":"
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 EXPECTED_RESPONSE_HEADERS "Location: /users/"
-EXPECTED_RESPONSE_HEADERS "X-RateLimit-Remaining"
 
 ###
 
-# Test retrieving the created user
-GET https://api.example.com/users/{{user_id}}
-Authorization: Bearer {{auth_token}}
-
-EXPECTED_RESPONSE_STATUS 200
-EXPECTED_RESPONSE_BODY "Jane Smith"
-EXPECTED_RESPONSE_BODY "jane.smith@example.com"
-EXPECTED_RESPONSE_BODY "\"role\": \"user\""
-EXPECTED_RESPONSE_BODY "\"theme\": \"dark\""
-EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
-EXPECTED_RESPONSE_HEADERS "ETag:"
-
-###
-
-# Test user update
-PUT https://api.example.com/users/{{user_id}}
-Content-Type: application/json
-Authorization: Bearer {{auth_token}}
-
-{
-  "name": "Jane Smith-Johnson",
-  "preferences": {
-    "theme": "light",
-    "notifications": false
-  }
-}
-
-EXPECTED_RESPONSE_STATUS 200
-EXPECTED_RESPONSE_BODY "Jane Smith-Johnson"
-EXPECTED_RESPONSE_BODY "\"theme\": \"light\""
-EXPECTED_RESPONSE_BODY "\"notifications\": false"
-EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
-
-###
-
-# Test user deletion
+# Verify user is deleted properly
 DELETE https://api.example.com/users/{{user_id}}
 Authorization: Bearer {{auth_token}}
 
 EXPECTED_RESPONSE_STATUS 204
-EXPECTED_RESPONSE_HEADERS "X-Deleted-At:"
 
 ###
 
-# Verify user is actually deleted
+# Confirm user no longer exists
 GET https://api.example.com/users/{{user_id}}
 Authorization: Bearer {{auth_token}}
 
 EXPECTED_RESPONSE_STATUS 404
 EXPECTED_RESPONSE_BODY "User not found"
-EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 ```
 
 #### Error Condition Testing
@@ -498,7 +399,6 @@ Content-Type: application/json
 EXPECTED_RESPONSE_STATUS 400
 EXPECTED_RESPONSE_BODY "validation error"
 EXPECTED_RESPONSE_BODY "name is required"
-EXPECTED_RESPONSE_BODY "invalid email format"
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 
 ###
@@ -510,26 +410,6 @@ Authorization: Bearer invalid-token
 EXPECTED_RESPONSE_STATUS 401
 EXPECTED_RESPONSE_BODY "unauthorized"
 EXPECTED_RESPONSE_HEADERS "WWW-Authenticate: Bearer"
-
-###
-
-# Test authorization errors
-GET https://api.example.com/admin/users
-Authorization: Bearer {{user_token}}
-
-EXPECTED_RESPONSE_STATUS 403
-EXPECTED_RESPONSE_BODY "insufficient permissions"
-EXPECTED_RESPONSE_BODY "admin role required"
-
-###
-
-# Test rate limiting
-GET https://api.example.com/users
-
-EXPECTED_RESPONSE_STATUS 429
-EXPECTED_RESPONSE_BODY "rate limit exceeded"
-EXPECTED_RESPONSE_HEADERS "Retry-After:"
-EXPECTED_RESPONSE_HEADERS "X-RateLimit-Reset:"
 ```
 
 ### Assertion Execution and Behavior
@@ -665,7 +545,6 @@ EXPECTED_RESPONSE_BODY "\"email\":"
 
 # Avoid: Too specific, breaks on formatting changes
 EXPECTED_RESPONSE_BODY "  \"id\": 123,"
-EXPECTED_RESPONSE_BODY "  \"name\": \"John Doe\","
 ```
 
 #### Test Both Success and Failure Scenarios
@@ -681,7 +560,6 @@ Content-Type: application/json
 
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_BODY "\"token\":"
-EXPECTED_RESPONSE_BODY "\"expires_at\":"
 
 ###
 
@@ -693,7 +571,6 @@ Content-Type: application/json
 
 EXPECTED_RESPONSE_STATUS 401
 EXPECTED_RESPONSE_BODY "invalid credentials"
-EXPECTED_RESPONSE_BODY "\"error\": \"authentication_failed\""
 ```
 
 ### Integration with Development Workflows
@@ -733,11 +610,8 @@ GET https://api.example.com/users?page=1&limit=10
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_BODY "\"users\":"
 EXPECTED_RESPONSE_BODY "\"total\":"
-EXPECTED_RESPONSE_BODY "\"page\": 1"
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
-EXPECTED_RESPONSE_HEADERS "X-Total-Count:"
 
-# If this takes longer than usual, investigate performance issues
 # The timing information in the output helps track performance trends
 ```
 
