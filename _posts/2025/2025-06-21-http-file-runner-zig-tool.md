@@ -5,7 +5,7 @@ date: 2025-06-21
 author: Christian Helle
 tags:
 - Zig
-- HTTP Files
+- HTTP
 redirect_from:
 - /2025/06/http-file-runner-zig-tool
 - /2025/06/http-file-runner-zig-tool/
