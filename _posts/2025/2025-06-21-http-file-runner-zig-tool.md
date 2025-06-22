@@ -56,6 +56,8 @@ Choosing Zig for this project was intentional - this started as a learning exerc
 
 Zig compiles to highly optimized native code without the overhead of a runtime or garbage collector. This means HTTP File Runner starts instantly and processes requests with minimal memory footprint, crucial for CI/CD environments where every second counts.
 
+The resulting binary is small (under 2MB), starts instantly, and handles network operations efficiently. The cross-platform support means teams can use the same tool regardless of their development environment, reducing friction and improving consistency.
+
 ### Memory management
 
 Zig gives you explicit control over memory allocation and deallocation (similar to C/C++), but with helpful features to reduce errors. One standout is Zig's `defer` statement, which ensures resources are released when a scope exits—making it easy to prevent memory leaks and resource leaks. While Zig does not provide full memory safety guarantees, its compile-time checks, clear ownership model, and `defer` help you write reliable low-level code more safely than traditional C.
@@ -351,14 +353,14 @@ Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 {
-  "name": "Jane Smith",
-  "email": "jane.smith@example.com",
+  "name": "Christian Helle",
+  "email": "christian.helle@example.com",
   "role": "user"
 }
 
 EXPECTED_RESPONSE_STATUS 201
-EXPECTED_RESPONSE_BODY "Jane Smith"
-EXPECTED_RESPONSE_BODY "jane.smith@example.com"
+EXPECTED_RESPONSE_BODY "Christian Helle"
+EXPECTED_RESPONSE_BODY "christian.helle@example.com"
 EXPECTED_RESPONSE_BODY "\"id\":"
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 EXPECTED_RESPONSE_HEADERS "Location: /users/"
@@ -434,8 +436,8 @@ Found 3 HTTP request(s)
 
 ✅ POST https://api.example.com/users - Status: 201 - 245ms
    ✅ Status assertion passed: 201
-   ✅ Body assertion passed: "Jane Smith"
-   ✅ Body assertion passed: "jane.smith@example.com"
+   ✅ Body assertion passed: "Christian Helle"
+   ✅ Body assertion passed: "christian.helle@example.com"
    ✅ Header assertion passed: "Content-Type: application/json"
    ✅ Header assertion passed: "Location: /users/"
 
@@ -468,8 +470,8 @@ Headers:
 
 Body:
 {
-  "name": "Jane Smith",
-  "email": "jane.smith@example.com"
+  "name": "Christian Helle",
+  "email": "christian.helle@example.com"
 }
 
 📥 Response: 201 Created (245ms)
@@ -482,8 +484,8 @@ Headers:
 Body:
 {
   "id": 12345,
-  "name": "Jane Smith",
-  "email": "jane.smith@example.com",
+  "name": "Christian Helle",
+  "email": "christian.helle@example.com",
   "created_at": "2025-06-21T10:30:00Z",
   "role": "user"
 }
@@ -492,11 +494,11 @@ Body:
    ✅ EXPECTED_RESPONSE_STATUS 201
       Expected: 201, Actual: 201 ✓
 
-   ✅ EXPECTED_RESPONSE_BODY "Jane Smith"
-      Found substring "Jane Smith" in response body ✓
+   ✅ EXPECTED_RESPONSE_BODY "Christian Helle"
+      Found substring "Christian Helle" in response body ✓
 
-   ✅ EXPECTED_RESPONSE_BODY "jane.smith@example.com"
-      Found substring "jane.smith@example.com" in response body ✓
+   ✅ EXPECTED_RESPONSE_BODY "christian.helle@example.com"
+      Found substring "christian.helle@example.com" in response body ✓
 
    ✅ EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
       Found header match "Content-Type: application/json" ✓
@@ -678,10 +680,6 @@ I'm continuously improving the tool based on user feedback and real-world usage 
 
 ### Planned Enhancements
 
-- **Full custom headers support** - Currently parsed but not fully applied to requests. This will enable complete request customization including authentication headers, custom content types, and API-specific headers.
-
-- **Advanced authentication methods** - Beyond basic authentication, I'm planning support for Bearer tokens, OAuth flows, API key authentication, and custom authentication schemes.
-
 - **Request timeout configuration** - Configurable timeouts per request or globally, essential for testing APIs with varying response times or unreliable networks.
 
 - **JSON response formatting** - Pretty-printing and syntax highlighting for JSON responses, making it easier to read and debug API responses.
@@ -692,40 +690,10 @@ I'm continuously improving the tool based on user feedback and real-world usage 
 
 ## Conclusion
 
-HTTP File Runner represents my exploration into newer programming languages with Zig while solving a real-world problem that affects developers daily. What started as a learning exercise to understand Zig evolved into a genuinely useful tool that complements my existing [HTTP File Generator](https://github.com/christianhelle/httpgenerator) project.
+[HTTP File Runner](https://github.com/christianhelle/httprunner) represents my exploration into newer programming languages with Zig while solving a real-world problem that affects developers daily. What started as a learning exercise to understand Zig evolved into a genuinely useful tool that complements my existing [HTTP File Generator](https://github.com/christianhelle/httpgenerator) project.
 
-### A Complete Workflow
-
-Together with HTTP File Generator, these tools create a complete API testing workflow:
-
-1. Generate `.http` files from OpenAPI specifications using HTTP File Generator
-2. Execute and validate those files using HTTP File Runner
-3. Integrate the execution into CI/CD pipelines for automated testing
-
-This workflow addresses the full lifecycle of API testing, from specification to automation.
-
-### Why This Tool Matters
-
-In today's microservices-driven world, APIs are the backbone of modern applications. Testing these APIs effectively requires tools that are fast, reliable, and integrate well with development workflows. HTTP File Runner fills a specific niche: providing the simplicity of `.http` files with the power of command-line automation.
-
-The tool's design philosophy centers around developer experience. From the colorful output that makes test results immediately understandable, to the comprehensive logging that supports both debugging and reporting, every feature has been crafted with the developer in mind.
-
-### Technical Achievements
-
-Building HTTP File Runner in Zig has been an exercise in balancing performance with usability. The resulting binary is small (under 2MB), starts instantly, and handles network operations efficiently. The cross-platform support means teams can use the same tool regardless of their development environment, reducing friction and improving consistency.
+Building [HTTP File Runner](https://github.com/christianhelle/httprunner) in Zig has been an exercise in balancing performance with usability.
 
 The modular code structure makes the project maintainable and extensible. Each component - from HTTP parsing to response validation - is cleanly separated, making it easy to add new features or modify existing behavior.
-
-### Real-World Impact
-
-Whether you're testing APIs during development, running health checks in production, or integrating API testing into CI/CD pipelines, HTTP File Runner aims to make these tasks as simple and reliable as possible. The combination of batch processing, detailed reporting, and assertion capabilities scales from individual developer workflows to enterprise testing scenarios.
-
-The project is open source and available under the MIT License, reflecting my belief that good tools should be accessible to everyone. I welcome contributions, feedback, and feature requests from the community - after all, the best tools are built through collaboration.
-
-**Links:**
-
-- [GitHub Repository](https://github.com/christianhelle/httprunner)
-- [Download Latest Release](https://github.com/christianhelle/httprunner/releases/latest)
-- [Docker Hub](https://hub.docker.com/r/christianhelle/httprunner)
 
 Give it a try and let me know what you think! If you find it useful, consider starring the repository or sharing it with fellow developers.
