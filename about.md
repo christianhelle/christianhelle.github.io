@@ -7,13 +7,11 @@ redirect_from:
     - /blog/author/admin
 ---
 
-## About Christian Resma Helle
-
 I'm an experienced **Application and Solutions Developer / Architect / Consultant** specializing in Cloud, Mobile, and everything related. With extensive knowledge and over **20 years of experience**, I've been building software for multiple platforms and form factors, from devices to cloud and everything in between.
 
 ### Professional Focus
 
-As a [Microsoft MVP](https://mvp.microsoft.com/en-US/MVP/profile/e343a429-7b0d-ed11-b83f-000d3a1036b3), I focus on creating developer tools and solutions that enhance productivity and simplify complex development workflows. My expertise spans the entire development lifecycle - from design and development to testing, deployment, monitoring, and instrumentation of systems ranging from small projects to large-scale commercial, industrial, and enterprise applications.
+As a **[Microsoft MVP](https://mvp.microsoft.com/en-US/MVP/profile/e343a429-7b0d-ed11-b83f-000d3a1036b3)**, I focus on creating developer tools and solutions that enhance productivity and simplify complex development workflows. My expertise spans the entire development lifecycle - from design and development to testing, deployment, monitoring, and instrumentation of systems ranging from small projects to large-scale commercial, industrial, and enterprise applications.
 
 ### Technology Stack & Platforms
 
@@ -77,7 +75,7 @@ Command-line interface for Azure DevOps operations, streamlining CI/CD workflows
 
 A fast, small, single binary tool for running .http files from the command line, built with Zig for optimal performance.
 
-### 📝 Knowledge Sharing
+### Knowledge Sharing
 
 I actively share knowledge through my blog, covering topics like:
 
@@ -89,7 +87,7 @@ I actively share knowledge through my blog, covering topics like:
 
 Recent popular posts include Azure Entra ID authentication with Scalar, testing Refit interfaces, and generating development assets from OpenAPI specifications.
 
-### 🏢 Organizations & Community
+### Organizations & Community
 
 I contribute to and collaborate with various organizations:
 
@@ -98,7 +96,7 @@ I contribute to and collaborate with various organizations:
 - Active contributor to **.NET ecosystem** projects
 - Member of multiple development communities focused on API development and tooling
 
-### 💻 Current Interests
+### Current Interests
 
 I'm currently exploring:
 
@@ -106,10 +104,6 @@ I'm currently exploring:
 - **Zig** - Modern systems programming language
 - **Go** - Cloud-native and distributed systems development
 - **Modern API Standards** - OpenAPI 3.x, AsyncAPI, and emerging API technologies
-
-### 📊 GitHub Activity
-
-With over **5,600 contributions** in the last year across 47+ repositories, I maintain an active presence in the open source community, consistently shipping features, fixes, and new tools.
 
 ---
 
