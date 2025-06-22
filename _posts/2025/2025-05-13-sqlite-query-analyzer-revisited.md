@@ -10,7 +10,7 @@ tags:
 redirect_from:
 - /2025/05/sqlite-query-analyzer/
 - /2025/05/sqlite-query-analyzer
-- /2025/sqlite-query-analyzer
+- /2025/sqlite-query-analyzer/
 - /2025/sqlite-query-analyzer
 - /sqlite-query-analyzer/
 - /sqlite-query-analyzer
@@ -20,7 +20,7 @@ There's something deeply satisfying about revisiting a project you created over 
 
 Back in 2011, I found myself in a predicament that many developers face. I was working extensively with mobile applications that relied heavily on SQLite databases for local data persistence. While there were several database management tools available at the time, most were either too heavyweight for my needs, lacked cross-platform compatibility, or simply didn't provide the streamlined workflow I required for rapid development and debugging. I needed a tool that could do what none of the existing tools could do.
 
-The mobile development landscape in 2011 was quite different from today. Most of the work I did ran on even older Windows CE based handheld devices. These industrial devices had a 15 year lifetime, and cost a fortune. I was dealing with resource-constrained devices, and every byte mattered. SQLite was (and still is) the go-to solution for local data storage, but debugging and managing these databases during development was often cumbersome. I needed something fast, lightweight, and intuitive – a tool that could keep up with my development workflow without getting in the way. It also needed it to work on MacOS, Windows, and Linux
+The mobile development landscape in 2011 was quite different from today. Most of the work I did ran on even older Windows CE based handheld devices. These industrial devices had a 15-year lifetime, and cost a fortune. I was dealing with resource-constrained devices, and every byte mattered. SQLite was (and still is) the go-to solution for local data storage, but debugging and managing these databases during development was often cumbersome. I needed something fast, lightweight, and intuitive – a tool that could keep up with my development workflow without getting in the way. It also needed to work on MacOS, Windows, and Linux
 
 That's when I decided to create SQLite Query Analyzer. The goal was simple: build a no-nonsense, efficient database management tool that would allow me to quickly inspect, query, and modify SQLite databases during mobile app development. I chose C++ for its performance characteristics and Qt for its excellent cross-platform capabilities and mature UI framework.
 
@@ -46,7 +46,7 @@ Over the years, [SQLite Query Analyzer](https://github.com/christianhelle/sqlite
 
 ![Large databases](/assets/images/sqlitequery-windows-dark-query-select.png)
 
-**Speed**: Loading a database over 100GB takes microseconds. Executing queries are equality fast (of course given that the query is also fast)
+**Speed**: Loading a database over 100GB takes microseconds. Executing queries are equally fast (of course given that the query is also fast)
 
 ![Large databases](/assets/images/sqlitequery-windows-dark-query-insert.png)
 
@@ -70,7 +70,7 @@ Recently, I decided it was time to give this decade-old project the attention it
 
 The modernization effort focused on several key areas:
 
-**Modern C++ Standards**: The codebase has been updated to leverage C++17 and C++20 features, including structured bindings, constexpr enhancements, and improved type deduction. This not only makes the code more readable but also allows the compiler to perform better optimizations.
+**Modern C++ Standards**: The codebase has been updated to leverage C++17 and C++20 features, including structured bindings, constexpr enhancements, and improved type deduction. This makes the code more readable and allows the compiler to perform better optimizations.
 
 **Qt 6 Migration**: Moving to Qt 6 brought numerous benefits, including better high-DPI support, system-aware themes for light and dark mode, improved rendering performance, and more consistent behavior across platforms.
 
