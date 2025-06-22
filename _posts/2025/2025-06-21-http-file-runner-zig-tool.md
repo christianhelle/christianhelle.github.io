@@ -1,6 +1,6 @@
 ---
 layout: post
-title: HTTP File Runner - A Command-Line Tool for Testing HTTP Requests Written in Zig
+title: Run .http files from the command line using a fast, small, single binary tool
 date: 2025-06-21
 author: Christian Helle
 tags:
