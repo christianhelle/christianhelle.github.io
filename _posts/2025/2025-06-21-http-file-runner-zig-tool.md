@@ -7,12 +7,12 @@ tags:
 - Zig
 - HTTP
 redirect_from:
-- /2025/06/http-file-runner-zig-tool
-- /2025/06/http-file-runner-zig-tool/
-- /2025/http-file-runner-zig-tool/
-- /2025/http-file-runner-zig-tool
-- /http-file-runner-zig-tool/
-- /http-file-runner-zig-tool
+- /2025/06/http-file-runner
+- /2025/06/http-file-runner/
+- /2025/http-file-runner/
+- /2025/http-file-runner
+- /http-file-runner/
+- /http-file-runner
 ---
 
 I'm excited to share my latest project: [HTTP File Runner](https://github.com/christianhelle/httprunner), a command-line tool written in Zig that parses `.http` files and executes HTTP requests. This tool provides colored output to indicate success or failure, making it easy to test APIs and web services directly from your terminal.
@@ -179,7 +179,7 @@ httprunner --discover --verbose --log full-test-report.log
 
 The tool supports the standard `.http` file format:
 
-```http
+```text
 # Comments start with #
 
 # Basic GET request
@@ -208,7 +208,7 @@ One of the most powerful features is the comprehensive variable support system, 
 
 Variables are defined using the `@` syntax and referenced with double curly braces:
 
-```http
+```text
 @hostname=localhost
 @port=8080
 @baseUrl=https://{{hostname}}:{{port}}
@@ -221,7 +221,7 @@ Authorization: Bearer {{token}}
 
 Variables can be composed from other variables, allowing you to build complex configurations incrementally:
 
-```http
+```text
 @protocol=https
 @hostname=api.example.com
 @port=443
@@ -285,7 +285,7 @@ HTTP File Runner's assertion system is designed around the principle of explicit
 
 Status code assertions are the foundation of API testing, ensuring your endpoints return the correct HTTP status codes for different scenarios:
 
-```http
+```text
 # Test successful resource retrieval
 GET https://httpbin.org/status/200
 EXPECTED_RESPONSE_STATUS 200
@@ -301,7 +301,7 @@ Status code assertions are particularly valuable for testing error conditions an
 
 Response body assertions validate the actual content returned by your API. These assertions use substring matching, making them flexible enough to work with various response formats while being specific enough to catch content errors:
 
-```http
+```text
 # Test JSON response content
 GET https://httpbin.org/json
 EXPECTED_RESPONSE_STATUS 200
@@ -321,7 +321,7 @@ Body assertions are case-sensitive and look for exact substring matches. This ap
 
 Header assertions validate the metadata returned with your API responses. These are crucial for testing security headers, content types, caching directives, and custom application headers:
 
-```http
+```text
 # Test content type and security headers
 GET https://httpbin.org/json
 EXPECTED_RESPONSE_STATUS 200
@@ -346,7 +346,7 @@ Header assertions use substring matching on the full header line (including both
 
 Here's an example of thoroughly testing a user management API endpoint:
 
-```http
+```text
 # Test user creation with comprehensive validation
 POST https://api.example.com/users
 Content-Type: application/json
@@ -387,7 +387,7 @@ EXPECTED_RESPONSE_BODY "User not found"
 
 Testing error conditions is just as important as testing success scenarios:
 
-```http
+```text
 # Test validation errors
 POST https://api.example.com/users
 Content-Type: application/json
@@ -515,7 +515,7 @@ Body:
 
 Begin with basic status code assertions and gradually add more specific validations:
 
-```http
+```text
 # Level 1: Basic connectivity
 GET https://api.example.com/health
 EXPECTED_RESPONSE_STATUS 200
@@ -538,7 +538,7 @@ EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 
 Make your assertions specific enough to catch real issues, but resilient enough to not break on minor changes:
 
-```http
+```text
 # Good: Validates presence of key fields
 EXPECTED_RESPONSE_BODY "\"id\":"
 EXPECTED_RESPONSE_BODY "\"name\":"
@@ -552,7 +552,7 @@ EXPECTED_RESPONSE_BODY "  \"id\": 123,"
 
 Comprehensive testing includes validating that your API fails correctly:
 
-```http
+```text
 # Test success case
 POST https://api.example.com/login
 Content-Type: application/json
@@ -605,7 +605,7 @@ httprunner tests/critical-paths.http --env production --log prod-validation.log
 
 Combine assertions with regular execution to catch both functional and performance regressions:
 
-```http
+```text
 # This request should complete quickly and return valid data
 GET https://api.example.com/users?page=1&limit=10
 EXPECTED_RESPONSE_STATUS 200
