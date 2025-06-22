@@ -17,19 +17,19 @@ redirect_from:
 
 I'm excited to share my latest project: [HTTP File Runner](https://github.com/christianhelle/httprunner), a command-line tool written in Zig that parses `.http` files and executes HTTP requests. This tool provides colored output to indicate success or failure, making it easy to test APIs and web services directly from your terminal.
 
-This project started as a learning exercise to explore Zig's capabilities for systems programming. Having previously built [HTTP File Generator](https://github.com/christianhelle/httpgenerator), a tool that generates `.http` files from OpenAPI specifications, it felt natural to create a companion tool that could execute these generated files outside of an IDE environment. The combination of these two tools creates a complete workflow: generate HTTP files from your API specifications, then run them from the command line for testing and validation.
+This project started as a learning exercise to explore Zig programmiong language capabilities. In a previous post, entitled [Generate .http files from OpenAPI specifications](/2023/11/http-file-generator.html), I wrote about [HTTP File Generator](https://github.com/christianhelle/httpgenerator), a tool that generates `.http` files from OpenAPI specifications. It felt natural to create a companion tool that could execute these generated files outside of an IDE environment. The combination of these two tools creates a complete workflow: generate HTTP files from your API specifications, then run them from the command line for testing and validation.
 
-As developers, we often find ourselves testing REST APIs manually through various tools like Scalar, SwaggerUI, Postman, or Insomnia. While these tools are excellent for interactive testing, they can become cumbersome when you need to run the same tests repeatedly, integrate them into automated workflows, or share them with team members in a version-controlled manner. This is where HTTP File Runner shines - it bridges the gap between manual testing and automation by bringing the simplicity of `.http` files to the command line.
+As developers, we often find ourselves testing REST APIs manually through various tools like Scalar, SwaggerUI, Postman, or Insomnia. While these tools are excellent for interactive testing, they can become cumbersome when you need to run the same tests repeatedly, integrate them into automated workflows, or share them with team members in a version-controlled manner. This is where [HTTP File Runner](https://github.com/christianhelle/httprunner) shines - it bridges the gap between manual testing and automation by bringing the simplicity of `.http` files to the command line.
 
 ## What is HTTP File Runner?
 
-HTTP File Runner is a simple yet powerful tool that reads `.http` files (the same format used by popular IDEs like Visual Studio Code and JetBrains) and executes the HTTP requests defined within them. It's designed to be fast, reliable, and developer-friendly.
+[HTTP File Runner](https://github.com/christianhelle/httprunner) is a simple yet powerful tool that reads `.http` files (the same format used by popular IDE' like Visual Studio Code, JetBrains IDE's, and Visual Studio 2022) and executes the HTTP requests defined within them. It's designed to be fast, reliable, and developer-friendly.
 
 As a learning exercise in Zig, this project allowed me to explore systems programming concepts while building something genuinely useful. The choice to create an HTTP file runner was driven by practical needs: having already developed [HTTP File Generator](https://github.com/christianhelle/httpgenerator) to create `.http` files from OpenAPI specifications, I needed a reliable way to execute these files in automated environments without relying on IDE extensions or GUI tools.
 
-The beauty of this approach lies in its simplicity. `.http` files are plain text files that can be generated, version-controlled, shared between team members, and executed across different environments. Unlike proprietary formats used by GUI tools, these files are human-readable and can be edited with any text editor. This makes them perfect for documentation, onboarding new team members, and ensuring consistency across development environments.
+The beauty of this approach lies in its simplicity. `.http` files are plain text files that can be generated, version-controlled, shared between team members, and executed across different environments. These files are human-readable and can be edited with any text editor. This makes them perfect for documentation, onboarding new team members, and ensuring consistency across development environments.
 
-What sets HTTP File Runner apart from other command-line HTTP tools is its focus on batch processing and developer experience. While tools like `curl` are excellent for single requests, HTTP File Runner excels at running multiple related requests, providing comprehensive reporting, and offering features specifically designed for API testing workflows.
+What sets [HTTP File Runner](https://github.com/christianhelle/httprunner) apart from other command-line HTTP tools is its focus on batch processing and developer experience. While tools like `curl` are excellent for single requests, HTTP File Runner excels at running multiple related requests, providing comprehensive reporting, and offering features specifically designed for API testing workflows.
 
 ## Key Features
 
@@ -45,13 +45,12 @@ The tool comes packed with features that make API testing a breeze, each designe
 - **Support for various HTTP methods** (GET, POST, PUT, DELETE, PATCH) - Covers all standard REST operations
 - **Variables support** with substitution in URLs, headers, and request bodies - Enables dynamic and reusable test scenarios
 - **Response assertions** for status codes, body content, and headers - Automated validation of API responses
-- **Robust error handling** for network issues - Graceful handling of timeouts, connection failures, and other network problems
 
 These features work together to create a comprehensive testing solution that scales from simple smoke tests to complex integration test suites. The combination of batch processing, detailed reporting, and assertion capabilities makes it suitable for both development-time testing and production monitoring.
 
 ## Why Zig?
 
-Choosing Zig for this project was intentional - this started as a learning exercise to explore newer programming language. I primarily work with higher-level languages like C# in my day job, and I wanted to understand what Zig brings to the table. The decision proved to be an excellent choice for several compelling reasons:
+Choosing Zig for this project was intentional - this started as a learning exercise to explore the Zig programming language. In fact, choosing Zig came before deciding what to build. I primarily work with higher-level languages like C# in my day job, and I wanted to understand what Zig brings to the table. The decision proved to be an excellent choice for several compelling reasons:
 
 ### Performance
 
@@ -81,11 +80,11 @@ Zig's Language Server Protocol (LSP) implementation provides excellent code comp
 
 As someone who's day job is working in managed languages, exploring manual memory management and system-level programming concepts in Zig provided valuable insights into how software works at a lower level.
 
-Compared to Rust, I found Zig's learning curve to be less steep. Zig offers a straightforward syntax and fewer abstractions, which made it easier to grasp the core concepts quickly. While both languages provide low-level control and strong performance, Zig's simplicity and explicitness helped me become productive faster, making it an appealing choice for systems programming projects like this one.
+Compared to Rust, I found Zig's learning curve to be less steep, and more fun to write. Zig offers a straightforward syntax and fewer abstractions, which made it easier to grasp the core concepts quickly. While both languages provide low-level control and strong performance, Zig's simplicity and explicitness helped me become productive faster, making it an appealing choice for systems programming projects like this one.
 
 ### The Zig Zen
 
-Zig's development philosophy, known as "The Zen of Zig," emphasizes simplicity, clarity, and explicitness. The language avoids hidden control flow, magic behaviors, and unnecessary abstractions, making it easier to reason about code and debug issues. This philosophy encourages writing code that is straightforward and predictable, which is especially valuable in systems programming where reliability and transparency are critical. By adhering to these principles, Zig helps developers build robust tools with minimal surprises, fostering a mindset of intentional and maintainable software design.
+Zig's development philosophy, known as "The Zen of Zig," states the following:
 
 - Communicate intent precisely.
 - Edge cases matter.
@@ -133,7 +132,7 @@ These scripts will automatically:
 
 For users who prefer different installation approaches or have specific requirements:
 
-- **Snap Store**: `sudo snap install httprunner` - Great for Ubuntu and other snap-enabled distributions, provides automatic updates
+- **Snap Store**: `snap install httprunner` - Great for Ubuntu and other snap-enabled distributions, provides automatic updates
 - **Manual Download**: Download from [GitHub Releases](https://github.com/christianhelle/httprunner/releases/latest) - Full control over installation location and process
 - **Docker**: `docker pull christianhelle/httprunner` - Perfect for containerized environments or when you don't want to install binaries locally
 - **Build from source**: Clone the repo and run `zig build` - For developers who want to customize the build or contribute to the project
