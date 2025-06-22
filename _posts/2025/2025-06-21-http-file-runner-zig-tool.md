@@ -17,7 +17,7 @@ redirect_from:
 
 I'm excited to share my latest project: [HTTP File Runner](https://github.com/christianhelle/httprunner), a command-line tool written in Zig that parses `.http` files and executes HTTP requests. This tool provides colored output to indicate success or failure, making it easy to test APIs and web services directly from your terminal.
 
-This project started as a learning exercise to explore the Zig programming language's capabilities. In a previous post, entitled [Generate .http files from OpenAPI specifications](/2023/11/http-file-generator.html), I wrote about [HTTP File Generator](https://github.com/christianhelle/httpgenerator), a tool that generates `.http` files from OpenAPI specifications. It felt natural to create a companion tool that could execute these generated files outside of an IDE environment. The combination of these two tools creates a complete workflow: generate HTTP files from your API specifications, then run them from the command line for testing and validation.
+This project started as a learning exercise to explore the Zig programming language's capabilities. In a previous post, entitled [Generate .http files from OpenAPI specifications](/2023/11/http-file-generator.html), I wrote about [HTTP File Generator](https://github.com/christianhelle/httpgenerator), a tool that generates `.http` files from OpenAPI specifications. It felt natural to create a companion tool that could execute these generated files outside an IDE. The combination of these two tools creates a complete workflow: generate HTTP files from your API specifications, then run them from the command line for testing and validation.
 
 As developers, we often find ourselves testing REST APIs manually through various tools like Scalar, SwaggerUI, Postman, or Insomnia. While these tools are excellent for interactive testing, they can become cumbersome when you need to run the same tests repeatedly, integrate them into automated workflows, or share them with team members in a version-controlled manner. This is where [HTTP File Runner](https://github.com/christianhelle/httprunner) shines, it bridges the gap between manual testing and automation by bringing the simplicity of `.http` files to the command line.
 
@@ -50,7 +50,7 @@ These features work together to create a comprehensive testing solution that sca
 
 ## Why Zig?
 
-Choosing Zig for this project was intentional. This started as a learning exercise to explore the Zig programming language. In fact, choosing Zig came before deciding what to build. I primarily work with higher-level languages like C# in my day job, and I wanted to understand what Zig brings to the table. The decision proved to be an excellent choice for several compelling reasons:
+Choosing Zig for this project was intentional. This started as a learning exercise to explore the Zig programming language. In fact, choosing Zig came before deciding what to build. I primarily work with higher-level languages like C# in my day job, and I wanted to understand what Zig brings to the table. The decision was an excellent choice for several compelling reasons:
 
 ### Performance
 
@@ -108,7 +108,7 @@ Getting started is incredibly easy. The tool provides multiple installation opti
 
 ### Quick Install (Recommended)
 
-The fastest way to get started is using the automated install scripts. These scripts handle platform detection, architecture identification, and PATH configuration automatically:
+The fastest way to get started is using the automated installation scripts. These scripts handle platform detection, architecture identification, and PATH configuration automatically:
 
 **Linux/macOS:**
 
@@ -219,7 +219,7 @@ Authorization: Bearer {{token}}
 
 ### Advanced Variable Composition
 
-Variables can be composed from other variables, allowing you to build complex configurations incrementally:
+Variables can be composed of other variables, allowing you to build complex configurations incrementally:
 
 ```text
 @protocol=https
