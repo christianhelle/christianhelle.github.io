@@ -27,53 +27,29 @@ I've built software that runs across diverse environments:
 
 I'm passionate about building developer tools and maintaining several popular open source projects:
 
-#### **[Refitter](https://github.com/christianhelle/refitter)**
+- **[Refitter](https://github.com/christianhelle/refitter)** - A tool for generating Refit interfaces and contracts from OpenAPI specifications, making REST API consumption in .NET seamless and type-safe.
 
-A tool for generating Refit interfaces and contracts from OpenAPI specifications, making REST API consumption in .NET seamless and type-safe.
+- **[REST API Client Code Generator](https://github.com/christianhelle/apiclientcodegen)** - A comprehensive Visual Studio extension supporting multiple code generators (AutoRest, NSwag, OpenAPI Generator, Kiota) for generating REST API clients from OpenAPI specifications.
 
-#### **[REST API Client Code Generator](https://github.com/christianhelle/apiclientcodegen)**
+- **[HTTP File Generator](https://github.com/christianhelle/httpgenerator)** - Generate .http files from OpenAPI specifications for testing APIs directly in your IDE.
 
-A comprehensive Visual Studio extension supporting multiple code generators (AutoRest, NSwag, OpenAPI Generator, Kiota) for generating REST API clients from OpenAPI specifications.
+- **[SQL Compact Query Analyzer](https://github.com/christianhelle/sqlcequery)** - A fast and lightweight tool for querying and manipulating SQL CE databases, supporting versions 3.0 through 4.0.
 
-#### **[HTTP File Generator](https://github.com/christianhelle/httpgenerator)**
+- **[cURL Request Generator](https://github.com/christianhelle/curlgenerator)** - Generate cURL requests from OpenAPI specifications, perfect for API testing and documentation.
 
-Generate .http files from OpenAPI specifications for testing APIs directly in your IDE.
+- **[AutoFaker](https://github.com/christianhelle/autofaker)** - A Python library designed to minimize the setup/arrange phase of your unit tests by automatically generating fake data.
 
-#### **[SQL Compact Query Analyzer](https://github.com/christianhelle/sqlcequery)**
+- **[JMeter Test Plan Generator](https://github.com/christianhelle/jmetercodegen)** - Generate Apache JMeter test plans from OpenAPI specifications for load testing and performance validation.
 
-A fast and lightweight tool for querying and manipulating SQL CE databases, supporting versions 3.0 through 4.0.
+- **[ResW File Code Generator](https://github.com/christianhelle/reswcodegen)** - Visual Studio custom tool for generating strongly-typed classes from ResW resource files, supporting Visual Studio 2015-2022.
 
-#### **[cURL Request Generator](https://github.com/christianhelle/curlgenerator)**
+- **[Multi Document Reader for OpenAPI.NET](https://github.com/christianhelle/oasreader)** - OpenAPI reader that merges external references into a single document using the Microsoft OpenAPI toolset.
 
-Generate cURL requests from OpenAPI specifications, perfect for API testing and documentation.
+- **[SQLite Query Analyzer](https://github.com/christianhelle/sqlitequery)** - A modern, cross-platform SQLite database management tool built with C++ and Qt, recently updated after a decade.
 
-#### **[AutoFaker](https://github.com/christianhelle/autofaker)**
+- **[Azure DevOps CLI](https://github.com/christianhelle/azdocli)** - Command-line interface for Azure DevOps operations, streamlining CI/CD workflows and project management.
 
-A Python library designed to minimize the setup/arrange phase of your unit tests by automatically generating fake data.
-
-#### **[JMeter Test Plan Generator](https://github.com/christianhelle/jmetercodegen)**
-
-Generate Apache JMeter test plans from OpenAPI specifications for load testing and performance validation.
-
-#### **[ResW File Code Generator](https://github.com/christianhelle/reswcodegen)**
-
-Visual Studio custom tool for generating strongly-typed classes from ResW resource files, supporting Visual Studio 2015-2022.
-
-#### **[Multi Document Reader for OpenAPI.NET](https://github.com/christianhelle/oasreader)**
-
-OpenAPI reader that merges external references into a single document using the Microsoft OpenAPI toolset.
-
-#### **[SQLite Query Analyzer](https://github.com/christianhelle/sqlitequery)**
-
-A modern, cross-platform SQLite database management tool built with C++ and Qt, recently updated after a decade.
-
-#### **[Azure DevOps CLI](https://github.com/christianhelle/azdocli)**
-
-Command-line interface for Azure DevOps operations, streamlining CI/CD workflows and project management.
-
-#### **[HTTP File Runner](https://github.com/christianhelle/httprunner)**
-
-A fast, small, single binary tool for running .http files from the command line, built with Zig for optimal performance.
+- **[HTTP File Runner](https://github.com/christianhelle/httprunner)** - A fast, small, single binary tool for running .http files from the command line, built with Zig for optimal performance.
 
 ### Knowledge Sharing
 
