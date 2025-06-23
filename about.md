@@ -23,7 +23,7 @@ I've built software that runs across diverse environments:
 - **Web**: Wide range of browsers, ASP.NET Core, REST APIs
 - **Modern Tech**: .NET 9.0, OpenAPI/Swagger, microservices, event sourcing, CQRS
 
-### Open Source Contributions
+### Open Source
 
 I'm passionate about building developer tools and maintaining several popular open source projects:
 
