@@ -1,10 +1,8 @@
 ---
 layout: page
-title: Projects
+title:     Projects
 permalink: /projects/
 ---
-
-# Open Source Projects
 
 Below is a curated list of my open source projects, each with a detailed description and a link to the repository. These tools and libraries are designed to enhance developer productivity, streamline workflows, and support modern software development practices.
 
