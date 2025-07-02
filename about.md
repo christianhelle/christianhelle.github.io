@@ -25,31 +25,7 @@ I've built software that runs across diverse environments:
 
 ### Open Source
 
-I'm passionate about building developer tools and maintaining several popular open source projects:
-
-- **[Refitter](https://github.com/christianhelle/refitter)** - A tool for generating Refit interfaces and contracts from OpenAPI specifications, making REST API consumption in .NET seamless and type-safe.
-
-- **[REST API Client Code Generator](https://github.com/christianhelle/apiclientcodegen)** - A comprehensive Visual Studio extension supporting multiple code generators (AutoRest, NSwag, OpenAPI Generator, Kiota) for generating REST API clients from OpenAPI specifications.
-
-- **[HTTP File Generator](https://github.com/christianhelle/httpgenerator)** - Generate .http files from OpenAPI specifications for testing APIs directly in your IDE.
-
-- **[SQL Compact Query Analyzer](https://github.com/christianhelle/sqlcequery)** - A fast and lightweight tool for querying and manipulating SQL CE databases, supporting versions 3.0 through 4.0.
-
-- **[cURL Request Generator](https://github.com/christianhelle/curlgenerator)** - Generate cURL requests from OpenAPI specifications, perfect for API testing and documentation.
-
-- **[AutoFaker](https://github.com/christianhelle/autofaker)** - A Python library designed to minimize the setup/arrange phase of your unit tests by automatically generating fake data.
-
-- **[JMeter Test Plan Generator](https://github.com/christianhelle/jmetercodegen)** - Generate Apache JMeter test plans from OpenAPI specifications for load testing and performance validation.
-
-- **[ResW File Code Generator](https://github.com/christianhelle/reswcodegen)** - Visual Studio custom tool for generating strongly-typed classes from ResW resource files, supporting Visual Studio 2015-2022.
-
-- **[Multi Document Reader for OpenAPI.NET](https://github.com/christianhelle/oasreader)** - OpenAPI reader that merges external references into a single document using the Microsoft OpenAPI toolset.
-
-- **[SQLite Query Analyzer](https://github.com/christianhelle/sqlitequery)** - A modern, cross-platform SQLite database management tool built with C++ and Qt, recently updated after a decade.
-
-- **[Azure DevOps CLI](https://github.com/christianhelle/azdocli)** - Command-line interface for Azure DevOps operations, streamlining CI/CD workflows and project management.
-
-- **[HTTP File Runner](https://github.com/christianhelle/httprunner)** - A fast, small, single binary tool for running .http files from the command line, built with Zig for optimal performance.
+Open source is a core part of my professional identity and passion. I am dedicated to building and sharing developer tools that help others solve real-world problems, improve productivity, and adopt modern development practices. My efforts focus on creating high-quality, well-documented, and actively maintained projects that support the .NET ecosystem, API development, testing, and automation. I believe in the power of community-driven software and regularly contribute to and maintain a variety of open source initiatives. You can explore my projects and contributions on my [GitHub profile](https://github.com/christianhelle) or visit the dedicated [Open Source Projects](/projects/) page for more details.
 
 ### Knowledge Sharing
 
