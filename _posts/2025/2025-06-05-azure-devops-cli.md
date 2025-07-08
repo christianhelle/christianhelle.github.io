@@ -37,15 +37,31 @@ As I dove into development, I was amazed by Rust's promises coming to life. What
 
 ### Installation Options
 
-There are two ways to install azdocli:
+There are different ways to install azdocli:
 
-**From crates.io (Recommended):**
+#### Quick Install Scripts (Recommended)
+
+**Linux and macOS:**
+
+```bash
+curl -sSL https://christianhelle.com/azdocli/install | bash
+```
+
+**Windows (PowerShell):**
+
+```pwsh
+iwr -useb https://christianhelle.com/azdocli/install.ps1 | iex
+```
+
+These one-liner commands will automatically download and install the latest release for your platform.
+
+#### From crates.io (Requires [Rust](https://www.rust-lang.org/learn/get-started))
 
 ```sh
 cargo install azdocli
 ```
 
-**From GitHub Releases:**
+#### From GitHub Releases
 
 1. Download the latest release from the [GitHub releases page](https://github.com/christianhelle/azdocli/releases).
    - Windows: `windows-x64.zip` or `windows-arm64.zip`
@@ -81,26 +97,26 @@ Before using the CLI, you need to create a Personal Access Token (PAT) in Azure 
 
 ```sh
 # Login with your Personal Access Token
-ado login
+azdocli login
 # You'll be prompted for:
 # - Organization name (e.g., "mycompany" from https://dev.azure.com/mycompany)
 # - Personal Access Token (the PAT you created above)
 
 # Set a default project (optional but recommended)
-ado project MyProject
+azdocli project MyProject
 ```
 
 ## The "Aha!" Moment: Real-World Performance
 
-Let me share a story that perfectly illustrates why I built this tool. Last month, I was working on a project that required cloning 15 repositories from different Azure DevOps projects. With the official CLI, this was a painful process - each repository clone command took several seconds to even start, and I had to run them one by one.
+Let me share a story that perfectly illustrates why I built this tool. A couple of months ago, I was working on a project that required cloning hundreds of repositories from different Azure DevOps projects. With the official CLI and some scripting, this was a painful process - each repository clone command took several seconds to even start, and I had to run them one by one.
 
 With azdocli, I can now do this:
 
 ```sh
-ado repos clone --parallel --concurrency 8 --yes
+azdocli repos clone --parallel --concurrency 32 --yes
 ```
 
-What used to take me 15-20 minutes of babysitting individual commands now completes in under 2 minutes, running automatically in the background while I grab a coffee. That's the kind of time savings that actually changes how you work.
+What used to take me 20 minutes of building a script and babysitting individual commands now completes in a few seconds, running unattended in the background while I do something else. That's the kind of time savings that actually changes how you work.
 
 ## Behind the Scenes: Development Stories
 
@@ -112,12 +128,13 @@ That's when I implemented the default project feature:
 
 ```sh
 # Set it once
-ado project MyDefaultProject
+azdocli project MyDefaultProject
 
 # Now all these commands "just work" without repetitive typing
-ado repos list                  # Uses default project
-ado pipelines list              # Uses default project
-ado repos list --project Other  # Override when needed
+azdocli boards work-item list       # List work items assigned to me
+azdocli repos list                  # Uses default project
+azdocli pipelines list              # Uses default project
+azdocli repos list --project Other  # Override when needed
 ```
 
 This simple feature probably saves me dozens of keystrokes every day. It's those small quality-of-life improvements that make tools truly enjoyable to use.
@@ -126,16 +143,16 @@ This simple feature probably saves me dozens of keystrokes every day. It's those
 
 Implementing parallel repository cloning was one of the most rewarding technical challenges. The original approach was straightforward - clone repositories one by one. But watching paint dry would have been more exciting.
 
-The breakthrough came when I realized that most of the time was spent waiting for network operations, not actual CPU work. This was perfect for Rust's async capabilities:
+The breakthrough came when I realized that most of the time was spent waiting for network operations, not actual CPU work. This was also the perfect chance to learn Rust's async capabilities:
 
 ```sh
 # The magic command that changed everything
-ado repos clone --parallel --concurrency 6 --yes
+azdocli repos clone --parallel --concurrency 32 --yes
 ```
 
-Watching 6 repositories clone simultaneously while seeing real-time progress updates was genuinely exciting. It felt like upgrading from a bicycle to a sports car.
+Watching 32 repositories clone simultaneously while seeing real-time progress updates was genuinely exciting. It felt like upgrading from a bicycle to a car.
 
-## Daily Workflow: How azdocli Changed My Life
+## Daily Workflow
 
 ### Morning Standup Preparation
 
@@ -144,107 +161,90 @@ Every morning before our team standup, I used to manually check multiple pipelin
 Now my morning routine looks like this:
 
 ```sh
-# Quick pipeline status check
-ado pipelines list
+# See my work items
+azdocli boards work-item list
 
 # Check my pull requests
-ado repos pr list --repo MyMainRepo
+azdocli repos pr list --repo MyMainRepo
 
 # See what work items need attention
-ado boards work-item show --id 123 --web
+azdocli boards work-item show --id 123 --web
 ```
 
 Three commands, executed in seconds, and I'm fully prepared for standup. My teammates often ask how I'm always so up-to-date on project status!
 
-### The Emergency Response Story
+### The Emergency Response
 
-Last month, we had a critical production issue that required immediate attention. While others were still loading their browsers and navigating through Azure DevOps web interface, I had already:
+A critical production issue that required immediate attention. While others were still loading their browsers and navigating through Azure DevOps web interface, I had already:
 
-1. Triggered the hotfix pipeline: `ado pipelines run --id 42`
-2. Created an emergency work item: `ado boards work-item create bug --title "Critical login issue" --description "Users unable to authenticate"`
+1. Triggered the hotfix pipeline: `azdocli pipelines run --id 42`
+2. Created an emergency work item: `azdocli boards work-item create bug --title "Critical login issue" --description "Users unable to authenticate"`
 3. Opened the build status directly in my browser for monitoring
 
-The entire response took less than 30 seconds. In crisis situations, every second counts, and having lightning-fast tools can make the difference between a minor blip and extended downtime.
-
-```sh
-# Clone all repositories from the default project (with confirmation prompt)
-ado repos clone
-
-# Clone to a specific directory
-ado repos clone --target-dir ./repos
-
-# Skip confirmation prompt (useful for automation)
-ado repos clone --yes
-
-# Clone repositories in parallel for faster execution
-ado repos clone --parallel
-
-# Control the number of concurrent clone operations (default: 4, max: 8)
-ado repos clone --parallel --concurrency 6
-
-# Combine all options for maximum efficiency
-ado repos clone --target-dir ./repos --yes --parallel --concurrency 8
-```
+The entire response took less than 20 seconds and I never left the context of my editor or terminal
 
 #### Pull Request Management
 
 ```sh
 # List all pull requests for a repository
-ado repos pr list --repo MyRepository
+azdocli repos pr list --repo MyRepository
 
 # Show details of a specific pull request
-ado repos pr show --repo MyRepository --id 123
+azdocli repos pr show --repo MyRepository --id 123
 
 # Create a new pull request
-ado repos pr create --repo MyRepository --source "feature/my-feature" --target "main" --title "My Feature" --description "Description"
+azdocli repos pr create --repo MyRepository --source "feature/my-feature" --target "main" --title "My Feature" --description "Description"
 
 # Create with minimal information - target defaults to 'main'
-ado repos pr create --repo MyRepository --source "feature/my-feature" --title "My Feature"
+azdocli repos pr create --repo MyRepository --source "feature/my-feature" --title "My Feature"
 ```
 
 ### Pipeline Management
 
 ```sh
 # List all pipelines
-ado pipelines list
+azdocli pipelines list
 
 # Show all runs for a pipeline
-ado pipelines runs --id 42
+azdocli pipelines runs --id 42
 
 # Show details of a specific pipeline build
-ado pipelines show --id 42 --build-id 123
+azdocli pipelines show --id 42 --build-id 123
 
 # Run a pipeline
-ado pipelines run --id 42
+azdocli pipelines run --id 42
 ```
 
 ### Board Management
 
 ```sh
+# Show "my" work items
+azdocli boards work-item list
+
 # Show details of a specific work item
-ado boards work-item show --id 123
+azdocli boards work-item show --id 123
 
 # Open work item directly in web browser
-ado boards work-item show --id 123 --web
+azdocli boards work-item show --id 123 --web
 
 # Create a new work item (supported types: bug, task, user-story, feature, epic)
-ado boards work-item create bug --title "Fix login issue" --description "Users cannot login after password change"
+azdocli boards work-item create bug --title "Fix login issue" --description "Users cannot login after password change"
 
 # Update a work item
-ado boards work-item update --id 123 --title "New title" --state "Active" --priority 2
+azdocli boards work-item update --id 123 --title "New title" --state "Active" --priority 2
 
 # Delete a work item permanently
-ado boards work-item delete --id 123
+azdocli boards work-item delete --id 123
 
 # Soft delete a work item by changing state to "Removed"
-ado boards work-item delete --id 123 --soft-delete
+azdocli boards work-item delete --id 123 --soft-delete
 ```
 
 ## Community and Lessons Learned
 
 ### The Open Source Journey
 
-Building azdocli has been more than just solving my own problems - it's been an incredible learning journey about the Rust ecosystem and open source development. The Azure DevOps Rust API that I built upon is itself a testament to the power of code generation and the thoughtful design of the Azure DevOps team.
+Building azdocli has been more than just solving my own problems - it's been a learning journey about the Rust ecosystem. The Azure DevOps Rust API that I built upon is itself a testament to the power of code generation and the thoughtful design of the Azure DevOps team.
 
 What started as a personal frustration project has now grown into something I genuinely believe can help other developers be more productive. The feedback from early users has been incredibly encouraging, with many sharing their own stories of how the tool has streamlined their workflows.
 
@@ -252,7 +252,7 @@ What started as a personal frustration project has now grown into something I ge
 
 Here's what really gets me excited: the difference isn't just subjective. During development, I did some basic benchmarking:
 
-- **Official Azure DevOps CLI**: 3-5 seconds per command (cold start)
+- **Official Azure DevOps CLI**: Takes seconds per command
 - **azdocli**: 50-200 milliseconds per command
 
 That's not just a performance improvement - it's a fundamentally different user experience. When commands execute faster than you can blink, it changes how you think about automation and scripting.
@@ -332,22 +332,6 @@ cargo run -- <command>
 
 The project includes comprehensive integration tests that verify functionality against real Azure DevOps instances. Tests cover repository operations including create, show, clone, and delete operations.
 
-## Looking Forward: The Roadmap
+## Looking Forward
 
-Building azdocli has reignited my passion for creating developer tools that genuinely improve day-to-day productivity. The project follows modern development practices with continuous integration, comprehensive testing, and clear contribution guidelines because I believe in building tools the right way.
-
-What excites me most about the future is the potential for community contributions. I've already received feature requests that I never would have thought of, and seeing how different teams use the tool is inspiring new directions for development.
-
-The journey from frustration to solution has been incredibly rewarding, and I'm excited to see where the community takes this project next.
-
-## Your Turn: Join the Journey
-
-If you're tired of waiting for slow CLI tools, if you've ever found yourself wishing Azure DevOps operations were just... faster, I'd love for you to try [azdocli](https://github.com/christianhelle/azdocli).
-
-But more than that, I'd love to hear your stories. What frustrates you about your current tooling? What would make your development workflow smoother? The best features often come from real-world pain points, and your feedback could shape the next version.
-
----
-
-Building azdocli taught me that sometimes the best way to solve a problem is to step back, choose the right tools (hello, Rust!), and build something from scratch with a focus on the user experience. If you're looking for a fast, reliable, and modern Azure DevOps CLI that can significantly speed up your development workflow, give it a try.
-
-Who knows? Maybe it'll save you from your own 3 AM debugging sessions.
+Building [azdocli](https://github.com/christianhelle/azdocli) was a learning exercise. I have built the features that I personally need and use and I don't have plans for newer features. If you have any ideas and feature requests then feel free to create an issue on the Github repository and I'll see what I can do. Or even better, implement the feature yourself and I'll make sure we merge your pull request in and get it released
