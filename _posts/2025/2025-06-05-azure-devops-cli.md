@@ -10,11 +10,9 @@ redirect_from:
 - /2025/05/azure-devops
 ---
 
-Picture this: It's 3 AM, you're debugging a critical production issue, and you need to quickly check the status of multiple pipelines across different Azure DevOps projects. You fire up the official Azure DevOps CLI, wait... and wait... and wait some more as each command takes what feels like an eternity to execute. Sound familiar?
+Imagine this: You get a brand new computer—exciting, right? But then reality hits. You need to restore your entire development environment, which means re-cloning hundreds of repositories from Azure DevOps. You launch the browser The process is slow, repetitive, and quickly turns your excitement into frustration. Obviously, any self respecting programmer would have found a way to automate this and script their way around the problem. And then there are types who go a step further and build a general purpose tool for the job. Introducing my latest project, the [Azure DevOps CLI](https://github.com/christianhelle/azdocli) — a blazing fast Azure DevOps CLI tool written in Rust that can restore and clone hundreds of repositories in seconds. The tool currently only supports managing Boards, Repos, and Pipelines.
 
-This exact scenario happened to me one too many times, and I finally decided I'd had enough. After years of using the official Azure DevOps CLI and constantly feeling frustrated by its sluggish performance, I embarked on a journey to build something better. The result? [azdocli](https://github.com/christianhelle/azdocli) - a blazing fast Azure DevOps CLI tool written in Rust that executes commands in milliseconds, not seconds.
-
-## The Journey: Why Rust?
+## Why Rust?
 
 To be completely honest, this project started as a learning adventure. I've been wanting to dive deeper into Rust for a while now, attracted by all the buzz around its performance and memory safety guarantees. But I needed a real-world project that would push me beyond the typical "hello world" tutorials.
 
