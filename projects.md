@@ -19,6 +19,10 @@ A comprehensive Visual Studio extension supporting multiple code generators (Aut
 
 Generate .http files from OpenAPI specifications for testing APIs directly in your IDE. This tool simplifies API testing and documentation by automating the creation of HTTP request files.
 
+## [openapi2zig](https://github.com/christianhelle/openapi2zig)
+
+A CLI tool written in Zig that generates API client code in Zig from OpenAPI specifications. This tool enables developers to create type-safe Zig clients from OpenAPI v2.0 and v3.0 specifications, supporting cross-platform development.
+
 ## [SQL Compact Query Analyzer](https://github.com/christianhelle/sqlcequery)
 
 A fast and lightweight tool for querying and manipulating SQL CE databases, supporting versions 3.0 through 4.0. It provides a modern interface for database management and development.
