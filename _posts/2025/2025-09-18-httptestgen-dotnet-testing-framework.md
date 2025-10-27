@@ -109,7 +109,7 @@ When working with `.http` files in Visual Studio, you can:
 3. **Debug requests**: Inspect headers, status codes, and response times
 4. **Environment support**: Use variables for different environments (development, staging, production)
 
-![Visual Studio Integration](https://github.com/christianhelle/httptestgen/blob/main/images/http-testing-vs.png)
+![Visual Studio Integration](/assets/images/httptestgen-vs.png)
 
 ## Assertion Keywords
 
@@ -267,7 +267,7 @@ dotnet test --logger:console;verbosity=detailed
 dotnet test --filter "ApiTestsXunitTests"
 ```
 
-![Running Tests in Terminal](https://github.com/christianhelle/httptestgen/blob/main/images/http-testing.png)
+![Running Tests in Terminal](/assets/images/httptestgen-cli.png)
 
 ## Advanced Features
 
