@@ -19,7 +19,7 @@ A few months ago, I wrote about [HTTP File Runner](/2025/06/http-file-runner), a
 
 ## The Critical Problem: HTTPS Certificate Validation
 
-The primary driver for this migration was a **blocking technical limitation** in Zig's standard library. The issue was simple but insurmountable: Zig's HTTP client (`std.http`) cannot be configured to bypass certificate validation. This makes testing against development environments with self-signed certificates impossible—a fundamental requirement for any serious HTTP testing tool.
+The primary driver for this migration was a **blocking technical limitation** in Zig's standard library. The issue was simple but insurmountable: Zig's HTTP client (`std.http`) cannot be configured to bypass certificate validation. This makes testing against development environments with self-signed certificates, a fundamental requirement for any serious HTTP testing tool, needlessly difficult, or impossible.
 
 ### The Failed Solution
 
