@@ -30,7 +30,7 @@ a tool that can [generate a suite of .http files from OpenAPI specifications](/2
 The use of .http files were not immediately adopted by my teams so I started looking
 at other alternatives, particularly, [Scalar](https://scalar.com).
 Other teams I work with have built a work flow based on sharing
-[Postman Collections](https://www.postman.com/collection/) configured
+[Postman Collections](https://www.postman.com/product/collections/) configured
 with Authentication and multiple environments, like Dev, Test, and Production.
 [Scalar](https://scalar.com) feels a lot like [Postman](https://www.postman.com)
 which caught the interest of teams around me
@@ -292,7 +292,7 @@ az account get-access-token --scope [Some Application ID URI]/.default
 ```
 
 To enable OAuth2 authentication on Scalar, we need to ensure that the OpenAPI document exposed by the API defines this [securitySchemes](https://learn.openapis.org/specification/security.html).
-To do so, we need to setup a [Document Transformer](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/customize-openapi?WT.mc_id=DT-MVP-5004822) things in `AddOpenApi()`. A Document Transformer implements the `IOpenApiDocumentTransformer` interface. If you have previously worked with [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore), then this should feel familiar to you.
+To do so, we need to setup a [Document Transformer](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/customize-openapi?view=aspnetcore-10.0&WT.mc_id=DT-MVP-5004822) things in `AddOpenApi()`. A Document Transformer implements the `IOpenApiDocumentTransformer` interface. If you have previously worked with [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore), then this should feel familiar to you.
 
 The following code confgures a security scheme that enables the OAuth2 Implicit grant flow
 

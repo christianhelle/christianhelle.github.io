@@ -129,7 +129,7 @@ These scripts will automatically:
 For users who prefer different installation approaches or have specific requirements:
 
 - **Snap Store**: `snap install httprunner` - Great for Ubuntu and other snap-enabled distributions, provides automatic updates
-- **Manual Download**: Download from [GitHub Releases](https://github.com/christianhelle/httprunner/releases/latest) - Full control over installation location and process
+- **Manual Download**: Download from [GitHub Releases](https://github.com/christianhelle/httprunner/releases/tag/0.3.33) - Full control over installation location and process
 - **Docker**: `docker pull christianhelle/httprunner` - Perfect for containerized environments or when you don't want to install binaries locally
 - **Build from source**: Clone the repo and run `zig build` - For developers who want to customize the build or contribute to the project
 

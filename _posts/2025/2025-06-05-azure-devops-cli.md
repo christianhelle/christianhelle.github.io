@@ -55,7 +55,7 @@ iwr -useb https://christianhelle.com/azdocli/install.ps1 | iex
 
 These one-liner commands will automatically download and install the latest release for your platform.
 
-#### From crates.io (Requires [Rust](https://www.rust-lang.org/learn/get-started))
+#### From crates.io (Requires [Rust](https://rust-lang.org/learn/get-started/))
 
 ```sh
 cargo install azdocli

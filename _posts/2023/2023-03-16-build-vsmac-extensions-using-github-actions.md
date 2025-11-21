@@ -18,7 +18,7 @@ In my previous article on [Extending Visual Studio for Mac 2022](/2023/03/extend
 
 [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/?WT.mc_id=DT-MVP-5004822) extensions can be created using SDK Style .NET projects use .NET 7.0 as the target framework. The first requirement for setting up a build pipeline is being able to build the project from the command line. Using the example from the [the previous article](/2023/03/extending-vsmac.html), let's build the Sample project using a Github Actions workflow
 
-In case you are new to [Github Actions](https://docs.github.com/en/actions/writing-workflows/quickstart?WT.mc_id=DT-MVP-5004822), you should create the folder `/.github/workflows` in your git repo, then create a workflow file under the folder we just created.
+In case you are new to [Github Actions](https://docs.github.com/en/actions/get-started/quickstart?WT.mc_id=DT-MVP-5004822), you should create the folder `/.github/workflows` in your git repo, then create a workflow file under the folder we just created.
 
 For this example, let's create a file called `build.yml`. 
 

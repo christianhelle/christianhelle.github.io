@@ -85,7 +85,7 @@ static void Main()
 }
 ```
 
-There are smarter, better, and non-OEM specific ways to do this, both in native and managed code. In native code, one can use the wireless device functions (GetWirelessDevice, ChangeRadioState, FreeDeviceList) in the Wireless Device Power Management API (OSSVCS.dll) as described in [this](https://www.codeproject.com/Articles/103104/Radio-Power) article. And in managed code, one can take advantage of the [OpenNETCF Smart Device Framework](https://github.com/ctacke/sdf).  
+There are smarter, better, and non-OEM specific ways to do this, both in native and managed code. In native code, one can use the wireless device functions (GetWirelessDevice, ChangeRadioState, FreeDeviceList) in the Wireless Device Power Management API (OSSVCS.dll) as described in [this](https://www.codeproject.com/articles/Radio-Power) article. And in managed code, one can take advantage of the [OpenNETCF Smart Device Framework](https://github.com/ctacke/sdf).  
   
 Here's an example of how to use the OpenNETCF.WindowsMobile namespace in the Smart Device Framework for toggling the state of wireless devices:
   

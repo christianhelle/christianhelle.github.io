@@ -139,7 +139,7 @@ and produces the following files:
 
 For me, .http files seems to be the way going forward.
 
-There are of course a few challenges in adopting this in my daily workflows. Swagger UI has [Authentication and Authorization](https://swagger.io/docs/specification/authentication/) built-in and is extremely easy to implement and enable. In fact, enabling security is the first thing I do when I setup a new API project.
+There are of course a few challenges in adopting this in my daily workflows. Swagger UI has [Authentication and Authorization](https://swagger.io/docs/specification/v3_0/authentication/) built-in and is extremely easy to implement and enable. In fact, enabling security is the first thing I do when I setup a new API project.
 
 With the tool [HTTP File Generator](https://github.com/christianhelle/httpgenerator), adding `Authorization` headers to a .http file is trivial, as you can just specify it from the tool like this:
 
@@ -180,11 +180,11 @@ The problem here is that you are not really interested in retrieving or even kno
 
 ### Replacing SwaggerUI
 
-I spend all my working hours building software that runs on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) and I extensively use the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822) for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?WT.mc_id=DT-MVP-5004822), you can [request an access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) based on a [scope](https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc?WT.mc_id=DT-MVP-5004822). This works great if your API uses roles that are specified in [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822).
+I spend all my working hours building software that runs on [Microsoft Azure](https://learn.microsoft.com/en-us/training/azure/?WT.mc_id=DT-MVP-5004822) and I extensively use the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?view=azure-cli-latest&WT.mc_id=DT-MVP-5004822) for various purposes. One of which is for retrieving an access token for the user I'm currently signed in as. With [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?view=azure-cli-latest&WT.mc_id=DT-MVP-5004822), you can [request an access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) based on a [scope](https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc?WT.mc_id=DT-MVP-5004822). This works great if your API uses roles that are specified in [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822).
 
 Here's an advanced example of generating `.http` files for a REST API that uses the [Microsoft Entra ID](https://learn.microsoft.com/en-us/training/entra/?WT.mc_id=DT-MVP-5004822) service as an STS.
 
-For this example, I use [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/learn/more-powershell-learning?view=powershell-7.4&WT.mc_id=DT-MVP-5004822) and [Azure CLI to retrieve an access token for the user I'm currently logged in with](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/user-aad-token?WT.mc_id=DT-MVP-5004822) then I pipe the [access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) to [HTTP File Generator](https://github.com/christianhelle/httpgenerator).
+For this example, I use [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/learn/more-powershell-learning?view=powershell-7.4&WT.mc_id=DT-MVP-5004822) and [Azure CLI to retrieve an access token for the user I'm currently logged in with](https://learn.microsoft.com/en-us/azure/databricks/dev-tools/auth/aad-token-manual?WT.mc_id=DT-MVP-5004822) then I pipe the [access token](https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens?WT.mc_id=DT-MVP-5004822) to [HTTP File Generator](https://github.com/christianhelle/httpgenerator).
 
 ```powershell
 dotnet tool update --global httpgenerator
