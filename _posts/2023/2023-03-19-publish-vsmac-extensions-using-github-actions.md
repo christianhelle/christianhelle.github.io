@@ -14,7 +14,7 @@ redirect_from:
 - /publish-vsmac-extensions-using-github-actions
 ---
 
-In my previous article on [Build Visual Studio for Mac Extensions using Github Actions](/2023/03/build-vsmac-extensions-using-github-actions.html), I went through how to build a [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/?WT.mc_id=DT-MVP-5004822) extension using [Github Actions](https://docs.github.com/en/actions/quickstart?WT.mc_id=DT-MVP-5004822). In this article, I would like to go into further detail of the same theme but now focusing on how to publish a Visual Studio for Mac extension to a private extension repository hosted in Github, using [Github Actions](https://docs.github.com/en/actions/quickstart?WT.mc_id=DT-MVP-5004822)
+In my previous article on [Build Visual Studio for Mac Extensions using Github Actions](/2023/03/build-vsmac-extensions-using-github-actions.html), I went through how to build a [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/?WT.mc_id=DT-MVP-5004822) extension using [Github Actions](https://docs.github.com/en/actions/get-started/quickstart?WT.mc_id=DT-MVP-5004822). In this article, I would like to go into further detail of the same theme but now focusing on how to publish a Visual Studio for Mac extension to a private extension repository hosted in Github, using [Github Actions](https://docs.github.com/en/actions/get-started/quickstart?WT.mc_id=DT-MVP-5004822)
 
 ## Create extensions repository
 

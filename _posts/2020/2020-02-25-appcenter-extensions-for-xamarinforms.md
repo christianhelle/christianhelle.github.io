@@ -82,10 +82,10 @@ You will in most (if not all) cases would want to keep a singleton instance of t
   
 ```csharp
 var httpClient = new HttpClient(new DiagnosticDelegatingHandler());
-await httpClient.GetAsync("https://entbpr4b9bdpo.x.pipedream.net/");
+await httpClient.GetAsync("https://httpbin.org/get");
 ```
   
-In the example above we made an HTTP GET call to the [RequestBin](https://pipedream.com/requestbin) endpoint [https://entbpr4b9bdpo.x.pipedream.net](https://entbpr4b9bdpo.x.pipedream.net/). This will result in the following we inspected in [RequestBin](https://pipedream.com/requestbinr/entbpr4b9bdpo/1XO0uroL0xZlDfvPNKlFBZaRLo0)  
+In the example above we made an HTTP GET call to the [httpbin.org](https://httpbin.org) endpoint. This will result in diagnostic information being sent to App Center  
   
 ![AppCenter Crash Report](https://raw.githubusercontent.com/christianhelle/appcenterextensions/master/images/http-diagnostic-headers.png?raw=true)  
 **ITrackingCommand** 
