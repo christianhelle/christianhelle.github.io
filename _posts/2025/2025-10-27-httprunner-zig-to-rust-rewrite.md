@@ -1,18 +1,18 @@
 ---
 layout: post
-title: Rewriting HTTP File Runner from Zig to Rust - A Pragmatic Decision
+title: Rewriting HTTP File Runner in Rust (from Zig)
 date: 2025-10-27
 author: Christian Helle
 tags:
-- Rust
-- Zig
-- HTTP
-- Migration
+  - Rust
+  - Zig
+  - HTTP
+  - Migration
 redirect_from:
-- /2025/10/httprunner-zig-to-rust
-- /2025/10/httprunner-zig-to-rust/
-- /2025/httprunner-zig-to-rust/
-- /2025/httprunner-zig-to-rust
+  - /2025/10/httprunner-zig-to-rust
+  - /2025/10/httprunner-zig-to-rust/
+  - /2025/httprunner-zig-to-rust/
+  - /2025/httprunner-zig-to-rust
 ---
 
 A few months ago, I wrote about [HTTP File Runner](/2025/06/http-file-runner), a command-line tool I built in Zig to execute `.http` files from the terminal. The project was a successful learning exercise and a genuinely useful tool. However, I recently completed a full rewrite of the project from Zig to Rust. This wasn't a decision made lightly or based on preferences—it was a **technical necessity**.
@@ -29,7 +29,7 @@ This wasn't about preferring one language over another—the Zig implementation 
 
 ## Migration Overview
 
-The migration was comprehensive, touching every aspect of the project:
+The migration was fully AI assisted, comprehensive, touching every aspect of the project:
 
 - **54 commits** across the migration branch
 - **3,419 lines added, 2,634 lines removed**
@@ -69,7 +69,7 @@ The Rust ecosystem provided mature, battle-tested libraries for every requiremen
 - **clap**: Modern command-line argument parsing with declarative macros
 - **reqwest**: Full-featured HTTP client with TLS control
 - **colored**: Cross-platform terminal colors
-- **serde_json**: JSON parsing for environment files
+- **serde_json**: JSON parsing for environment files and chaining requests variables
 - **walkdir**: Efficient directory traversal
 - **anyhow**: Ergonomic error handling with context chaining
 
@@ -77,34 +77,36 @@ The Rust ecosystem provided mature, battle-tested libraries for every requiremen
 
 All features from the Zig implementation are fully supported in the Rust version:
 
-| Feature | Status |
-|---------|--------|
+| Feature                                      | Status  |
+| -------------------------------------------- | ------- |
 | HTTP methods (GET, POST, PUT, DELETE, PATCH) | ✅ 100% |
-| Variable substitution | ✅ 100% |
-| Request variables & chaining | ✅ 100% |
-| Response assertions (status, body, headers) | ✅ 100% |
-| Environment files (http-client.env.json) | ✅ 100% |
-| File discovery mode (--discover) | ✅ 100% |
-| Verbose mode (--verbose) | ✅ 100% |
-| Logging to file (--log) | ✅ 100% |
-| Version information (--version) | ✅ 100% |
-| Self-upgrade (--upgrade) | ✅ 100% |
-| Colored output with emojis | ✅ 100% |
-| Custom headers | ✅ 100% |
-| Request body support | ✅ 100% |
-| Multiple file processing | ✅ 100% |
+| Variable substitution                        | ✅ 100% |
+| Request variables & chaining                 | ✅ 100% |
+| Response assertions (status, body, headers)  | ✅ 100% |
+| Environment files (http-client.env.json)     | ✅ 100% |
+| File discovery mode (--discover)             | ✅ 100% |
+| Verbose mode (--verbose)                     | ✅ 100% |
+| Logging to file (--log)                      | ✅ 100% |
+| Version information (--version)              | ✅ 100% |
+| Self-upgrade (--upgrade)                     | ✅ 100% |
+| Colored output with emojis                   | ✅ 100% |
+| Custom headers                               | ✅ 100% |
+| Request body support                         | ✅ 100% |
+| Multiple file processing                     | ✅ 100% |
 
 ## Technical Improvements
 
 ### Better Error Handling
 
 **Zig**: Manual error unions and explicit error propagation
+
 ```zig
 const result = try parseHttpFile(allocator, file_path);
 defer result.deinit();
 ```
 
 **Rust**: `anyhow::Result` with context chaining and detailed error messages
+
 ```rust
 let result = parse_http_file(file_path)
     .context("Failed to parse HTTP file")?;
@@ -113,6 +115,7 @@ let result = parse_http_file(file_path)
 ### Type Safety and Memory Management
 
 **Zig**: Explicit memory management with `defer` statements
+
 ```zig
 const allocator = std.heap.page_allocator;
 var list = try std.ArrayList(u8).initCapacity(allocator, 1024);
@@ -120,6 +123,7 @@ defer list.deinit();
 ```
 
 **Rust**: Ownership system with compile-time guarantees
+
 ```rust
 let mut list = Vec::with_capacity(1024);
 // Automatically dropped when out of scope
@@ -130,6 +134,7 @@ let mut list = Vec::with_capacity(1024);
 **Zig**: Limited `std.http` with no TLS configuration options
 
 **Rust**: Full TLS control, connection pooling, timeout management, and certificate validation options
+
 ```rust
 let client = Client::builder()
     .danger_accept_invalid_certs(allow_insecure)
@@ -144,6 +149,7 @@ This is the critical improvement that drove the entire migration. The `reqwest` 
 **Zig**: Manual argument parsing with custom logic
 
 **Rust**: Declarative `clap` with automatic help generation
+
 ```rust
 #[derive(Parser)]
 #[command(name = "httprunner")]
@@ -151,7 +157,7 @@ This is the critical improvement that drove the entire migration. The `reqwest` 
 struct Cli {
     #[arg(help = "HTTP files to process")]
     files: Vec<PathBuf>,
-    
+
     #[arg(short, long, help = "Enable verbose output")]
     verbose: bool,
 }
@@ -162,6 +168,7 @@ struct Cli {
 The migration followed a systematic, phased approach:
 
 ### Phase 1: Core Infrastructure
+
 - Set up Rust project structure with Cargo.toml
 - Implemented build script for version generation
 - Created core type definitions
@@ -169,12 +176,14 @@ The migration followed a systematic, phased approach:
 - Built HTTP file parser
 
 ### Phase 2: HTTP Execution
+
 - Integrated `reqwest` for HTTP operations
 - Implemented response assertions
 - Added request variable substitution with JSONPath support
 - Built environment file loader
 
 ### Phase 3: CLI & Features
+
 - Implemented `clap`-based CLI interface
 - Added file discovery mode
 - Implemented logging functionality
@@ -182,6 +191,7 @@ The migration followed a systematic, phased approach:
 - Created comprehensive request processor
 
 ### Phase 4: Infrastructure
+
 - Updated GitHub Actions workflows for Rust
 - Migrated dev container to Rust toolchain
 - Updated Docker configuration
@@ -189,6 +199,7 @@ The migration followed a systematic, phased approach:
 - Added Snap packaging for Rust version
 
 ### Phase 5: Cleanup & Documentation
+
 - Removed Zig implementation from main branch
 - Updated all documentation for Rust
 - Added migration guides
@@ -197,14 +208,14 @@ The migration followed a systematic, phased approach:
 
 ## Build System Comparison
 
-| Task | Zig (Legacy) | Rust (Current) |
-|------|--------------|----------------|
-| Debug build | `zig build` | `cargo build` |
+| Task          | Zig (Legacy)                       | Rust (Current)          |
+| ------------- | ---------------------------------- | ----------------------- |
+| Debug build   | `zig build`                        | `cargo build`           |
 | Release build | `zig build -Doptimize=ReleaseFast` | `cargo build --release` |
-| Run tests | `zig build test` | `cargo test` |
-| Format code | `zig fmt .` | `cargo fmt` |
-| Lint code | N/A | `cargo clippy` |
-| Clean | `rm -rf zig-out zig-cache` | `cargo clean` |
+| Run tests     | `zig build test`                   | `cargo test`            |
+| Format code   | `zig fmt .`                        | `cargo fmt`             |
+| Lint code     | N/A                                | `cargo clippy`          |
+| Clean         | `rm -rf zig-out zig-cache`         | `cargo clean`           |
 
 The Rust tooling ecosystem provides a more comprehensive development experience with integrated testing, formatting, linting, and dependency management.
 
@@ -218,6 +229,7 @@ cargo install httprunner
 ```
 
 All previous installation methods remain supported:
+
 - Automated installation scripts (Linux/macOS/Windows)
 - Snap Store: `snap install httprunner`
 - Manual download from GitHub Releases
@@ -237,11 +249,13 @@ The Zig version was an excellent learning experience, and I genuinely enjoyed wo
 This migration taught me important lessons about when a rewrite is justified:
 
 ✅ **Good reasons to rewrite:**
+
 - Blocking technical limitations that prevent core functionality
 - Ecosystem maturity issues affecting long-term maintainability
 - Fundamental architectural problems that can't be incrementally improved
 
 ❌ **Bad reasons to rewrite:**
+
 - Language preference or "grass is greener" syndrome
 - Minor inconveniences that can be worked around
 - Wanting to try new technologies without clear benefits
@@ -251,12 +265,14 @@ This migration taught me important lessons about when a rewrite is justified:
 While both Zig and Rust are excellent systems programming languages, their ecosystems have different maturity levels:
 
 **Zig Strengths:**
+
 - Simpler syntax and learning curve
 - Excellent cross-compilation support
 - No hidden control flow
 - Explicit and predictable behavior
 
 **Rust Strengths:**
+
 - Mature ecosystem with battle-tested libraries
 - Comprehensive standard library and crate ecosystem
 - Strong compile-time guarantees via ownership system
@@ -269,16 +285,20 @@ For a production tool that needs to work reliably across various environments an
 Both implementations are fast, but with different characteristics:
 
 **Binary Size:**
-- Zig: ~2MB
-- Rust (release): ~5MB (with all dependencies)
+
+- Zig: ~700KB (optimized for binary size)
+- Rust (release): ~1.7MB (with all release build optimization and optimized for size)
 
 **Startup Time:**
+
 - Both: Instant (< 10ms)
 
 **Memory Usage:**
+
 - Both: Minimal (< 10MB for typical workloads)
 
 **HTTP Performance:**
+
 - Zig: Fast, but limited by `std.http` capabilities
 - Rust: Fast with more features (connection pooling, better TLS)
 
@@ -290,7 +310,7 @@ The Rust version of HTTP File Runner is now the primary implementation and recei
 
 - **Request timeout configuration**: Per-request and global timeout settings
 - **Response body filtering**: JSONPath queries and XML parsing
-- **Parallel execution**: Concurrent request processing for faster test suites
+- **Parallel execution**: Concurrent processing of non-chained requests for faster test suites
 - **Enhanced reporting**: JSON, XML, and HTML output formats
 
 ## Conclusion
@@ -308,6 +328,7 @@ cargo install httprunner
 The tool remains fast, small, and cross-platform—but now it actually works in all the scenarios it needs to support. You can read more about the original Zig implementation in my [previous post](/2025/06/http-file-runner).
 
 For more details on the migration, check out:
+
 - [Pull Request #43](https://github.com/christianhelle/httprunner/pull/43) - Complete migration details
 - [HTTP File Runner repository](https://github.com/christianhelle/httprunner) - Rust implementation
 - [HTTP File Runner (Zig)](https://github.com/christianhelle/httprunner-zig) - Original implementation
