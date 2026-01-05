@@ -1,11 +1,10 @@
 ---
 layout: page
-title:     Projects
+title: Projects
 permalink: /projects/
 ---
 
 Below is a curated list of my open source projects, each with a detailed description and a link to the repository. These tools and libraries are designed to enhance developer productivity, streamline workflows, and support modern software development practices.
-
 
 ## [Refitter](https://github.com/christianhelle/refitter)
 
@@ -59,6 +58,10 @@ A command-line interface for Azure DevOps operations, streamlining CI/CD workflo
 
 A fast, small, single binary tool for running .http files from the command line, built with Zig for optimal performance. It enables automated API testing and integration in CI pipelines.
 
+## [HttpTestGen - .http File Testing Framework](https://github.com/christianhelle/httptestgen)
+
+A powerful .NET source generator that automatically converts .http files into fully functional C# test code. This tool bridges the gap between API testing in IDEs (like Visual Studio Code with the REST Client extension) and automated testing in your .NET projects.
+
 ---
 
-*Interested in contributing or learning more? Visit the project repositories or reach out through [GitHub](https://github.com/christianhelle).*
+_Interested in contributing or learning more? Visit the project repositories or reach out through [GitHub](https://github.com/christianhelle)._
