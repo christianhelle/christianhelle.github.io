@@ -88,6 +88,54 @@ pub fn detect(path: []const u8) ?Language {
 }
 ```
 
+The actual line counting logic is a single-pass scan over the file content. It counts blank lines, single-line comments, block comments, and code lines. It uses a state machine-like approach to track if it's inside a block comment, which handles nested comments and comments starting mid-line.
+
+```zig
+pub fn countLines(buf: []const u8, lang: languages.Language) Counts {
+    var counts = Counts{ .files = 1 };
+    var in_block = false;
+
+    // Strip a trailing newline so we don't count an extra blank line for it.
+    const data = if (buf.len > 0 and buf[buf.len - 1] == '\n') buf[0 .. buf.len - 1] else buf;
+
+    var lines = std.mem.splitScalar(u8, data, '\n');
+    while (lines.next()) |raw_line| {
+        // Trim \r for Windows line endings and leading/trailing whitespace.
+        const line = std.mem.trim(u8, raw_line, " \t\r");
+
+        if (line.len == 0) {
+            counts.blank += 1;
+            continue;
+        }
+
+        // Inside a block comment.
+        if (in_block) {
+            counts.comment += 1;
+            if (lang.block_comment_end) |bce| {
+                if (std.mem.indexOf(u8, line, bce) != null) {
+                    in_block = false;
+                }
+            }
+            continue;
+        }
+
+        // ... (check for start of block comment or single line comment)
+
+        // It's a code line.
+        counts.code += 1;
+
+        // Check whether a block comment opens mid-line (e.g. `x = 1; /* start`).
+        if (lang.block_comment_start) |bcs| {
+            if (std.mem.indexOf(u8, line, bcs)) |bcs_pos| {
+                // ... (check if block comment ends on same line)
+            }
+        }
+    }
+
+    return counts;
+}
+```
+
 ## Command Line Parsing
 
 Currently the tool only really a single functional argument, which is the folder to scan. I manually iterate through the arguments provided by `std.process.argsAlloc`. The implementation checks for flags like `-h` or `--help` and interprets any non-flag argument as the target directory path. If an unknown option is encountered, it helpfully prints the usage information and exits.
