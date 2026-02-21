@@ -24,6 +24,10 @@ I added some basic filtering to skip hidden files (starting with `.`) and direct
 
 For language detection, I went with a simple extension-based lookup. The file extension is extracted, lower cased, and matched against a list of known languages. It supports over 60 languages, handling single-line and block comments specific to each language.
 
+## Command Line Parsing
+
+I decided against using a heavy argument parsing library since the requirements were so simple. Instead, I manually iterate through the arguments provided by `std.process.argsAlloc`. The implementation checks for flags like `-h` or `--help` and interprets any non-flag argument as the target directory path. If an unknown option is encountered, it helpfully prints the usage information and exits.
+
 ## Performance and Progress
 
 One of the goals was to see how fast Zig can be compared to the original Perl version. The tool reads files into memory buffers using `readToEndAlloc` (up to 128MB) and quickly scans for line breaks and comments. It also detects binary files to avoid counting them as source code.
