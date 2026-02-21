@@ -233,7 +233,7 @@ The tool is a single static binary with zero external dependencies, making it ea
 
 ## Distribution
 
-Since I'm lazy and wanted this to be easy to use, I asked GitHub Copilot to help me set up the distribution channels. It generated the `install.sh` and `install.ps1` scripts for quick installation on Linux/macOS and Windows respectively.
+Since I'm lazy and wanted this to be easy to use, I asked GitHub Copilot to help me set up the distribution channels. It generated the `install.sh` and `install.ps1` scripts for quick installation on Linux/macOS and Windows respectively using the latest Release version on Github.
 
 It also wrote the `snapcraft.yaml` file so I could publish `clocz` to the Snap Store.
 
