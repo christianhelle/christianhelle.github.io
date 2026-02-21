@@ -91,6 +91,13 @@ pub fn detect(path: []const u8) ?Language {
 The actual line counting logic is a single-pass scan over the file content. It counts blank lines, single-line comments, block comments, and code lines. It uses a state machine-like approach to track if it's inside a block comment, which handles nested comments and comments starting mid-line.
 
 ```zig
+pub const Counts = struct {
+    files: u64 = 0,
+    blank: u64 = 0,
+    comment: u64 = 0,
+    code: u64 = 0,
+};
+
 pub fn countLines(buf: []const u8, lang: languages.Language) Counts {
     var counts = Counts{ .files = 1 };
     var in_block = false;
