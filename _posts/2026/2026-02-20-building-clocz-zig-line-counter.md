@@ -26,7 +26,7 @@ For language detection, I went with a simple extension-based lookup. The file ex
 
 ## Command Line Parsing
 
-I decided against using a heavy argument parsing library since the requirements were so simple. Instead, I manually iterate through the arguments provided by `std.process.argsAlloc`. The implementation checks for flags like `-h` or `--help` and interprets any non-flag argument as the target directory path. If an unknown option is encountered, it helpfully prints the usage information and exits.
+Currently the tool only really a single functional argument, which is the folder to scan. I manually iterate through the arguments provided by `std.process.argsAlloc`. The implementation checks for flags like `-h` or `--help` and interprets any non-flag argument as the target directory path. If an unknown option is encountered, it helpfully prints the usage information and exits.
 
 ## Performance and Progress
 
