@@ -203,7 +203,7 @@ The final output is a sorted table showing the number of files, blank lines, com
 
 The CLI is simple. You run `clocz` to scan the current directory, or `clocz [path]` to scan a specific directory. The `-h` and `-v` flags show help and version info respectively.
 
-Here's an example of the output for scanning a reasonably large system with a bankend written in C# and a React frontend, running on a 10 year old laptop with a Intel Core i7-7660U @ 4x 4GHz CPU with 8GB of RAM:
+Here's an example of the output for scanning a reasonably large system with a backend written in C# and a React frontend, running on a 10-year-old laptop with an Intel Core i7-7660U @ 4x 4GHz CPU with 8GB of RAM:
 
 ```
 Scanned 10822 files
