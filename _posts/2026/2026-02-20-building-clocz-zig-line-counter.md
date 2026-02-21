@@ -5,9 +5,7 @@ date: 2026-02-20
 author: Christian Helle
 tags:
   - Zig
-  - Performance
   - CLI
-  - GitHub Copilot
 ---
 
 I recently wrote a CLI tool for counting lines of code in [Zig](https://ziglang.org/). This was nothing more than a coding exercise and an experiment to see how fast a Zig compiled tool would be compared to the well-known tool [cloc](https://github.com/AlDanial/cloc), which was originally written in Perl.
