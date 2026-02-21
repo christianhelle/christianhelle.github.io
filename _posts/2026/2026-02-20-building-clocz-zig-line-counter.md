@@ -68,7 +68,7 @@ The tool is a single static binary with zero external dependencies, making it ea
 
 ## Distribution
 
-Since I wanted this to be easy to use, I asked GitHub Copilot to help me set up the distribution channels. It generated the `install.sh` and `install.ps1` scripts for quick installation on Linux/macOS and Windows respectively.
+Since I'm lazy and wanted this to be easy to use, I asked GitHub Copilot to help me set up the distribution channels. It generated the `install.sh` and `install.ps1` scripts for quick installation on Linux/macOS and Windows respectively.
 
 It also wrote the `snapcraft.yaml` file so I could publish `clocz` to the Snap Store.
 
@@ -87,4 +87,4 @@ The GitHub Actions workflow (`release.yml`) builds binaries for Linux (x86_64, a
 
 ## Conclusion
 
-I was pleasantly surprised by how productive I could be with Zig and Copilot, building a performant and cross-platform tool in such a short amount of time. If you want to check it out or contribute, the source code is on GitHub at [https://github.com/christianhelle/clocz](https://github.com/christianhelle/clocz).
+I was pleasantly surprised by how productive I could be with Zig after working with it on-and-off for half a year, building a performant and cross-platform tool in such a short amount of time. If you want to check it out or contribute, the source code is on GitHub at [https://github.com/christianhelle/clocz](https://github.com/christianhelle/clocz).
