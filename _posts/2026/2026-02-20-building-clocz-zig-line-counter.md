@@ -43,15 +43,25 @@ The CLI is simple. You run `clocz` to scan the current directory, or `clocz [pat
 Here's an example of the output:
 
 ```
+Scanned 10822 files
+
 ------------------------------------------------------------------------
 Language                          files    blank    comment       code
 ------------------------------------------------------------------------
-Zig                                   6       45         22        340
-Markdown                              1        8          0         30
+C#                                 4045    26273      19500     170743
+TSX                                 720     5119       1248      58860
+TypeScript                          726     4123       2585      43640
+Markdown                             59     1347          0       4480
+CSS                                   9      370         52       2889
+PowerShell                           40      460        305       2046
+HTML                                  4       32         12       1619
+JavaScript                            4      193        167       1034
+Shell                                 4       22         14        108
+XML                                   1        0          0          9
 ------------------------------------------------------------------------
-SUM:                                  7       53         22        370
+SUM:                               5612    37939      23883     285428
 ------------------------------------------------------------------------
-Time=0.01s  (700.0 files/s)
+Time=0.50s  (11203.0 files/s)
 ```
 
 The tool is a single static binary with zero external dependencies, making it easy to distribute and run on Linux, macOS, and Windows.
