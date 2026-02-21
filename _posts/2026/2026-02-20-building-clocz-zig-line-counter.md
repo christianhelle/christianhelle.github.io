@@ -32,6 +32,24 @@ While the main thread and worker threads are busy scanning, a separate thread ru
 
 The final output is a sorted table showing the number of files, blank lines, comments, and code lines for each language, along with the total time taken and files processed per second.
 
-The tool, called `clocz`, is a fast, multi-threaded command-line tool that counts code, comment, and blank lines per language. It uses Zig's `std.Thread.Pool` for directory scanning and supports over 60 languages out of the box. Being a single static binary with zero external dependencies, it's easy to distribute and run on Linux, macOS, and Windows.
+## Usage
+
+The CLI is simple. You run `clocz` to scan the current directory, or `clocz [path]` to scan a specific directory. The `-h` and `-v` flags show help and version info respectively.
+
+Here's an example of the output:
+
+```
+------------------------------------------------------------------------
+Language                          files    blank    comment       code
+------------------------------------------------------------------------
+Zig                                   6       45         22        340
+Markdown                              1        8          0         30
+------------------------------------------------------------------------
+SUM:                                  7       53         22        370
+------------------------------------------------------------------------
+Time=0.01s  (700.0 files/s)
+```
+
+The tool is a single static binary with zero external dependencies, making it easy to distribute and run on Linux, macOS, and Windows.
 
 I was pleasantly surprised by how productive I could be with Zig and Copilot, building a performant and cross-platform tool in such a short amount of time.
