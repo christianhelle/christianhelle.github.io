@@ -22,11 +22,11 @@ The implementation is quite straightforward. It uses `std.fs.Dir.iterate` to wal
 
 I added some basic filtering to skip hidden files (starting with `.`) and directories like `node_modules` and `vendor`, as these usually contain dependencies rather than source code. There's also a file size limit of 128MB to avoid loading massive files into memory.
 
-For language detection, I went with a simple extension-based lookup. The file extension is extracted, lowercased, and matched against a list of known languages. It supports over 60 languages, handling single-line and block comments specific to each language.
+For language detection, I went with a simple extension-based lookup. The file extension is extracted, lower cased, and matched against a list of known languages. It supports over 60 languages, handling single-line and block comments specific to each language.
 
 ## Performance and Progress
 
-One of the goals was to see how fast Zig can be compared to Perl. The tool reads files into memory buffers using `readToEndAlloc` (up to 128MB) and quickly scans for line breaks and comments. It also detects binary files to avoid counting them as source code.
+One of the goals was to see how fast Zig can be compared to the original Perl version. The tool reads files into memory buffers using `readToEndAlloc` (up to 128MB) and quickly scans for line breaks and comments. It also detects binary files to avoid counting them as source code.
 
 While the main thread and worker threads are busy scanning, a separate thread runs a simple progress loop. It sleeps for 100ms and prints the current count of scanned files (`\rScanning... {d} files`), giving visual feedback without slowing down the processing.
 
