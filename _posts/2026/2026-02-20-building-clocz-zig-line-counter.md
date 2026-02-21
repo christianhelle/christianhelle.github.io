@@ -32,6 +32,7 @@ fn walkDir(
     while (try iter.next()) |entry| {
         // ... (skip hidden files and node_modules)
 
+        const entry_path = try std.fs.path.join(allocator, &.{ dir_path, entry.name });
         switch (entry.kind) {
             .directory => {
                 // ... (recursive call)
@@ -57,6 +58,19 @@ I added some basic filtering to skip hidden files (starting with `.`) and direct
 For language detection, I went with a simple extension-based lookup. The file extension is extracted, lower cased, and matched against a list of known languages. It supports over 60 languages, handling single-line and block comments specific to each language.
 
 ```zig
+const entries = [_]Entry{
+    // C family
+    .{ .ext = "c",        .lang = cStyle("C") },
+    .{ .ext = "h",        .lang = cStyle("C") },
+    .{ .ext = "cpp",      .lang = cStyle("C++") },
+    .{ .ext = "cc",       .lang = cStyle("C++") },
+    .{ .ext = "cxx",      .lang = cStyle("C++") },
+    .{ .ext = "hpp",      .lang = cStyle("C++") },
+    .{ .ext = "hxx",      .lang = cStyle("C++") },
+    .{ .ext = "cs",       .lang = cStyle("C#") },
+    .{ .ext = "java",     .lang = cStyle("Java") },
+    // and more...
+
 pub fn detect(path: []const u8) ?Language {
     const ext = std.fs.path.extension(path);
     if (ext.len <= 1) return null;
@@ -85,6 +99,7 @@ pub fn init(allocator: std.mem.Allocator) !Cli {
 
     // ...
 
+    var path: []const u8 = ".";
     for (args[1..]) |arg| {
         if (std.mem.startsWith(u8, arg, "-h") or std.mem.startsWith(u8, arg, "--help")) {
             options.help = true;
