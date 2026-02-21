@@ -24,6 +24,14 @@ I added some basic filtering to skip hidden files (starting with `.`) and direct
 
 For language detection, I went with a simple extension-based lookup. The file extension is extracted, lowercased, and matched against a list of known languages. It supports over 60 languages, handling single-line and block comments specific to each language.
 
+## Performance and Progress
+
+One of the goals was to see how fast Zig can be compared to Perl. The tool reads files into memory buffers using `readToEndAlloc` (up to 128MB) and quickly scans for line breaks and comments. It also detects binary files to avoid counting them as source code.
+
+While the main thread and worker threads are busy scanning, a separate thread runs a simple progress loop. It sleeps for 100ms and prints the current count of scanned files (`\rScanning... {d} files`), giving visual feedback without slowing down the processing.
+
+The final output is a sorted table showing the number of files, blank lines, comments, and code lines for each language, along with the total time taken and files processed per second.
+
 The tool, called `clocz`, is a fast, multi-threaded command-line tool that counts code, comment, and blank lines per language. It uses Zig's `std.Thread.Pool` for directory scanning and supports over 60 languages out of the box. Being a single static binary with zero external dependencies, it's easy to distribute and run on Linux, macOS, and Windows.
 
 I was pleasantly surprised by how productive I could be with Zig and Copilot, building a performant and cross-platform tool in such a short amount of time.
