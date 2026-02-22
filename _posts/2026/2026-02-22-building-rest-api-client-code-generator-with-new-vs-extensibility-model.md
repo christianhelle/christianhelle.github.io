@@ -119,7 +119,7 @@ Notice how we can register services like `ExtensionSettingsProvider` using stand
 
 ## Modernizing Commands and Async Execution
 
-One of the biggest improvements in the new model is that everything is **async by default**. In the old SDK, you had to carefully manage thread switching to avoid "UI delays" or deadlocks. The original version of the extension uses single file generators as a custom tool. A custom tool is a COM component that implements the [`IVsSingleFileGenerator`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.shell.interop.ivssinglefilegenerator?view=visualstudiosdk-2022) interface. [Implementing single-file generators](https://learn.microsoft.com/en-us/visualstudio/extensibility/internals/implementing-single-file-generators?view=visualstudio) in 2026 feels really outdated.
+One of the biggest improvements in the new model is that everything is **async by default**. In the old SDK, you had to carefully manage thread switching to avoid "UI delays" or deadlocks. The original version of the extension uses single file generators as a custom tool. A custom tool is a COM component that implements the [`IVsSingleFileGenerator`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.shell.interop.ivssinglefilegenerator?view=visualstudiosdk-2022&WT.mc_id=DT-MVP-5004822) interface. [Implementing single-file generators](https://learn.microsoft.com/en-us/visualstudio/extensibility/internals/implementing-single-file-generators?view=visualstudio?WT.mc_id=DT-MVP-5004822) in 2026 feels really outdated.
 
 **Old Command Implementation - [`SingleFileCodeGenerator.cs`](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Shared/CustomTool/SingleFileCodeGenerator.cs):**
 
