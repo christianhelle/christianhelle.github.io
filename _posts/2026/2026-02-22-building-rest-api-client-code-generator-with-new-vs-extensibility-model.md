@@ -3,16 +3,16 @@ layout: post
 title: Modernizing REST API Client Code Generator with the New Visual Studio Extensibility Model
 date: 2026-02-22
 author: Christian Helle
-tags: 
-- Visual Studio 
-- REST
+tags:
+  - Visual Studio
+  - REST
 redirect_from:
-- 2026/02/building-rest-api-client-code-generator-with-new-vs-extensibility-model
-- 2026/02/building-rest-api-client-code-generator-with-new-vs-extensibility-model/
-- 2026/building-rest-api-client-code-generator-with-new-vs-extensibility-model
-- 2026/building-rest-api-client-code-generator-with-new-vs-extensibility-model/
-- building-rest-api-client-code-generator-with-new-vs-extensibility-model
-- building-rest-api-client-code-generator-with-new-vs-extensibility-model/
+  - 2026/02/building-rest-api-client-code-generator-with-new-vs-extensibility-model
+  - 2026/02/building-rest-api-client-code-generator-with-new-vs-extensibility-model/
+  - 2026/building-rest-api-client-code-generator-with-new-vs-extensibility-model
+  - 2026/building-rest-api-client-code-generator-with-new-vs-extensibility-model/
+  - building-rest-api-client-code-generator-with-new-vs-extensibility-model
+  - building-rest-api-client-code-generator-with-new-vs-extensibility-model/
 ---
 
 I recently rebuilt the **REST API Client Code Generator** extension for Visual Studio from the ground up using the new **Visual Studio.Extensibility** model. This migration allowed the extension to run out-of-process and leverage the full power of .NET 8.0. In this post, I'll walk through the architectural changes, the challenges of the old model, and how the new extensibility API simplifies modern extension development.
@@ -31,9 +31,9 @@ A classic example of this is `Newtonsoft.Json`. If your extension depends on ver
 
 By moving to the new out-of-process extensibility model, the extension runs in its own isolated process. This architecture provides several key benefits:
 
-1.  **True Isolation**: The extension runs on .NET 8.0, completely independent of the .NET Framework 4.8 runtime that powers Visual Studio.
-2.  **No More Binding Redirects**: I can use any version of any library I want—including `System.Text.Json` or newer versions of `Newtonsoft.Json`—without clashing with Visual Studio's dependencies.
-3.  **Improved Stability**: If the extension crashes, it doesn't take down the entire IDE with it.
+1. **True Isolation**: The extension runs on .NET 8.0, completely independent of the .NET Framework 4.8 runtime that powers Visual Studio.
+2. **No More Binding Redirects**: I can use any version of any library I want—including `System.Text.Json` or newer versions of `Newtonsoft.Json`—without clashing with Visual Studio's dependencies.
+3. **Improved Stability**: If the extension crashes, it doesn't take down the entire IDE with it.
 
 ## From "Custom Tools" to Explicit Commands
 
@@ -41,9 +41,9 @@ In the previous version, the extension relied on the **Single File Generator** (
 
 While this felt "integrated," it had significant drawbacks:
 
-* **Discoverability**: Users had to know the magic string to type.
-* **Silent Failures**: If the generation failed, it was often difficult to see why without digging into the Output window.
-* **Blocking the UI**: The generation happened on the UI thread, freezing Visual Studio for large API specifications.
+- **Discoverability**: Users had to know the magic string to type.
+- **Silent Failures**: If the generation failed, it was often difficult to see why without digging into the Output window.
+- **Blocking the UI**: The generation happened on the UI thread, freezing Visual Studio for large API specifications.
 
 The new extension abandons this pattern in favor of **explicit context menu commands**. You now simply right-click an OpenAPI file and select **"Generate Client Code"**.
 
@@ -72,7 +72,7 @@ public sealed class VsPackage : AsyncPackage
     {
         await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
         await base.InitializeAsync(cancellationToken, progress);
-        
+
         foreach (var command in commands)
             await command.InitializeAsync(this, cancellationToken);
     }
@@ -124,7 +124,6 @@ One of the biggest improvements in the new model is that everything is **async b
 **Old Command Implementation - [`SingleFileCodeGenerator.cs`](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Shared/CustomTool/SingleFileCodeGenerator.cs):**
 
 ```csharp
-[ExcludeFromCodeCoverage]
 [ComVisible(true)]
 public abstract class SingleFileCodeGenerator : IVsSingleFileGenerator
 {
@@ -139,11 +138,11 @@ public abstract class SingleFileCodeGenerator : IVsSingleFileGenerator
         // Strict thread affinity check required
         if (!TestingUtility.IsRunningFromUnitTest)
             ThreadHelper.ThrowIfNotOnUIThread();
-    
+
         // Blocking generation on the UI thread
         var codeGenerator = Factory.Create(...);
         var code = codeGenerator.GenerateCode();
-        
+
         // Report progress
     }
 }
@@ -300,15 +299,15 @@ Here's a snippet of the XAML definition for the About Dialog:
   <StackPanel Orientation="Vertical" MinWidth="500" Margin="20">
     <TextBlock FontSize="18" FontWeight="Bold" Margin="0,0,0,10"
                Text="{Binding DisplayName}" />
-    
+
     <TextBlock FontSize="12" Margin="0,0,0,5"
                Text="{Binding Description}" TextWrapping="Wrap" />
-    
+
     <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
       <TextBlock FontWeight="SemiBold" Text="Version: " />
       <TextBlock Text="{Binding Version}" />
     </StackPanel>
-    
+
     <!-- ... more UI elements ... -->
   </StackPanel>
 </DataTemplate>
@@ -318,10 +317,10 @@ And the backing C# model uses the `RemoteUserControl` base class:
 
 ```csharp
 internal class AboutDialog(
-    VisualStudioExtensibility extensibility, 
-    string displayName, 
-    string description, 
-    string version) 
+    VisualStudioExtensibility extensibility,
+    string displayName,
+    string description,
+    string version)
     : RemoteUserControl(new AboutDialogData(extensibility, displayName, description, version))
 {
     [DataContract]
