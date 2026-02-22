@@ -1,11 +1,18 @@
 ---
 layout: post
-title: "Building a REST API Client Code Generator with the New Visual Studio Extensibility Model"
+title: Modernizing REST API Client Code Generator with the New Visual Studio Extensibility Model
 date: 2026-01-04
 author: Christian Helle
 tags: 
 - Visual Studio 
 - REST
+redirect_from:
+- 2026/01/building-rest-api-client-code-generator-with-new-vs-extensibility-model
+- 2026/01/building-rest-api-client-code-generator-with-new-vs-extensibility-model/
+- 2026/building-rest-api-client-code-generator-with-new-vs-extensibility-model
+- 2026/building-rest-api-client-code-generator-with-new-vs-extensibility-model/
+- building-rest-api-client-code-generator-with-new-vs-extensibility-model
+- building-rest-api-client-code-generator-with-new-vs-extensibility-model/
 ---
 
 I'm excited to announce the release of a new version of the **REST API Client Code Generator** extension for Visual Studio! This new version is built from the ground up using the new **Visual Studio.Extensibility** model, allowing it to run out-of-process and leverage the full power of .NET 8.0.
