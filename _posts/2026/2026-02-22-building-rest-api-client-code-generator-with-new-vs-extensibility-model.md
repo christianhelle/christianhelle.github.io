@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Modernizing REST API Client Code Generator with the New Visual Studio Extensibility Model
-date: 2026-01-04
+date: 2026-02-22
 author: Christian Helle
 tags: 
 - Visual Studio 
@@ -50,7 +50,7 @@ The new extension abandons this pattern in favor of **explicit context menu comm
 
 The difference in how the extension is initialized is striking. The old model used the `AsyncPackage` class, decorated with a multitude of attributes to register menus, tool windows, and options pages.
 
-**Old VSPackage Entry Point ([`VsPackage.cs`F](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Shared/VsPackage.cs)):**
+**Old VSPackage Entry Point - [`VsPackage.cs`](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Shared/VsPackage.cs):**
 
 ```csharp
 [Guid("47AFE4E1-5A52-4FE1-8CA7-EDB8310BDA4A")]
@@ -80,7 +80,7 @@ public sealed class VsPackage : AsyncPackage
 
 The new model uses a cleaner, more modern approach. The entry point inherits from `Extension`, and we use **Dependency Injection** right out of the box.
 
-**New Extension Entry Point ([`ExtensionEntrypoint.cs`](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Extensibility/ExtensionEntrypoint.cs)):**
+**New Extension Entry Point - [`ExtensionEntrypoint.cs`](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Extensibility/ExtensionEntrypoint.cs):**
 
 ```csharp
 [VisualStudioContribution]
@@ -120,7 +120,7 @@ Notice how we can register services like `ExtensionSettingsProvider` using stand
 
 One of the biggest improvements in the new model is that everything is **async by default**. In the old SDK, you had to carefully manage thread switching to avoid "UI delays" or deadlocks.
 
-**Old Command Implementation ([`SingleFileCodeGenerator.cs`](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Shared/CustomTool/SingleFileCodeGenerator.cs)):**
+**Old Command Implementation - [`SingleFileCodeGenerator.cs`](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Shared/CustomTool/SingleFileCodeGenerator.cs):**
 
 ```csharp
 public int Generate(...)

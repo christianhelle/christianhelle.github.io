@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Building a fast line of code counter app in Zig
-date: 2026-02-20
+date: 2026-02-10
 author: Christian Helle
 tags:
   - Zig
