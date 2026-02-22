@@ -285,6 +285,64 @@ public static async Task<string?> AddNewOpenApiFileAsync(
 }
 ```
 
+### Creating Custom Dialogs with XAML
+
+For more complex scenarios, like the **About Dialog**, the new model allows us to define UI using standard XAML data templates. This is a huge win for maintainability, as we can separate the UI definition from the logic.
+
+![About Dialog](/assets/images/rapicgen-about-dialog.png)
+
+Here's a snippet of the XAML definition for the About Dialog:
+
+```xml
+<DataTemplate xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:vs="http://schemas.microsoft.com/visualstudio/extensibility/2022/xaml">
+  <StackPanel Orientation="Vertical" MinWidth="500" Margin="20">
+    <TextBlock FontSize="18" FontWeight="Bold" Margin="0,0,0,10"
+               Text="{Binding DisplayName}" />
+    
+    <TextBlock FontSize="12" Margin="0,0,0,5"
+               Text="{Binding Description}" TextWrapping="Wrap" />
+    
+    <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+      <TextBlock FontWeight="SemiBold" Text="Version: " />
+      <TextBlock Text="{Binding Version}" />
+    </StackPanel>
+    
+    <!-- ... more UI elements ... -->
+  </StackPanel>
+</DataTemplate>
+```
+
+And the backing C# model uses the `RemoteUserControl` base class:
+
+```csharp
+internal class AboutDialog(
+    VisualStudioExtensibility extensibility, 
+    string displayName, 
+    string description, 
+    string version) 
+    : RemoteUserControl(new AboutDialogData(extensibility, displayName, description, version))
+{
+    [DataContract]
+    internal class AboutDialogData : NotifyPropertyChangedObject
+    {
+        [DataMember]
+        public string DisplayName { get; set; }
+
+        [DataMember]
+        public string Description { get; set; }
+
+        [DataMember]
+        public string Version { get; set; }
+
+        // ...
+    }
+}
+```
+
+This clean separation of concerns makes building custom UI in Visual Studio extensions much more pleasant.
+
 ## Code Reuse: The Core Library
 
 Despite the massive architectural shift in the VSIX project, the "brains" of the operation—the code generation logic—remain largely unchanged.
