@@ -7,8 +7,8 @@ tags:
 - Visual Studio 
 - REST
 redirect_from:
-- 2026/01/building-rest-api-client-code-generator-with-new-vs-extensibility-model
-- 2026/01/building-rest-api-client-code-generator-with-new-vs-extensibility-model/
+- 2026/02/building-rest-api-client-code-generator-with-new-vs-extensibility-model
+- 2026/02/building-rest-api-client-code-generator-with-new-vs-extensibility-model/
 - 2026/building-rest-api-client-code-generator-with-new-vs-extensibility-model
 - 2026/building-rest-api-client-code-generator-with-new-vs-extensibility-model/
 - building-rest-api-client-code-generator-with-new-vs-extensibility-model
@@ -17,11 +17,11 @@ redirect_from:
 
 I recently rebuilt the **REST API Client Code Generator** extension for Visual Studio from the ground up using the new **Visual Studio.Extensibility** model. This migration allowed the extension to run out-of-process and leverage the full power of .NET 8.0. In this post, I'll walk through the architectural changes, the challenges of the old model, and how the new extensibility API simplifies modern extension development.
 
-The source code for the new extension is available on [Github](https://github.com/christianhelle/apiclientcodegen/tree/master/src/VSIX/ApiClientCodeGen.VSIX.Extensibility).
+The source code for the new extension is available on [GitHub](https://github.com/christianhelle/apiclientcodegen/tree/master/src/VSIX/ApiClientCodeGen.VSIX.Extensibility).
 
 ## The Evolution of an Extension
 
-The original version of this extension (source code available on [Github](https://github.com/christianhelle/apiclientcodegen/tree/master/src/VSIX/ApiClientCodeGen.VSIX.Dev17)) was built using the traditional Visual Studio SDK. It served its purpose well, but as with any software built on older frameworks, it began to show its age.
+The original version of this extension (source code available on [GitHub](https://github.com/christianhelle/apiclientcodegen/tree/master/src/VSIX/ApiClientCodeGen.VSIX.Dev17)) was built using the traditional Visual Studio SDK. It served its purpose well, but as with any software built on older frameworks, it began to show its age.
 
 ### The "Dependency Hell" of In-Process Extensions
 
