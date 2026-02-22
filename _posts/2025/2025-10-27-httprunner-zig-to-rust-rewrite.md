@@ -15,7 +15,7 @@ redirect_from:
   - /2025/httprunner-zig-to-rust
 ---
 
-A few months ago, I wrote about [HTTP File Runner](/2025/06/http-file-runner), a command-line tool I built in Zig to execute `.http` files from the terminal. The project was a successful learning exercise and a genuinely useful tool. However, I recently completed a full rewrite of the project from Zig to Rust. This wasn't a decision made lightly or based on preferences—it was a **technical necessity**.
+A few months ago, I wrote about [HTTP File Runner](/2025/06/http-file-runner-zig-tool), a command-line tool I built in Zig to execute `.http` files from the terminal. The project was a successful learning exercise and a genuinely useful tool. However, I recently completed a full rewrite of the project from Zig to Rust. This wasn't a decision made lightly or based on preferences—it was a **technical necessity**.
 
 ## The Critical Problem: HTTPS Certificate Validation
 
