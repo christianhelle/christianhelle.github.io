@@ -15,7 +15,7 @@ redirect_from:
 - building-rest-api-client-code-generator-with-new-vs-extensibility-model/
 ---
 
-I'm excited to announce the release of a new version of the **REST API Client Code Generator** extension for Visual Studio! This new version is built from the ground up using the new **Visual Studio.Extensibility** model, allowing it to run out-of-process and leverage the full power of .NET 8.0.
+I recently rebuilt the **REST API Client Code Generator** extension for Visual Studio from the ground up using the new **Visual Studio.Extensibility** model. This migration allowed the extension to run out-of-process and leverage the full power of .NET 8.0. In this post, I'll walk through the architectural changes, the challenges of the old model, and how the new extensibility API simplifies modern extension development.
 
 The source code for the new extension is available on [Github](https://github.com/christianhelle/apiclientcodegen/tree/master/src/VSIX/ApiClientCodeGen.VSIX.Extensibility).
 
