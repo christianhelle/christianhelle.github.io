@@ -261,6 +261,8 @@ We can now define settings for each generator, such as NSwag, AutoRest, and Refi
 
 Sometimes we need input from the user, like a URL for an OpenAPI specification. In the old days, I would have had to build a custom WPF Window or Windows Form. Now, I can use the built-in `ShowPromptAsync` method for a consistent, native look and feel.
 
+![Add New OpenAPI File Dialog](/assets/images/rapicgen-add-new-dialog-v2.png)
+
 This snippet from [`CommandExtensions.cs`](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Extensibility/CommandExtensions.cs) shows how we prompt for a URL:
 
 ```csharp
