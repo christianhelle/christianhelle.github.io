@@ -201,6 +201,54 @@ public async Task GenerateCodeAsync(...)
 
 The old Visual Studio SDK used the `DialogPage` class to create options pages, which often looked like standard Windows Forms property grids. The new model introduces a modern, declarative way to define settings.
 
+Here's an example of how settings are defined in the new model. We simply define a static class with properties decorated with the `[VisualStudioContribution]` attribute:
+
+```csharp
+internal static class GeneralSettings
+{
+    [VisualStudioContribution]
+    internal static SettingCategory GeneralCategory { get; } = new("general", "%Settings.General.DisplayName%", SettingsRoot.RootCategory)
+    {
+        Description = "%Settings.General.Description%",
+        GenerateObserverClass = true,
+        Order = 0,
+    };
+
+    [VisualStudioContribution]
+    internal static Setting.String JavaPath { get; } = new(
+        "javaPath",
+        "%Settings.JavaPath.DisplayName%",
+        GeneralCategory,
+        string.Empty)
+    {
+        Description = "%Settings.JavaPath.Description%",
+    };
+
+    // ... other settings
+}
+```
+
+Reading these settings is also straightforward and fully asynchronous:
+
+```csharp
+public class ExtensionSettingsProvider(VisualStudioExtensibility extensibility)
+{
+    public async Task<IGeneralOptions> GetGeneralOptionsAsync(CancellationToken cancellationToken)
+    {
+        var values = await extensibility.Settings().ReadEffectiveValuesAsync(
+        [
+            GeneralSettings.JavaPath,
+            GeneralSettings.NpmPath,
+            GeneralSettings.NSwagPath,
+            // ...
+        ],
+        cancellationToken);
+
+        return new GeneralOptions(values);
+    }
+}
+```
+
 I've migrated all the tool-specific settings to this new API. Here is what the new settings UI looks like:
 
 ![Settings Overview](/assets/images/rapicgen-vs-settings-overview.png)
