@@ -40,9 +40,10 @@ By moving to the new out-of-process extensibility model, the extension runs in i
 In the previous version, the extension relied on the **Single File Generator** (or "Custom Tool") mechanism. This is a legacy feature where you select a file in Solution Explorer, go to the Properties window, and type a magic string like `RefitterCodeGenerator` into the "Custom Tool" field.
 
 While this felt "integrated," it had significant drawbacks:
-*   **Discoverability**: Users had to know the magic string to type.
-*   **Silent Failures**: If the generation failed, it was often difficult to see why without digging into the Output window.
-*   **Blocking the UI**: The generation happened on the UI thread, freezing Visual Studio for large API specifications.
+
+* **Discoverability**: Users had to know the magic string to type.
+* **Silent Failures**: If the generation failed, it was often difficult to see why without digging into the Output window.
+* **Blocking the UI**: The generation happened on the UI thread, freezing Visual Studio for large API specifications.
 
 The new extension abandons this pattern in favor of **explicit context menu commands**. You now simply right-click an OpenAPI file and select **"Generate Client Code"**.
 
@@ -118,22 +119,33 @@ Notice how we can register services like `ExtensionSettingsProvider` using stand
 
 ## Modernizing Commands and Async Execution
 
-One of the biggest improvements in the new model is that everything is **async by default**. In the old SDK, you had to carefully manage thread switching to avoid "UI delays" or deadlocks.
+One of the biggest improvements in the new model is that everything is **async by default**. In the old SDK, you had to carefully manage thread switching to avoid "UI delays" or deadlocks. The original version of the extension uses single file generators as a custom tool. A custom tool is a COM component that implements the [`IVsSingleFileGenerator`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.shell.interop.ivssinglefilegenerator?view=visualstudiosdk-2022) interface. [Implementing single-file generators](https://learn.microsoft.com/en-us/visualstudio/extensibility/internals/implementing-single-file-generators?view=visualstudio) in 2026 feels really outdated.
 
 **Old Command Implementation - [`SingleFileCodeGenerator.cs`](https://github.com/christianhelle/apiclientcodegen/blob/master/src/VSIX/ApiClientCodeGen.VSIX.Shared/CustomTool/SingleFileCodeGenerator.cs):**
 
 ```csharp
-public int Generate(...)
+[ExcludeFromCodeCoverage]
+[ComVisible(true)]
+public abstract class SingleFileCodeGenerator : IVsSingleFileGenerator
 {
-    // Strict thread affinity check required
-    if (!TestingUtility.IsRunningFromUnitTest)
-        ThreadHelper.ThrowIfNotOnUIThread();
-
-    // Blocking generation on the UI thread
-    var codeGenerator = Factory.Create(...);
-    var code = codeGenerator.GenerateCode(progressReporter);
+    public int Generate(
+        string wszInputFilePath,
+        string bstrInputFileContents,
+        string wszDefaultNamespace,
+        IntPtr[] rgbOutputFileContents,
+        out uint pcbOutput,
+        IVsGeneratorProgress pGenerateProgress)
+    {
+        // Strict thread affinity check required
+        if (!TestingUtility.IsRunningFromUnitTest)
+            ThreadHelper.ThrowIfNotOnUIThread();
     
-    // ...
+        // Blocking generation on the UI thread
+        var codeGenerator = Factory.Create(...);
+        var code = codeGenerator.GenerateCode();
+        
+        // Report progress
+    }
 }
 ```
 
