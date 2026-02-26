@@ -1,4 +1,4 @@
-# Frozen-string-literal: true
+# frozen_string_literal: true
 
 unless Object.method_defined?(:taint)
   class Object
