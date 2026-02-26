@@ -9,6 +9,15 @@ tags:
   - REST
   - HTTP
   - Rust
+redirect_from: 
+  - 2026/02/26/integration-testing-with-httprunner
+  - 2026/02/26/integration-testing-with-httprunner/
+  - 2026/02/integration-testing-with-httprunner
+  - 2026/02/integration-testing-with-httprunner/
+  - 2026/integration-testing-with-httprunner
+  - 2026/integration-testing-with-httprunner/
+  - integration-testing-with-httprunner
+  - integration-testing-with-httprunner/
 ---
 
 Integration testing REST APIs is a crucial part of ensuring the reliability of microservices and web applications. While there are many tools available, using simple `.http` files offers a lightweight and version-controllable approach that developers love.
