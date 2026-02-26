@@ -38,6 +38,7 @@ httprunner tests.http
 You can define global variables at the top of your `.http` file using the `@` syntax. This is perfect for values that are reused across multiple requests, like a base URL.
 
 {% raw %}
+
 ```http
 @HostAddress = https://httpbin.org
 @ContentType = application/json
@@ -45,6 +46,7 @@ You can define global variables at the top of your `.http` file using the `@` sy
 GET {{HostAddress}}/get
 Content-Type: {{ContentType}}
 ```
+
 {% endraw %}
 
 ## Environment Variables
@@ -69,16 +71,59 @@ Create a `http-client.env.json` file:
 Reference these variables in your `.http` file:
 
 {% raw %}
+
 ```http
 GET {{HostAddress}}/users
 Authorization: Bearer {{ApiKey}}
 ```
+
 {% endraw %}
 
 Then run `httprunner` with the `--env` flag:
 
 ```bash
 httprunner tests.http --env dev
+```
+
+## Generating Environment Files
+
+Manually managing `http-client.env.json` files can be tedious, especially when dealing with short-lived tokens or multiple environments. I recommend scripting the generation of this file.
+
+Here is an example PowerShell script that fetches access tokens from Azure CLI and generates a comprehensive environment file for localhost, Docker, and development environments:
+
+```powershell
+Write-Host "Getting access token"
+$csms_tokens = az account get-access-token --scope app://api.example.net/dev/csms/.default | ConvertFrom-Json
+$simulator_tokens = az account get-access-token --scope app://api.example.net/dev/simulator/.default | ConvertFrom-Json
+
+Write-Host "Creating environment file"
+$environment = @{
+  localhost = @{
+    authorization = "Bearer " + $csms_tokens.accessToken
+    simulator_authorization = "Bearer " + $simulator_tokens.accessToken
+    cpo = "http://localhost:8900"
+    simulator = "http://localhost:8901"
+    csms = "http://localhost:8150"
+    tenant_id = "00000000-0000-0000-0000-000000000000"
+  }
+  docker = @{
+    authorization = "Bearer " + $csms_tokens.accessToken
+    simulator_authorization = "Bearer " + $simulator_tokens.accessToken
+    cpo = "http://host.docker.internal:8900"
+    simulator = "http://host.docker.internal:8901"
+    csms = "http://host.docker.internal:8150"
+    tenant_id = "00000000-0000-0000-0000-000000000000"
+  }
+  dev = @{
+    authorization = "Bearer " + $csms_tokens.accessToken
+    simulator_authorization = "Bearer " + $simulator_tokens.accessToken
+    cpo = "https://ocpi.dev001.example.net"
+    simulator = "https://ocpi-simulator.dev001.example.net"
+    csms = "https://csms-api.dev001.example.net"
+    tenant_id = "10000000-0000-0000-0000-000000000000"
+  }
+}
+Set-Content -Path ./http-client.env.json -Value ($environment | ConvertTo-Json -Depth 10)
 ```
 
 ## Delays
@@ -99,8 +144,8 @@ For more granular control, use comments in your `.http` file:
 GET https://httpbin.org/get
 ```
 
-*   `@pre-delay`: Wait before sending the request (in milliseconds).
-*   `@post-delay`: Wait after the request completes (in milliseconds).
+- `@pre-delay`: Wait before sending the request (in milliseconds).
+- `@post-delay`: Wait after the request completes (in milliseconds).
 
 ## Timeouts
 
@@ -122,10 +167,11 @@ Supported units include `ms`, `s`, and `m`.
 
 One of the most powerful features for integration testing is chaining requests—using data from a previous response in a subsequent request.
 
-1.  **Name** the request using `# @name <requestName>`.
-2.  **Reference** its response in later requests using `{{requestName.response.body.path}}`.
+1. **Name** the request using `# @name <requestName>`.
+2. **Reference** its response in later requests using `{{requestName.response.body.path}}`.
 
 {% raw %}
+
 ```http
 # @name login
 POST https://api.example.com/login
@@ -142,6 +188,7 @@ Content-Type: application/json
 GET https://api.example.com/admin/dashboard
 Authorization: Bearer {{login.response.body.$.token}}
 ```
+
 {% endraw %}
 
 You can access headers (`.headers.Header-Name`) and body properties (using JSONPath syntax like `$.user.id`).
@@ -153,6 +200,7 @@ Complex test scenarios often require conditional logic. You might want to skip a
 `httprunner` provides `@dependsOn` and `@if` directives.
 
 {% raw %}
+
 ```http
 # @name create_user
 POST https://api.example.com/users
@@ -170,6 +218,7 @@ POST https://api.example.com/users/{{create_user.response.body.$.id}}/activate
 # @if create_user.response.body.$.status active
 GET https://api.example.com/users/{{create_user.response.body.$.id}}
 ```
+
 {% endraw %}
 
 ## Assertions
@@ -217,11 +266,11 @@ jobs:
 Or, if you prefer installing the binary:
 
 ```yaml
-      - name: Install HTTP Runner
-        run: curl -fsSL https://christianhelle.com/httprunner/install | bash
+- name: Install HTTP Runner
+  run: curl -fsSL https://christianhelle.com/httprunner/install | bash
 
-      - name: Run Tests
-        run: httprunner tests/*.http --env staging --report html
+- name: Run Tests
+  run: httprunner tests/*.http --env staging --report html
 ```
 
 This setup ensures that every change is validated against your API, providing fast feedback on regressions.
