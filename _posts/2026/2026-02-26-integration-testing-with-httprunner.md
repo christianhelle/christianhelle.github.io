@@ -20,9 +20,9 @@ redirect_from:
   - integration-testing-with-httprunner/
 ---
 
-Integration testing REST APIs is a crucial part of ensuring the reliability of microservices and web applications. While there are many tools available, using simple `.http` files offers a lightweight and version-controllable approach that developers love.
+Integration testing REST APIs is a crucial part of ensuring the reliability of micro-services and web applications. While there are many tools available, using simple `.http` files offers a lightweight and version-controllable approach that I really love.
 
-In this post, I'll explore how to use **HTTP Runner** (or `httprunner`), a command-line tool I built in Rust, to execute advanced integration test scenarios directly from `.http` files. We'll cover everything from variable management to conditional execution and CI/CD integration.
+In this post, I'll explore how to use **HTTP File Runner** (or `httprunner`), a command-line tool I built in Rust, to execute advanced integration test scenarios using `.http` files. We'll cover everything from variable management to conditional execution and CI/CD integration.
 
 ## Getting Started
 
@@ -36,6 +36,12 @@ curl -fsSL https://christianhelle.com/httprunner/install | bash
 irm https://christianhelle.com/httprunner/install.ps1 | iex
 ```
 
+If you're on Ubuntu then you can also install it using `snap`
+
+```bash
+snap install httprunner
+```
+
 Once installed, you can run any `.http` file:
 
 ```bash
@@ -46,8 +52,6 @@ httprunner tests.http
 
 You can define global variables at the top of your `.http` file using the `@` syntax. This is perfect for values that are reused across multiple requests, like a base URL.
 
-{% raw %}
-
 ```http
 @HostAddress = https://httpbin.org
 @ContentType = application/json
@@ -56,11 +60,9 @@ GET {{HostAddress}}/get
 Content-Type: {{ContentType}}
 ```
 
-{% endraw %}
-
 ## Environment Variables
 
-For different environments (development, staging, production), you shouldn't hardcode values. `httprunner` supports loading variables from a `http-client.env.json` file, compatible with the VS Code REST Client extension.
+For different environments (development, staging, production), you shouldn't hard code values. `httprunner` supports loading variables from a `http-client.env.json` file, compatible with the VS Code REST Client extension. In most cases, the environment file would contain secrets like API keys or tokens that you don't want to commit to version control.
 
 Create a `http-client.env.json` file:
 
@@ -79,14 +81,10 @@ Create a `http-client.env.json` file:
 
 Reference these variables in your `.http` file:
 
-{% raw %}
-
 ```http
 GET {{HostAddress}}/users
 Authorization: Bearer {{ApiKey}}
 ```
-
-{% endraw %}
 
 Then run `httprunner` with the `--env` flag:
 
@@ -101,43 +99,42 @@ Manually managing `http-client.env.json` files can be tedious, especially when d
 Here is an example PowerShell script that fetches access tokens from Azure CLI and generates a comprehensive environment file for localhost, Docker, and development environments:
 
 ```powershell
-Write-Host "Getting access token"
-$csms_tokens = az account get-access-token --scope app://api.example.net/dev/csms/.default | ConvertFrom-Json
-$simulator_tokens = az account get-access-token --scope app://api.example.net/dev/simulator/.default | ConvertFrom-Json
+$management_api_tokens = az account get-access-token `
+  --scope app://api.example.net/dev/management_api/.default | ConvertFrom-Json
 
-Write-Host "Creating environment file"
+$simulator_tokens = az account get-access-token `
+  --scope app://api.example.net/dev/simulator/.default | ConvertFrom-Json
+
 $environment = @{
   localhost = @{
-    authorization = "Bearer " + $csms_tokens.accessToken
+    authorization = "Bearer " + $management_api_tokens.accessToken
     simulator_authorization = "Bearer " + $simulator_tokens.accessToken
     cpo = "http://localhost:8900"
     simulator = "http://localhost:8901"
-    csms = "http://localhost:8150"
-    tenant_id = "00000000-0000-0000-0000-000000000000"
+    management_api = "http://localhost:8150"
   }
   docker = @{
-    authorization = "Bearer " + $csms_tokens.accessToken
+    authorization = "Bearer " + $management_api_tokens.accessToken
     simulator_authorization = "Bearer " + $simulator_tokens.accessToken
     cpo = "http://host.docker.internal:8900"
     simulator = "http://host.docker.internal:8901"
-    csms = "http://host.docker.internal:8150"
-    tenant_id = "00000000-0000-0000-0000-000000000000"
+    management_api = "http://host.docker.internal:8150"
   }
   dev = @{
-    authorization = "Bearer " + $csms_tokens.accessToken
+    authorization = "Bearer " + $management_api_tokens.accessToken
     simulator_authorization = "Bearer " + $simulator_tokens.accessToken
-    cpo = "https://ocpi.dev001.example.net"
-    simulator = "https://ocpi-simulator.dev001.example.net"
-    csms = "https://csms-api.dev001.example.net"
-    tenant_id = "10000000-0000-0000-0000-000000000000"
+    cpo = "https://ocpi.example.net"
+    simulator = "https://ocpi-simulator.example.net"
+    management_api = "https://csms-api.example.net"
   }
 }
+
 Set-Content -Path ./http-client.env.json -Value ($environment | ConvertTo-Json -Depth 10)
 ```
 
 ## Delays
 
-Rate limiting is a common constraint when testing APIs. `httprunner` allows you to introduce delays either globally or per request.
+Rate limiting is a common constraint when testing APIs. `httprunner` allows you to introduce delays either globally or per request. My personal use case would be eventually consistent systems where you want to wait for a certain state before proceeding.
 
 To add a delay between every request in a run, use the CLI flag:
 
@@ -158,16 +155,16 @@ GET https://httpbin.org/get
 
 ## Timeouts
 
-Network conditions can be unpredictable. You can configure timeouts to fail tests if an API is too slow.
+Network conditions can be unpredictable. You can configure timeouts to fail tests if an API is too slow. If you're testing against a local development server, you might want to set a shorter timeout than the default 30 seconds.
 
 ```http
 # Wait up to 5 seconds for a response
 # @timeout 5000 ms
-GET https://httpbin.org/delay/2
+GET https://api.example.net/delay/2
 
 # Custom connection timeout (default is 30s)
 # @connection-timeout 10 s
-GET https://httpbin.org/get
+GET https://api.example.net/get
 ```
 
 Supported units include `ms`, `s`, and `m`.
@@ -179,26 +176,24 @@ One of the most powerful features for integration testing is chaining requestsâ€
 1. **Name** the request using `# @name <requestName>`.
 2. **Reference** its response in later requests using `{{requestName.response.body.path}}`.
 
-{% raw %}
-
 ```http
-# @name login
-POST https://api.example.com/login
+# @name create
+POST https://api.example.com/something
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "password123"
+  "name": "Some Thing",
+  "description": "This is a thing."
 }
 
 ###
 
-# Use the token from the login response
-GET https://api.example.com/admin/dashboard
-Authorization: Bearer {{login.response.body.$.token}}
-```
+# Use the id from the create response
+GET https://api.example.com/something/{{create.response.body.$.id}}
 
-{% endraw %}
+# Use the id from the create response
+DELETE https://api.example.com/something/{{create.response.body.$.id}}
+```
 
 You can access headers (`.headers.Header-Name`) and body properties (using JSONPath syntax like `$.user.id`).
 
@@ -207,8 +202,6 @@ You can access headers (`.headers.Header-Name`) and body properties (using JSONP
 Complex test scenarios often require conditional logic. You might want to skip a cleanup step if the creation failed, or run specific tests only if a feature flag is enabled.
 
 `httprunner` provides `@dependsOn` and `@if` directives.
-
-{% raw %}
 
 ```http
 # @name create_user
@@ -227,8 +220,6 @@ POST https://api.example.com/users/{{create_user.response.body.$.id}}/activate
 # @if create_user.response.body.$.status active
 GET https://api.example.com/users/{{create_user.response.body.$.id}}
 ```
-
-{% endraw %}
 
 ## Assertions
 
@@ -249,6 +240,8 @@ EXPECTED_RESPONSE_BODY "slideshow"
 
 If any assertion fails, `httprunner` will report the test as failed and exit with a non-zero status code, which is essential for CI/CD pipelines.
 
+Note: For requests that have assertions that expect failed responses (e.g., testing error handling), you can use `EXPECTED_RESPONSE_STATUS` to specify the expected failure status code (like 400 or 404). The "failed" request will no longer be flagged as failed, but instead will be validated against the expected status code and assertions.
+
 ## CI/CD Integration
 
 Automating these tests in a CI/CD pipeline is straightforward. Since `httprunner` is available as a Docker image and a standalone binary, it fits easily into GitHub Actions or GitLab CI.
@@ -266,10 +259,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install HTTP Runner
+        run: snap install httprunner
+
       - name: Run API Tests
-        uses: docker://christianhelle/httprunner:latest
-        with:
-          args: tests/api.http --env staging --report markdown
+        run: tests/api.http --env staging --report markdown
 ```
 
 Or, if you prefer installing the binary:
