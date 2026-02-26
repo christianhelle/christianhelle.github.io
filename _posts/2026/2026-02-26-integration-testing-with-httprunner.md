@@ -300,6 +300,7 @@ No test is complete without verification. `httprunner` allows you to assert resp
 
 ```http
 GET https://httpbin.org/json
+
 EXPECTED_RESPONSE_STATUS 200
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
 EXPECTED_RESPONSE_BODY "slideshow"
@@ -336,11 +337,9 @@ If any assertion fails, `httprunner` will report the test as failed and exit wit
 
 Note: For requests that have assertions that expect failed responses (e.g., testing error handling), you can use `EXPECTED_RESPONSE_STATUS` to specify the expected failure status code (like 400 or 404). The "failed" request will no longer be flagged as failed, but instead will be validated against the expected status code and assertions.
 
-## Verbose and Discovery Mode
+## Verbose Mode
 
 When developing or debugging, you often need more insight into what `httprunner` is doing.
-
-### Verbose Mode
 
 Use the `--verbose` flag to see detailed request and response information, including full headers and bodies. Add `--pretty-json` to format JSON payloads for readability.
 
@@ -348,7 +347,7 @@ Use the `--verbose` flag to see detailed request and response information, inclu
 httprunner tests.http --verbose --pretty-json
 ```
 
-### Discovery Mode
+## Discovery Mode
 
 If you have tests scattered across multiple directories, use `--discover` to recursively find and execute all `.http` files.
 
