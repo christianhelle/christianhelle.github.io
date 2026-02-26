@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Integration Testing REST APIs with .http Files and HTTP File Runner
-date: 2026-02-26
+date: 2026-01-26
 author: Christian Helle
 tags:
   - Testing
@@ -10,10 +10,10 @@ tags:
   - HTTP
   - Rust
 redirect_from: 
-  - 2026/02/26/integration-testing-with-httprunner
-  - 2026/02/26/integration-testing-with-httprunner/
-  - 2026/02/integration-testing-with-httprunner
-  - 2026/02/integration-testing-with-httprunner/
+  - 2026/01/26/integration-testing-with-httprunner
+  - 2026/01/26/integration-testing-with-httprunner/
+  - 2026/01/integration-testing-with-httprunner
+  - 2026/01/integration-testing-with-httprunner/
   - 2026/integration-testing-with-httprunner
   - 2026/integration-testing-with-httprunner/
   - integration-testing-with-httprunner
@@ -212,7 +212,7 @@ Content-Type: application/json
 
 #### `email()` - Generate Email Address
 
-Generates a random email address in the format firstname.lastname@domain.com.
+Generates a random email address in the format <firstname.lastname@domain.com>.
 
 ```http
 POST https://api.example.com/users
