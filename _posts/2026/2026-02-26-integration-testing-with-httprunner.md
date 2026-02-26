@@ -66,17 +66,13 @@ Content-Type: {{ContentType}}
 
 ## Built-in Functions
 
-`httprunner` provides several built-in functions for generating dynamic data, which is essential for testing scenarios like creating unique users or generating timestamps.
+`httprunner` provides built-in functions for dynamic value generation in your `.http` files. Functions are case-insensitive and automatically generate values when the request is executed.
 
-- `guid()` / `GUID()`: Generates a UUID.
-- `string()` / `STRING()`: Generates a random alphanumeric string.
-- `number()` / `NUMBER()`: Generates a random integer (0-100).
-- `getdate()`: Current date (YYYY-MM-DD).
-- `gettime()`: Current time (HH:MM:SS).
-- `getdatetime()`: Current date and time.
-- `base64_encode('value')`: Base64 encodes the string.
+### Available Functions
 
-Functions are case-insensitive and can be used in headers, bodies, or URLs.
+#### `guid()` - Generate UUID
+
+Generates a new UUID v4 (Universally Unique Identifier) in simple format (32 hex characters without dashes).
 
 ```http
 POST https://api.example.com/users
@@ -84,8 +80,232 @@ Content-Type: application/json
 
 {
   "id": "guid()",
-  "username": "user_string()",
-  "created_at": "getdatetime()"
+  "requestId": "GUID()"
+}
+```
+
+#### `string()` - Generate Random String
+
+Generates a random alphanumeric string of 20 characters.
+
+```http
+POST https://api.example.com/test
+Content-Type: application/json
+
+{
+  "sessionKey": "string()",
+  "token": "STRING()"
+}
+```
+
+#### `number()` - Generate Random Number
+
+Generates a random number between 0 and 100 (inclusive).
+
+```http
+POST https://api.example.com/data
+Content-Type: application/json
+
+{
+  "randomValue": "number()",
+  "percentage": "NUMBER()"
+}
+```
+
+#### `base64_encode()` - Base64 Encoding
+
+Encodes a string to Base64 format. The string must be enclosed in single quotes.
+
+```http
+POST https://api.example.com/auth
+Content-Type: application/json
+
+{
+  "credentials": "base64_encode('username:password')",
+  "token": "BASE64_ENCODE('Hello, World!')"
+}
+```
+
+#### `upper()` - Convert to Uppercase
+
+Converts a string to uppercase. The string must be enclosed in single quotes.
+
+```http
+POST https://api.example.com/data
+Content-Type: application/json
+
+{
+  "code": "upper('hello, world')",
+  "shout": "UPPER('quiet text')"
+}
+```
+
+#### `lower()` - Convert to Lowercase
+
+Converts a string to lowercase. The string must be enclosed in single quotes.
+
+```http
+POST https://api.example.com/data
+Content-Type: application/json
+
+{
+  "normalized": "lower('HELLO, WORLD')",
+  "lowercase": "LOWER('Mixed Case Text')"
+}
+```
+
+#### `name()` - Generate Full Name
+
+Generates a random full name (first name + last name).
+
+```http
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+  "fullName": "name()",
+  "displayName": "NAME()"
+}
+```
+
+#### `first_name()` - Generate First Name
+
+Generates a random first name.
+
+```http
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+  "firstName": "first_name()",
+  "givenName": "FIRST_NAME()"
+}
+```
+
+#### `last_name()` - Generate Last Name
+
+Generates a random last name.
+
+```http
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+  "lastName": "last_name()",
+  "surname": "LAST_NAME()"
+}
+```
+
+#### `address()` - Generate Address
+
+Generates a random full mailing address (street, city, postal code, country).
+
+```http
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+  "streetAddress": "address()",
+  "mailingAddress": "ADDRESS()"
+}
+```
+
+#### `email()` - Generate Email Address
+
+Generates a random email address in the format firstname.lastname@domain.com.
+
+```http
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+  "email": "email()",
+  "contactEmail": "EMAIL()"
+}
+```
+
+#### `job_title()` - Generate Job Title
+
+Generates a random job title.
+
+```http
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+  "title": "job_title()",
+  "position": "JOB_TITLE()"
+}
+```
+
+#### `lorem_ipsum(n)` - Generate Lorem Ipsum Text
+
+Generates Lorem Ipsum placeholder text with the specified number of words. The parameter `n` determines how many words to generate.
+
+```http
+POST https://api.example.com/content
+Content-Type: application/json
+
+{
+  "summary": "lorem_ipsum(20)",
+  "description": "LOREM_IPSUM(50)",
+  "content": "Lorem_Ipsum(100)"
+}
+```
+
+#### `getdate()` - Get Current Date
+
+Returns the current local date in `YYYY-MM-DD` format.
+
+```http
+POST https://api.example.com/events
+Content-Type: application/json
+
+{
+  "eventDate": "getdate()",
+  "createdDate": "GETDATE()"
+}
+```
+
+#### `gettime()` - Get Current Time
+
+Returns the current local time in `HH:MM:SS` format (24-hour).
+
+```http
+POST https://api.example.com/logs
+Content-Type: application/json
+
+{
+  "timestamp": "gettime()",
+  "logTime": "GETTIME()"
+}
+```
+
+#### `getdatetime()` - Get Current Date and Time
+
+Returns the current local date and time in `YYYY-MM-DD HH:MM:SS` format.
+
+```http
+POST https://api.example.com/records
+Content-Type: application/json
+
+{
+  "createdAt": "getdatetime()",
+  "timestamp": "GETDATETIME()"
+}
+```
+
+#### `getutcdatetime()` - Get Current UTC Date and Time
+
+Returns the current UTC date and time in `YYYY-MM-DD HH:MM:SS` format.
+
+```http
+POST https://api.example.com/records
+Content-Type: application/json
+
+{
+  "utcTimestamp": "getutcdatetime()",
+  "serverTime": "GETUTCDATETIME()"
 }
 ```
 
