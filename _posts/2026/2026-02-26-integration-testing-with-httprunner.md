@@ -52,6 +52,7 @@ httprunner tests.http
 
 You can define global variables at the top of your `.http` file using the `@` syntax. This is perfect for values that are reused across multiple requests, like a base URL.
 
+{% raw %}
 ```http
 @HostAddress = https://httpbin.org
 @ContentType = application/json
@@ -59,6 +60,7 @@ You can define global variables at the top of your `.http` file using the `@` sy
 GET {{HostAddress}}/get
 Content-Type: {{ContentType}}
 ```
+{% endraw %}
 
 ## Built-in Functions
 
@@ -106,10 +108,12 @@ Create a `http-client.env.json` file:
 
 Reference these variables in your `.http` file:
 
+{% raw %}
 ```http
 GET {{HostAddress}}/users
 Authorization: Bearer {{ApiKey}}
 ```
+{% endraw %}
 
 Then run `httprunner` with the `--env` flag:
 
@@ -202,9 +206,11 @@ One of the most powerful features for integration testing is chaining requestsâ€
 
 The syntax for request variables is:
 
+{% raw %}
 ```text
 {{<request_name>.<source>.<part>.<path>}}
 ```
+{% endraw %}
 
 - **request_name**: The name defined via `# @name <name>`
 - **source**: `request` or `response`
@@ -219,6 +225,7 @@ The syntax for request variables is:
 
 ### Example Scenario
 
+{% raw %}
 ```http
 # @name create_user
 POST https://api.example.com/users
@@ -247,6 +254,7 @@ GET https://api.example.com/admin/dashboard
 Authorization: Bearer {{login.response.body.$.token}}
 X-User-Role: {{create_user.request.body.$.role}}
 ```
+{% endraw %}
 
 ## Conditional Execution
 
@@ -254,6 +262,7 @@ Complex test scenarios often require conditional logic. You might want to skip a
 
 `httprunner` provides `@dependsOn` and `@if` directives.
 
+{% raw %}
 ```http
 # @name create_user
 POST https://api.example.com/users
@@ -271,6 +280,7 @@ POST https://api.example.com/users/{{create_user.response.body.$.id}}/activate
 # @if create_user.response.body.$.status active
 GET https://api.example.com/users/{{create_user.response.body.$.id}}
 ```
+{% endraw %}
 
 ## Assertions
 
@@ -289,6 +299,7 @@ EXPECTED_RESPONSE_BODY "slideshow"
 
 Crucially, **variables are fully supported in assertions**, allowing you to validate that a response matches input parameters or previous request data.
 
+{% raw %}
 ```http
 @expected_status=200
 @user_id=123
@@ -305,6 +316,7 @@ EXPECTED_RESPONSE_STATUS {{expected_status}}
 EXPECTED_RESPONSE_BODY "{{user_id}}"
 EXPECTED_RESPONSE_HEADERS "Location: /users/{{user_id}}"
 ```
+{% endraw %}
 
 This makes dynamic testing significantly easier, as you don't need to hardcode expected values.
 
