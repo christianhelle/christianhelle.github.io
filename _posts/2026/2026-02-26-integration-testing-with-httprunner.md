@@ -60,6 +60,31 @@ GET {{HostAddress}}/get
 Content-Type: {{ContentType}}
 ```
 
+## Built-in Functions
+
+`httprunner` provides several built-in functions for generating dynamic data, which is essential for testing scenarios like creating unique users or generating timestamps.
+
+- `guid()` / `GUID()`: Generates a UUID.
+- `string()` / `STRING()`: Generates a random alphanumeric string.
+- `number()` / `NUMBER()`: Generates a random integer (0-100).
+- `getdate()`: Current date (YYYY-MM-DD).
+- `gettime()`: Current time (HH:MM:SS).
+- `getdatetime()`: Current date and time.
+- `base64_encode('value')`: Base64 encodes the string.
+
+Functions are case-insensitive and can be used in headers, bodies, or URLs.
+
+```http
+POST https://api.example.com/users
+Content-Type: application/json
+
+{
+  "id": "guid()",
+  "username": "user_string()",
+  "created_at": "getdatetime()"
+}
+```
+
 ## Environment Variables
 
 For different environments (development, staging, production), you shouldn't hard code values. `httprunner` supports loading variables from a `http-client.env.json` file, compatible with the VS Code REST Client extension. In most cases, the environment file would contain secrets like API keys or tokens that you don't want to commit to version control.
@@ -171,31 +196,57 @@ Supported units include `ms`, `s`, and `m`.
 
 ## Request Chaining
 
-One of the most powerful features for integration testing is chaining requests—using data from a previous response in a subsequent request.
+One of the most powerful features for integration testing is chaining requests—using data from a previous response in a subsequent request. `httprunner` supports extracting values from headers, JSON bodies, and even the original request data.
 
-1. **Name** the request using `# @name <requestName>`.
-2. **Reference** its response in later requests using `{{requestName.response.body.path}}`.
+### Request Variable Syntax
+
+The syntax for request variables is:
+
+```text
+{{<request_name>.<source>.<part>.<path>}}
+```
+
+- **request_name**: The name defined via `# @name <name>`
+- **source**: `request` or `response`
+- **part**: `body` or `headers`
+- **path**: The specific value to extract
+
+### Extraction Patterns
+
+- **JSON Bodies**: Use JSONPath syntax (e.g., `$.user.id`, `$.items[0].name`).
+- **Headers**: Use the header name (e.g., `Content-Type`, `Location`).
+- **Full Body**: Use `*` to extract the entire body.
+
+### Example Scenario
 
 ```http
-# @name create
-POST https://api.example.com/something
+# @name create_user
+POST https://api.example.com/users
 Content-Type: application/json
 
 {
-  "name": "Some Thing",
-  "description": "This is a thing."
+  "username": "test_user",
+  "role": "admin"
 }
 
 ###
 
-# Use the id from the create response
-GET https://api.example.com/something/{{create.response.body.$.id}}
+# @name login
+POST https://api.example.com/login
+Content-Type: application/json
 
-# Use the id from the create response
-DELETE https://api.example.com/something/{{create.response.body.$.id}}
+{
+  "username": "{{create_user.request.body.$.username}}",
+  "password": "default_password"
+}
+
+###
+
+# Use the token from login response
+GET https://api.example.com/admin/dashboard
+Authorization: Bearer {{login.response.body.$.token}}
+X-User-Role: {{create_user.request.body.$.role}}
 ```
-
-You can access headers (`.headers.Header-Name`) and body properties (using JSONPath syntax like `$.user.id`).
 
 ## Conditional Execution
 
@@ -223,24 +274,121 @@ GET https://api.example.com/users/{{create_user.response.body.$.id}}
 
 ## Assertions
 
-No test is complete without verification. You can assert the response status, headers, and body content directly in the `.http` file.
+No test is complete without verification. `httprunner` allows you to assert response status, headers, and body content directly in your `.http` file.
+
+### Basic Assertions
 
 ```http
 GET https://httpbin.org/json
-
-# Assert status code
 EXPECTED_RESPONSE_STATUS 200
-
-# Assert a header value
 EXPECTED_RESPONSE_HEADERS "Content-Type: application/json"
-
-# Assert body content (contains string)
 EXPECTED_RESPONSE_BODY "slideshow"
 ```
+
+### Variable Substitution in Assertions
+
+Crucially, **variables are fully supported in assertions**, allowing you to validate that a response matches input parameters or previous request data.
+
+```http
+@expected_status=200
+@user_id=123
+
+# @name create_user
+POST https://api.example.com/users
+{ "id": "{{user_id}}" }
+
+###
+
+GET https://api.example.com/users/{{user_id}}
+
+EXPECTED_RESPONSE_STATUS {{expected_status}}
+EXPECTED_RESPONSE_BODY "{{user_id}}"
+EXPECTED_RESPONSE_HEADERS "Location: /users/{{user_id}}"
+```
+
+This makes dynamic testing significantly easier, as you don't need to hardcode expected values.
 
 If any assertion fails, `httprunner` will report the test as failed and exit with a non-zero status code, which is essential for CI/CD pipelines.
 
 Note: For requests that have assertions that expect failed responses (e.g., testing error handling), you can use `EXPECTED_RESPONSE_STATUS` to specify the expected failure status code (like 400 or 404). The "failed" request will no longer be flagged as failed, but instead will be validated against the expected status code and assertions.
+
+## Verbose and Discovery Mode
+
+When developing or debugging, you often need more insight into what `httprunner` is doing.
+
+### Verbose Mode
+
+Use the `--verbose` flag to see detailed request and response information, including full headers and bodies. Add `--pretty-json` to format JSON payloads for readability.
+
+```bash
+httprunner tests.http --verbose --pretty-json
+```
+
+### Discovery Mode
+
+If you have tests scattered across multiple directories, use `--discover` to recursively find and execute all `.http` files.
+
+```bash
+httprunner --discover --verbose
+```
+
+## Report Generation and Logging
+
+For long-running tests or CI pipelines, console output isn't enough. `httprunner` can generate structured reports and detailed logs.
+
+### Reports
+
+Generate summary reports in Markdown (default) or HTML using the `--report` flag. HTML reports include responsive styling and dark mode support.
+
+```bash
+# Generate Markdown report
+httprunner tests.http --report
+
+# Generate HTML report
+httprunner tests.http --report html
+```
+
+### Logging
+
+Use `--log` to save all console output to a file. This is useful for auditing and post-execution analysis.
+
+```bash
+httprunner tests.http --log execution.log
+```
+
+## Export Mode
+
+Sometimes you need the raw HTTP data for documentation or manual replay. The `--export` flag saves every request and response to individual, timestamped files.
+
+```bash
+httprunner tests.http --export
+```
+
+This will create files like `GET_users_request_1738016400.log` and `GET_users_response_1738016400.log` containing the exact payload sent and received.
+
+## Insecure HTTPS
+
+When testing against local development environments or staging servers with self-signed certificates, SSL validation can be a blocker. Use `--insecure` to bypass these checks.
+
+```bash
+httprunner https://localhost:5001/api/tests.http --insecure
+```
+
+**Note:** Only use this in trusted environments!
+
+## Telemetry
+
+`httprunner` collects anonymous usage data to help improve the tool. If you prefer to opt-out, you can disable it via a flag or environment variable.
+
+```bash
+# Disable via CLI
+httprunner tests.http --no-telemetry
+
+# Disable via Environment Variable
+export HTTPRUNNER_TELEMETRY_OPTOUT=1
+# or
+export DO_NOT_TRACK=1
+```
 
 ## CI/CD Integration
 
