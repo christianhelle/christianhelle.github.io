@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Integration Testing REST APIs with .http Files and HTTP Runner
+title: Integration Testing REST APIs with .http Files and HTTP File Runner
 date: 2026-02-26
 author: Christian Helle
 tags:
