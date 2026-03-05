@@ -6,6 +6,15 @@ author: Christian Helle
 tags:
   - Zig
   - CLI
+redirect_from:
+  - /2026/03/05/building-argiope-web-crawler-broken-link-detector
+  - /2026/03/05/building-argiope-web-crawler-broken-link-detector/
+  - /2026/03/building-argiope-web-crawler-broken-link-detector
+  - /2026/03/building-argiope-web-crawler-broken-link-detector/
+  - /2026/building-argiope-web-crawler-broken-link-detector
+  - /2026/building-argiope-web-crawler-broken-link-detector/
+  - /building-argiope-web-crawler-broken-link-detector
+  - /building-argiope-web-crawler-broken-link-detector/
 ---
 
 I recently built a web crawler for broken link detection and image downloading in [Zig](https://ziglang.org/). The tool can crawl websites, detect broken links, generate reports in multiple formats, and download images from web pages. I named it [Argiope](https://github.com/christianhelle/argiope) after the genus of orb-weaving spiders, which seemed fitting for a web crawler.
@@ -72,7 +81,7 @@ Rather than pulling in a full HTML parser dependency, I wrote a lightweight scan
 ```zig
 pub fn extractLinks(allocator: std.mem.Allocator, html: []const u8) ![]Link {
     var links: std.ArrayListUnmanaged(Link) = .empty;
-    
+
     var pos: usize = 0;
     while (pos < html.len) {
         const tag_start = std.mem.indexOfPos(u8, html, pos, "<") orelse break;
@@ -80,7 +89,7 @@ pub fn extractLinks(allocator: std.mem.Allocator, html: []const u8) ![]Link {
         if (pos >= html.len) break;
 
         // Skip comments
-        if (pos + 2 < html.len and html[pos] == '!' and 
+        if (pos + 2 < html.len and html[pos] == '!' and
             html[pos + 1] == '-' and html[pos + 2] == '-') {
             const comment_end = std.mem.indexOfPos(u8, html, pos, "-->") orelse break;
             pos = comment_end + 3;
@@ -89,27 +98,27 @@ pub fn extractLinks(allocator: std.mem.Allocator, html: []const u8) ![]Link {
 
         // Read tag name and extract attributes...
         const tag_name = html[tag_name_start..pos];
-        
+
         // Determine what attribute we're looking for
         const attr_name: ?[]const u8 = blk: {
             if (asciiEqlIgnoreCase(tag_name, "a") or
                 asciiEqlIgnoreCase(tag_name, "link") or
-                asciiEqlIgnoreCase(tag_name, "area")) 
+                asciiEqlIgnoreCase(tag_name, "area"))
             {
                 break :blk "href";
             }
             if (asciiEqlIgnoreCase(tag_name, "img") or
                 asciiEqlIgnoreCase(tag_name, "script") or
-                asciiEqlIgnoreCase(tag_name, "source")) 
+                asciiEqlIgnoreCase(tag_name, "source"))
             {
                 break :blk "src";
             }
             break :blk null;
         };
-        
+
         // Extract and store the attribute value...
     }
-    
+
     return links.toOwnedSlice(allocator);
 }
 ```
@@ -126,20 +135,20 @@ pub fn resolve(allocator: std.mem.Allocator, base: []const u8, href: []const u8)
     if (std.mem.indexOf(u8, href, "://") != null) {
         return allocator.dupe(u8, href);
     }
-    
+
     // Protocol-relative URL
     if (std.mem.startsWith(u8, href, "//")) {
         const proto = extractProtocol(base) orelse "https";
         return std.fmt.allocPrint(allocator, "{s}:{s}", .{ proto, href });
     }
-    
+
     // Absolute path
     if (href.len > 0 and href[0] == '/') {
         const origin = try extractOrigin(allocator, base);
         defer allocator.free(origin);
         return std.fmt.allocPrint(allocator, "{s}{s}", .{ origin, href });
     }
-    
+
     // Relative path
     const base_dir = extractDirectory(base);
     return std.fmt.allocPrint(allocator, "{s}/{s}", .{ base_dir, href });
@@ -166,12 +175,12 @@ pub fn fetch(
     options: FetchOptions,
 ) !FetchResult {
     const uri = try std.Uri.parse(url);
-    
+
     var req = try client.open(.GET, uri, .{
         .server_header_buffer = try allocator.alloc(u8, 16384),
     });
     defer req.deinit();
-    
+
     req.send() catch |err| {
         return FetchResult{
             .status = 0,
@@ -179,11 +188,11 @@ pub fn fetch(
             .error_msg = try allocator.dupe(u8, @errorName(err)),
         };
     };
-    
+
     try req.wait();
-    
+
     const status = @intFromEnum(req.response.status);
-    
+
     // Handle redirects
     if (status >= 300 and status < 400 and options.max_redirects > 0) {
         const location = req.response.headers.getFirstValue("location") orelse {
@@ -191,10 +200,10 @@ pub fn fetch(
         };
         // Follow redirect...
     }
-    
+
     // Read response body...
     const body = try req.reader().readAllAlloc(allocator, options.max_body_size);
-    
+
     return FetchResult{
         .status = @intCast(status),
         .body = body,
@@ -233,13 +242,13 @@ pub const Options = struct {
 
 pub fn parseArgs(args: []const []const u8) !Options {
     var opts = Options{};
-    
+
     if (args.len < 2) return opts;
-    
+
     var i: usize = 1;
     while (i < args.len) : (i += 1) {
         const arg = args[i];
-        
+
         if (std.mem.eql(u8, arg, "check")) {
             opts.command = .check;
         } else if (std.mem.eql(u8, arg, "images")) {
@@ -252,7 +261,7 @@ pub fn parseArgs(args: []const []const u8) !Options {
             opts.url = arg;
         }
     }
-    
+
     return opts;
 }
 ```
@@ -275,17 +284,17 @@ pub fn write(
 ) !void {
     const file = try std.fs.cwd().createFile(path, .{ .truncate = true });
     defer file.close();
-    
+
     var buf: [65536]u8 = undefined;
     var fw = file.writer(&buf);
     const w = &fw.interface;
-    
+
     switch (format) {
         .text => try writeText(w, url, results, summary, include_positives),
         .markdown => try writeMarkdown(w, url, results, summary, include_positives),
         .html => try writeHtml(allocator, w, url, results, summary, include_positives),
     }
-    
+
     try w.flush();
 }
 ```
@@ -340,15 +349,15 @@ Downloaded 42 images to ./images
 Generate a report file instead of printing to the console:
 
 ```
-$ argiope check https://christianhelle.com --report report.html --report-format html
+argiope check https://christianhelle.com --report report.html --report-format html
 
-$ argiope check https://christianhelle.com --report report.md --report-format markdown --include-positives
+argiope check https://christianhelle.com --report report.md --report-format markdown --include-positives
 ```
 
 Use parallel crawling for faster processing on sites with many links:
 
 ```
-$ argiope check https://christianhelle.com --parallel --depth 5
+argiope check https://christianhelle.com --parallel --depth 5
 ```
 
 ## Distribution
@@ -405,7 +414,7 @@ The `snapcraft.yaml` configuration allows publishing to the Snap Store:
 ```yaml
 name: argiope
 base: core22
-version: '0.1.0'
+version: "0.1.0"
 summary: A web crawler for broken-link detection
 description: |
   A fast, multi-threaded web crawler that detects broken links,
