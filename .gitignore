@@ -13,3 +13,6 @@ bin/
 tests/playwright/obj
 tests/playwright/bin
 _config.yml
+# Squad: ignore generated logs
+.squad/orchestration-log/
+.squad/log/
