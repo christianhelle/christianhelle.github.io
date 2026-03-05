@@ -1,0 +1,6 @@
+{
+  "universe": "Blade Runner",
+  "capacity": 8,
+  "overflow_strategy": "diegetic_expansion",
+  "allow_mixing": false
+}

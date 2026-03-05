@@ -1,0 +1,15 @@
+{
+  "assignments": [
+    {
+      "assignment_id": "blog-001",
+      "universe": "Blade Runner",
+      "timestamp": "2026-03-05T20:33:06Z",
+      "agents": [
+        { "persistent_name": "Deckard", "role": "Lead" },
+        { "persistent_name": "Rachael", "role": "Content Dev" },
+        { "persistent_name": "Pris", "role": "Jekyll Dev" },
+        { "persistent_name": "Roy", "role": "Tester" }
+      ]
+    }
+  ]
+}
