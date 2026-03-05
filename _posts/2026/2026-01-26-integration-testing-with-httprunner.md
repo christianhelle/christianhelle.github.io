@@ -54,7 +54,7 @@ You can define global variables at the top of your `.http` file using the `@` sy
 
 {% raw %}
 
-```http
+```text
 @HostAddress = https://httpbin.org
 @ContentType = application/json
 
@@ -74,7 +74,7 @@ Content-Type: {{ContentType}}
 
 Generates a new UUID v4 (Universally Unique Identifier) in simple format (32 hex characters without dashes).
 
-```http
+```text
 POST https://api.example.com/users
 Content-Type: application/json
 
@@ -88,7 +88,7 @@ Content-Type: application/json
 
 Generates a random alphanumeric string of 20 characters.
 
-```http
+```text
 POST https://api.example.com/test
 Content-Type: application/json
 
@@ -102,7 +102,7 @@ Content-Type: application/json
 
 Generates a random number between 0 and 100 (inclusive).
 
-```http
+```text
 POST https://api.example.com/data
 Content-Type: application/json
 
@@ -116,7 +116,7 @@ Content-Type: application/json
 
 Encodes a string to Base64 format. The string must be enclosed in single quotes.
 
-```http
+```text
 POST https://api.example.com/auth
 Content-Type: application/json
 
@@ -130,7 +130,7 @@ Content-Type: application/json
 
 Converts a string to uppercase. The string must be enclosed in single quotes.
 
-```http
+```text
 POST https://api.example.com/data
 Content-Type: application/json
 
@@ -144,7 +144,7 @@ Content-Type: application/json
 
 Converts a string to lowercase. The string must be enclosed in single quotes.
 
-```http
+```text
 POST https://api.example.com/data
 Content-Type: application/json
 
@@ -158,7 +158,7 @@ Content-Type: application/json
 
 Generates a random full name (first name + last name).
 
-```http
+```text
 POST https://api.example.com/users
 Content-Type: application/json
 
@@ -172,7 +172,7 @@ Content-Type: application/json
 
 Generates a random first name.
 
-```http
+```text
 POST https://api.example.com/users
 Content-Type: application/json
 
@@ -186,7 +186,7 @@ Content-Type: application/json
 
 Generates a random last name.
 
-```http
+```text
 POST https://api.example.com/users
 Content-Type: application/json
 
@@ -200,7 +200,7 @@ Content-Type: application/json
 
 Generates a random full mailing address (street, city, postal code, country).
 
-```http
+```text
 POST https://api.example.com/users
 Content-Type: application/json
 
@@ -214,7 +214,7 @@ Content-Type: application/json
 
 Generates a random email address in the format <firstname.lastname@domain.com>.
 
-```http
+```text
 POST https://api.example.com/users
 Content-Type: application/json
 
@@ -228,7 +228,7 @@ Content-Type: application/json
 
 Generates a random job title.
 
-```http
+```text
 POST https://api.example.com/users
 Content-Type: application/json
 
@@ -242,7 +242,7 @@ Content-Type: application/json
 
 Generates Lorem Ipsum placeholder text with the specified number of words. The parameter `n` determines how many words to generate.
 
-```http
+```text
 POST https://api.example.com/content
 Content-Type: application/json
 
@@ -257,7 +257,7 @@ Content-Type: application/json
 
 Returns the current local date in `YYYY-MM-DD` format.
 
-```http
+```text
 POST https://api.example.com/events
 Content-Type: application/json
 
@@ -271,7 +271,7 @@ Content-Type: application/json
 
 Returns the current local time in `HH:MM:SS` format (24-hour).
 
-```http
+```text
 POST https://api.example.com/logs
 Content-Type: application/json
 
@@ -285,7 +285,7 @@ Content-Type: application/json
 
 Returns the current local date and time in `YYYY-MM-DD HH:MM:SS` format.
 
-```http
+```text
 POST https://api.example.com/records
 Content-Type: application/json
 
@@ -299,7 +299,7 @@ Content-Type: application/json
 
 Returns the current UTC date and time in `YYYY-MM-DD HH:MM:SS` format.
 
-```http
+```text
 POST https://api.example.com/records
 Content-Type: application/json
 
@@ -332,7 +332,7 @@ Reference these variables in your `.http` file:
 
 {% raw %}
 
-```http
+```text
 GET {{HostAddress}}/users
 Authorization: Bearer {{ApiKey}}
 ```
@@ -397,7 +397,7 @@ httprunner tests.http --delay 500
 
 For more granular control, use comments in your `.http` file:
 
-```http
+```text
 # @pre-delay 1000
 # @post-delay 500
 GET https://httpbin.org/get
@@ -410,7 +410,7 @@ GET https://httpbin.org/get
 
 Network conditions can be unpredictable. You can configure timeouts to fail tests if an API is too slow. If you're testing against a local development server, you might want to set a shorter timeout than the default 30 seconds.
 
-```http
+```text
 # Wait up to 5 seconds for a response
 # @timeout 5000 ms
 GET https://api.example.net/delay/2
@@ -453,7 +453,7 @@ The syntax for request variables is:
 
 {% raw %}
 
-```http
+```text
 # @name create_user
 POST https://api.example.com/users
 Content-Type: application/json
@@ -492,7 +492,7 @@ Complex test scenarios often require conditional logic. You might want to skip a
 
 {% raw %}
 
-```http
+```text
 # @name create_user
 POST https://api.example.com/users
 ...
@@ -518,7 +518,7 @@ No test is complete without verification. `httprunner` allows you to assert resp
 
 ### Basic Assertions
 
-```http
+```text
 GET https://httpbin.org/json
 
 EXPECTED_RESPONSE_STATUS 200
@@ -532,7 +532,7 @@ Crucially, **variables are fully supported in assertions**, allowing you to vali
 
 {% raw %}
 
-```http
+```text
 @expected_status=200
 @user_id=123
 
