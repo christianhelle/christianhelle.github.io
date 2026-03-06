@@ -30,3 +30,4 @@
 - The share button behavior is owned by `_includes/share.html`, while the X/Twitter glyph itself lives in `_includes/social/twitter.svg`; branding fixes should keep the existing `twitter.com/intent/tweet` URL and Liquid parameters untouched.
 - For this dark Minima theme, the X mark looks most on-brand when the SVG uses a 24x24 `currentColor` path and the share include sets the icon fill to white instead of legacy Twitter blue.
 - `bundle exec jekyll build` is the existing Jekyll validation step, and `_site/2022/10/autofaker.html` is a reliable rendered page to spot-check share-link title, aria-label, endpoint, and inline SVG output.
+- When a social icon's artwork uses a smaller native viewBox than its neighbors, the safest normalization is to keep the shared CSS size in `_includes/share.html` and center that glyph inside a matching outer viewBox in its SVG partial instead of changing share markup or URLs.

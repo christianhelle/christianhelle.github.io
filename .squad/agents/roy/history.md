@@ -22,6 +22,9 @@
 - The refined X logo currently renders from `_includes/social/twitter.svg` as a 24x24 monochrome path, and the representative rendered check remains `_site/2022/10/autofaker.html` with `title`/`aria-label` set to `Share on X` while still linking to `twitter.com/intent/tweet`.
 - Keep `tests/playwright/ShareUiTests.cs` synchronized with the SVG path in `_includes/social/twitter.svg`; once the expected path string matches the include, `bundle exec jekyll build` and the full `dotnet test .\tests\playwright\PlaywrightTests.csproj` suite are green again.
 
+- Share icon size regression coverage now lives in `tests/playwright/ShareUiTests.cs`, where the post-page check verifies the X, LinkedIn, and Facebook SVGs all render as visible 40x40 icons on `http://127.0.0.1:4000/2022/10/autofaker.html`.
+- For static Jekyll page crawls in `tests/playwright/BlogArchiveTests.cs`, waiting for `DOMContentLoaded` is more stable than waiting for the full `load` event because external resources can delay navigation without affecting route validation.
+- Key files for share-size validation are `_includes/share.html`, `_includes/social/twitter.svg`, `tests/playwright/ShareUiTests.cs`, and `tests/playwright/BlogArchiveTests.cs`; the regression flow is `bundle exec jekyll build` plus `cd tests/playwright && dotnet test` with the dev server running at `http://127.0.0.1:4000/`.
 ## Orchestration (2026-03-06T12-38-16Z)
 
 **Task:** Refine X share logo  
@@ -36,3 +39,4 @@
 **Roy (Test & Infra):** Added focused Playwright regression coverage in `ShareUiTests.cs` for share UI protection. Hardened archive test infrastructure by applying `Exact = true` to link role locators, preventing substring-match collisions on title prefixes. Pre-existing unrelated timeout remains in `Crawl_Archive` at Source Code Download step (not caused by share rebrand work).
 
 **Rachael (Content Dev):** Completed projects page refresh with 4 new repositories. Strong Zig presence in updates (3 of 4 projects): Argiope web crawler, CLOCZ line counter, and Azure SDK for Zig. Otaku (manga reader) adds portfolio diversity. All existing projects preserved. Selection emphasized non-forks, active repos, creator-maintained, meaningful descriptions. Portfolio positioning emphasizes practical developer value.
+
