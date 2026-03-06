@@ -2,6 +2,13 @@
 
 ## Active Decisions
 
+### Share Button X Branding
+**Decided:** 2026-03-06  
+**Owner:** Pris, Roy  
+**Status:** Completed
+
+Modernized the blog post share button UI from Twitter bird to X icon. Updated SVG glyph and accessible label/title to "Share on X" while preserving the existing `twitter.com/intent/tweet` endpoint and all Liquid parameters. This is a pure UI rebrand with no functional change to the share flow. Added focused Playwright regression test coverage in `ShareUiTests.cs` to prevent future share UI regressions.
+
 ### Archive Playwright Locator Hardening
 **Decided:** 2026-03-06  
 **Owner:** Roy  
