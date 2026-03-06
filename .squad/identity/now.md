@@ -1,9 +1,9 @@
 ---
-updated_at: 2026-03-06T12:30:29Z
-focus_area: Refining X share icon
+updated_at: 2026-03-06T12:40:10Z
+focus_area: Normalizing share icon sizes
 active_issues: []
 ---
 
 # What We're Focused On
 
-Replacing the generic X share icon with a closer match to the official X.com logo while preserving share behavior.
+Adjusting the Share this on icons so X, LinkedIn, and Facebook render at the same visual size.
