@@ -25,10 +25,9 @@ Describe a key convention or practice used in this codebase. Be specific about w
 
 ### Testing
 
-<!-- Example: What test framework? Where do tests live? How to run them? -->
-<!-- - Test framework: Jest/Vitest/node:test/etc. -->
-<!-- - Test location: test/, __tests__/, *.test.ts, etc. -->
-<!-- - Run command: npm test, etc. -->
+- Browser regression coverage for the blog archive lives in `tests/playwright/BlogArchiveTests.cs` and runs with `cd tests/playwright && dotnet test`.
+- Playwright archive link locators should use `GetByRole(..., new() { NameString = "...", Exact = true })` because archive titles can share prefixes and default accessible-name matching is substring-based.
+- When validating archive regressions locally, use development config (`_config_dev.yml` copied to `_config.yml`), make sure the Jekyll server is serving `http://127.0.0.1:4000/`, then run `dotnet test --filter "Crawl_Archive"` for the focused regression check.
 
 ### Code Style
 
@@ -46,11 +45,12 @@ Describe a key convention or practice used in this codebase. Be specific about w
 
 ## Examples
 
-```
-// Add code examples that demonstrate your conventions
+```csharp
+await page.GetByRole(AriaRole.Link, new() { NameString = "Danish Developer Conference 2012", Exact = true }).ClickAsync();
+await page.WaitForURLAsync($"{baseUrl}/2012/02/danish-developer-conference-2012.html");
 ```
 
 ## Anti-Patterns
 
 <!-- List things to avoid in this codebase -->
-- **[Anti-pattern]** — Explanation of what not to do and why.
+- **Partial Playwright archive link matches** — Do not rely on default `GetByRole` name matching for archive titles, because substring collisions can make the crawl flaky as new posts are added.

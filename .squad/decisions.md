@@ -2,6 +2,13 @@
 
 ## Active Decisions
 
+### Archive Playwright Locator Hardening
+**Decided:** 2026-03-06  
+**Owner:** Roy  
+**Status:** Completed
+
+Hardened `tests/playwright/BlogArchiveTests.cs` by using `Exact = true` on archive link role locators. The archive crawl was failing due to substring matching collisions when post titles share prefixes (e.g., "Danish Developer Conference 2012" and "Multi-platform Mobile Development"). Exact matching is a test-only fix that prevents future regressions without altering site content.
+
 ### Blog Post Series: Zig Projects
 **Decided:** 2026-03-05  
 **Owner:** Rachael  

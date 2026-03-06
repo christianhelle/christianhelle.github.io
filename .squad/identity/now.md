@@ -1,9 +1,9 @@
 ---
-updated_at: 2026-03-06T10:31:36Z
-focus_area: Refreshing projects page
+updated_at: 2026-03-06T10:42:32Z
+focus_area: Fixing archive Playwright failure
 active_issues: []
 ---
 
 # What We're Focused On
 
-Updating `projects.md` with recent non-fork GitHub repositories while preserving the existing list.
+Investigating and fixing the pre-existing Playwright archive failure caused by duplicate archive link matches.
