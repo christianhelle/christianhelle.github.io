@@ -1,9 +1,9 @@
 ---
-updated_at: 2026-03-06T12:14:29Z
-focus_area: Updating share icon branding
+updated_at: 2026-03-06T12:40:10Z
+focus_area: Normalizing share icon sizes
 active_issues: []
 ---
 
 # What We're Focused On
 
-Replacing the outdated Twitter share icon branding with X while preserving share-link behavior.
+Adjusting the Share this on icons so X, LinkedIn, and Facebook render at the same visual size.
