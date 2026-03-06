@@ -25,7 +25,7 @@ Like my previous Zig project, GitHub Copilot wrote most of the boilerplate, incl
 
 ## How it works
 
-The crawler uses a breadth-first search (BFS) approach to traverse web pages. It starts with a seed URL, fetches the page, extracts all links, and adds them to a queue for processing. Each URL is normalized and checked against a visited set to avoid processing the same URL twice.
+The crawler uses a [Breadth-first search (BFS)](https://en.wikipedia.org/wiki/Breadth-first_search) approach to traverse web pages. It starts with a seed URL, fetches the page, extracts all links, and adds them to a queue for processing. Each URL is normalized and checked against a visited set to avoid processing the same URL twice.
 
 ```zig
 pub const Crawler = struct {
