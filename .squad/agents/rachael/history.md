@@ -22,3 +22,16 @@
 - Tags for this post: Zig, CLI (matches clocz post tagging pattern)
 - Post file naming: `_posts/YYYY/YYYY-MM-DD-title.md` format strictly followed
 - Christian uses GitHub Copilot heavily for boilerplate (workflows, README, install scripts)
+
+### 2026-03-06: Projects Page Refresh
+- Updated projects.md with 4 new projects: Argiope, CLOCZ, Azure SDK for Zig, Otaku
+- Search method: Use GitHub search API `user:christianhelle sort:updated` to get recent repositories
+- Filtering criteria: Exclude forks (fork: false), exclude archived projects, include only active creator/maintainer repos
+- New projects were added at the end of the list, preserving existing items (Christian requested keeping existing items)
+- Projects selected for public-facing projects page: Must have meaningful descriptions and represent Christian's current work focus
+- Zig projects trending: Argiope and CLOCZ both recent Zig projects, indicating renewed focus on the language
+- Projects page serves as portfolio piece, so descriptions emphasize practical value and technical highlights
+
+## Team Updates (2026-03-06)
+
+**Roy (Build & Test):** Validated projects page refresh with clean Jekyll build and dev server checks. Playwright suite has pre-existing unrelated archive test failure at `BlogArchiveTests.cs:115` (GetByRole name matching issue). Future test harness note: run.ps1 still calls net6.0 path despite project targeting net8.0.
