@@ -62,6 +62,18 @@ A fast, small, single binary tool for running .http files from the command line,
 
 A powerful .NET source generator that automatically converts .http files into fully functional C# test code. This tool bridges the gap between API testing in IDEs (like Visual Studio Code with the REST Client extension) and automated testing in your .NET projects.
 
+## [Argiope](https://github.com/christianhelle/argiope)
+
+A web crawler built in Zig for broken-link detection and image downloading. Argiope efficiently discovers and validates links across websites while providing tools for batch image collection, making it ideal for site validation and content management workflows.
+
+## [Clocz - Line of Code Counter](https://github.com/christianhelle/clocz)
+
+A fast, multi-threaded command-line tool for counting lines of code, written in Zig. Clocz delivers performance and efficiency for analyzing codebase metrics across large projects, with support for multiple programming languages.
+
+## [Azure SDK for Zig](https://github.com/christianhelle/azure-sdk-for-zig)
+
+Azure SDK client libraries for the Zig programming language. This project enables developers to build cloud-native applications in Zig with access to Azure services through type-safe, performant bindings.
+
 ---
 
 _Interested in contributing or learning more? Visit the project repositories or reach out through [GitHub](https://github.com/christianhelle)._
