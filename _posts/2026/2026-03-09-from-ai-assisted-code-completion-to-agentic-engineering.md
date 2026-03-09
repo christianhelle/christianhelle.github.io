@@ -14,7 +14,7 @@ Around four years ago, when [GitHub Copilot](https://github.com/features/copilot
 
 At first, it felt like a novelty. Then it became useful. Then it became part of my workflow. Somewhere along the way, Copilot stopped being something I occasionally experimented with and became a tool I use every single day. Today it is one of those tools I genuinely do not want to work without.
 
-This post is about that journey: from AI-assisted code completion, to chat-driven development, to what now feels like a completely different mode of working altogether - agentic engineering.
+This post is about that journey: from AI-assisted code completion, to what now is a completely different mode of working altogether - agentic software engineering.
 
 ## From novelty to daily habit
 
@@ -124,14 +124,14 @@ That would have been almost impossible to imagine when I first tried Copilot in 
 
 ## Where I am now
 
-I still care deeply about code completion. It is still the fastest interface between an idea in my head and code in my editor. GitHub Copilot remains a core part of my daily workflow for exactly that reason.
+I still care deeply about writing code by hand. Code is the best and clearest way for me to express myself. I still love code completion and it is still the fastest interface between an idea in my head and code in my editor. GitHub Copilot remains a core part of my daily workflow for exactly that reason.
 
 But the bigger story is what happened next.
 
-The evolution from code completion to stronger reasoning, the arrival of models like Claude Sonnet, the ability to run work in parallel with `/fleet`, and the emergence of persistent repo-native teams like Squad have all pushed software development into a very different place.
+The evolution from code completion to stronger reasoning, the arrival of models like Claude Opus, the ability to run work in parallel with `/fleet`, and the emergence of persistent repo-native agent teams like Squad have all pushed software development into a very different place.
 
 I no longer think about AI as just something that helps me write code faster. I think about it as a system for delegating engineering work, coordinating specialists, and scaling execution without losing context.
 
 That is why this feels like more than better autocomplete.
 
-It feels like the beginning of agentic engineering.
+It feels like an entirely new form of software engineering.. Agentic software engineering.
