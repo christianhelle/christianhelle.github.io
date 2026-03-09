@@ -1,6 +1,6 @@
 ---
 layout: post
-title: From AI-Assisted Code Completion to Agentic Engineering
+title: From AI-Assisted Code Completion to Agentic Software Engineering
 date: 2026-03-09
 author: Christian Helle
 tags:
