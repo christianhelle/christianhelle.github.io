@@ -26,6 +26,20 @@ When the tool is good, you stay in flow longer. You spend less time context swit
 
 That is when it stopped feeling like autocomplete and started feeling like a real development companion.
 
+## Why I hated chat-driven development
+
+There was, however, an awkward phase in the middle of all this: chat-driven development.
+
+To be blunt, I hated it.
+
+I thought it was an utter waste of time. The context switching was awful. I had to stop what I was doing, leave the editor mentally, explain the problem in a chat box, wait for a wall of text, copy pieces back into my code, discover that the result only half-fit the codebase, and then repair the damage manually. It felt like taking the most direct activity in software development - writing and changing code - and routing it through the slowest interface imaginable.
+
+The results were often worse than the process. A lot of it felt verbose, vague, and overconfident. Chat-driven development had a habit of producing answers that looked finished from a distance and fell apart the moment they touched a real codebase. It was like programming by office memo.
+
+At its worst, it felt like a workflow designed for people who wanted to describe software rather than build it. Too much prompting, too much pasting, too much ceremony, and far too little engineering. Instead of accelerating flow, it shattered flow. Instead of reducing cognitive load, it added another layer of it.
+
+That is why I never saw chat-driven development as the future. For me, it was a clumsy transitional phase between code completion and something much more useful. The breakthrough was not "chat more." The breakthrough was getting to a point where the system could actually do meaningful work with the right context, constraints, and autonomy.
+
 ## Claude Sonnet changed the game
 
 For me, one of the biggest shifts happened when Claude Sonnet entered the picture.
