@@ -8,6 +8,15 @@ tags:
   - "GitHub Copilot"
   - Agents
   - Refitter
+redirect_from:
+  - /2026/03/09/from-ai-assisted-code-completion-to-agentic-engineering
+  - /2026/03/09/from-ai-assisted-code-completion-to-agentic-engineering/
+  - /2026/03/from-ai-assisted-code-completion-to-agentic-engineering
+  - /2026/03/from-ai-assisted-code-completion-to-agentic-engineering/
+  - /2026/from-ai-assisted-code-completion-to-agentic-engineering
+  - /2026/from-ai-assisted-code-completion-to-agentic-engineering/
+  - from-ai-assisted-code-completion-to-agentic-engineering
+  - from-ai-assisted-code-completion-to-agentic-engineering/
 ---
 
 Around four years ago, when [GitHub Copilot](https://github.com/features/copilot) was still in the early beta days, I tried AI-assisted code completion for the first time. Like most developers, I was equal parts skeptical and curious. The experience felt a little surreal. I would start writing a function, pause for a second, and the editor would continue the thought for me.
