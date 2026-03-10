@@ -69,11 +69,11 @@ Make the output of Refitter look more fancy
 
 That is not a detailed specification. It is barely even a design brief. But it was enough to move the tool from a simple output format to something much more polished.
 
-Before:
+**Before:**
 
 ![Refitter simple output before the prompt](/assets/images/refitter-simple-output.png)
 
-After:
+**After:**
 
 ![Refitter fancy output after the prompt](/assets/images/refitter-fancy-output.png)
 
