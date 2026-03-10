@@ -49,19 +49,41 @@ At its worst, it felt like a workflow designed for people who wanted to describe
 
 That is why I never saw chat-driven development as the future. For me, it was a clumsy transitional phase between code completion and something much more useful. The breakthrough was not "chat more." The breakthrough was getting to a point where the system could actually do meaningful work with the right context, constraints, and autonomy.
 
-## Claude Sonnet changed the game
+## Copilot Agent Mode with Claude Sonnet changed the game
 
-For me, one of the biggest shifts happened when Claude Sonnet entered the picture.
+For me, one of the biggest shifts happened when Claude Sonnet entered the picture. At first it was OK good, but far from impressive. Then it got better. Then it got much better. The jump from Claude Sonnet 3.5 to 4.0 was especially significant. It was both impressive and cost effective. Suddenly, I can delegate large complex tasks to coding agents working in the background while I focus on something else. It can go and work by itself until the task is completed, no matter how long it took, and it would only cost me a single premium request.
 
 The jump was hard to ignore. Prompts that previously produced a rough draft started producing something much closer to what I actually wanted. Multi-file edits became more coherent. Refactorings held together better. The model was much better at preserving intent across a larger body of work, which meant I could trust it with tasks that were broader than just completing the next few lines.
 
 That was the moment where everything started improving rapidly.
 
+## A tiny prompt can still go a long way
+
+One of my favorite things about this new way of working is that even very small prompts can produce surprisingly meaningful results.
+
+For example, I gave a very simple instruction to improve the output of [Refitter](https://github.com/christianhelle/refitter):
+
+```text
+Make the output of Refitter look more fancy
+```
+
+That is not a detailed specification. It is barely even a design brief. But it was enough to move the tool from a simple output format to something much more polished.
+
+Before:
+
+![Refitter simple output before the prompt](/assets/images/refitter-simple-output.png)
+
+After:
+
+![Refitter fancy output after the prompt](/assets/images/refitter-fancy-output.png)
+
+This is a good example of why I no longer think about these tools only in terms of productivity. The real value is leverage. A short prompt can unlock a useful improvement that would otherwise require a lot of manual iteration, especially when the agent has enough context to understand the existing codebase and the kind of result you are aiming for.
+
+## From assistant to agent
+
 Before that, AI-assisted development was already helpful, but it still often felt like a smart pair programmer that needed a lot of steering. With Sonnet, the output started feeling more deliberate. The reasoning got better. The edits became more consistent. The amount of useful work I could delegate increased noticeably.
 
 That change matters because it pushed the experience beyond code completion. Once the model became strong enough to reason through larger changes, the natural next step was to let it take on broader responsibilities.
-
-## From assistant to agent
 
 That broader responsibility is what I now think of as agentic engineering.
 
@@ -103,28 +125,6 @@ If I want a setup like this to work well, I have found that a few things matter:
 
 When those pieces are in place, the interaction model changes completely. You stop thinking in terms of "help me write this file" and start thinking in terms of "here is the problem, here are the constraints, now go work as a team."
 
-## A tiny prompt can still go a long way
-
-One of my favorite things about this new way of working is that even very small prompts can produce surprisingly meaningful results.
-
-For example, I gave a very simple instruction to improve the output of [Refitter](https://github.com/christianhelle/refitter):
-
-```text
-Make the output of Refitter look more fancy
-```
-
-That is not a detailed specification. It is barely even a design brief. But it was enough to move the tool from a simple output format to something much more polished.
-
-Before:
-
-![Refitter simple output before the prompt](/assets/images/refitter-simple-output.png)
-
-After:
-
-![Refitter fancy output after the prompt](/assets/images/refitter-fancy-output.png)
-
-This is a good example of why I no longer think about these tools only in terms of productivity. The real value is leverage. A short prompt can unlock a useful improvement that would otherwise require a lot of manual iteration, especially when the agent has enough context to understand the existing codebase and the kind of result you are aiming for.
-
 ## Fixing Refitter issues hands-free
 
 The biggest example of this shift for me was when I put my agent team to work on [Refitter](https://github.com/christianhelle/refitter).
@@ -134,7 +134,11 @@ Refitter has gained quite a bit of traction over the past couple of years, and w
 This was the exact prompt:
 
 ```text
-Team, this project has gotten quite some traction over these past 2 years. I have collected quite the number of issues that I simply don't have time to deal with myself. My issue list is publicly available on the Github repo: https://github.com/christianhelle/refitter/issues. Fix all the issues. Apply fixes in individual feature branches and don't do all the work in a single branch
+Team, this project has gotten quite some traction over these past 2 years.
+I have collected quite the number of issues that I simply don't have time to fix myself.
+My issue list is publicly available on the Github repo: /christianhelle/refitter.
+Fix all the issues.
+Apply fixes in individual feature branches and don't do all the work in a single branch
 ```
 
 That one prompt resulted in a 29 hour session where 24 issues were resolved completely hands-free.
