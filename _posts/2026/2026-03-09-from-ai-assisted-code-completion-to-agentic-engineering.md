@@ -77,11 +77,12 @@ That is not a detailed specification. It is barely even a design brief. But it w
 
 ![Refitter fancy output after the prompt](/assets/images/refitter-fancy-output.png)
 
-This is a good example of why I no longer think about these tools only in terms of productivity. The real value is leverage. A short prompt can unlock a useful improvement that would otherwise require a lot of manual iteration, especially when the agent has enough context to understand the existing codebase and the kind of result you are aiming for.
+This is a good example of why I no longer think about these tools only in terms of productivity. The real value is experimentation and leverage. A short prompt can unlock a useful improvement that would otherwise require a lot of manual iteration, especially when the agent has enough context to understand the existing codebase and the kind of result you are aiming for. It takes no time for the agent to come up with the solution and if I don't like it, I'll just throw it away. I can also go more specific into asking it to try it out multiple approaches to a problem using different models.
 
 ## From assistant to agent
 
-Before that, AI-assisted development was already helpful, but it still often felt like a smart pair programmer that needed a lot of steering. With Sonnet, the output started feeling more deliberate. The reasoning got better. The edits became more consistent. The amount of useful work I could delegate increased noticeably.
+AI-assisted development was already helpful, but it still often felt like a smart pair programmer that needed a lot of steering.
+With Sonnet or Opus, the output started feeling more deliberate. The reasoning got better. The edits became more consistent. The amount of useful work I could delegate increased noticeably.
 
 That change matters because it pushed the experience beyond code completion. Once the model became strong enough to reason through larger changes, the natural next step was to let it take on broader responsibilities.
 
@@ -125,7 +126,7 @@ If I want a setup like this to work well, I have found that a few things matter:
 
 When those pieces are in place, the interaction model changes completely. You stop thinking in terms of "help me write this file" and start thinking in terms of "here is the problem, here are the constraints, now go work as a team."
 
-## Fixing Refitter issues hands-free
+## Fixing Refitter issues hands-free with YOLO mode
 
 The biggest example of this shift for me was when I put my agent team to work on [Refitter](https://github.com/christianhelle/refitter).
 
@@ -141,7 +142,7 @@ Fix all the issues.
 Apply fixes in individual feature branches and don't do all the work in a single branch
 ```
 
-That one prompt resulted in a 29 hour session where 24 issues were resolved completely hands-free.
+That one prompt resulted in a 29 hour session where 24 issues were resolved completely hands-free with the help of [`autopilot`](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/autopilot) mode.
 
 ![Refitter agent fleet session resolving issues](/assets/images/refitter-agent-fleet.png)
 
