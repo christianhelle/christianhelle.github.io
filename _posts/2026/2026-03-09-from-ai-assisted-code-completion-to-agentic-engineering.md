@@ -5,7 +5,7 @@ date: 2026-03-09
 author: Christian Helle
 tags:
   - AI
-  - "GitHub Copilot"
+  - Copilot
   - Agents
   - Refitter
 redirect_from:
