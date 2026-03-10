@@ -1,7 +1,7 @@
 2026
 ----
 
-*   [From AI-Assisted Code Completion to Agentic Engineering](https://christianhelle.com/2026/03/from-ai-assisted-code-completion-to-agentic-engineering.html)
+*   [From AI-Assisted Code Completion to Agentic Software Engineering](https://christianhelle.com/2026/03/from-ai-assisted-code-completion-to-agentic-engineering.html)
 *   [ZigFaker - A Zig library to minimize unit testing ceremony](https://christianhelle.com/2026/03/zigfaker.html)
 *   [Building a web crawler and broken link detector in Zig](https://christianhelle.com/2026/03/building-argiope-web-crawler-broken-link-detector.html)
 *   [Modernizing REST API Client Code Generator with the New Visual Studio Extensibility Model](https://christianhelle.com/2026/02/building-rest-api-client-code-generator-with-new-vs-extensibility-model.html)
