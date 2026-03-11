@@ -51,7 +51,7 @@ That is why I never saw chat-driven development as the future. For me, it was a 
 
 ## Copilot Agent Mode with Claude Sonnet changed the game
 
-For me, one of the biggest shifts happened when Claude Sonnet entered the picture. At first it was OK good, but far from impressive. Then it got better. Then it got much better. The jump from Claude Sonnet 3.5 to 4.0 was especially significant. It was both impressive and cost effective. Suddenly, I can delegate large complex tasks to coding agents working in the background while I focus on something else. It can go and work by itself until the task is completed, no matter how long it took, and it would only cost me a single premium request.
+For me, one of the biggest shifts happened when Claude Sonnet entered the picture. At first it was OK good, but far from impressive. Then it got better. Then it got much better. The jump from Claude Sonnet 3.5 to 4.0 was especially significant. It was both impressive and cost-effective. Suddenly, I can delegate large complex tasks to coding agents working in the background while I focus on something else. It can go and work by itself until the task is completed, no matter how long it took, and it would only cost me a single premium request.
 
 The jump was hard to ignore. Prompts that previously produced a rough draft started producing something much closer to what I actually wanted. Multi-file edits became more coherent. Refactorings held together better. The model was much better at preserving intent across a larger body of work, which meant I could trust it with tasks that were broader than just completing the next few lines.
 
@@ -142,7 +142,7 @@ Fix all the issues.
 Apply fixes in individual feature branches and don't do all the work in a single branch
 ```
 
-That one prompt resulted in a 29 hour session where 24 issues were resolved completely hands-free with the help of [`autopilot`](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/autopilot) mode.
+That one prompt resulted in a 29-hour session where 24 issues were resolved completely hands-free with the help of [`autopilot`](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/autopilot) mode.
 
 ![Refitter agent fleet session resolving issues](/assets/images/refitter-agent-fleet.png)
 
@@ -162,4 +162,4 @@ I no longer think about AI as just something that helps me write code faster. I 
 
 That is why this feels like more than better autocomplete.
 
-It feels like an entirely new form of software engineering.. Agentic software engineering.
+It feels like an entirely new form of software engineering. Agentic software engineering.
