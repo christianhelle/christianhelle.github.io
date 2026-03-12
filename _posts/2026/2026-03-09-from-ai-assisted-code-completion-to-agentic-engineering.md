@@ -137,7 +137,7 @@ This was the exact prompt:
 ```text
 Team, this project has gotten quite some traction over these past 2 years.
 I have collected quite the number of issues that I simply don't have time to fix myself.
-My issue list is publicly available on the Github repo: /christianhelle/refitter.
+My issue list is publicly available on the Github repo: christianhelle/refitter.
 Fix all the issues.
 Apply fixes in individual feature branches and don't do all the work in a single branch
 ```
