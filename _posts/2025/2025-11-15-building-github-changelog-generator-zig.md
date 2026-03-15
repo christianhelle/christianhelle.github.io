@@ -448,7 +448,7 @@ pub fn generate(
         defer {
             var it = sections_map.iterator();
             while (it.next()) |entry| {
-                entry.value_ptr.deinit(self.allocator);
+                entry.value_ptr.deinit();
             }
             sections_map.deinit();
         }
@@ -575,6 +575,7 @@ pub fn formatWithUnreleased(
     for (releases) |release| {
         const header = try std.fmt.allocPrint(
             self.allocator,
+            // Note: owner/repo is hardcoded in the current implementation
             "## [{s}](https://github.com/owner/repo/releases/tag/{s}) - {s}\n\n",
             .{ release.version, release.version, release.date },
         );
@@ -622,7 +623,7 @@ Each entry is formatted as:
 - PR title ([#123](https://github.com/owner/repo/pull/123)) (@username)
 ```
 
-This links both the PR number and the author's profile, making the changelog navigable directly in GitHub or any Markdown renderer.
+This links both the PR number and the author's profile, making the changelog navigable directly in GitHub or any Markdown renderer. The release URL template currently uses a hardcoded `owner/repo` placeholder — passing the parsed owner and repo into the formatter is a straightforward improvement left for a future iteration.
 
 ## Usage
 
