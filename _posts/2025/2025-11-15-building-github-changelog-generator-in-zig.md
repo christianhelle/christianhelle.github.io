@@ -152,3 +152,44 @@ Models
 - PullRequest: number, title, labels, author, merged_at
 - Issue: number, title, labels, author, closed_at
 - Entry: unified view with type (feature/fix/other), title, link, contributors
+
+Section 4 — Collating PRs between two tags
+The basic flow for generating a changelog between tags is:
+
+1. Resolve `since_tag` (or latest tag) and `until_tag` (or current HEAD/release).
+2. Get commit dates for these tags.
+3. Fetch PRs merged between those dates (use search/PR list APIs with `state=closed` and `merged:true`).
+4. Deduplicate PRs (sometimes multiple refs) and group by labels.
+
+Example: fetching PRs and turning them into entries:
+
+```zig
+pub fn prToEntry(pr: PullRequest) Entry {
+    var entry = Entry{
+        .kind = classifyByLabels(pr.labels),
+        .title = pr.title,
+        .number = pr.number,
+        .url = pr.html_url,
+        .author = pr.user.login,
+    };
+    return entry;
+}
+
+pub fn collectEntries(allocator: std.mem.Allocator, client: *GitHubClient, owner: []const u8, repo: []const u8, since: DateTime, until: DateTime) ![]Entry {
+    var prs = try client.listPRs(allocator, owner, repo, since, until);
+    var entries: std.ArrayListUnmanaged(Entry) = .empty;
+    for (prs) |pr| {
+        if (pr.merged_at == null) continue;
+        try entries.append(allocator, prToEntry(pr));
+    }
+    return entries.toOwnedSlice(allocator);
+}
+```
+
+Label categorization
+- I map labels to buckets using a simple ruleset:
+  - If label contains "feature" or "enhancement" → Features
+  - If label contains "fix" or "bug" → Bug Fixes
+  - Otherwise → Other
+
+This simple approach works well in most projects. You can allow users to pass a label map via config if needed.
