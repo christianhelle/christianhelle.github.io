@@ -117,3 +117,38 @@ pub fn resolveToken(allocator: std.mem.Allocator, flag_token: ?[]const u8) !?[]u
 Notes
 - We return null when no token is found — the caller can decide whether to proceed unauthenticated (public data) or error.
 - Using `gh` improves UX for many local devs; using `std.ChildProcess` is straightforward and keeps us dependency-free.
+
+Section 3 — GitHub API: pagination, rate limits, and models
+
+GitHub responses are paginated. I prefer a small, reusable HTTP wrapper that repeatedly follows `Link` headers until all pages are read. This keeps higher-level code concise.
+
+A small paging helper:
+
+```zig
+pub fn fetchAllPaged(allocator: std.mem.Allocator, client: *http.Client, url: []const u8, token: ?[]const u8) ![]u8 {
+    var bufList: std.ArrayListUnmanaged(u8) = .empty;
+    var next = allocator.dupe(u8, url) catch return error.OutOfMemory;
+    defer allocator.free(next);
+
+    while (true) {
+        const resp = try client.get(allocator, next, token);
+        try bufList.appendSlice(allocator, resp.body);
+        const link = resp.headers.get("link");
+        if (link) {
+            const nextUrl = parseLinkHeaderForNext(link.*) orelse break;
+            allocator.free(next);
+            next = try allocator.dupe(u8, nextUrl);
+            continue;
+        } else {
+            break;
+        }
+    }
+    return bufList.toOwnedSlice(allocator);
+}
+```
+
+Models
+- Tag: name, commit sha, date
+- PullRequest: number, title, labels, author, merged_at
+- Issue: number, title, labels, author, closed_at
+- Entry: unified view with type (feature/fix/other), title, link, contributors
