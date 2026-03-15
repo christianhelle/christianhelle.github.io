@@ -193,3 +193,70 @@ Label categorization
   - Otherwise → Other
 
 This simple approach works well in most projects. You can allow users to pass a label map via config if needed.
+
+Section 5 — Markdown formatting
+Markdown is the output format. The formatter groups entries by section and emits links with PR numbers and authors.
+
+Example renderer:
+
+```zig
+pub fn writeChangelog(w: anytype, tag: Tag, entries: []Entry) !void {
+    try w.print("# Changelog\n\n", .{});
+    try w.print("## {s} - {s}\n\n", .{ tag.name, tag.date });
+    const sections = groupByKind(entries);
+
+    if (sections.Features.len > 0) {
+        try w.print("### Features\n\n", .{});
+        for (sections.Features) |e| {
+            try w.print("- {s} ([#{d}]({s})) (@{s})\n", .{ e.title, e.number, e.url, e.author });
+        }
+        try w.print("\n", .{});
+    }
+
+    if (sections.BugFixes.len > 0) {
+        try w.print("### Bug Fixes\n\n", .{});
+        for (sections.BugFixes) |e| {
+            try w.print("- {s} ([#{d}]({s})) (@{s})\n", .{ e.title, e.number, e.url, e.author });
+        }
+        try w.print("\n", .{});
+    }
+
+    if (sections.Other.len > 0) {
+        try w.print("### Other\n\n", .{});
+        for (sections.Other) |e| {
+            try w.print("- {s} ([#{d}]({s})) (@{s})\n", .{ e.title, e.number, e.url, e.author });
+        }
+        try w.print("\n", .{});
+    }
+}
+```
+
+Notes
+- The real project has a slightly richer renderer (linking to commits and handling contributors).
+- Keeping the renderer small makes it trivial to add other formats later (HTML, JSON).
+
+Section 6 — Tests and integration strategy
+Testing a tool that calls an external API is easier when you decouple HTTP from logic. I use two layers:
+
+- HTTP abstraction layer: `GitHubClient` that takes an `HttpClient` implementation.
+- A mock `HttpClient` in tests that returns canned JSON (see `test_data.zig`).
+- Integration tests exercise the end-to-end logic by loading the mock responses and asserting the formatted output.
+
+Example test skeleton:
+
+```zig
+test "generates changelog for simple repo" {
+    const allocator = std.testing.allocator;
+    var mock = MockHttpClient.init(allocator, test_data.simple_repo);
+    var client = GitHubClient.init(&mock);
+    const entries = try collectEntries(allocator, &client, "owner", "repo", someDate, otherDate);
+    var buf: [4096]u8 = undefined;
+    var writer = std.io.fixedBufferStream(&buf).writer();
+    try writeChangelog(&writer, testTag, entries);
+    try std.testing.expectEqualStrings(expected_markdown, writer.toSlice());
+}
+```
+
+Why this helps
+- Tests run offline, are fast, and validate formatting and grouping without rate limits or API flakiness.
+- The production `HttpClient` integrates with Zig `std` HTTP and can be used by the CLI.
