@@ -11,6 +11,7 @@
 2025
 ----
 
+*   [Building a GitHub Changelog Generator in Zig](https://christianhelle.com/2025/11/building-github-changelog-generator-zig.html)
 *   [Rewriting HTTP File Runner in Rust (from Zig)](https://christianhelle.com/2025/10/httprunner-zig-to-rust-rewrite.html)
 *   [HttpTestGen - .http file testing framework for .NET](https://christianhelle.com/2025/09/httptestgen-dotnet-testing-framework.html)
 *   [Run .http files from the command line using a fast, small, single binary tool](https://christianhelle.com/2025/06/http-file-runner-zig-tool.html)
