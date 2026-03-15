@@ -9,19 +9,27 @@ tags:
   - GitHub
 redirect_from:
   - /2025/11/15/building-github-changelog-generator-in-zig
+  - /2025/11/15/building-github-changelog-generator-in-zig/
+  - /2025/11/building-github-changelog-generator-in-zig
+  - /2025/11/building-github-changelog-generator-in-zig/
   - /2025/building-github-changelog-generator-in-zig
+  - /2025/building-github-changelog-generator-in-zig/
+  - /building-github-changelog-generator-in-zig
+  - /building-github-changelog-generator-in-zig/
 ---
 
 I built a small, focused CLI in Zig to automatically generate changelogs from GitHub tags, pull requests, and issues. The tool is compact, fast, and deliberately conservative: zero dependencies, a single static binary, and a pragmatic feature set that makes it useful for small and medium repositories.
 
-This post walks through the project design and implementation, with concrete Zig snippets that show how I solved the tricky parts: token discovery, GitHub API interaction, grouping PRs by labels, producing tidy Markdown output, and verifying behavior using tests. The code examples are simplified to highlight the ideas; the full project is at https://github.com/christianhelle/changelog-generator.
+This post walks through the project design and implementation, with concrete Zig snippets that show how I solved the tricky parts: token discovery, GitHub API interaction, grouping PRs by labels, producing tidy Markdown output, and verifying behavior using tests. The code examples are simplified to highlight the ideas; the full project is on [Github](https://github.com/christianhelle/changelog-generator).
 
 Why a changelog generator?
+
 - Changelogs are invaluable for users and maintainers, but maintaining them by hand is tedious.
 - GitHub already contains most of the structured data we need: tags, releases, PR titles, labels, and associated issues.
 - A small CLI that generates Markdown from that data can be integrated into release workflows or run locally before tagging.
 
 What this tool does
+
 - Fetches repository tags / releases
 - Collects pull requests and issues between tags
 - Categorizes entries by label (Features, Bug Fixes, Other)
@@ -29,6 +37,7 @@ What this tool does
 - Resolves tokens via flag → env vars → `gh auth token`
 
 What I'll commit in this post series:
+
 - skeleton: metadata, intro (this commit)
 - core: CLI, token resolver, models, and pagination
 - usage: examples, formatting, and renderer
@@ -76,6 +85,7 @@ pub fn parseArgs(allocator: std.mem.Allocator, argv: [][]const u8) !Options {
 ```
 
 Explanation
+
 - The parser is intentionally small — only what we need. Options map 1:1 to flags so it's easy to reason about scripting.
 - Defaults: `CHANGELOG.md` and `verbose` false. Token is optional because we'll try environment variables / `gh` fallback.
 
@@ -115,6 +125,7 @@ pub fn resolveToken(allocator: std.mem.Allocator, flag_token: ?[]const u8) !?[]u
 ```
 
 Notes
+
 - We return null when no token is found — the caller can decide whether to proceed unauthenticated (public data) or error.
 - Using `gh` improves UX for many local devs; using `std.ChildProcess` is straightforward and keeps us dependency-free.
 
@@ -148,6 +159,7 @@ pub fn fetchAllPaged(allocator: std.mem.Allocator, client: *http.Client, url: []
 ```
 
 Models
+
 - Tag: name, commit sha, date
 - PullRequest: number, title, labels, author, merged_at
 - Issue: number, title, labels, author, closed_at
@@ -187,6 +199,7 @@ pub fn collectEntries(allocator: std.mem.Allocator, client: *GitHubClient, owner
 ```
 
 Label categorization
+
 - I map labels to buckets using a simple ruleset:
   - If label contains "feature" or "enhancement" → Features
   - If label contains "fix" or "bug" → Bug Fixes
@@ -232,6 +245,7 @@ pub fn writeChangelog(w: anytype, tag: Tag, entries: []Entry) !void {
 ```
 
 Notes
+
 - The real project has a slightly richer renderer (linking to commits and handling contributors).
 - Keeping the renderer small makes it trivial to add other formats later (HTML, JSON).
 
@@ -258,14 +272,17 @@ test "generates changelog for simple repo" {
 ```
 
 Why this helps
+
 - Tests run offline, are fast, and validate formatting and grouping without rate limits or API flakiness.
 - The production `HttpClient` integrates with Zig `std` HTTP and can be used by the CLI.
 
 Section 7 — Rate limiting and backoff
+
 - For small repos this is rarely a problem. For larger repos, implement exponential backoff on 403 responses with X-RateLimit-Reset.
 - The project currently makes conservative use of requests (paginate only when necessary) and uses a token when available.
 
 Section 8 — Distribution and CI
+
 - The repo provides a GitHub Actions workflow that builds Zig binaries for Linux, macOS and Windows and attaches them to releases.
 - Tests run via `zig test` on the matrix to ensure formatting and core logic stay correct.
 - Typical `build` step is `zig build` and `zig build test` for CI.
@@ -290,6 +307,7 @@ With token explicit:
 ```
 
 Section 10 — Implementation pitfalls and tradeoffs
+
 - Pagination: forgetting to follow Link headers leads to incomplete changelogs.
 - Token handling: failing to provide a token quickly degrades UX in CI (GH rate limits are low for anonymous callers).
 - Label strategy: label names vary across projects. Default heuristics are fine but consider per-repo config for perfect results.
@@ -299,6 +317,7 @@ Conclusion
 Building a changelog generator in Zig highlights the language's strengths: predictable performance, a small standard library with useful process and HTTP primitives, and the ability to produce a single static binary for distribution. The full project on GitHub contains the implementation, tests and GitHub Actions workflows if you want to inspect or reuse it.
 
 If you'd like I can:
+
 1. Add the post file to the repository and commit in the small increments I outlined (recommended).
 2. Or produce a shorter version for the site (if you want less detail).
 3. Or generate complementary README updates or code snippets if you want more code shown inline.
