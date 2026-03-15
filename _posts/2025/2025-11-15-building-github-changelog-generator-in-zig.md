@@ -260,3 +260,45 @@ test "generates changelog for simple repo" {
 Why this helps
 - Tests run offline, are fast, and validate formatting and grouping without rate limits or API flakiness.
 - The production `HttpClient` integrates with Zig `std` HTTP and can be used by the CLI.
+
+Section 7 — Rate limiting and backoff
+- For small repos this is rarely a problem. For larger repos, implement exponential backoff on 403 responses with X-RateLimit-Reset.
+- The project currently makes conservative use of requests (paginate only when necessary) and uses a token when available.
+
+Section 8 — Distribution and CI
+- The repo provides a GitHub Actions workflow that builds Zig binaries for Linux, macOS and Windows and attaches them to releases.
+- Tests run via `zig test` on the matrix to ensure formatting and core logic stay correct.
+- Typical `build` step is `zig build` and `zig build test` for CI.
+
+Section 9 — Usage examples
+Basic:
+
+```bash
+./changelog-generator --owner christianhelle --repo changelog-generator --output CHANGELOG.md
+```
+
+Between tags:
+
+```bash
+./changelog-generator --owner foo --repo bar --since-tag v1.2.0 --until-tag v1.3.0 --output changelog-1.3.0.md
+```
+
+With token explicit:
+
+```bash
+./changelog-generator --owner foo --repo bar --token $GH_TOKEN --output CHANGELOG.md
+```
+
+Section 10 — Implementation pitfalls and tradeoffs
+- Pagination: forgetting to follow Link headers leads to incomplete changelogs.
+- Token handling: failing to provide a token quickly degrades UX in CI (GH rate limits are low for anonymous callers).
+- Label strategy: label names vary across projects. Default heuristics are fine but consider per-repo config for perfect results.
+- Perf: Most time is spent on network I/O; concurrent page fetching can speed up collection but complicates rate limit handling.
+
+Conclusion
+Building a changelog generator in Zig highlights the language's strengths: predictable performance, a small standard library with useful process and HTTP primitives, and the ability to produce a single static binary for distribution. The full project on GitHub contains the implementation, tests and GitHub Actions workflows if you want to inspect or reuse it.
+
+If you'd like I can:
+1. Add the post file to the repository and commit in the small increments I outlined (recommended).
+2. Or produce a shorter version for the site (if you want less detail).
+3. Or generate complementary README updates or code snippets if you want more code shown inline.
