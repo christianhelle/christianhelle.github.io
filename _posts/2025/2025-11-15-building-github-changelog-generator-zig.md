@@ -262,7 +262,7 @@ fn getTokenFromGhCli(self: TokenResolver) ![]const u8 {
 
 ## HTTP Client
 
-Rather than reimplementing an HTTP client from scratch, the `http_client.zig` module delegates to `curl` as a subprocess. This trades a bit of startup overhead for zero implementation complexity and full support for TLS, proxies, and redirects out of the box:
+This part was more troublesome that I expected. The Github API response is gzip compressed and is not support by the Zig standard library HTTP Client out-of-the-box. Rather than reimplementing an HTTP client from scratch, the `http_client.zig` module delegates to `curl` as a subprocess. This trades a bit of startup overhead for zero implementation complexity and full support for TLS, proxies, and redirects out of the box:
 
 ```zig
 pub fn get(self: *HttpClient, endpoint: []const u8) ![]u8 {
