@@ -262,42 +262,42 @@ fn getTokenFromGhCli(self: TokenResolver) ![]const u8 {
 
 ## HTTP Client
 
-This part was more troublesome that I expected. The Github API response is gzip compressed and is not support by the Zig standard library HTTP Client out-of-the-box. Rather than reimplementing an HTTP client from scratch, the `http_client.zig` module delegates to `curl` as a subprocess. This trades a bit of startup overhead for zero implementation complexity and full support for TLS, proxies, and redirects out of the box:
+Implementing a simple HTTP client wrapper in `http_client.zig` allows us to centralize all API calls and ensure consistent headers and error handling. The `get` method constructs the full URL, sets necessary headers, and captures the response body:
 
 ```zig
 pub fn get(self: *HttpClient, endpoint: []const u8) ![]u8 {
-    const url = try std.fmt.allocPrint(self.allocator, "{s}{s}", .{ self.base_url, endpoint });
-    defer self.allocator.free(url);
+    const full_url = try std.fmt.allocPrint(self.allocator, "{s}{s}", .{ self.base_url, endpoint });
+    defer self.allocator.free(full_url);
 
-    const auth_header = try std.fmt.allocPrint(
-        self.allocator,
-        "Authorization: token {s}",
-        .{self.token},
-    );
-    defer self.allocator.free(auth_header);
+    var headers: std.ArrayList(std.http.Header) = .empty;
+    defer headers.deinit(self.allocator);
 
-    const args = [_][]const u8{
-        "curl", "-s",
-        "-H", auth_header,
-        "-H", "User-Agent: changelog-generator/0.1.0",
-        "-H", "Accept: application/vnd.github.v3+json",
-        url,
+    try headers.append(self.allocator, .{ .name = "User-Agent", .value = "chlogr/0.1.0" });
+    try headers.append(self.allocator, .{ .name = "Accept", .value = "application/vnd.github.v3+json" });
+    try headers.append(self.allocator, .{ .name = "Accept-Encoding", .value = "identity" });
+
+    if (self.token.len > 0) {
+        try headers.append(self.allocator, .{ .name = "Authorization", .value = self.token });
+    }
+
+    var body = std.Io.Writer.Allocating.init(self.allocator);
+    defer body.deinit();
+
+    const result = self.client.fetch(.{
+        .method = .GET,
+        .location = .{ .url = full_url },
+        .extra_headers = headers.items,
+        .response_writer = &body.writer,
+    }) catch |err| {
+        return err;
     };
 
-    var child = std.process.Child.init(&args, self.allocator);
-    child.stdout_behavior = .Pipe;
-    child.stderr_behavior = .Pipe;
+    if (result.status != .ok) {
+        return error.HttpError;
+    }
 
-    try child.spawn();
-
-    var buffer: [10 * 1024 * 1024]u8 = undefined;
-    const bytes_read = try child.stdout.?.readAll(&buffer);
-
-    const term = try child.wait();
-    if (term.Exited != 0) return error.CurlFailed;
-    if (bytes_read == 0) return error.EmptyResponse;
-
-    return try self.allocator.dupe(u8, buffer[0..bytes_read]);
+    var list = body.toArrayList();
+    return try list.toOwnedSlice(self.allocator);
 }
 ```
 
