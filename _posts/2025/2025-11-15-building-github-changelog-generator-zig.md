@@ -280,7 +280,7 @@ The function builds a curl command with authentication and GitHub API headers, s
 While `curl` is nearly universal on Unix-like systems and available on Windows through various package managers, this does mean the tool is not truly zero-dependency at runtime. The Zig code itself has no package dependencies, but `curl` must be installed and available in the system PATH. This was later addressed when the project migrated to Zig's native `std.http.Client`.
 ## GitHub API Integration
 
-The API client uses the HTTP client to fetch GitHub data. It constructs endpoints for releases and merged pull requests, parses the JSON responses, and deep-copies the parsed data to ensure ownership.
+The API client uses the HTTP client to fetch GitHub data. It constructs endpoints for releases and closed pull requests, parses the JSON responses, and deep-copies the parsed data to ensure ownership.
 
 ```zig
 pub fn getReleases(self: *GitHubApiClient) ![]models.Release {
@@ -755,6 +755,6 @@ A few design decisions shaped the project. Using `curl` for HTTP was a pragmatic
 
 Working with Zig's explicit memory management was again a highlight. The `ResolvedToken` ownership tracking, the consistent use of `defer` for cleanup, and the careful allocation of every string field during JSON parsing all forced me to think about allocation lifetimes in a way that garbage-collected languages abstract away. It is more work upfront, but the result is code where every allocation is accounted for.
 
-The tool has some intentional simplifications in this initial version—PRs are not filtered by merge date relative to each release, the Markdown formatter uses a hardcoded release link placeholder, and pagination is not implemented for repositories with large numbers of PRs. Later versions of the project addressed some of these limitations. The tool was eventually renamed to [chlogr](https://github.com/christianhelle/chlogr) and gained features like Zig's native `std.http.Client` for HTTP, unreleased changes tracking, and the combined `--repo owner/repo` flag.
+The tool has some intentional simplifications in this initial version—PRs are not filtered by merge date relative to each release, the Markdown formatter uses a hardcoded release link placeholder, and pagination is not implemented for repositories with large numbers of PRs. The tool was eventually renamed to [chlogr](https://github.com/christianhelle/chlogr) and gained features like Zig's native `std.http.Client` for HTTP, unreleased changes tracking, and the combined `--repo owner/repo` flag.
 
 If you maintain a project with git tags and labeled pull requests, give it a try. The source code is on GitHub at [https://github.com/christianhelle/chlogr](https://github.com/christianhelle/chlogr).
