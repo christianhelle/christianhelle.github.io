@@ -1,6 +1,7 @@
 2026
 ----
 
+*   [Generate a Changelog from GitHub Actions](https://christianhelle.com/2026/03/generate-changelog-from-github-actions.html)
 *   [Building a Github Changelog Generator in Zig](https://christianhelle.com/2026/03/building-a-github-changelog-generator-in-zig.html)
 *   [From AI-Assisted Code Completion to Agentic Software Engineering](https://christianhelle.com/2026/03/from-ai-assisted-code-completion-to-agentic-engineering.html)
 *   [ZigFaker - A Zig library to minimize unit testing ceremony](https://christianhelle.com/2026/03/zigfaker.html)
