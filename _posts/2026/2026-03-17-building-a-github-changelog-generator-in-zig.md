@@ -8,7 +8,7 @@ tags:
   - CLI
 ---
 
-I recently built a GitHub changelog generator in [Zig](https://ziglang.org/). The tool fetches GitHub releases, pull requests, and issues from any public repository, then automatically generates a Markdown changelog organized by version and category (Features, Bug Fixes, Other).
+I recently built a GitHub changelog generator in [Zig](https://ziglang.org/). The tool fetches GitHub releases and merged pull requests from any public repository, then automatically generates a Markdown changelog organized by version and category (Features, Bug Fixes, Other).
 
 The source code is available on GitHub at [https://github.com/christianhelle/chlogr](https://github.com/christianhelle/chlogr).
 
@@ -16,7 +16,7 @@ Like my previous Zig projects, GitHub Copilot wrote most of the boilerplate incl
 
 ## How it works
 
-The changelog generator orchestrates several key components. It parses command-line arguments, resolves a GitHub token (with intelligent fallback), fetches data from the GitHub API, groups pull requests by release and category, and formats the result as Markdown.
+The changelog generator orchestrates several key components. It parses command-line arguments, resolves a GitHub token (with intelligent fallback), fetches GitHub releases and merged pull requests from the API, groups pull requests by release and category, and formats the result as Markdown.
 
 ```zig
 pub fn main() !void {
@@ -186,7 +186,7 @@ The resolver is smart about memory management—it tracks whether the returned t
 
 ## GitHub API Integration
 
-The API client wraps HTTP requests with proper headers and JSON parsing. It fetches releases, merged pull requests, and closed issues from the GitHub API.
+The API client wraps HTTP requests with proper headers and JSON parsing. It fetches GitHub releases (via the Releases API) and merged pull requests from the GitHub API.
 
 ```zig
 pub const GitHubApiClient = struct {
@@ -487,6 +487,8 @@ To exclude certain labels from the changelog:
 $ chlogr --repo github/cli --exclude-labels "duplicate,wontfix" --output CHANGELOG.md
 ```
 
+Note: The flags `--since-tag` and `--until-tag` are currently parsed but not yet wired into the changelog generator. They are reserved for future date-range filtering functionality.
+
 The generated Markdown looks like:
 
 ```markdown
@@ -570,62 +572,143 @@ pub fn build(b: *std.Build) void {
 
 ## Distribution
 
-Like my previous Zig projects, the installation is kept simple. The `install.sh` script downloads the latest release binary for Linux or macOS:
+Like my previous Zig projects, the installation is kept simple. The `install.sh` script downloads the latest release binary for Linux or macOS from GitHub Releases:
 
 ```bash
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-ARCH=$(uname -m)
+REPO="christianhelle/chlogr"
+INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
+tmp_dir=""
 
-case $ARCH in
-    x86_64) ARCH="x86_64" ;;
-    aarch64|arm64) ARCH="aarch64" ;;
-    *) echo "Unsupported architecture: $ARCH"; exit 1 ;;
-esac
+cleanup() {
+  if [ -n "${tmp_dir:-}" ] && [ -d "$tmp_dir" ]; then
+    rm -rf -- "$tmp_dir"
+  fi
+}
 
-case $OS in
-    linux) PLATFORM="linux-$ARCH" ;;
-    darwin) PLATFORM="macos-$ARCH" ;;
-    *) echo "Unsupported OS: $OS"; exit 1 ;;
-esac
+detect_platform() {
+  local os arch
+  os="$(uname -s)"
+  arch="$(uname -m)"
 
-URL="https://github.com/christianhelle/chlogr/releases/latest/download/chlogr-$PLATFORM"
+  case "$os" in
+  Linux) os="linux" ;;
+  Darwin) os="macos" ;;
+  *)
+    echo "Unsupported OS: $os" >&2
+    exit 1
+    ;;
+  esac
 
-curl -L "$URL" -o chlogr
-chmod +x chlogr
-sudo mv chlogr /usr/local/bin/
+  case "$arch" in
+  x86_64 | amd64) arch="x86_64" ;;
+  aarch64 | arm64) arch="aarch64" ;;
+  *)
+    echo "Unsupported architecture: $arch" >&2
+    exit 1
+    ;;
+  esac
 
-echo "chlogr installed successfully!"
+  echo "${os}-${arch}"
+}
+
+main() {
+  local platform artifact_name url
+
+  platform="$(detect_platform)"
+  artifact_name="chlogr-${platform}.tar.gz"
+
+  echo "Detecting platform: ${platform}"
+
+  url="$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" |
+    grep -o "\"browser_download_url\": *\"[^\"]*${artifact_name}\"" |
+    head -1 |
+    cut -d'"' -f4)"
+
+  if [ -z "$url" ]; then
+    echo "Error: could not find release asset ${artifact_name}" >&2
+    exit 1
+  fi
+
+  tmp_dir="$(mktemp -d)"
+  trap cleanup EXIT
+
+  echo "Downloading ${url}..."
+  curl -fsSL "$url" -o "${tmp_dir}/${artifact_name}"
+
+  echo "Installing to ${INSTALL_DIR}..."
+  tar xzf "${tmp_dir}/${artifact_name}" -C "$tmp_dir"
+  install -d "$INSTALL_DIR"
+  install -m 755 "${tmp_dir}/chlogr" "$INSTALL_DIR/chlogr"
+
+  echo "chlogr installed to ${INSTALL_DIR}/chlogr"
+}
+
+main
 ```
 
-For Windows, `install.ps1` does the same:
+For Windows, `install.ps1` downloads and unzips the Windows x86_64 binary:
 
 ```powershell
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = 'Stop'
 
-$url = "https://github.com/christianhelle/chlogr/releases/latest/download/chlogr-windows-x86_64.exe"
-$dest = "$env:USERPROFILE\bin\chlogr.exe"
+$repo = "christianhelle/chlogr"
+$artifact = "chlogr-windows-x86_64.zip"
+$installDir = "$env:USERPROFILE\.local\bin"
 
-New-Item -ItemType Directory -Force -Path (Split-Path $dest) | Out-Null
-Invoke-WebRequest -Uri $url -OutFile $dest
+Write-Host "Fetching latest release..."
+$release = Invoke-RestMethod -Uri "https://api.github.com/repos/$repo/releases/latest"
+$asset = $release.assets | Where-Object { $_.name -eq $artifact }
 
-Write-Host "chlogr installed to $dest"
-Write-Host "Add $env:USERPROFILE\bin to your PATH if needed."
+if (-not $asset) {
+    Write-Error "Could not find release asset: $artifact"
+    exit 1
+}
+
+$url = $asset.browser_download_url
+$tmpFile = Join-Path $env:TEMP $artifact
+
+Write-Host "Downloading $url..."
+Invoke-WebRequest -Uri $url -OutFile $tmpFile
+
+Write-Host "Installing to $installDir..."
+New-Item -ItemType Directory -Force -Path $installDir | Out-Null
+Expand-Archive -Path $tmpFile -DestinationPath $installDir -Force
+Remove-Item $tmpFile -Force
+
+# Add to user PATH if not already present
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if ($userPath -notlike "*$installDir*") {
+    [Environment]::SetEnvironmentVariable("Path", "$userPath;$installDir", "User")
+    Write-Host "Added $installDir to user PATH (restart your terminal to use)"
+}
+
+Write-Host "chlogr installed to $installDir\chlogr.exe"
 ```
 
-GitHub Actions builds binaries for all platforms (Linux x86_64 and aarch64, macOS x86_64 and aarch64, Windows x86_64) and attaches them to releases automatically.
+GitHub Actions builds tar.gz archives for Linux (x86_64 and aarch64) and macOS (x86_64 and aarch64), and a zip archive for Windows (x86_64). These are automatically attached to releases via the workflow.
 
 ## Known Limitations and Future Work
 
-The current implementation has a few limitations worth noting:
+The current implementation has several limitations worth noting:
 
-1. **HTTP Implementation**: The HTTP client is basic and currently uses mock data in testing. Real GitHub API integration needs error handling improvements.
-2. **No Pagination**: The tool fetches a fixed number of PRs (currently 100 per page). Large repositories with thousands of pull requests may have incomplete results.
-3. **Limited Filtering**: Date range filtering (`--since-tag` and `--until-tag`) are parsed but not yet implemented in the generator.
-4. **No Caching**: Each run makes fresh API calls. For frequent changelog generation, caching would improve performance.
-5. **Manual Date Comparison**: Date parsing uses string slicing rather than proper date/time libraries, which works for ISO 8601 but could be more robust.
+1. **GitHub Releases Required**: The tool uses the GitHub Releases API, not raw Git tags. A repository with only tags but no releases will not generate a changelog. Releases must be explicitly created.
+
+2. **Fixed PR Pagination**: The tool fetches a fixed number of pull requests (100 per page). Large repositories with thousands of pull requests may have incomplete results unless pagination is enhanced.
+
+3. **Placeholder Release Links**: Generated Markdown release headers use hard-coded placeholder links (`https://github.com/owner/repo/releases/tag/{tag}`). The actual repository owner and name are not yet wired into the formatter.
+
+4. **Date Range Filtering Not Implemented**: The `--since-tag` and `--until-tag` flags are parsed but not yet connected to the changelog generator logic. They are reserved for future implementation.
+
+5. **Label Filtering by Substring**: The `--exclude-labels` option uses simple substring matching rather than proper CSV parsing. For example, "wontfix" would also match a label named "wontfixme".
+
+6. **Per-Release Grouping Overlap**: Pull requests are grouped by checking whether they merged before a given release date. There is no lower bound per release, so older pull requests can theoretically appear in multiple release sections if they are manually re-categorized.
+
+7. **No Caching**: Each run makes fresh API calls. For frequent changelog generation, caching would improve performance.
+
+8. **Basic HTTP Client**: The HTTP client is functional but minimal. Testing uses mock data rather than real API calls.
 
 ## Conclusion
 
