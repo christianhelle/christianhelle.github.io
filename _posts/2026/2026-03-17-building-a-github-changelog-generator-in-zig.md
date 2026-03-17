@@ -21,7 +21,7 @@ I recently built a GitHub changelog generator in [Zig](https://ziglang.org/). Th
 
 The source code is available on GitHub at [https://github.com/christianhelle/chlogr](https://github.com/christianhelle/chlogr).
 
-Like my previous Zig projects, GitHub Copilot wrote most of the boilerplate including GitHub workflows, README, install scripts, and snapcraft.yaml. The core functionality took a few evenings to build and test.
+Like my most of my recent projects, GitHub Copilot wrote most of the boilerplate including GitHub workflows, README, install scripts, and snapcraft.yaml. The core functionality took a few evenings to build and test.
 
 ## How it works
 
