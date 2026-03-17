@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Building a Github Changelog Generator in Zig
-date: 2026-03-17
+date: 2025-11-25
 author: Christian Helle
 tags:
   - Zig
