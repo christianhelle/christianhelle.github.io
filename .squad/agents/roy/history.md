@@ -25,6 +25,9 @@
 - Share icon size regression coverage now lives in `tests/playwright/ShareUiTests.cs`, where the post-page check verifies the X, LinkedIn, and Facebook SVGs all render as visible 40x40 icons on `http://127.0.0.1:4000/2022/10/autofaker.html`.
 - For static Jekyll page crawls in `tests/playwright/BlogArchiveTests.cs`, waiting for `DOMContentLoaded` is more stable than waiting for the full `load` event because external resources can delay navigation without affecting route validation.
 - Key files for share-size validation are `_includes/share.html`, `_includes/social/twitter.svg`, `tests/playwright/ShareUiTests.cs`, and `tests/playwright/BlogArchiveTests.cs`; the regression flow is `bundle exec jekyll build` plus `cd tests/playwright && dotnet test` with the dev server running at `http://127.0.0.1:4000/`.
+- For source-driven blog fact-checking, trust implementation files over README marketing copy; in `christianhelle/chlogr`, the code currently fetches GitHub Releases and merged pull requests, while the README overstates raw tag/issue support and understates that real API calls already exist.
+- Current local validation baseline for content work: `bundle exec jekyll build` and `dotnet build .\blog.sln` are green, but full Playwright still fails on a dev-vs-production URL assertion in `tests/playwright/ShareUiTests.cs` and an archive crawl timeout at the `SqlCeEngineEx - Extending the SqlCeEngine class` link in `tests/playwright/BlogArchiveTests.cs`.
+
 ## Orchestration (2026-03-06T12-38-16Z)
 
 **Task:** Refine X share logo  
