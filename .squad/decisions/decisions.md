@@ -1,5 +1,17 @@
 # Decisions
 
+## 2026-03-17 — November 2025 Historical Accuracy Revision
+
+The blog post "Building a GitHub Changelog Generator in Zig" (2025-11-15) required corrections to accurately reflect the November 2025 project state. Content was updated to use "changelog-generator" naming (renamed to chlogr in March 2026), separate `--owner` and `--repo` flags (original November 2025 interface), curl-based subprocess HTTP (actual implementation, not std.http.Client), and required token (no anonymous fallback added in March 2026). All code samples and feature descriptions now match the November 2025 codebase baseline (commit 4976f54). Redirect_from added to front matter for URL continuity.
+
+**Status:** Revision completed by Rachael. Post transferred to Deckard for structural review gate.
+
+## 2026-03-17 — chlogr Post Structural Alignment
+
+The revised chlogr post is historically accurate and technically sound but structurally diverges from reference posts (Argiope, clocz) that define the Zig series pattern. Missing two signature sections: "How it works" (architectural overview) and "Distribution" (cross-compilation, packaging, CI/CD). Four standalone sections (Motivation, Key Design Decisions, Lessons Learned, Limitations) break the pattern where reference posts embed these in intro and conclusion. Conclusion is thinner than established pattern.
+
+**Assignment:** Pris (structural revision). Rachael locked out per reviewer rules. Code examples and historical facts verified correct — only section reorganization needed to align with series pattern.
+
 ## 2026-03-06 — Normalize share icon sizes
 
 Normalize the X share glyph by preserving the shared 40x40 CSS sizing in `_includes/share.html` and centering the X path inside a 40x40 outer SVG viewBox in `_includes/social/twitter.svg`.

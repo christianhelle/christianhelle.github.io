@@ -28,6 +28,19 @@
 - For the planned `chlogr` post dated `2025-11-15`, use the November 2025 commit range as the historical baseline: early authored commits start on `2025-11-13`, while the public GitHub repository metadata shows creation on `2026-03-15`, so build-date and public-repo timeline must be distinguished in validation.
 - The November 2025 baseline used the `changelog-generator` name, separate `--owner` and `--repo` flags, and a curl-backed HTTP client; the current `chlogr` name, combined `--repo owner/repo` syntax, anonymous no-token fallback, `std.http.Client`, unreleased-changes output, and Snapcraft packaging were introduced later in March 2026.
 - Source-backed accuracy risks for `chlogr`: `--since-tag` / `--until-tag` are parsed but not used in `main.zig`, issues are fetched by an unused method rather than included in generated output, release links are formatted with a hardcoded `https://github.com/owner/repo/...` placeholder, and the website URL in `snapcraft.yaml` (`https://christianhelle.com/chlogr`) currently returns 404.
+- Final review for the `2025-11-15` chlogr post should compare prose and code samples against commit `4976f54`: the baseline only wires releases plus pull requests through `main.zig`, still depends on `curl` at runtime, and does not implement merge-date grouping or real release-link formatting.
+- A green `bundle exec jekyll build --config _config_dev.yml` only clears rendering. Historical approval still requires checking that article claims match the November 2025 code paths, especially `src/changelog_generator.zig`, `src/http_client.zig`, and `src/markdown_formatter.zig`.
+
+## Cycle Update (2026-03-17)
+
+**chlogr Post Validation Escalation:**
+Completed final validation of Rachael's revision. Findings: Jekyll build passed; rendered HTML structurally sound. Factual review against November 2025 commit baseline identified 4 remaining issues:
+1. Issues described as generated but not wired through main application flow
+2. "Zero external dependencies" contradicts curl runtime requirement
+3. Multiple features (merge-date grouping, date filtering, "Merged PRs" default) not in November 2025 code
+4. Release link formatting uses hardcoded placeholder not actual URL generation
+
+**Decision:** Reject for factual accuracy. Escalate to Deckard for source-backed correction pass. Rachael locked out per reviewer lockout protocol (authored and revised; cannot fix own reviewed draft).
 ## Orchestration (2026-03-06T12-38-16Z)
 
 **Task:** Refine X share logo  

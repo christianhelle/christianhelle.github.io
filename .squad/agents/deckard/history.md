@@ -25,4 +25,23 @@ Produced 13-section structural plan for chlogr blog post with comprehensive must
 
 **Rachael (Content Dev):** Completed first draft of blog post with 467 lines, 13 sections, and comprehensive code examples. Post committed to f110feb with detailed message. Ready for team review and publication workflow.
 
+### 2026-03-17: chlogr Post Final Review — REJECTED
 
+Performed final review gate on the revised blog post. Historical accuracy verified against November 2025 commit history (all 4 key claims confirmed: "changelog-generator" naming, separate --owner/--repo flags, curl-based HTTP, required token with no anonymous fallback). Technical depth, tone, Jekyll conventions, and front matter all passed.
+
+**Rejected for structural deviations from reference posts:**
+1. Missing "How it works" overview section (present in both Argiope and clocz)
+2. Missing "Distribution" section (present in both reference posts — signature Zig series element)
+3. Four non-standard standalone sections (Motivation, Key Design Decisions, Lessons Learned, Limitations) that reference posts embed in intro/conclusion
+4. Thin conclusion compared to reference post pattern
+
+Assigned **Pris** for structural revision (Rachael locked out per reviewer rules). Detailed revision instructions written to decision inbox. Code examples and historical claims verified correct — no technical changes needed, only section reorganization to match established Zig series structure.
+
+**Key learning:** When reviewing for style match, section structure alignment matters as much as tone and voice. The reference posts have a consistent architectural pattern (intro → How it works → implementation → Usage → Distribution → Conclusion) that defines the series identity.
+
+## Cycle Update (2026-03-17)
+
+**Review Cycle Complete — Structural Reassignment:**
+Post escalated from Roy's factual accuracy concerns to Deckard's final review. Deckard verified all code and historical claims correct against November 2025 baseline. However, post structure diverges from established Zig series pattern (Argiope/clocz reference architecture). 
+
+**Reassigned to Pris** for structural reorganization (missing "How it works" and "Distribution" sections, four standalone sections needing to fold into intro/conclusion, thinner conclusion). Rachael locked out per reviewer lockout rules — cannot author fix to own reviewed revision. Detailed section-by-section reorganization instructions provided to Pris in decision brief.
