@@ -17,11 +17,11 @@ Modernized the blog post share button UI from Twitter bird to X icon. Updated SV
 Hardened `tests/playwright/BlogArchiveTests.cs` by using `Exact = true` on archive link role locators. The archive crawl was failing due to substring matching collisions when post titles share prefixes (e.g., "Danish Developer Conference 2012" and "Multi-platform Mobile Development"). Exact matching is a test-only fix that prevents future regressions without altering site content.
 
 ### Blog Post Series: Zig Projects — chlogr Article
-**Decided:** 2025-11-15 (planned), 2026-03-17 (orchestrated)  
-**Owner:** Deckard (plan), Pris (conventions), Roy (validation), Rachael (draft)  
-**Status:** Draft complete (commit f110feb)
+**Decided:** 2025-11-15 (planned), 2026-03-17 (orchestrated/approved)  
+**Owner:** Deckard (plan), Pris (conventions), Roy (validation), Rachael (draft), Deckard (correction lead)  
+**Status:** Approved & published (commit 75cf692)
 
-Comprehensive blog post "Building a GitHub Changelog Generator in Zig" documenting the chlogr project. Follows established Zig series pattern (clocz, Argiope) with 13 sections covering CLI design, token resolution, GitHub API integration, changelog generation, markdown formatting, testing strategy, usage examples, distribution, and design reflections. Post emphasizes unique angles: first project in series with real HTTP I/O, REST API integration, and external process spawning. Front matter includes `redirect_from` aliases per Argiope convention. File: `_posts/2025/2025-11-15-building-github-changelog-generator-zig.md`.
+Comprehensive blog post "Building a GitHub Changelog Generator in Zig" documenting the chlogr project. Follows established Zig series pattern (clocz, Argiope) with 13 sections covering CLI design, token resolution, GitHub API integration, changelog generation, markdown formatting, testing strategy, usage examples, distribution, and design reflections. Post emphasizes unique angles: first project in series with real HTTP I/O, REST API integration, and external process spawning. Front matter includes `redirect_from` aliases per Argiope convention. Initial draft reviewed by Pris (approved structurally) and Roy (rejected for factual accuracy). Deckard performed source-backed correction pass, fixing 8 historical inaccuracies and 5 structural deviations. All code examples verified against November 2025 baseline (commit 4976f54). Jekyll build validated. File: `_posts/2025/2025-11-15-building-github-changelog-generator-zig.md`.
 
 ### Projects Page Refresh
 **Decided:** 2026-03-06  
@@ -47,9 +47,23 @@ Standardized Jekyll conventions extracted from Argiope and clocz reference posts
 ### chlogr Post Timeline Validation
 **Decided:** 2026-03-17  
 **Owner:** Roy  
-**Status:** Proposed
+**Status:** Completed
 
 For blog post dated 2025-11-15, use November 2025 commit history (earliest authored 2025-11-13) as baseline for technical claims and code snippets. Repository creation metadata (2026-03-15) differs from historical commit dates; treat March 2026 changes (rename to chlogr, CLI consolidation, std.http.Client migration, snapcraft packaging, unreleased changes feature) as later evolution. Article should frame current features explicitly if using modern naming for reader familiarity.
+
+### chlogr Post Final Structural Approval
+**Decided:** 2026-03-17  
+**Owner:** Pris  
+**Status:** Approved
+
+Final Jekyll/theme review of `_posts/2025/2025-11-15-building-github-changelog-generator-zig.md` for series fit, heading rhythm, front matter, and overall publish readiness. Front matter is publish-ready and aligned with the established Zig series shape: `layout`, `title`, `date`, `author`, `tags`, and `redirect_from` are present and valid. Article follows the same narrative rhythm as clocz and Argiope posts: intro paragraphs, "How it works" section, implementation-focused H2 sections, "Usage", "Distribution", and "Conclusion". Post maintains series' code-backed explanation style throughout. Local Jekyll validation succeeded with development config. Post is structurally ready to publish without Jekyll, layout, or styling changes.
+
+### chlogr Post Final Factual Approval
+**Decided:** 2026-03-17  
+**Owner:** Deckard (correction lead)  
+**Status:** Approved
+
+Correction pass on rejected post after initial review cycle identified structural and factual issues. Took over correction responsibility after both reviewers rejected and Rachael was locked out per protocol. Verified every code example line-by-line against November 2025 baseline (commit 4976f54). Addressed all 8 historical inaccuracies: removed issues from claims, fixed dependency story (curl runtime requirement documented), corrected fallback category from "Merged Pull Requests" to "Other", removed fabricated date-filtering logic, fixed struct field names, removed invented HttpResponse wrapper, documented hardcoded release link placeholder, fixed test scenario list. Addressed all 5 structural deviations: added "How it works" section after intro, added "Distribution" section before conclusion, folded standalone "Motivation" into intro, removed non-standard "Key Design Decisions"/"Lessons Learned"/"Limitations" sections, expanded conclusion to four comprehensive paragraphs. Jekyll build verified. All code blocks match source repository. Committed as 75cf692.
 
 ## Governance
 

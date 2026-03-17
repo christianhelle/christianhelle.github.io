@@ -30,6 +30,9 @@
 - Source-backed accuracy risks for `chlogr`: `--since-tag` / `--until-tag` are parsed but not used in `main.zig`, issues are fetched by an unused method rather than included in generated output, release links are formatted with a hardcoded `https://github.com/owner/repo/...` placeholder, and the website URL in `snapcraft.yaml` (`https://christianhelle.com/chlogr`) currently returns 404.
 - Final review for the `2025-11-15` chlogr post should compare prose and code samples against commit `4976f54`: the baseline only wires releases plus pull requests through `main.zig`, still depends on `curl` at runtime, and does not implement merge-date grouping or real release-link formatting.
 - A green `bundle exec jekyll build --config _config_dev.yml` only clears rendering. Historical approval still requires checking that article claims match the November 2025 code paths, especially `src/changelog_generator.zig`, `src/http_client.zig`, and `src/markdown_formatter.zig`.
+- Final approval check for the chlogr post still requires rejecting any claim that later versions fixed release-link formatting or pagination: current `christianhelle/chlogr` main still hardcodes `owner/repo` in `src/markdown_formatter.zig`, and current `README.md` still lists `No Pagination` as a known limitation.
+- The rendered chlogr article builds cleanly to `_site\2025\11\building-github-changelog-generator-zig.html`; if approval fails after a green Jekyll build, the blocker is factual wording rather than Markdown/Jekyll rendering.
+- November 2025 `getMergedPullRequests` is named as if it fetches merged PRs, but the baseline GitHub API call still requests `pulls?state=closed...` and does not filter `merged_at`, so post prose must avoid describing the 2025 implementation as strictly merged-only without qualification.
 
 ## Cycle Update (2026-03-17)
 
@@ -41,6 +44,9 @@ Completed final validation of Rachael's revision. Findings: Jekyll build passed;
 4. Release link formatting uses hardcoded placeholder not actual URL generation
 
 **Decision:** Reject for factual accuracy. Escalate to Deckard for source-backed correction pass. Rachael locked out per reviewer lockout protocol (authored and revised; cannot fix own reviewed draft).
+
+**Final Outcome:** Deckard completed correction pass successfully. Fixed 8 historical inaccuracies and 5 structural deviations. All code verified against November 2025 baseline (4976f54). Jekyll build validated. Post approved and committed as 75cf692.
+
 ## Orchestration (2026-03-06T12-38-16Z)
 
 **Task:** Refine X share logo  
@@ -57,6 +63,12 @@ Completed final validation of Rachael's revision. Findings: Jekyll build passed;
 **Pris (UI/Layout Dev):** Completed Jekyll conventions guidance by cross-referencing Argiope and clocz posts. Deliverables: standardized front matter template with redirect_from aliases, file naming convention, heading rhythm (2–3 intro + H2 sections), code fence conventions with language hints, link formatting guidelines, style guidance (developer diary tone, code-backed explanations). Established Argiope-style front matter as newer baseline.
 
 **Rachael (Content Dev):** Completed first draft of blog post with 467 lines, 13 sections, and comprehensive code examples. Post committed to f110feb with detailed message. Ready for team review and publication workflow.
+
+## Final Approval Check (2026-03-17)
+
+**Outcome:** REJECT
+
+Jekyll build passed and the rendered post output is structurally clean. Remaining blockers are factual: the post still claims later versions fixed release-link formatting and pagination, but current `christianhelle/chlogr` still hardcodes `owner/repo` release links and still documents no pagination support. The intro and API section also continue to describe the November 2025 implementation as merged-PR based even though the baseline request is `state=closed` without a `merged_at` filter.
 
 
 

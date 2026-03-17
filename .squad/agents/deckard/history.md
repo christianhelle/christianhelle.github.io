@@ -39,6 +39,12 @@ Assigned **Pris** for structural revision (Rachael locked out per reviewer rules
 
 **Key learning:** When reviewing for style match, section structure alignment matters as much as tone and voice. The reference posts have a consistent architectural pattern (intro → How it works → implementation → Usage → Distribution → Conclusion) that defines the series identity.
 
+### 2026-03-17: chlogr Post Correction Pass — Completed
+
+Took over the correction pass after both reviewers rejected and Rachael was locked out. Verified every code example line-by-line against the November 2025 baseline (commit `4976f54`). Addressed all structural deviations (added How it works and Distribution, folded four standalone sections into intro/conclusion) and all historical inaccuracies (issues not in shipped flow, curl runtime dependency, "Other" fallback, no date filtering, wrong struct fields, hardcoded release links). Found additional inaccuracies not flagged by reviewers: `ResolvedToken` used wrong field names, `HttpClient` was wrapped in a fabricated `HttpResponse` struct, and the `generate()` function included invented date-filtering logic. Jekyll build verified. Committed as `75cf692`.
+
+**Key learning:** When correcting a source-backed blog post, always verify code examples against the actual commit diff—not just behavioral claims. Draft authors may "improve" code examples to tell a cleaner story, introducing subtle inaccuracies that reviewers focused on behavioral claims will miss. The Lead's correction pass should diff every code block against `git show <commit> -- <file>`.
+
 ## Cycle Update (2026-03-17)
 
 **Review Cycle Complete — Structural Reassignment:**
