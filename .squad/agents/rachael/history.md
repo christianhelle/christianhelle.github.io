@@ -10,6 +10,21 @@
 
 ## Learnings
 
+### 2026-03-17: Changelog Generator GitHub Action Post
+- Created comprehensive 3,000+ word blog post documenting the changelog-generator-action for GitHub Actions
+- Post structure: intro → background (chlogr + GitHub Action) → basic usage → advanced examples → real-world example (Argiope) → integration patterns → features → troubleshooting → conclusion
+- Multiple YAML workflow examples demonstrating: basic changelog generation with commit, cross-repository changelog, tag filtering, label exclusion, version pinning, release integration, artifact upload, scheduled updates, PR creation
+- Each workflow example includes full YAML with explanations of permissions, conditional logic, and best practices
+- Real-world usage demonstrated with actual Argiope workflow (changelog.yml)
+- Troubleshooting section covers token authentication, rate limiting, empty changelogs, platform support, commit permissions
+- Action wraps chlogr (Zig-based CLI tool) for automated changelog generation from GitHub releases and merged PRs
+- Key differentiation: generates from releases/PRs (user-facing) vs. commits (implementation details)
+- Post emphasizes practical CI/CD integration: release triggers, scheduled updates, PR workflows, artifact upload
+- Tags used: GitHub Actions, Changelog, CI/CD, Tools, Automation (consistent with tools/automation theme)
+- Front matter follows established pattern: layout, title, date, author, tags array, redirect_from paths
+- Writing style: First person ("I recently built", "I use this action"), technical but accessible, code-heavy with explanations
+- Grounded in actual documentation from chlogr README and changelog-generator-action README
+
 ### 2026-03-05: Argiope Web Crawler Post
 - Created post about Argiope, a web crawler written in Zig for broken-link detection
 - Followed style from "Building a fast line of code counter app in Zig" post (2026-02-10)
@@ -73,3 +88,17 @@
 - Pris (13:12 UTC): README update (commit ff8e640).
 - Orchestration Log: All agent activities recorded in `.squad/orchestration-log/`.
 - Decision merged: `.squad/decisions.md` updated with comprehensive chlogr decision entry.
+
+### 2026-03-17: Changelog Generator GitHub Action Post (Second Post of Day)
+- Created comprehensive ~2,370-word blog post "Generate a Changelog from GitHub Actions"
+- Post documents the changelog-generator-action GitHub Action that wraps chlogr
+- Structure: 10 major sections covering intro, background, basic usage, advanced examples, real-world usage, integration patterns, features, troubleshooting, conclusion
+- 8 complete YAML workflow examples: basic with commit, cross-repo, tag filtering, label exclusion, version pinning, release trigger, artifact upload, scheduled with PR
+- Real-world example from Argiope project's actual changelog.yml workflow
+- Troubleshooting covers: token auth, rate limiting, empty changelogs, platform support, commit permissions, version pinning
+- Post emphasizes practical CI/CD patterns and best practices for automated changelog maintenance
+- Jekyll build successful, HTML generated at ~65KB
+- Decision entry and history updated
+- File: `_posts/2026/2026-03-17-generate-changelog-from-github-actions.md`
+- Learning: GitHub Actions posts benefit from multiple real workflow examples demonstrating different integration patterns (vs. tool-focused posts that emphasize implementation)
+

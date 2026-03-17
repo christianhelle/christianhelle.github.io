@@ -37,6 +37,13 @@ Updated projects.md with 4 new non-fork, active repositories showcasing Christia
 
 Published comprehensive blog post "Building a GitHub Changelog Generator in Zig" documenting the chlogr project. Post follows established Zig project documentation pattern with working brief, 11 must-have sections (problem statement through lessons learned), verified code examples, testing section, usage guide, and detailed limitations. Multi-pass workflow: writing brief → draft → validation → review gate → factual corrections → README update → final validation. All code examples grounded in actual source. Post commits: 5fdafad (draft), b87af59 (polish), ff8e640 (README). Final validation: jekyll build ✅, dotnet build ✅, smoke checks ✅.
 
+### Changelog Generator GitHub Action Post
+**Decided:** 2026-03-17  
+**Owner:** Rachael  
+**Status:** Completed
+
+Published comprehensive blog post "Generate a Changelog from GitHub Actions" documenting the changelog-generator-action for GitHub Actions workflows. Post covers basic and advanced usage patterns, real-world Argiope integration example, CI/CD integration patterns (release triggers, scheduled updates, artifact upload), troubleshooting, and best practices. ~2,370 words with 8 YAML workflow examples demonstrating conditional commits, cross-repository changelogs, tag filtering, label exclusion, version pinning, and automated PR creation. Post grounds readers in both the GitHub Action wrapper and underlying chlogr CLI tool (Zig-based, fast, zero dependencies). Tags: GitHub Actions, Changelog, CI/CD, Tools, Automation.
+
 ## Governance
 
 - All meaningful changes require team consensus
