@@ -75,5 +75,22 @@ Jekyll build passed and the rendered post output is structurally clean. Remainin
 - When reviewer lockout removes both the original content owner and the lead reviewer, the next reassignment should go to the nearest eligible documentation owner. For this repo, that is Scribe for doc-only wording fixes—not Pris, whose charter excludes blog post content.
 - Future-state claims in blog reviews must be verified against the current repository too, not just the historical baseline. For chlogr specifically, release-link formatting and pagination still cannot be described as "fixed later" without contradicting current source and README evidence.
 
+## Final Signoff Re-check (2026-03-17)
 
+- Commit `7283b68` fixed two of the previously flagged wording problems: the intro now says the 2025 tool categorized **closed pull requests**, and the API note now explicitly explains that `state=closed` returns both merged and unmerged PRs while preserving `merged_at`.
+- One API-section summary sentence can still reintroduce the old inaccuracy if left untouched: saying the client constructs endpoints for "merged pull requests" overstates the November 2025 behavior when the actual request remains `pulls?state=closed`.
+- Final factual signoff must also reject vague "later versions addressed some of these limitations" phrasing unless each referenced limitation is verified. Current `chlogr` still hardcodes `owner/repo` release links in `src/markdown_formatter.zig`, and `README.md` still lists `No Pagination` as a known limitation.
 
+## Decisive Approval (2026-03-17)
+
+- Commit `51436b8` resolved the last open blockers by changing the API summary to **closed pull requests** and removing the unsupported sentence that implied later versions had addressed still-open limitations.
+- Final approval is now source-backed in both directions: the November 2025 baseline still shows `pulls?state=closed` in `src/github_api.zig`, while current `chlogr` sources confirm the post's remaining future-state claims (`src/http_client.zig` uses `std.http.Client`, `src/changelog_generator.zig` adds date-based unreleased/release filtering, and the combined `--repo owner/repo` flow is reflected in current usage/docs).
+- The still-open limitations are also accurately preserved in the article: current `src/markdown_formatter.zig` still hardcodes `owner/repo` release links, and current `README.md` still documents **No Pagination**.
+- `bundle exec jekyll build --config _config_dev.yml` passed, so the post is now both factually clean and build-clean.
+- Outcome: **APPROVE**.
+
+## Team Updates (2026-03-17 Final Wording & Signoff)
+
+**Scribe (Documentation - Wording Corrections):** Performed minimal wording-only correction pass (commit 7283b68) to align post prose with verified code behavior. Four edits: (1) opening now says "closed pull requests" instead of "merged PRs"; (2) API section clarified `state=closed` returns both merged and unmerged PRs while preserving `merged_at` field; (3) removed false claim about formatter being updated in later versions; (4) softened "later versions addressed some limitations" language. Verified against November 2025 baseline (4976f54) and current master. No architectural changes required.
+
+**Roy (Validation & Testing - Final Signoff Recheck):** Upon Scribe's completion (commit 51436b8), rechecked all previously flagged blockers. API integration summary now correctly says "closed pull requests" matching baseline. Unsupported conclusion wording removed. Future-state claims verified as source-backed in current repository: `src/http_client.zig` uses `std.http.Client`, `src/changelog_generator.zig` implements date-based filtering, combined `--repo owner/repo` interface in current docs. Persistent limitations accurately documented: `src/markdown_formatter.zig` still hardcodes release links, `README.md` still lists "No Pagination". Jekyll build clean. Final decision: **APPROVE**.

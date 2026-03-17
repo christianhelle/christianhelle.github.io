@@ -55,3 +55,14 @@ Applied cross-reference methodology to Argiope (newer pattern) and clocz (baseli
 **Deckard (Research & Planning - Correction Lead):** Completed correction pass after initial rejection. Verified all code examples line-by-line against November 2025 baseline (4976f54). Fixed 8 historical inaccuracies and 5 structural deviations. Added "How it works" and "Distribution" sections, folded standalone sections into intro/conclusion, corrected struct field names and removed fabricated HttpResponse wrapper. Jekyll build verified. Committed as 75cf692.
 
 **Roy (Validation & Testing - Final Check):** Jekyll build and render passed. Identified remaining factual blockers: later-version release-link fix still false (current repo still hardcodes placeholder), later-version pagination fix still false (README still lists as known limitation), November 2025 implementation over-described as merged-only. Escalated to Deckard for source-backed correction pass. Rachael locked out per reviewer lockout protocol.
+
+**Scribe (Documentation - Wording Corrections):** Performed minimal wording-only correction pass (commit 7283b68) to align post prose with verified code behavior: opening now says "closed pull requests" instead of "merged PRs"; API section clarified `state=closed` returns both merged and unmerged PRs; removed false claim about formatter being updated in later versions; softened unsupported "later versions addressed limitations" language. Verified against November 2025 baseline (4976f54) and current master. No architectural changes.
+
+## Team Updates (2026-03-17 Final Signoff & Approval)
+
+**Roy (Validation & Testing - Final Signoff Recheck):** Initial final signoff review (commit 7283b68) identified remaining blockers: API integration summary still used "merged pull requests" despite `state=closed` baseline, conclusion still claimed later versions addressed unresolved limitations. Upon Scribe's completion (commit 51436b8), rechecked and approved: API integration summary now correctly says "closed pull requests", unsupported conclusion wording removed, future-state claims source-backed in current repository, persistent limitations accurately documented. Jekyll build clean. Final decision: **APPROVE**.
+
+### 2026-03-17: chlogr Final Wording Pass
+
+- For retrospective copy about the November 2025 implementation, describe the pull request fetch as closed PRs when the endpoint uses `state=closed`; do not collapse that into merged-only wording.
+- When mentioning later project evolution, only call out improvements that are actually supported in the current repository. Unresolved limitations must stay framed as unresolved.

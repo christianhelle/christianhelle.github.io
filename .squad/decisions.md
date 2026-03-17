@@ -65,7 +65,25 @@ Final Jekyll/theme review of `_posts/2025/2025-11-15-building-github-changelog-g
 
 Correction pass on rejected post after initial review cycle identified structural and factual issues. Took over correction responsibility after both reviewers rejected and Rachael was locked out per protocol. Verified every code example line-by-line against November 2025 baseline (commit 4976f54). Addressed all 8 historical inaccuracies: removed issues from claims, fixed dependency story (curl runtime requirement documented), corrected fallback category from "Merged Pull Requests" to "Other", removed fabricated date-filtering logic, fixed struct field names, removed invented HttpResponse wrapper, documented hardcoded release link placeholder, fixed test scenario list. Addressed all 5 structural deviations: added "How it works" section after intro, added "Distribution" section before conclusion, folded standalone "Motivation" into intro, removed non-standard "Key Design Decisions"/"Lessons Learned"/"Limitations" sections, expanded conclusion to four comprehensive paragraphs. Jekyll build verified. All code blocks match source repository. Committed as 75cf692.
 
+### chlogr Post: Final Wording Corrections
+**Decided:** 2026-03-17  
+**Owner:** Scribe  
+**Status:** Completed
+
+Minimal wording-only correction pass to align post prose with verified code behavior. Three factual overstatements corrected: (1) opening now says "closed pull requests" instead of "merged PRs" (API fetches `state=closed`); (2) API section clarified that `state=closed` returns both merged and unmerged PRs while preserving `merged_at` field; (3) removed false claim that formatter was updated in later versions to emit correct release links (still hardcoded in current master); (4) softened vague "later versions addressed limitations" language. Verified against November 2025 baseline (commit 4976f54) and current master branch: confirmed `state=closed` query, hardcoded release link placeholder, and no pagination implementation. No architectural changes. Committed as 7283b68.
+
+### chlogr Post Final Signoff Recheck
+**Decided:** 2026-03-17  
+**Owner:** Roy  
+**Status:** Escalated then Approved
+
+Initial final signoff review (commit 7283b68) identified remaining factual blockers: API integration summary still used "merged pull requests" language despite `state=closed` baseline, and conclusion still claimed later versions addressed unresolved limitations. Escalated to Scribe for tightly scoped wording-only correction pass. Upon Scribe's completion (commit 51436b8), rechecked blockers and approved: API integration summary now correctly says "closed pull requests" matching baseline, unsupported conclusion wording removed, remaining future-state claims source-backed in current repository (`src/http_client.zig` uses `std.http.Client`, `src/changelog_generator.zig` adds unreleased/date filtering), and persistent limitations accurately documented (hardcoded release links, no pagination). Jekyll build clean. Final decision: **APPROVE**.
+
 ## Governance
+
+- All meaningful changes require team consensus
+- Document architectural decisions here
+- Keep history focused on work, decisions focused on direction
 
 - All meaningful changes require team consensus
 - Document architectural decisions here
