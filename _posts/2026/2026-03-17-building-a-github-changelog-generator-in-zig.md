@@ -6,6 +6,15 @@ author: Christian Helle
 tags:
   - Zig
   - CLI
+redirect_from:
+  - /2026/03/17/building-a-github-changelog-generator-in-zig
+  - /2026/03/17/building-a-github-changelog-generator-in-zig/
+  - /2026/03/building-a-github-changelog-generator-in-zig
+  - /2026/03/building-a-github-changelog-generator-in-zig/
+  - /2026/building-a-github-changelog-generator-in-zig
+  - /2026/building-a-github-changelog-generator-in-zig/
+  - /building-a-github-changelog-generator-in-zig
+  - /building-a-github-changelog-generator-in-zig/
 ---
 
 I recently built a GitHub changelog generator in [Zig](https://ziglang.org/). The tool fetches GitHub releases and merged pull requests from any public repository, then automatically generates a Markdown changelog organized by version and category (Features, Bug Fixes, Other).
@@ -484,7 +493,7 @@ Changelog written to HISTORY.md
 To exclude certain labels from the changelog:
 
 ```
-$ chlogr --repo github/cli --exclude-labels "duplicate,wontfix" --output CHANGELOG.md
+chlogr --repo github/cli --exclude-labels "duplicate,wontfix" --output CHANGELOG.md
 ```
 
 Note: The flags `--since-tag` and `--until-tag` are currently parsed but not yet wired into the changelog generator. They are reserved for future date-range filtering functionality.
