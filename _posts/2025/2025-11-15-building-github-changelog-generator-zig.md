@@ -6,19 +6,26 @@ author: Christian Helle
 tags:
   - Zig
   - CLI
+redirect_from:
+  - /2025/11/building-github-changelog-generator-zig
+  - /2025/11/building-github-changelog-generator-zig/
+  - /2025/building-github-changelog-generator-zig
+  - /2025/building-github-changelog-generator-zig/
+  - /building-github-changelog-generator-zig
+  - /building-github-changelog-generator-zig/
 ---
 
-I recently built a command-line tool for automatically generating changelogs from GitHub releases, pull requests, and issues. Named [chlogr](https://github.com/christianhelle/chlogr), the tool queries the GitHub API, categorizes merged PRs by their labels, and generates a nicely formatted Markdown changelog. It's written entirely in [Zig](https://ziglang.org/) with zero external dependencies.
+I recently built a command-line tool for automatically generating changelogs from GitHub releases, pull requests, and issues. Called **changelog-generator** at the time (now called [chlogr](https://github.com/christianhelle/chlogr)), the tool queries the GitHub API, categorizes merged PRs by their labels, and generates a nicely formatted Markdown changelog. It's written entirely in [Zig](https://ziglang.org/) with zero external dependencies.
 
 The source code is available on GitHub at [https://github.com/christianhelle/chlogr](https://github.com/christianhelle/chlogr).
 
-As with my previous Zig projects, GitHub Copilot assisted with scaffolding the GitHub workflows, README, and installation scripts. The core logic took a few focused evenings to build. The tool demonstrates several practical patterns: CLI argument parsing, GitHub token resolution with environment variable fallbacks, HTTP-based API calls, JSON parsing, date filtering, and Markdown generation.
+As with my previous Zig projects, GitHub Copilot assisted with scaffolding the GitHub workflows, README, and installation scripts. The core logic took a few focused evenings to build. The tool demonstrates several practical patterns: CLI argument parsing, GitHub token resolution with environment variable fallbacks, HTTP-based API calls via curl, JSON parsing, date filtering, and Markdown generation.
 
 ## Motivation
 
 Maintaining accurate changelogs is tedious. Most projects either manually edit CHANGELOG.md, which becomes outdated, or ignore changelogs entirely. GitHub's releases and PR labels already contain structured information about what changed—why not use that?
 
-chlogr automates this by:
+changelog-generator automates this by:
 - Fetching all releases/tags from a repository
 - Retrieving all merged pull requests with their labels
 - Filtering and grouping PRs by semantic labels (Features, Bug Fixes, Other)
@@ -28,10 +35,11 @@ The result is a changelog that's always up-to-date and requires only that you ta
 
 ## CLI Design and Argument Parsing
 
-The CLI is straightforward. chlogr accepts a required `--repo` argument in the format `owner/repository` and optional flags for output path, GitHub token, and filtering options.
+The CLI is straightforward. changelog-generator accepts required `--owner` and `--repo` arguments and optional flags for output path, GitHub token, and filtering options.
 
 ```zig
 pub const CliArgs = struct {
+    owner: ?[]const u8 = null,
     repo: ?[]const u8 = null,
     token: ?[]const u8 = null,
     output: []const u8 = "CHANGELOG.md",
@@ -50,7 +58,11 @@ pub const CliParser = struct {
         while (i < args.len) : (i += 1) {
             const arg = args[i];
 
-            if (std.mem.eql(u8, arg, "--repo")) {
+            if (std.mem.eql(u8, arg, "--owner")) {
+                i += 1;
+                if (i >= args.len) return error.MissingOwnerValue;
+                result.owner = args[i];
+            } else if (std.mem.eql(u8, arg, "--repo")) {
                 i += 1;
                 if (i >= args.len) return error.MissingRepoValue;
                 result.repo = args[i];
@@ -74,16 +86,20 @@ pub const CliParser = struct {
             }
         }
 
+        if (result.owner == null or result.repo == null) {
+            return error.MissingRequiredArgs;
+        }
+
         return result;
     }
 };
 ```
 
-The parser is a simple linear scan through arguments. Each flag consumes the next value, with validation that required values are present. The design prioritizes simplicity and clarity—no complex flag handling or abbreviations.
+The parser is a simple linear scan through arguments. Each flag consumes the next value, with validation that required values are present. Both `--owner` and `--repo` are required. The design prioritizes simplicity and clarity—no complex flag handling or abbreviations.
 
 ## Smart GitHub Token Resolution
 
-A key usability feature is automatic token resolution. chlogr needs a GitHub token to access the API, but requiring users to manually pass a token on every invocation would be tedious. Instead, the tool implements a fallback chain:
+A key usability feature is automatic token resolution. changelog-generator needs a GitHub token to access the API, but requiring users to manually pass a token on every invocation would be tedious. Instead, the tool implements a fallback chain:
 
 ```zig
 pub fn resolve(self: TokenResolver, provided_token: ?[]const u8) !ResolvedToken {
@@ -142,13 +158,8 @@ pub fn resolve(self: TokenResolver, provided_token: ?[]const u8) !ResolvedToken 
         if (err != error.GhCliExited and err != error.EmptyToken and err != error.FileNotFound) return err;
     }
 
-    // No token found - return empty token but don't error
-    std.debug.print("No GitHub token provided or found - proceeding without token (may have lower rate limits)\n", .{});
-    return ResolvedToken{
-        .value = "",
-        .has_token = false,
-        .is_owned = false,
-    };
+    // No token found - return error
+    return error.NoTokenAvailable;
 }
 ```
 
@@ -157,55 +168,65 @@ The resolver follows this priority:
 2. `GITHUB_TOKEN` environment variable
 3. `GH_TOKEN` environment variable
 4. Token from `gh auth token` command (if GitHub CLI is installed)
-5. Anonymous access (works for public repos but with stricter rate limits)
+5. If no token is found, the tool exits with an error
 
 The `ResolvedToken` struct tracks ownership, since tokens from environment variables and the `gh` command must be freed, while the provided token and empty string should not be. This prevents both use-after-free and unnecessary allocations.
 
-## GitHub API Client
+## HTTP Client with curl
 
-The API client wraps HTTP calls to GitHub's REST API. It handles JSON parsing, error responses, and memory management for fetched data.
+The API client wraps HTTP calls to GitHub's REST API. Rather than using external dependencies, changelog-generator spawns curl as a child process for HTTP requests, which is a pragmatic solution that keeps the binary lightweight and leverages a ubiquitous system utility.
 
 ```zig
-pub fn getReleases(self: *GitHubApiClient) ![]models.Release {
-    const endpoint = try std.fmt.allocPrint(self.allocator, "/repos/{s}/releases", .{self.repo});
-    defer self.allocator.free(endpoint);
+pub fn get(self: HttpClient, path: []const u8) !HttpResponse {
+    // Build the full URL
+    const url = try std.fmt.allocPrint(self.allocator, "https://api.github.com{s}", .{path});
+    defer self.allocator.free(url);
 
-    const response = try self.http_client.get(endpoint);
-    defer self.allocator.free(response.body);
+    // Prepare curl command with headers
+    var cmd = try std.ArrayList([]const u8).initCapacity(self.allocator, 10);
+    defer cmd.deinit(self.allocator);
 
-    if (response.status != .ok) {
-        return error.GitHubApiError;
+    try cmd.append(self.allocator, "curl");
+    try cmd.append(self.allocator, "-s");
+    try cmd.append(self.allocator, "-H");
+    try cmd.append(self.allocator, "Accept: application/vnd.github.v3+json");
+
+    if (self.token.len > 0) {
+        const auth_header = try std.fmt.allocPrint(self.allocator, "Authorization: Bearer {s}", .{self.token});
+        defer self.allocator.free(auth_header);
+        try cmd.append(self.allocator, "-H");
+        try cmd.append(self.allocator, auth_header);
     }
 
-    // Parse JSON response with ignoring unknown fields
-    var parsed = try std.json.parseFromSlice(
-        []models.Release,
-        self.allocator,
-        response.body,
-        .{ .ignore_unknown_fields = true },
-    );
-    defer parsed.deinit();
+    try cmd.append(self.allocator, "-H");
+    try cmd.append(self.allocator, "User-Agent: changelog-generator/0.1.0");
+    try cmd.append(self.allocator, url);
 
-    // Deep copy releases with string duplication
-    var releases = try std.ArrayList(models.Release).initCapacity(self.allocator, parsed.value.len);
-    for (parsed.value) |release| {
-        releases.appendAssumeCapacity(.{
-            .tag_name = try self.allocator.dupe(u8, release.tag_name),
-            .name = try self.allocator.dupe(u8, release.name),
-            .published_at = try self.allocator.dupe(u8, release.published_at),
-        });
-    }
-    return try releases.toOwnedSlice(self.allocator);
+    // Spawn curl process
+    var child = std.process.Child.init(try cmd.toOwnedSlice(self.allocator), self.allocator);
+    child.stdout_behavior = .Pipe;
+
+    _ = try child.spawnAndWait();
+
+    // Read response body from stdout
+    const body = try child.stdout.?.readToEndAlloc(self.allocator, 1024 * 1024);
+
+    return HttpResponse{
+        .status = .ok, // curl exit code indicates success
+        .body = body,
+    };
 }
 ```
 
-The key detail is that we parse JSON with `.ignore_unknown_fields = true`. GitHub's API response contains many fields we don't need—release body, prerelease status, asset information, etc. By ignoring unknown fields, the parser only extracts the fields our `Release` struct declares, simplifying the code and reducing sensitivity to future API changes.
+This approach spawns curl with appropriate headers and collects its output. While it adds a runtime dependency on curl (not a Zig dependency), curl is almost universally available on Unix-like systems and Windows through various package managers. The trade-off keeps the Zig code simple and avoids adding a Zig HTTP library dependency.
 
-After parsing, we perform a deep copy, duplicating every string field using `allocator.dupe()`. This is necessary because the JSON parser holds references into the response body string, which we then free. By duplicating, we ensure the parsed data remains valid after the response is deallocated.
+## GitHub API Integration
+
+Now we have the HTTP mechanism, we can fetch actual GitHub data. The API client uses the `owner` and `repo` parameters to construct endpoints for releases and merged PRs:
 
 ```zig
 pub fn getMergedPullRequests(self: *GitHubApiClient, per_page: u32) ![]models.PullRequest {
-    const endpoint = try std.fmt.allocPrint(self.allocator, "/repos/{s}/pulls?state=closed&per_page={d}&sort=updated&direction=desc", .{ self.repo, per_page });
+    const endpoint = try std.fmt.allocPrint(self.allocator, "/repos/{s}/{s}/pulls?state=closed&per_page={d}&sort=updated&direction=desc", .{ self.owner, self.repo, per_page });
     defer self.allocator.free(endpoint);
 
     const response = try self.http_client.get(endpoint);
@@ -256,7 +277,7 @@ Note the query parameter `state=closed` to fetch closed PRs (which includes merg
 
 ## Changelog Generation and Categorization
 
-The changelog generator takes releases and pull requests, then groups PRs by release based on merge date and categorizes them by label. It also collects "unreleased" changes—merged PRs that don't yet belong to any tagged release.
+The changelog generator takes releases and pull requests, then groups PRs by release based on merge date and categorizes them by label.
 
 ```zig
 pub fn generate(
@@ -265,11 +286,6 @@ pub fn generate(
     prs: []models.PullRequest,
 ) !Changelog {
     var result = try std.ArrayList(ChangelogRelease).initCapacity(self.allocator, releases.len);
-
-    var last_release_date: []const u8 = "";
-    if (releases.len > 0) {
-        last_release_date = releases[0].published_at;
-    }
 
     for (releases) |release| {
         var sections_map = std.StringHashMap(std.ArrayList(ChangelogEntry)).init(self.allocator);
@@ -325,13 +341,11 @@ pub fn generate(
         };
 
         result.appendAssumeCapacity(release_entry);
-
-        if (compareDates(release.published_at, last_release_date) > 0) {
-            last_release_date = release.published_at;
-        }
     }
 
-    // Generate unreleased section...
+    return Changelog{
+        .releases = try result.toOwnedSlice(self.allocator),
+    };
 }
 ```
 
@@ -359,70 +373,19 @@ fn categorizeEntry(_: ChangelogGenerator, labels: []models.Label) []const u8 {
 
 Anything labeled "feature" or "enhancement" goes into Features. Anything labeled "bug" or "bugfix" goes into Bug Fixes. Everything else goes into a default "Merged Pull Requests" section.
 
-The unreleased section collects PRs merged after the most recent release:
-
-```zig
-var unreleased_sections_map = std.StringHashMap(std.ArrayList(ChangelogEntry)).init(self.allocator);
-defer {
-    var it = unreleased_sections_map.iterator();
-    while (it.next()) |entry| {
-        entry.value_ptr.deinit(self.allocator);
-    }
-    unreleased_sections_map.deinit();
-}
-
-var has_unreleased = false;
-for (prs) |pr| {
-    if (self.shouldExclude(pr.labels)) continue;
-    if (pr.merged_at) |merged_at| {
-        if (!isAfter(merged_at, last_release_date)) continue;
-    } else {
-        continue;
-    }
-
-    has_unreleased = true;
-    const category = self.categorizeEntry(pr.labels);
-    // ... add to unreleased_sections_map
-}
-```
-
 ## Markdown Formatting
 
 The formatter converts the structured changelog into a readable Markdown document.
 
 ```zig
-pub fn formatWithUnreleased(
+pub fn format(
     self: MarkdownFormatter,
     releases: []changelog_generator.ChangelogRelease,
-    unreleased: ?changelog_generator.UnreleasedChanges,
 ) ![]u8 {
-    var parts = try std.ArrayList([]u8).initCapacity(self.allocator, total_items + 20);
+    var parts = try std.ArrayList([]u8).initCapacity(self.allocator, releases.len * 20);
     defer parts.deinit(self.allocator);
 
     try parts.append(self.allocator, try self.allocator.dupe(u8, "# Changelog\n\n"));
-
-    if (unreleased) |un| {
-        try parts.append(self.allocator, try self.allocator.dupe(u8, "## [Unreleased Changes]\n\n"));
-
-        for (un.sections) |section| {
-            const section_header = try std.fmt.allocPrint(self.allocator, "### {s}\n", .{section.name});
-            try parts.append(self.allocator, section_header);
-
-            for (section.entries) |entry| {
-                const entry_line = try std.fmt.allocPrint(self.allocator, "- {s} ([#{d}]({s})) (@{s})\n", .{
-                    entry.title,
-                    entry.number,
-                    entry.url,
-                    entry.author,
-                });
-                try parts.append(self.allocator, entry_line);
-            }
-
-            try parts.append(self.allocator, try self.allocator.dupe(u8, "\n"));
-        }
-
-        try parts.append(self.allocator, try self.allocator.dupe(u8, "\n"));
-    }
 
     for (releases) |release| {
         const header = try std.fmt.allocPrint(self.allocator, "## [{s}](https://github.com/owner/repo/releases/tag/{s}) - {s}\n\n", .{
@@ -479,10 +442,10 @@ Each entry is formatted as a bullet point with the PR title, number (as a link),
 
 ## Example Usage and Output
 
-Using chlogr is straightforward:
+Using changelog-generator is straightforward:
 
 ```bash
-./zig-out/bin/chlogr --repo github/cli --output CHANGELOG.md
+./zig-out/bin/changelog-generator --owner github --repo cli --output CHANGELOG.md
 ```
 
 If you have a `GITHUB_TOKEN` environment variable set (common in CI/CD), it will use that automatically. Otherwise, it attempts to use the `gh` CLI's token.
@@ -491,17 +454,6 @@ The generated CHANGELOG.md looks like this:
 
 ```markdown
 # Changelog
-
-## [Unreleased Changes]
-
-### Features
-
-- Add support for custom headers ([#456](https://github.com/github/cli/pull/456)) (@alice)
-- Implement async job processing ([#457](https://github.com/github/cli/pull/457)) (@bob)
-
-### Bug Fixes
-
-- Fix rate limit handling ([#458](https://github.com/github/cli/pull/458)) (@charlie)
 
 ## [v2.5.0](https://github.com/github/cli/releases/tag/v2.5.0) - 2025-10-15
 
@@ -513,7 +465,7 @@ The generated CHANGELOG.md looks like this:
 
 - Fix incorrect header parsing ([#401](https://github.com/github/cli/pull/401)) (@bob)
 
-### Other
+### Merged Pull Requests
 
 - Update documentation ([#402](https://github.com/github/cli/pull/402)) (@charlie)
 
@@ -530,11 +482,11 @@ The project uses Zig's built-in build system:
 zig build
 ```
 
-This compiles the binary to `zig-out/bin/chlogr`. The build configuration is minimal:
+This compiles the binary to `zig-out/bin/changelog-generator`. The build configuration is minimal:
 
 ```zig
 const exe = b.addExecutable(.{
-    .name = "chlogr",
+    .name = "changelog-generator",
     .root_module = b.createModule(.{
         .root_source_file = b.path("src/main.zig"),
         .target = target,
@@ -554,17 +506,16 @@ zig build test
 The test module (`src/test.zig`) provides mock JSON responses for releases and pull requests, allowing the changelog generator to be tested without hitting the real GitHub API. Key test scenarios include:
 
 - JSON parsing of releases and PRs with various label combinations
-- Categorization logic (feature → Features, bug → Bug Fixes, unlabeled → Other)
+- Categorization logic (feature → Features, bug → Bug Fixes, unlabeled → Merged Pull Requests)
 - Changelog grouping by release date
 - Markdown formatting with proper links and formatting
-- Unreleased changes detection
 - Label exclusion filters
 
 ## Key Design Decisions
 
-**No external HTTP library**: Zig's standard library provides low-level HTTP primitives, but no high-level HTTP client. Rather than adding a dependency, chlogr wraps the basic functionality needed for GET requests with the `Authorization` header.
+**Curl for HTTP**: Rather than implementing low-level HTTP details in Zig or adding a dependency, changelog-generator spawns curl as a subprocess. This keeps the binary lightweight, the code simple, and leverages a ubiquitous system utility. The trade-off is a runtime dependency on curl, which is available on almost all Unix-like systems and Windows.
 
-**Pure Zig, zero dependencies**: This is a conscious constraint. It makes the binary truly standalone and easy to distribute. It also forced thoughtful API design—every feature had to justify its existence without the convenience of a third-party library.
+**Pure Zig, minimal dependencies**: This is a conscious constraint for the Zig code itself. The binary has zero Zig dependencies, making it truly standalone and easy to distribute. While we depend on curl at runtime, we don't add any Zig library dependencies, which forced thoughtful API design—every feature had to justify its existence without the convenience of a third-party Zig library.
 
 **Mock-based testing**: Using mock data instead of hitting the real GitHub API during tests makes the test suite fast and deterministic. It also doesn't require a valid GitHub token to run tests.
 
@@ -586,16 +537,16 @@ The test module (`src/test.zig`) provides mock JSON responses for releases and p
 
 The current implementation has a few constraints worth noting:
 
-**Mock data only**: The project currently uses mock GitHub API responses for testing. Real API integration is pending, but the structure is in place.
+**No pagination for large repositories**: The tool fetches a fixed number of PRs (100 by default). Repositories with thousands of PRs would need pagination logic to capture all changes.
 
-**No pagination for large repositories**: The tool fetches a fixed number of PRs (100 by default). Repositories with thousands of PRs would need pagination logic.
+**Date filtering limited**: The `--since-tag` and `--until-tag` flags are defined in the CLI but not yet fully implemented in the core changelog generation logic.
 
-**Date filtering limited**: The `--since-tag` and `--until-tag` flags are defined but not yet implemented in the core logic.
+**No caching**: Every run makes fresh API calls to GitHub. Adding caching would improve performance for frequent runs, especially during development and testing.
 
-**No caching**: Every run makes fresh API calls. Adding caching would improve performance for frequent runs.
+**Curl requirement**: The tool requires curl to be installed and available in the system PATH. While this is nearly universal on Unix-like systems, it's worth documenting as a runtime dependency.
 
 ## Conclusion
 
-chlogr demonstrates practical CLI tool development in Zig. It combines several real-world patterns: environment-aware configuration, authenticated API calls, structured data processing, and formatted output generation. The ~800 lines of code are straightforward to read and modify, and the tool is immediately useful for teams already using GitHub releases and PR labels.
+changelog-generator demonstrates practical CLI tool development in Zig. It combines several real-world patterns: environment-aware configuration, authenticated API calls, structured data processing, and formatted output generation. The code is straightforward to read and modify, and the tool is immediately useful for teams already using GitHub releases and PR labels.
 
-If you maintain a project with git tags and labeled pull requests, chlogr can automate changelog generation and keep it up-to-date with your releases. The source code is available at [https://github.com/christianhelle/chlogr](https://github.com/christianhelle/chlogr), and the binary is ready to build and use.
+If you maintain a project with git tags and labeled pull requests, changelog-generator can automate changelog generation. The project was later renamed to chlogr as the tool evolved, gaining features like unreleased changes tracking and improved HTTP handling. The source code is available at [https://github.com/christianhelle/chlogr](https://github.com/christianhelle/chlogr).
