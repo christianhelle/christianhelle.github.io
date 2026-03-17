@@ -15,7 +15,7 @@ redirect_from:
   - /building-github-changelog-generator-zig/
 ---
 
-I recently built a command-line tool for automatically generating changelogs from GitHub releases and pull requests. Called **changelog-generator** at the time (later renamed to [chlogr](https://github.com/christianhelle/chlogr)), the tool queries the GitHub API, categorizes merged PRs by their labels, and generates a nicely formatted Markdown changelog. It is written in [Zig](https://ziglang.org/) with zero Zig package dependencies, though it shells out to `curl` at runtime for HTTP requests.
+I recently built a command-line tool for automatically generating changelogs from GitHub releases and pull requests. Called **changelog-generator** at the time (later renamed to [chlogr](https://github.com/christianhelle/chlogr)), the tool queries the GitHub API, categorizes closed pull requests by their labels, and generates a nicely formatted Markdown changelog. It is written in [Zig](https://ziglang.org/) with zero Zig package dependencies, though it shells out to `curl` at runtime for HTTP requests.
 
 The source code is available on GitHub at [https://github.com/christianhelle/chlogr](https://github.com/christianhelle/chlogr).
 
@@ -375,7 +375,7 @@ pub fn getMergedPullRequests(self: *GitHubApiClient, per_page: u32) ![]models.Pu
 }
 ```
 
-Note the query parameter `state=closed` to fetch closed PRs (which includes merged ones) and `sort=updated&direction=desc` to get the most recently updated first. The models are intentionally minimal—just the fields we need for changelog generation:
+Note the query parameter `state=closed` to fetch closed PRs (which includes both merged and unmerged PRs) and `sort=updated&direction=desc` to get the most recently updated first. The `merged_at` field is preserved, allowing filtered downstream logic to distinguish merged PRs if needed. The models are intentionally minimal—just the fields we need for changelog generation:
 
 ```zig
 pub const Release = struct {
@@ -577,7 +577,7 @@ Each entry is formatted as a bullet point with the PR title, number (as a link),
 - Add user authentication ([#123](https://github.com/user/repo/pull/123)) (@alice)
 ```
 
-One thing worth noting: in this version, the release header links use a hardcoded `https://github.com/owner/repo/releases/tag/{s}` placeholder rather than constructing the URL from the actual owner and repo values passed to the tool. This means the release heading links in the generated Markdown point to a non-existent `owner/repo` path. The individual PR links are correct since they come directly from the GitHub API response's `html_url` field. The formatter was updated in a later version to accept the repository context and emit correct release links.
+One thing worth noting: in this version, the release header links use a hardcoded `https://github.com/owner/repo/releases/tag/{s}` placeholder rather than constructing the URL from the actual owner and repo values passed to the tool. This means the release heading links in the generated Markdown point to a non-existent `owner/repo` path. The individual PR links are correct since they come directly from the GitHub API response's `html_url` field.
 ## Building and Testing
 
 The project uses Zig's built-in build system:
@@ -755,6 +755,6 @@ A few design decisions shaped the project. Using `curl` for HTTP was a pragmatic
 
 Working with Zig's explicit memory management was again a highlight. The `ResolvedToken` ownership tracking, the consistent use of `defer` for cleanup, and the careful allocation of every string field during JSON parsing all forced me to think about allocation lifetimes in a way that garbage-collected languages abstract away. It is more work upfront, but the result is code where every allocation is accounted for.
 
-The tool has some intentional simplifications in this initial version—PRs are not filtered by merge date relative to each release, the Markdown formatter uses a hardcoded release link placeholder, and pagination is not implemented for repositories with large numbers of PRs. These were addressed in later versions as the project evolved. It was eventually renamed to [chlogr](https://github.com/christianhelle/chlogr) and gained features like Zig's native `std.http.Client` for HTTP, unreleased changes tracking, and the combined `--repo owner/repo` flag.
+The tool has some intentional simplifications in this initial version—PRs are not filtered by merge date relative to each release, the Markdown formatter uses a hardcoded release link placeholder, and pagination is not implemented for repositories with large numbers of PRs. Later versions of the project addressed some of these limitations. The tool was eventually renamed to [chlogr](https://github.com/christianhelle/chlogr) and gained features like Zig's native `std.http.Client` for HTTP, unreleased changes tracking, and the combined `--repo owner/repo` flag.
 
 If you maintain a project with git tags and labeled pull requests, give it a try. The source code is on GitHub at [https://github.com/christianhelle/chlogr](https://github.com/christianhelle/chlogr).
