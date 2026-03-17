@@ -27,7 +27,18 @@
 
 ## Learnings
 
-- The share button behavior is owned by `_includes/share.html`, while the X/Twitter glyph itself lives in `_includes/social/twitter.svg`; branding fixes should keep the existing `twitter.com/intent/tweet` URL and Liquid parameters untouched.
-- For this dark Minima theme, the X mark looks most on-brand when the SVG uses a 24x24 `currentColor` path and the share include sets the icon fill to white instead of legacy Twitter blue.
-- `bundle exec jekyll build` is the existing Jekyll validation step, and `_site/2022/10/autofaker.html` is a reliable rendered page to spot-check share-link title, aria-label, endpoint, and inline SVG output.
-- When a social icon's artwork uses a smaller native viewBox than its neighbors, the safest normalization is to keep the shared CSS size in `_includes/share.html` and center that glyph inside a matching outer viewBox in its SVG partial instead of changing share markup or URLs.
+### 2026-03-17: chlogr Post Jekyll Conventions
+
+Applied cross-reference methodology to Argiope (newer pattern) and clocz (baseline) to extract standardized conventions: front matter template with layout/title/date/author/tags/redirect_from, file naming (`_posts/2025/2025-11-15-building-github-changelog-generator-zig.md`), heading rhythm (2–3 intro paras + H2 sections), code fence language hints, link formatting (inline + explicit repo callout), and style guidance. No separate `description:` front matter field; opening paragraphs act as excerpt. Provided comprehensive pitfall warnings.
+
+## Team Updates (2026-03-17)
+
+**Pris (UI/Layout Dev):** Completed Jekyll conventions guidance by cross-referencing Argiope and clocz posts. Deliverables: standardized front matter template with redirect_from aliases, file naming convention, heading rhythm (2–3 intro + H2 sections), code fence conventions with language hints, link formatting guidelines, style guidance (developer diary tone, code-backed explanations). Established Argiope-style front matter as newer baseline.
+
+**Deckard (Research & Planning):** Completed chlogr structure brief with 13 sections, must-cover implementation details, narrative arc, and consistency checklist. Key technical insights: token fallback chain, deep-copy-then-deinit JSON pattern, label-based categorization, std.http.Client usage, standalone executable testing pattern. Unique hook identified: chlogr is first Zig project in series with real HTTP I/O and REST API integration.
+
+**Roy (Validation & Testing):** Completed validation briefing flagging November 2025 vs March 2026 timeline drift. Earliest authored commits (2025-11-13) vs public repo creation (2026-03-15). Identified March 2026 changes to be explicitly framed as later evolution: chlogr rename, CLI consolidation, curl → std.http.Client, snapcraft packaging. Validation consequence: article should use November 2025 baseline with optional "now called chlogr" framing.
+
+**Rachael (Content Dev):** Completed first draft of blog post with 467 lines, 13 sections, and comprehensive code examples. Post committed to f110feb with detailed message. Ready for team review and publication workflow.
+
+
