@@ -53,3 +53,24 @@ Completed comprehensive 467-line blog post "Building a GitHub Changelog Generato
 ## Team Updates (2026-03-06)
 
 **Roy (Build & Test):** Validated projects page refresh with clean Jekyll build and dev server checks. Playwright suite has pre-existing unrelated archive test failure at `BlogArchiveTests.cs:115` (GetByRole name matching issue). Future test harness note: run.ps1 still calls net6.0 path despite project targeting net8.0.
+
+### 2026-03-17: chlogr Post Historical Accuracy Revision
+
+**Rachael (Content Dev):** Revised the November 15, 2025 changelog-generator post to fix historical inaccuracies:
+- Changed project name from "chlogr" to "changelog-generator" (renamed March 2026) with explicit note for reader familiarity
+- Updated CLI from `--repo owner/repo` to separate `--owner` and `--repo` flags (original November 2025 interface)
+- Replaced std.http.Client references with curl-based subprocess spawning (actual November 2025 implementation)
+- Removed anonymous token fallback (feature added March 2026)
+- Removed "Unreleased Changes" section from output (feature added March 2026)
+- Removed Snapcraft packaging references (added March 2026)
+- Updated token resolver to error on missing token (not silent fallback to anonymous)
+- Added redirect_from front matter block per Pris guidance
+- Updated all code examples and CLI usage to match November 2025 interface
+- Reworked limitations section for historical accuracy
+- Reframed design decisions to reflect curl-based approach (pragmatic, not pure Zig)
+- Added explicit framing for later features as post-November evolution
+- Verified Jekyll build succeeds with revised content
+- Made focused commit with detailed message explaining historical corrections
+- Created decision document in `.squad/decisions/inbox/rachael-chlogr-post-revision.md`
+
+**Key insight:** Posts dated to specific timeframes must be grounded in actual project state at that date. Using present-day naming or features creates historical confusion for readers trying to understand project evolution. The revised post now accurately reflects November 2025 "changelog-generator" while remaining understandable to current "chlogr" users.
