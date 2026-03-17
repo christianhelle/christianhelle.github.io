@@ -31,3 +31,22 @@
 - For this dark Minima theme, the X mark looks most on-brand when the SVG uses a 24x24 `currentColor` path and the share include sets the icon fill to white instead of legacy Twitter blue.
 - `bundle exec jekyll build` is the existing Jekyll validation step, and `_site/2022/10/autofaker.html` is a reliable rendered page to spot-check share-link title, aria-label, endpoint, and inline SVG output.
 - When a social icon's artwork uses a smaller native viewBox than its neighbors, the safest normalization is to keep the shared CSS size in `_includes/share.html` and center that glyph inside a matching outer viewBox in its SVG partial instead of changing share markup or URLs.
+- README.md post URLs follow the pattern `https://christianhelle.com/YYYY/MM/slug.html` where the slug is derived from the post filename; new posts go at the top of their year section in reverse chronological order.
+
+## Orchestration (2026-03-17T13:12:00Z)
+
+**Task:** Update README and site touchpoints for chlogr blog post  
+**Status:** ✅ Complete  
+**Deliverable:** README.md updated with new blog post entry "Building a GitHub Changelog Generator in Zig" using canonical permalink pattern. Commit ff8e640.
+
+## Team Updates (2026-03-17)
+
+**Pris Summary:** Updated README.md to include new blog post entry with proper permalink formatting and site touchpoints consistent across portfolio page references.
+
+**Team Context:**
+- Deckard (12:45, 13:08 UTC): Writing brief, review gate APPROVED.
+- Rachael (13:02, 13:10 UTC): Draft (5fdafad), polish (b87af59).
+- Roy (13:05, 13:14 UTC): Pre-draft validation, final sweep all ✅.
+- Session Log: `.squad/log/2026-03-17T13-13-00Z-chlogr-blog-post.md`
+- Orchestration logs: 7 agent activity records in `.squad/orchestration-log/`
+- Decisions: Merged chlogr decision into `.squad/decisions.md`

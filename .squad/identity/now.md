@@ -1,9 +1,9 @@
 ---
-updated_at: 2026-03-06T12:40:10Z
-focus_area: Normalizing share icon sizes
+updated_at: 2026-03-17T12:42:12Z
+focus_area: Writing Building a Github Changelog Generator in Zig
 active_issues: []
 ---
 
 # What We're Focused On
 
-Adjusting the Share this on icons so X, LinkedIn, and Facebook render at the same visual size.
+Researching `chlogr` and drafting a comprehensive Zig post in Christian's long-form style, with focused incremental commits and a final quality pass before publishing.

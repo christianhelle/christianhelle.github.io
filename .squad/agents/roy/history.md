@@ -27,6 +27,20 @@
 - Key files for share-size validation are `_includes/share.html`, `_includes/social/twitter.svg`, `tests/playwright/ShareUiTests.cs`, and `tests/playwright/BlogArchiveTests.cs`; the regression flow is `bundle exec jekyll build` plus `cd tests/playwright && dotnet test` with the dev server running at `http://127.0.0.1:4000/`.
 - For source-driven blog fact-checking, trust implementation files over README marketing copy; in `christianhelle/chlogr`, the code currently fetches GitHub Releases and merged pull requests, while the README overstates raw tag/issue support and understates that real API calls already exist.
 - Current local validation baseline for content work: `bundle exec jekyll build` and `dotnet build .\blog.sln` are green, but full Playwright still fails on a dev-vs-production URL assertion in `tests/playwright/ShareUiTests.cs` and an archive crawl timeout at the `SqlCeEngineEx - Extending the SqlCeEngine class` link in `tests/playwright/BlogArchiveTests.cs`.
+- Final long-form post validation is fastest with `_config.yml` aligned to `_config_dev.yml`, then `bundle exec jekyll build`, `dotnet build .\blog.sln`, and an HTTP smoke pass against `http://127.0.0.1:4000/`, `/archives/`, `/tags/`, and the post permalink.
+- Tag validation in this blog uses the shared `/tags/` index rather than per-tag routes; confirm the relevant tag headings (for example `CLI` and `Zig`) and that the new post appears under each section.
+
+## Orchestration (2026-03-17T13:05:00Z)
+
+**Task:** Pre-draft validation brief for chlogr blog post  
+**Status:** ✅ Complete  
+**Deliverable:** Source-driven validation notes with 8 verified claims and 8 caveats/limitations. Baseline validation: jekyll build ✅, dotnet build ✅, test baseline noise noted.
+
+## Orchestration (2026-03-17T13:14:00Z)
+
+**Task:** Final validation sweep  
+**Status:** ✅ Complete  
+**Deliverable:** Smoke checks verified: bundle exec jekyll build ✅, dotnet build .\blog.sln ✅, home/permalink/archives/tags checks ✅.
 
 ## Orchestration (2026-03-06T12-38-16Z)
 
