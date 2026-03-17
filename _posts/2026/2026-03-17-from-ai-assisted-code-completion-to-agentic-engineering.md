@@ -1,7 +1,7 @@
 ---
 layout: post
 title: From AI-Assisted Code Completion to Agentic Software Engineering
-date: 2026-03-11
+date: 2026-03-17
 author: Christian Helle
 tags:
   - AI

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Generate a Changelog from GitHub Actions
-date: 2026-03-17
+date: 2026-03-14
 author: Christian Helle
 tags:
   - GitHub Actions
@@ -325,7 +325,7 @@ Run changelog generation on a schedule to keep it up-to-date even without explic
 ```yaml
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Weekly on Sunday at midnight
+    - cron: "0 0 * * 0" # Weekly on Sunday at midnight
   workflow_dispatch:
 
 jobs:
@@ -343,7 +343,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: Update changelog
-          title: 'chore: update changelog'
+          title: "chore: update changelog"
           branch: changelog-update
 ```
 
