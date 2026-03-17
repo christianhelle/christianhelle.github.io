@@ -70,5 +70,10 @@ Completed final validation of Rachael's revision. Findings: Jekyll build passed;
 
 Jekyll build passed and the rendered post output is structurally clean. Remaining blockers are factual: the post still claims later versions fixed release-link formatting and pagination, but current `christianhelle/chlogr` still hardcodes `owner/repo` release links and still documents no pagination support. The intro and API section also continue to describe the November 2025 implementation as merged-PR based even though the baseline request is `state=closed` without a `merged_at` filter.
 
+### 2026-03-17: chlogr Reassignment Correction
+
+- When reviewer lockout removes both the original content owner and the lead reviewer, the next reassignment should go to the nearest eligible documentation owner. For this repo, that is Scribe for doc-only wording fixes—not Pris, whose charter excludes blog post content.
+- Future-state claims in blog reviews must be verified against the current repository too, not just the historical baseline. For chlogr specifically, release-link formatting and pagination still cannot be described as "fixed later" without contradicting current source and README evidence.
+
 
 
