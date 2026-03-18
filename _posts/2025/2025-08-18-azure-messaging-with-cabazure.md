@@ -7,9 +7,15 @@ tags:
   - Azure
   - Messaging
   - .NET
-categories:
-  - Libraries
-description: A unified abstraction layer for Azure Event Hub, Service Bus, and Storage Queue messaging in .NET
+redirect_from:
+  - /2025/08/18/azure-messaging-with-cabazure
+  - /2025/08/18/azure-messaging-with-cabazure/
+  - /2025/08/azure-messaging-with-cabazure
+  - /2025/08/azure-messaging-with-cabazure/
+  - /2025/azure-messaging-with-cabazure
+  - /2025/azure-messaging-with-cabazure/
+  - /azure-messaging-with-cabazure
+  - /azure-messaging-with-cabazure/
 ---
 
 Building distributed systems means choosing between Azure messaging transports—Event Hubs for high-throughput streaming, Service Bus for reliable workflows, or Storage Queue for lightweight background jobs. But each transport has its own SDK and quirks. I found myself repeating the same patterns: inject a publisher, implement a processor, handle options, wire up dependency injection. That's boilerplate that should be shared.
