@@ -28,4 +28,7 @@
 - Decision merging requires deduplication check (decisions/decisions.md vs. decisions/inbox/)
 - Orchestration logs should be atomic per agent per task for clear responsibility and timing
 - Session logs provide high-level summary across agents for a specific feature/work item
+- When merging related inbox decisions, preserve temporal progression (e.g., complete rewrite → accuracy passes → final patches) in a single canonical entry with sub-headers to show refinement stages
+- Append-only semantics for decision merging means adding new structured sections to existing decision entries, not creating duplicates; review existing decision-level files before merging inbox files to avoid redundancy
+- Supporting reference documents (e.g., individual decision files at decision-level like `rachael-azure-messaging-post.md`) can be retained alongside merged canonical entries if they serve distinct purposes (high-level summary vs. detailed implementation notes)
 

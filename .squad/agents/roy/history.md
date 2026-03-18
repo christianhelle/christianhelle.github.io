@@ -57,3 +57,15 @@
 
 **Rachael (Content Dev):** Completed projects page refresh with 4 new repositories. Strong Zig presence in updates (3 of 4 projects): Argiope web crawler, CLOCZ line counter, and Azure SDK for Zig. Otaku (manga reader) adds portfolio diversity. All existing projects preserved. Selection emphasized non-forks, active repos, creator-maintained, meaningful descriptions. Portfolio positioning emphasizes practical developer value.
 
+## Orchestration (2026-03-18T11:46:00Z)
+
+**Task:** Fact-check Cabazure.Messaging blog post against public API surface  
+**Status:** ✅ Complete  
+**Deliverable:** Factual accuracy report identifying 3 sections with unverified builder API methods (WithMessageId/WithCorrelationId/WithPartitionKey, WithFilter, WithPollingInterval/WithInitialization). Core abstractions (IMessagePublisher, IMessageProcessor, PublishingOptions, MessageMetadata) and DI setup patterns all verified correct against public API facts.
+
+## Learnings
+
+- For library blog posts, core interface signatures (IMessagePublisher, IMessageProcessor) and base option classes (PublishingOptions, MessageMetadata) must match public API exactly; these are the contract readers will code against.
+- Builder pattern fluent APIs (optional lambda parameters to AddPublisher/AddProcessor) may expose methods not captured in initial GitHub MCP fact gathering; these require source verification or official docs cross-check to confirm.
+- Fact-check process for .NET library posts: verify (1) interface method signatures, (2) public properties on option/metadata classes, (3) DI registration method signatures, (4) builder fluent API methods if used in examples.
+- Unverified builder methods don't necessarily mean incorrect claims—they may exist but weren't surfaced in the GitHub MCP query; flag as "unverified against provided facts" rather than "wrong" unless contradicted.
