@@ -3,76 +3,33 @@
 ## Core Context
 - Project: christianhelle/blog — Jekyll blog hosted on GitHub Pages
 - User: Christian Helle (developer, direct technical writing style)
-- Posts in `_posts/YYYY/YYYY-MM-DD-title.md`
-- Topics: REST APIs, code generation, developer tools, .NET, C#, open-source
-- Always reference an existing post for front matter format before writing new ones
-- Writing tone: concise, technical, developer-focused
+- Posts in `_posts/YYYY/YYYY-MM-DD-title.md`; organize by year subdirectory
+- Topics: REST APIs, code generation, developer tools, .NET, C#, open-source, Zig projects, Azure libraries
+- Always reference existing post for front matter format before writing new ones
+- Writing tone: concise, technical, developer-focused; first person used sparingly ("I found", "I use"); primarily documentation of libraries/tools authored by others
 
-## Learnings
+### Key Patterns from March 2026 Work
 
-### 2026-03-17: Changelog Generator GitHub Action Post
-- Created comprehensive 3,000+ word blog post documenting the changelog-generator-action for GitHub Actions
-- Post structure: intro → background (chlogr + GitHub Action) → basic usage → advanced examples → real-world example (Argiope) → integration patterns → features → troubleshooting → conclusion
-- Multiple YAML workflow examples demonstrating: basic changelog generation with commit, cross-repository changelog, tag filtering, label exclusion, version pinning, release integration, artifact upload, scheduled updates, PR creation
-- Each workflow example includes full YAML with explanations of permissions, conditional logic, and best practices
-- Real-world usage demonstrated with actual Argiope workflow (changelog.yml)
-- Troubleshooting section covers token authentication, rate limiting, empty changelogs, platform support, commit permissions
-- Action wraps chlogr (Zig-based CLI tool) for automated changelog generation from GitHub releases and merged PRs
-- Key differentiation: generates from releases/PRs (user-facing) vs. commits (implementation details)
-- Post emphasizes practical CI/CD integration: release triggers, scheduled updates, PR workflows, artifact upload
-- Tags used: GitHub Actions, Changelog, CI/CD, Tools, Automation (consistent with tools/automation theme)
-- Front matter follows established pattern: layout, title, date, author, tags array, redirect_from paths
-- Writing style: First person ("I recently built", "I use this action"), technical but accessible, code-heavy with explanations
-- Grounded in actual documentation from chlogr README and changelog-generator-action README
+**Library Documentation Pattern:** When documenting third-party libraries (Cabazure.Messaging, Cabazure.Kusto, chlogr), structure posts to progress from simple use cases → advanced patterns → real-world examples. Emphasize public API surface; never invent code examples. Ground all code in actual source from library repositories. When sample files are referenced but don't exist in blog repo, use prose descriptions rather than invented code.
 
-### 2026-03-18: Cabazure Post Final API Accuracy Pass
-- **Task:** Patch remaining inaccurate API examples to match real Cabazure.Messaging public surface
-- **Key Corrections:**
-  * **DI Registration Pattern:** Removed incorrect `b => b.Configure()` wrapper. Actual API is `AddCabazureEventHub(options => options.WithConnection(...))` not the nested builder chain.
-  * **Event Hub Advanced Options:** Replaced parameterless `.WithMessageId()` / `.WithCorrelationId()` / `.WithPartitionKey()` builder examples with accurate `WithFilter(dictionary)` and `WithProcessorOptions(options)` showing real dictionary-based filtering.
-  * **Service Bus Filtering:** Changed from invented lambda `msg => msg.Amount > 1000` to real dictionary-based filter `WithFilter(new Dictionary<string, object> { ["Amount"] = 1000 })`.
-  * **Sample App Architecture:** Removed invented Producer/Processor/AppHost code snippets (sample files don't exist in blog repo). Replaced with prose descriptions of each component's role, grounded in what the Cabazure.Messaging repo actually includes.
-  * **Multi-Transport Example:** Fixed DI registration to use correct `AddCabazure{Transport}(options => ...)` pattern instead of `b => b.Configure()` wrapper.
-- **Files Changed:** `_posts/2025/2025-08-18-azure-messaging-with-cabazure.md` (7 edits)
-- **Verification:** All code snippets now match documented Cabazure.Messaging API surface from public GitHub facts
-- **Key Learning:** When sample program files are referenced but don't exist in the repo, replace invented code with accurate prose descriptions. The blog repo isn't required to contain the samples—they live in the library repo. Reference them descriptively rather than inventing code that might drift from reality.
+**Attribution & Authorship:** Distinguish clearly between library authorship and blog post documentation. Use phrasing like "Cabazure.Kusto, created by @rickykaare" rather than "I built". Attribution rules promote reader credibility and respect open-source maintainer work. Post documents library capabilities for users; doesn't claim invention.
 
-### 2026-03-18: Cabazure Attribution Directive
-- **Directive:** Clear that Cabazure.Messaging library written by @rickykaare; remove any "I built" or "I created" phrasing from the post.
-- **Final Wording Rule:** When documenting a library authored by someone else (e.g., @rickykaare), write only the public API surface and document patterns. Never phrase the post as "I created this library" or "I built this feature." Keep focus on documenting the library's capabilities for users, not claiming authorship. Credit the author explicitly if phrasing arises naturally in context (e.g., "Cabazure.Messaging, created by @rickykaare").
-- **Context:** Third-party library documentation requires clear distinction between library authorship and blog post documentation. Readers must understand the library is independently authored and maintained.
+**Code Verification Discipline:** Multi-pass accuracy approach: (1) initial draft using public README/samples, (2) accuracy pass matching exact API signatures from source, (3) final factual patch verifying edge cases and filter signatures. Requires direct source cross-reference, not assumptions. When in doubt, describe in prose instead of inventing code.
 
-### 2026-03-05: Argiope Web Crawler Post
-- Created post about Argiope, a web crawler written in Zig for broken-link detection
-- Followed style from "Building a fast line of code counter app in Zig" post (2026-02-10)
-- Post structure: intro → multiple technical sections with code examples → usage examples with output → distribution → conclusion
-- Each section demonstrates implementation details: crawler BFS, HTML parsing, URL normalization, HTTP client, CLI parsing, report generation
-- Christian's preferred code example style: show key functions with comments, explain design decisions inline
-- Usage section shows realistic command-line examples with actual output formatting
-- Distribution section covers install scripts (bash/PowerShell), snapcraft, GitHub Actions
-- Front matter format: layout (post), title, date, author, tags (array)
-- Tags for this post: Zig, CLI (matches clocz post tagging pattern)
-- Post file naming: `_posts/YYYY/YYYY-MM-DD-title.md` format strictly followed
-- Christian uses GitHub Copilot heavily for boilerplate (workflows, README, install scripts)
+**Zig Project Posts:** Follow progression: problem statement → architecture overview → major implementation sections (with code examples 100-300 lines each) → usage with real output → build/distribution → limitations. Emphasize different aspects per project: clocz on parallelism, Argiope on HTTP/HTML, chlogr on auth/API/data transformation. All examples grounded in actual source.
 
-### 2026-03-17: Chlogr GitHub Changelog Generator Post
-- Created comprehensive 634-line blog post documenting the chlogr project in depth
-- Post structure: intro → CLI parsing → token resolution → GitHub API → changelog generation → Markdown formatting → usage → build/test → distribution → limitations/future work → conclusion
-- Each major section pairs substantial Zig code examples (100-300 lines) with explanatory text
-- Code patterns documented: memory ownership tracking (is_owned flag on token resolver), error handling with error union types, HashMap-based grouping and conversion to slices, pre-calculated size concatenation for Markdown output
-- Token resolver demonstrates fallback chain: flag → GITHUB_TOKEN env → GH_TOKEN env → `gh auth token` subprocess → anonymous (all with proper memory cleanup tracking)
-- API client shows JSON parsing with `ignore_unknown_fields`, deep-copy pattern from parsed temporary data to owned allocations
-- Changelog generator uses StringHashMap for category grouping, date comparison via ISO 8601 string slicing, filtering logic for labels
-- Usage section includes realistic command-line examples, error messages, and generated Markdown output
-- Grounded entirely in actual source (all examples from chlogr repository)
-- Learnings: Each Zig project post emphasizes different implementation aspects: clocz focused on parallelism, Argiope on HTTP/HTML parsing, chlogr on auth/API/data transformation
-- Updated projects.md with 4 new projects: Argiope, CLOCZ, Azure SDK for Zig, Otaku
-- Search method: Use GitHub search API `user:christianhelle sort:updated` to get recent repositories
-- Filtering criteria: Exclude forks (fork: false), exclude archived projects, include only active creator/maintainer repos
-- New projects were added at the end of the list, preserving existing items (Christian requested keeping existing items)
-- Projects selected for public-facing projects page: Must have meaningful descriptions and represent Christian's current work focus
-- Zig projects trending: Argiope and CLOCZ both recent Zig projects, indicating renewed focus on the language
-- Projects page serves as portfolio piece, so descriptions emphasize practical value and technical highlights
+**GitHub Action Posts:** Structure differs from tool posts—focus on multiple workflow examples demonstrating integration patterns. Include basic, advanced, and real-world examples (from actual repos). Emphasize CI/CD integration patterns over implementation details. Code-heavy with explanations of permissions, conditional logic, best practices.
+
+**Polish & Corrections:** Factual accuracy requires reviewing against actual source artifacts. Common areas: API signatures, available options, limitations (should be specific/actionable, not vague). Polish passes balance accuracy against practical readability.
+
+## Recent Work Summary (March 2026)
+
+- **Changelog Generator GitHub Action** (2026-03-17): 3,000+ word post with 8 YAML workflow examples (basic, advanced, real-world). Emphasizes CI/CD patterns over implementation. Tags: GitHub Actions, Changelog, CI/CD, Tools, Automation.
+- **Chlogr Post** (2026-03-17): 634-line post documenting Zig changelog generator. Covers CLI, token resolution, GitHub API, generation logic, distribution. 8 verified code examples from actual source. Applied polish pass with 5 factual corrections; expanded limitations from 5 to 8 items.
+- **Argiope Web Crawler** (2026-03-05): Post about Zig web crawler for broken-link detection. Structure: intro → technical sections → usage with output → distribution. Tags: Zig, CLI.
+- **Projects Page Refresh** (2026-03-06): Added 4 new repositories (Argiope, CLOCZ, Azure SDK for Zig, Otaku) to showcase current work. Filtering: non-forks, active, creator-maintained.
+- **Cabazure.Messaging Post** (2026-03-18): Complete rewrite + 3 accuracy passes (DI patterns, filter signatures, factual patches). All 12 code examples verified against public API surface. Key learning: multi-pass accuracy required for third-party library documentation.
+- **Cabazure.Kusto Post** (2026-03-18): Draft post with 12 verified C# code examples. Covers DI setup, query definition, execution patterns, pagination, aggregations. Properly attributed @rickykaare as author.
 
 ## Team Updates (2026-03-06)
 
@@ -98,6 +55,24 @@
 **Orchestration (2026-03-17T13:02:00Z):** Draft comprehensive post  
 **Orchestration (2026-03-17T13:10:00Z):** Polish pass with factual corrections  
 **Rachael Summary:** Coordinated chlogr blog post drafting and polish. Draft created 634-line post with 11 sections and verified code examples grounded entirely in source. Polish pass applied 5 factual corrections and expanded limitations from 5 to 8 specific constraints. Commits: 5fdafad (draft), b87af59 (polish).
+
+### 2025-12-18: Azure Kusto with Cabazure Post
+- Created comprehensive blog post documenting Cabazure.Kusto library for querying Azure Data Explorer
+- **Attribution:** Properly credited Ricky Kaare Engelharth (@rickykaare) as library author in opening paragraphs
+- **Source Material:** Grounded entirely in public Cabazure.Kusto README and sample app from the public repository (github.com/Cabazure/Cabazure.Kusto)
+- **Post Structure:** Intro + problem statement → dependency injection setup → query records and .kusto files → simple query execution → collection queries → pagination with continuation tokens → complex aggregations → sample app walkthrough → when to use guidance → architecture overview → getting started guide
+- **Code Examples:** 12 C# code snippets demonstrating: DI configuration, query record definition, .kusto script structure, result type definitions, simple queries, paginated queries, complex aggregations
+- **Key Patterns:**
+  * Query records inherit from `KustoQuery<T>` with properties matching .kusto query parameters
+  * Each query lives in a .kusto file with matching namespace/name
+  * Results deserialize into record types with properties matching Kusto output columns
+  * Pagination uses `sessionId`, `maxItemCount`, and `continuationToken` headers with `PagedResult<T>` response type
+  * `ExecuteAsync` overloads provide flexibility for simple, collection, and paginated queries
+- **Verification:** All code examples cross-referenced against public Cabazure.Kusto API surface and sample app in repository
+- **Writing Style:** Matched Christian's established pattern from Azure Messaging post—first person narrative, problem-focused intro, practical sections with code, real-world examples, clear conclusion
+- **Front Matter:** Full redirect_from coverage following established pattern (8 redirect paths for date + path variations)
+- **File Path:** `_posts/2025/2025-12-18-azure-kusto-with-cabazure.md` (date 3 months prior to expected publish timeline)
+- **Key Learning:** When documenting a third-party library, emphasize the public API surface and practical patterns. Lead with clear author attribution near the start. Structure post around progressively complex use cases (simple execution → pagination → aggregations) so readers can build comprehension step by step.
 
 **Team Context:**
 - Deckard (12:45, 13:08 UTC): Writing brief established 11-section roadmap. Review gate verified all code against source, approved for publication.
@@ -225,4 +200,21 @@
 
 **Decision Consolidation:**
 The three inbox files represented progressive refinements of the Cabazure.Messaging post: complete rewrite (API signatures) → accuracy pass (filter lambdas) → final patch (edge cases). Merged into single canonical entry under "Azure Messaging with Cabazure Blog Post" preserving temporal order and all key learnings.
+
+## Orchestration (2026-03-18T22:18:13Z)
+
+**Task:** Draft "Azure Kusto with Cabazure" blog post  
+**Status:** ✅ Complete  
+**Deliverable:** `_posts/2025/2025-12-18-azure-kusto-with-cabazure.md` (~3,200 words, 12 verified code examples)
+
+**Rachael Summary:** Drafted comprehensive post documenting public Cabazure.Kusto library API surface using brief from Deckard. Post structure: Introduction → Why Query Abstraction Matters → Core Abstractions → DI Setup → Query Definition → Query Execution → Complex Aggregations → Sample App Walkthrough → Use Cases & Architecture → Getting Started. All 12 code examples verified against public GitHub repo and sample apps. Proper attribution to @rickykaare (library author) in introduction. No invented APIs; zero internal Teal details. Jekyll-compatible front matter with 8 redirect_from paths. Ready for Roy (validation) spot-check and Pris README linking.
+
+**Team Context:**
+- Deckard (22:18 UTC): Publishing brief established 9-section roadmap
+- Pris (22:18 UTC): README.md updated, conventions documented
+- Roy (pending): Code spot-check, Jekyll build validation
+- Session log: `.squad/log/2026-03-18T22-18-13Z-azure-kusto-with-cabazure.md`
+- Orchestration logs: 3 agent activity records in `.squad/orchestration-log/`
+- Decisions: Merged Kusto decision into `.squad/decisions.md`
+
 

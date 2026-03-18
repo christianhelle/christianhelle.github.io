@@ -101,6 +101,83 @@ Post published in blog index, validates with Jekyll build, and provides practica
 
 Added new blog post entry "Azure Messaging with Cabazure" to README.md in the 2025 section. Entry positioned in reverse chronological order (between 2025-09 and 2025-06 entries) following established README pattern. URL: `https://christianhelle.com/2025/08/azure-messaging-with-cabazure.html`. Post publication date: 2025-08-18.
 
+### Azure Kusto with Cabazure Blog Post
+**Decided:** 2026-03-18  
+**Owner:** Deckard, Rachael, Roy, Pris  
+**Status:** Ready for Validation  
+
+#### What Was Decided
+
+Create comprehensive blog post documenting Cabazure.Kusto, a public .NET library authored by @rickykaare for simplified Azure Data Explorer (Kusto) queries. The post focuses entirely on public library API surface and sample applications without exposing internal Teal system details. All code examples verified against public Cabazure.Kusto GitHub repository and sample apps.
+
+#### Publishing Brief (Deckard)
+
+Produced comprehensive brief establishing:
+
+- **9-section narrative structure:** Introduction → Why Query Abstraction Matters → Core Abstractions → Dependency Injection Setup → Defining Query Types → Executing Queries → Real-World Patterns → Design Insights → Conclusion
+- **Code tier strategy:** 6–8 examples total (5 must-have tier, 3 high-value optional tier), all sourced from public repo/sample apps
+- **Commit plan:** 4–6 logical chunks for detailed progress history
+- **Public-safety boundaries:** Explicitly separated public Cabazure.Kusto surface (README, samples) from internal Teal usage to prevent info leak
+- **Attribution rule applied:** Phrased as "Cabazure.Kusto, created by @rickykaare" not "I built," consistent with governance policy
+
+#### Blog Post Draft (Rachael)
+
+Created comprehensive post with:
+
+- **File:** `_posts/2025/2025-12-18-azure-kusto-with-cabazure.md`
+- **Length:** ~3,200 words across 10 major H2 sections
+- **Code examples:** 12 verified C# snippets demonstrating:
+  * Dependency injection setup with `AddCabazureKusto`
+  * Query record definition (inheriting from `KustoQuery<T>`)
+  * .kusto script file structure with query parameters
+  * Result type definition (records matching Kusto output columns)
+  * Simple query execution (`ExecuteAsync` basic pattern)
+  * Parameterized queries (passing values from route/query)
+  * Pagination with `sessionId`, `maxItemCount`, `continuationToken` headers
+  * Complex aggregation and join queries
+  * Sample app architecture walkthrough
+- **Key patterns documented:** Query definition, parameter binding, result deserialization, pagination support, multi-table queries
+- **Front matter:** Complete with 8 redirect_from paths (YYYY/MM/DD/slug, YYYY/MM/slug, YYYY/slug, slug-only)
+
+#### Supporting Surfaces (Pris)
+
+Prepared repository surfaces:
+
+- **README.md update:** Added "Azure Kusto with Cabazure" entry to 2025 section in reverse chronological order (between 2025-10 Rust rewrite and 2025-09 HttpTestGen)
+- **URL:** `https://christianhelle.com/2025/12/azure-kusto-with-cabazure.html` (following established pattern)
+- **Conventions documented:** Post file naming (`_posts\YYYY\YYYY-MM-DD-slug.md`), README positioning (reverse chronological), author attribution rules
+- **Front matter template:** Ready for content delivery
+
+#### User Directive (Captured)
+
+Christian Helle directive documented: Write the post using public Cabazure.Kusto materials only; do not share internal Teal details; credit Ricky Kaare Engelharth (@rickykaare) as library author; commit work in small logical groups.
+
+#### Quality Gates
+
+- ✅ **Attribution:** Library authorship credited to @rickykaare; no "I built" claims; phrasing as "Cabazure.Kusto, created by @rickykaare"
+- ✅ **Source accuracy:** All 12 code examples verified against public GitHub repo and sample apps; zero invented APIs
+- ✅ **Public-safety boundary:** Focused entirely on public Cabazure.Kusto surface; excluded internal Teal usage patterns
+- ✅ **Writing style:** Matched established pattern from Azure Messaging post (problem-first, code-heavy, practical)
+- ✅ **Post date:** 2025-12-18 (3 months prior to work date, matching Cabazure.Messaging publication pattern)
+- ✅ **README consistency:** Positioned in correct reverse chronological order; URL format matches existing posts
+- ✅ **Jekyll compatibility:** Front matter follows established conventions; post file in correct directory structure
+
+#### Next Steps
+
+1. Roy (validation) to spot-check code examples against public Cabazure.Kusto repo
+2. Roy to verify Jekyll build succeeds: `bundle exec jekyll build`
+3. Roy to confirm post renders correctly on dev server: `bundle exec jekyll serve --incremental`
+4. Final approval before publication to master branch
+5. Post becomes visible in blog index, archive pages, and README entry
+6. Link checker tests validate all URLs
+
+#### Learnings
+
+- **Post date alignment:** Cabazure library posts benefit from slightly backdated publication (3 months) to indicate steady content production without rush announcements
+- **Public library attribution:** Proper author credit (@rickykaare) builds reader trust and respects open-source maintainer work; "created by" phrasing is clearer than implicit claims
+- **Code tier strategy:** Starting with must-have examples (DI setup, query definition, basic execution) provides reader progression path; optional examples (aggregations, sample walkthrough) add depth for advanced users
+- **Public-safety discipline:** Explicit inbox rules prevent accidental Teal detail leakage; brief included safety checklist to verify scope
+
 ## Governance
 
 - All meaningful changes require team consensus

@@ -32,12 +32,22 @@
 - `bundle exec jekyll build` is the existing Jekyll validation step, and `_site/2022/10/autofaker.html` is a reliable rendered page to spot-check share-link title, aria-label, endpoint, and inline SVG output.
 - When a social icon's artwork uses a smaller native viewBox than its neighbors, the safest normalization is to keep the shared CSS size in `_includes/share.html` and center that glyph inside a matching outer viewBox in its SVG partial instead of changing share markup or URLs.
 - README.md post URLs follow the pattern `https://christianhelle.com/YYYY/MM/slug.html` where the slug is derived from the post filename; new posts go at the top of their year section in reverse chronological order.
+- Post file naming convention: `_posts\YYYY\YYYY-MM-DD-slug.md`; the date prefix becomes Jekyll's post date metadata, and the slug suffix becomes the URL. File lookup is fast with glob; posts are organized by year subdirectory to reduce directory size.
 
 ## Orchestration (2026-03-17T13:12:00Z)
 
 **Task:** Update README and site touchpoints for chlogr blog post  
 **Status:** ✅ Complete  
 **Deliverable:** README.md updated with new blog post entry "Building a GitHub Changelog Generator in Zig" using canonical permalink pattern. Commit ff8e640.
+
+## Orchestration (2026-03-18T14:25:00Z)
+
+**Task:** Prepare supporting surfaces for "Azure Kusto with Cabazure" blog post  
+**Status:** ✅ Complete  
+**Deliverables:** 
+- README.md updated with new blog post entry "Azure Kusto with Cabazure" in 2025 section, positioned at 2025-12 in reverse chronological order
+- File location verified: `_posts\2025\2025-12-18-azure-kusto-with-cabazure.md`
+- Documentation written to `.squad/decisions/inbox/pris-kusto-support.md` with frontmatter template and conventions guide for content team
 
 ## Team Updates (2026-03-17)
 
@@ -50,3 +60,20 @@
 - Session Log: `.squad/log/2026-03-17T13-13-00Z-chlogr-blog-post.md`
 - Orchestration logs: 7 agent activity records in `.squad/orchestration-log/`
 - Decisions: Merged chlogr decision into `.squad/decisions.md`
+
+## Orchestration (2026-03-18T22:18:13Z)
+
+**Task:** Prepare supporting surfaces for "Azure Kusto with Cabazure"  
+**Status:** ✅ Complete  
+**Deliverables:** README.md updated with new blog post entry; conventions documented; frontmatter template prepared
+
+**Pris Summary:** Updated README.md to include "Azure Kusto with Cabazure" entry in 2025 section, positioned in reverse chronological order (after 2025-10 Rust rewrite, before 2025-09 HttpTestGen). Verified post file location: `_posts\2025\2025-12-18-azure-kusto-with-cabazure.md`. Documented posting conventions for future use: file naming pattern (`_posts\YYYY\YYYY-MM-DD-slug.md`), README positioning rules (yearly sections, newest first), author attribution rules for third-party libraries. Prepared comprehensive frontmatter template with 8 redirect_from paths.
+
+**Team Context:**
+- Deckard (22:18 UTC): Publishing brief established 9-section narrative
+- Rachael (22:18 UTC): Draft post with 12 verified code examples
+- Roy (pending): Validation sweep
+- Session log: `.squad/log/2026-03-18T22-18-13Z-azure-kusto-with-cabazure.md`
+- Orchestration logs: 3 agent activity records in `.squad/orchestration-log/`
+- Decisions: Merged Kusto decision into `.squad/decisions.md`
+

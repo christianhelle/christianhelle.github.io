@@ -48,3 +48,31 @@
 - **Inbox Cleanup:** Deleted processed inbox file; verified `.squad/decisions/inbox/` is empty
 - **Pattern Applied:** Governance items documented as decision-level entries with rationale, rules, process, and impact; promotes principles to team-level guidance applicable beyond single blog post
 - **Key Learning:** When merging governance-level guidance from focused inbox notes, elevate to formal decision entry with clear process steps so it informs future library documentation work across team
+
+### 2026-03-18T22:18:13Z: Scribe Orchestration — Azure Kusto Session
+- **Task:** Execute Scribe tasks for "Azure Kusto with Cabazure" blog post session
+- **Actions Completed:**
+  1. ✅ Created 3 orchestration logs: 2026-03-18T22-18-13Z-{deckard,rachael,pris}.md
+  2. ✅ Created session log: 2026-03-18T22-18-13Z-azure-kusto-with-cabazure.md
+  3. ✅ Merged 4 inbox decision files into decisions.md canonical entry for "Azure Kusto with Cabazure Blog Post"
+  4. ✅ Deleted processed inbox files: deckard-kusto-post-brief.md, achael-kusto-post.md, pris-kusto-support.md, copilot-directive-20260318T220921Z.md
+  5. ✅ Updated agent history files: Deckard, Rachael, Pris with orchestration entries
+  6. ⏳ Pending: Git commit (inbox cleanup confirmed)
+  7. ⏳ Pending: Check Rachael history length for summarization
+
+- **Team Work Documented:**
+  * Deckard: Publishing brief with 9-section narrative, code tier strategy, public-safety boundaries
+  * Rachael: Draft post with 12 verified code examples, 10 sections, ~3,200 words
+  * Pris: README.md updated, conventions documented, frontmatter template prepared
+
+- **Key Orchestration Patterns Applied:**
+  * Inbox decision files grouped by agent + topic
+  * Merged all 4 files into single canonical decision entry preserving temporal order
+  * Orchestration logs created per agent for real-time activity tracking
+  * Session log summarizes team coordination across all agents
+  * Agent histories updated with orchestration timestamp and role summary
+
+- **Scribe Learnings:**
+  * Four separate inbox documents (different agents, different purposes) consolidated into one decision with clear subsections
+  * Orchestration logs serve as proof-of-work timestamps; session logs provide summaries; decisions.md contains full details
+  * History file sizes need monitoring: Rachael at 25.3KB exceeds 12KB threshold—requires Core Context summarization

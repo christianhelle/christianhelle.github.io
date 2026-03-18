@@ -11,6 +11,24 @@
 
 ## Learnings
 
+### March 18, 2026 (Scribe Orchestration): Cabazure.Kusto Session Completed
+- **Scope:** Finalized orchestration for "Azure Kusto with Cabazure" blog post planning and team coordination
+- **Actions:** Created orchestration logs for all agents (Deckard, Rachael, Pris), session summary, merged inbox decisions into decisions.md, updated agent histories
+- **Deliverables:** `.squad/orchestration-log/2026-03-18T22-18-13Z-{deckard,rachael,pris}.md`, `.squad/log/2026-03-18T22-18-13Z-azure-kusto-with-cabazure.md`, consolidated decision entry
+- **Key learning:** Orchestration logs serve as real-time activity records; session logs provide brief summaries of team coordination; inbox merging deduplicates decision trail while preserving learnings
+- **Attribution:** All agents' work documented with proper timestamps and status tracking for future reference
+
+### March 18, 2026: Cabazure.Kusto Blog Post Brief
+- **Scope:** Planned publishing brief for "Azure Kusto with Cabazure" — a public library documentation post by @rickykaare
+- **Key decision:** Date post 3 months ago (2025-12-18), matching Christian's established Cabazure post style (Azure Messaging 2025-08-18)
+- **Safety boundary:** Explicitly separated public Cabazure.Kusto surface (README, samples) from internal Teal usage to prevent info leak
+- **Attribution rule applied:** From decisions.md governance — phrase as "Cabazure.Kusto, created by @rickykaare" not "I built" to respect original author
+- **Structure delivered:** 9-section narrative (intro → abstractions → DI → query definition → execution → pagination → patterns → design insights → conclusion)
+- **Code tier strategy:** 6–8 examples (Tier 1 essential, Tier 2 optional) all sourced from public repo, ContosoSales sample dataset
+- **Commit plan:** 4–6 logical chunks (draft → core → examples → polish → validate) for detailed progress history
+- **Handoff notes:** Brief stored at `.squad/decisions/inbox/deckard-kusto-post-brief.md` for Rachael (writer), Roy (validation), Pris (README)
+- **Tone ref:** Match Cabazure.Messaging (problem-first, code-heavy) + Argiope (technical depth, algorithms)
+
 ### March 17, 2026: Chlogr Blog Post Brief
 - **Analysis:** Examined chlogr repository architecture across 8 core modules (CLI, token resolution, API client, changelog generation, markdown formatting, models, testing, build)
 - **Pattern Discovered:** Zig zero-dependency philosophy (no external HTTP library; mock data for now) mirrors clocz approach; both posts follow "problem → architecture → algorithm → code → lessons" narrative
@@ -33,6 +51,18 @@
 **Orchestration (2026-03-17T12:45:00Z):** Lead writing brief  
 **Orchestration (2026-03-17T13:08:00Z):** Lead review gate  
 **Deckard Summary:** Coordinated chlogr blog post from brief through approval. Writing brief established 11-section roadmap with Tier-1 code examples ranked by impact. Review gate verified all 8 code examples against source (100% accuracy), confirmed style consistency with clocz/argiope pattern, approved post for immediate publication with no material blockers.
+
+### March 18, 2026: Cabazure.Kusto Blog Post Review (APPROVED)
+- **Scope:** Full post review of `_posts/2025/2025-12-18-azure-kusto-with-cabazure.md` against public source, reference posts, and Jekyll conventions
+- **Code Verification:** All ~10 code examples cross-referenced against public Cabazure.Kusto repo (SampleApi/Program.cs, Queries/, Contracts/, IKustoProcessor.cs, PagedResult.cs)—100% accuracy
+- **Attribution Check:** Correctly credits @rickykaare as library author; no "I built/created" claims about the library; complies with Third-Party Library Documentation Attribution governance
+- **Public-Only Compliance:** No Teal internals referenced; all examples from public GitHub repo and ContosoSales sample database
+- **Style Consistency:** Matches Cabazure.Messaging post pattern (problem-first → "That's why I use [Library]—written by @rickykaare" → code-heavy sections → conclusion)
+- **Front Matter:** Layout, title, date (2025-12-18), author, tags (Azure, Kusto, .NET), redirect_from patterns—all correct
+- **README Fix:** Kusto entry (2025-12) was listed after HTTP File Runner (2025-10); fixed to correct reverse-chronological order
+- **Validation:** `bundle exec jekyll build` ✅ clean
+- **Verdict:** ✅ APPROVED — No material issues. README ordering fix applied directly.
+- **Documentation:** Review decision written to `.squad/decisions/inbox/deckard-kusto-gate.md`
 
 **Team Context:**
 - Rachael (13:02 UTC): Drafted comprehensive 634-line post with verified code examples from source. Commits 5fdafad (draft), b87af59 (polish).
