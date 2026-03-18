@@ -16,11 +16,11 @@ Building distributed systems means choosing between Azure messaging transports�
 
 That's why I use [Cabazure.Messaging](https://github.com/Cabazure/Cabazure.Messaging)—a .NET library written by [@rickykaare](https://github.com/rickykaare) that unifies all three Azure messaging transports under a single abstraction layer. Define your messages once, publish and process them the same way regardless of transport, and swap implementations with just a configuration change.
 
-## Why I Built a Unified Messaging Layer
+## Why a Unified Messaging Layer Matters
 
 When you integrate multiple transports, you repeat code. Event Hub uses one connection style, Service Bus uses another. Event Hub metadata includes partition information, Service Bus includes session details, Storage Queue exposes dequeue count. Each processor needs slightly different setup.
 
-I wanted a library where your business logic never knew which transport it was using. Your controller would inject `IMessagePublisher<OrderCreatedEvent>` and call `PublishAsync`. The same processor code would work if you switched from Event Hub to Service Bus. The framework would handle serialization, configuration, and lifecycle—you focus on logic.
+Cabazure.Messaging addresses this by providing a library where your business logic never needs to know which transport it's using. Your controller injects `IMessagePublisher<OrderCreatedEvent>` and calls `PublishAsync`. The same processor code works if you switch from Event Hub to Service Bus. The framework handles serialization, configuration, and lifecycle—you focus on logic.
 
 ## The Shared Abstractions
 
