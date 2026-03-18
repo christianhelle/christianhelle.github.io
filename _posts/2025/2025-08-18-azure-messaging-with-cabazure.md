@@ -36,7 +36,7 @@ public interface IMessagePublisher<in TMessage>
     Task PublishAsync(
         TMessage message,
         CancellationToken cancellationToken = default);
-    
+
     Task PublishAsync(
         TMessage message,
         PublishingOptions options,
@@ -123,8 +123,8 @@ builder.Services.AddCabazureEventHub(b => b
         .WithMessageId(e => e.OrderId.ToString())
         .WithPartitionKey(e => e.CustomerId.ToString()))
     .AddProcessor<OrderCreatedEvent, OrderCreatedEventProcessor>(
-        "orders-hub", 
-        "$Default", 
+        "orders-hub",
+        "$Default",
         b => b.WithBlobContainer("container1", createIfNotExist: true)));
 
 var app = builder.Build();
@@ -159,7 +159,7 @@ public class OrderController
         };
 
         await _publisher.PublishAsync(@event, cancellationToken);
-        
+
         return Ok(new { orderId = @event.OrderId });
     }
 }
@@ -230,7 +230,7 @@ builder.Services.AddCabazureEventHub(b => b
         .WithConnection(connectionString)
         .WithBlobStorage(blobsConnection))
     .AddStatelessProcessor<OrderCreatedEvent, OrderAuditProcessor>(
-        "orders-hub", 
+        "orders-hub",
         "$Default"));
 ```
 
@@ -246,8 +246,8 @@ builder.Services.AddCabazureEventHub(b => b
         .WithConnection(connectionString)
         .WithBlobStorage(blobsConnection))
     .AddProcessor<OrderCreatedEvent, OrderProcessor>(
-        "orders-hub", 
-        "$Default", 
+        "orders-hub",
+        "$Default",
         b => b
             .WithFilter(properties => properties.TryGetValue("CustomerId", out var customerId) && customerId is int customerIdValue && customerIdValue > 1000)
             .WithProcessorOptions(new EventProcessorOptions())
@@ -279,7 +279,7 @@ builder.Services.AddCabazureServiceBus(b => b
         "payments-topic",
         b => b.WithProperty(e => e.PaymentId))
     .AddProcessor<PaymentProcessedEvent, PaymentProcessedEventProcessor>(
-        topicName: "payments-topic", 
+        topicName: "payments-topic",
         subscriptionName: "payment-service-subscription"));
 
 var app = builder.Build();
@@ -319,9 +319,9 @@ public class PaymentController
             MessageId = @event.PaymentId.ToString(),
             CorrelationId = request.CorrelationId
         };
-        
+
         await _publisher.PublishAsync(@event, options, cancellationToken);
-        
+
         return Ok(@event);
     }
 }
@@ -487,7 +487,7 @@ public class EmailSendRequestProcessor : IMessageProcessor<EmailSendRequest>
         CancellationToken cancellationToken)
     {
         _logger.LogInformation("Sending email to {To}", message.To);
-        
+
         await _emailService.SendAsync(
             message.To,
             message.Subject,
@@ -513,7 +513,7 @@ builder.Services.AddCabazureStorageQueue(b => b
     .Configure(o => o
         .WithConnection(queuesConnection))
     .AddProcessor<EmailSendRequest, EmailSendRequestProcessor>(
-        "email-queue", 
+        "email-queue",
         b => b
             .WithPollingInterval(TimeSpan.FromSeconds(2))
             .WithInitialization(createIfNotExists: true)));
@@ -558,7 +558,7 @@ builder.Services.AddCabazureServiceBus(b => b
         .WithConnection(builder.Configuration.GetConnectionString("servicebus")!))
     .AddPublisher<OrderEvent>("orders-topic")
     .AddProcessor<OrderEvent, OrderProcessor>(
-        topicName: "orders-topic", 
+        topicName: "orders-topic",
         subscriptionName: "order-subscription"));
 
 // Background jobs with Storage Queue
@@ -601,7 +601,7 @@ dotnet add package Cabazure.Messaging.ServiceBus
 dotnet add package Cabazure.Messaging.StorageQueue
 ```
 
-The [GitHub repository](https://github.com/christianhelle/Cabazure.Messaging) has sample applications for each transport showing a complete end-to-end flow: Producer publishes events, Processor handles them, AppHost orchestrates everything locally.
+The [GitHub repository](https://github.com/Cabazure/Cabazure.Messaging) has sample applications for each transport showing a complete end-to-end flow: Producer publishes events, Processor handles them, AppHost orchestrates everything locally.
 
 Clone the repo, run the AppHost, and see all three transports in action. The sample projects are your best reference for configuration and real-world usage patterns.
 
