@@ -13,6 +13,7 @@
 2025
 ----
 
+*   [Azure Kusto with Cabazure](https://christianhelle.com/2025/12/azure-kusto-with-cabazure.html)
 *   [Rewriting HTTP File Runner in Rust (from Zig)](https://christianhelle.com/2025/10/httprunner-zig-to-rust-rewrite.html)
 *   [HttpTestGen - .http file testing framework for .NET](https://christianhelle.com/2025/09/httptestgen-dotnet-testing-framework.html)
 *   [Azure Messaging with Cabazure](https://christianhelle.com/2025/08/azure-messaging-with-cabazure.html)
