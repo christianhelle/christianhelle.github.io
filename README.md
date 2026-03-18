@@ -15,6 +15,7 @@
 
 *   [Rewriting HTTP File Runner in Rust (from Zig)](https://christianhelle.com/2025/10/httprunner-zig-to-rust-rewrite.html)
 *   [HttpTestGen - .http file testing framework for .NET](https://christianhelle.com/2025/09/httptestgen-dotnet-testing-framework.html)
+*   [Azure Messaging with Cabazure](https://christianhelle.com/2025/08/azure-messaging-with-cabazure.html)
 *   [Run .http files from the command line using a fast, small, single binary tool](https://christianhelle.com/2025/06/http-file-runner-zig-tool.html)
 *   [A faster Azure DevOps CLI written in Rust](https://christianhelle.com/2025/06/azure-devops-cli.html)
 *   [SQLite Query Analyzer - A Decade-Long Journey with C++ and Qt](https://christianhelle.com/2025/05/sqlite-query-analyzer-revisited.html)
