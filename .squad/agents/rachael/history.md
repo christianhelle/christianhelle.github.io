@@ -37,6 +37,11 @@
 - **Verification:** All code snippets now match documented Cabazure.Messaging API surface from public GitHub facts
 - **Key Learning:** When sample program files are referenced but don't exist in the repo, replace invented code with accurate prose descriptions. The blog repo isn't required to contain the samples—they live in the library repo. Reference them descriptively rather than inventing code that might drift from reality.
 
+### 2026-03-18: Cabazure Attribution Directive
+- **Directive:** Clear that Cabazure.Messaging library written by @rickykaare; remove any "I built" or "I created" phrasing from the post.
+- **Final Wording Rule:** When documenting a library authored by someone else (e.g., @rickykaare), write only the public API surface and document patterns. Never phrase the post as "I created this library" or "I built this feature." Keep focus on documenting the library's capabilities for users, not claiming authorship. Credit the author explicitly if phrasing arises naturally in context (e.g., "Cabazure.Messaging, created by @rickykaare").
+- **Context:** Third-party library documentation requires clear distinction between library authorship and blog post documentation. Readers must understand the library is independently authored and maintained.
+
 ### 2026-03-05: Argiope Web Crawler Post
 - Created post about Argiope, a web crawler written in Zig for broken-link detection
 - Followed style from "Building a fast line of code counter app in Zig" post (2026-02-10)

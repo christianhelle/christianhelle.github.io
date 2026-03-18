@@ -86,9 +86,13 @@ Two targeted patches aligned all code snippets with canonical API surface and sa
 - **Sample program handling:** When sample files are referenced but don't exist in blog repo, they live in library repo—describe component roles in accurate prose rather than inventing code
 - **Fact-checking flow:** (1) verify interface method signatures, (2) verify public properties on option/metadata classes, (3) verify DI registration patterns, (4) verify builder fluent API methods if used in examples
 
+#### Attribution Directive (2026-03-18T11:39:57Z)
+
+User directive captured: Clarify authorship of Cabazure.Messaging library. The library was written by @rickykaare; remove any "I built" or "I created" phrasing that implies user invented it. This is critical for technical accuracy and proper credit.
+
 #### Outcome
 
-Post published in blog index, validates with Jekyll build, and provides practical reference documentation for Cabazure.Messaging users. Readers can copy patterns directly for their own projects. File: `_posts/2025/2025-08-18-azure-messaging-with-cabazure.md` (~3,250 words).
+Post published in blog index, validates with Jekyll build, and provides practical reference documentation for Cabazure.Messaging users. Readers can copy patterns directly for their own projects. File: `_posts/2025/2025-08-18-azure-messaging-with-cabazure.md` (~3,250 words). Final wording verified: Cabazure.Messaging authored by @rickykaare, post documents the public API surface accurately without claiming user ownership.
 
 ### README.md Index Update: Azure Messaging with Cabazure
 **Decided:** 2026-03-18  

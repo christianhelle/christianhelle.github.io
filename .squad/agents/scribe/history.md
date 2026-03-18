@@ -32,3 +32,12 @@
 - Append-only semantics for decision merging means adding new structured sections to existing decision entries, not creating duplicates; review existing decision-level files before merging inbox files to avoid redundancy
 - Supporting reference documents (e.g., individual decision files at decision-level like `rachael-azure-messaging-post.md`) can be retained alongside merged canonical entries if they serve distinct purposes (high-level summary vs. detailed implementation notes)
 
+### 2026-03-18: Squad State Cleanup
+- **Task:** Merge Copilot attribution directive into decisions, update Rachael learnings, commit squad metadata
+- **Actions:** Merged inbox directive `copilot-directive-2026-03-18T11-39-57Z.md` into Cabazure decision entry as "Attribution Directive (2026-03-18T11:39:57Z)" subsection
+- **Rachael History Update:** Appended "2026-03-18: Cabazure Attribution Directive" with final wording rule—when documenting third-party libraries, avoid "I built/created" phrasing and ensure author credit is clear
+- **Inbox Cleanup:** Deleted merged directive file
+- **Logs Created:** Session log `2026-03-18T11-45-00Z-squad-state-cleanup.md` and orchestration log `2026-03-18T11-45-00Z-scribe.md`
+- **Pattern Applied:** Directive merging as temporal subsection within existing decision entry, preserving progression narrative (draft → accuracy pass → attribution directive)
+- **Key Learning:** Attribution directives are governance-level decisions that modify how we present other team's work—capture them in main decision entry (not orphaned in inbox) so they inform future documentation work on same topic
+
