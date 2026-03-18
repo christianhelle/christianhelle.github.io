@@ -41,3 +41,10 @@
 - **Pattern Applied:** Directive merging as temporal subsection within existing decision entry, preserving progression narrative (draft → accuracy pass → attribution directive)
 - **Key Learning:** Attribution directives are governance-level decisions that modify how we present other team's work—capture them in main decision entry (not orphaned in inbox) so they inform future documentation work on same topic
 
+### 2026-03-19: Attribution Governance Decision Merge
+- **Task:** Merge remaining attribution governance note into canonical decisions record
+- **Actions:** Consolidated `scribe-attribution-governance.md` from inbox into `.squad/decisions.md` under "Governance" section as "Third-Party Library Documentation Attribution" formal decision
+- **Content Merge:** Preserved principle statement, wording rules (avoid/use patterns), process flow (5-step verification), and impact summary—all deduped and structured as complete governance decision with Decided/Owner/Status metadata
+- **Inbox Cleanup:** Deleted processed inbox file; verified `.squad/decisions/inbox/` is empty
+- **Pattern Applied:** Governance items documented as decision-level entries with rationale, rules, process, and impact; promotes principles to team-level guidance applicable beyond single blog post
+- **Key Learning:** When merging governance-level guidance from focused inbox notes, elevate to formal decision entry with clear process steps so it informs future library documentation work across team

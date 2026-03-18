@@ -106,3 +106,23 @@ Added new blog post entry "Azure Messaging with Cabazure" to README.md in the 20
 - All meaningful changes require team consensus
 - Document architectural decisions here
 - Keep history focused on work, decisions focused on direction
+
+### Third-Party Library Documentation Attribution
+**Decided:** 2026-03-18  
+**Owner:** Team  
+**Status:** Active
+
+When documenting a library or tool authored by someone else (especially open-source maintainers), the blog post must distinguish between library authorship and post documentation. The library authorship belongs to the original author; the post documentation is written by Christian Helle for blog readers.
+
+**Wording Rules:**
+- ❌ Avoid: "I built this library", "I created this messaging abstraction", "I designed the fluent API", or any phrasing implying the user invented the library
+- ✅ Use: "Cabazure.Messaging, created by @rickykaare, provides...", passive construction like "The library abstracts...", or "This post documents how to use [Library]..."
+
+**Process for Library Blog Posts:**
+1. Verify library authorship in README / credits
+2. Scan post for first-person "I created/built/designed" tied to library features
+3. Replace with neutral documentation phrasing or explicit author credit
+4. Add learnings to relevant agent history
+5. Merge user directives into main decision entry (not orphaned in inbox)
+
+**Impact:** Maintains credibility with readers and respects open-source maintainers' work. Positions blog post as authoritative documentation source, not invention claim.
