@@ -69,3 +69,20 @@
 - Builder pattern fluent APIs (optional lambda parameters to AddPublisher/AddProcessor) may expose methods not captured in initial GitHub MCP fact gathering; these require source verification or official docs cross-check to confirm.
 - Fact-check process for .NET library posts: verify (1) interface method signatures, (2) public properties on option/metadata classes, (3) DI registration method signatures, (4) builder fluent API methods if used in examples.
 - Unverified builder methods don't necessarily mean incorrect claims—they may exist but weren't surfaced in the GitHub MCP query; flag as "unverified against provided facts" rather than "wrong" unless contradicted.
+- `redirect_from` front matter only generates working alias pages when `jekyll-redirect-from` is enabled in `_config.yml`, `_config_dev.yml`, and `_config_prod.yml`; otherwise the main post builds cleanly while short-link routes still 404.
+- For new-post QA, always smoke the canonical permalink plus a few `redirect_from` aliases such as `/slug/`, `/YYYY/slug/`, and `/YYYY/MM/DD/slug/` so redirect regressions are caught before publish.
+## Orchestration (2026-03-18T22:27:49Z)
+
+**Task:** Validate "Azure Kusto with Cabazure" blog post  
+**Status:** ✅ Complete  
+**Deliverable:** Post code examples verified (12/12 accurate), `jekyll-redirect-from` enabled, `bundle exec jekyll build` ✅, full Playwright test suite passing (3/3 tests)
+
+- **Code Accuracy:** All 12 code examples verified against public Cabazure.Kusto GitHub repo and sample apps
+- **Infrastructure:** Enabled `jekyll-redirect-from` plugin in all three config files to enable working alias pages
+- **Build:** `bundle exec jekyll build` clean and successful
+- **Test Suite:** `dotnet test .\tests\playwright\PlaywrightTests.csproj` all 3 tests passed
+- **Ready for Merge:** Post approved for publication to master branch
+
+## Learnings
+
+- `jekyll-redirect-from` front matter only generates working alias pages when the plugin is enabled in `_config.yml`, `_config_dev.yml`, and `_config_prod.yml`; without it, canonical post renders cleanly while short-link routes still 404

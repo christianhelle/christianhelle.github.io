@@ -29,6 +29,11 @@ Use this skill when a new blog post needs a final QA pass and the goal is to ver
 - On the post permalink, confirm the rendered title, at least a couple of key section headings, and syntax-highlighted code blocks.
 - On `/archives/`, confirm the new entry is listed under the correct year.
 
+### Redirect Validation
+
+- If the post uses `redirect_from`, make sure `jekyll-redirect-from` is enabled in `_config.yml`, `_config_dev.yml`, and `_config_prod.yml`; front matter alone is not enough.
+- After the build, smoke at least the short-link aliases (`/slug/`, `/YYYY/slug/`, `/YYYY/MM/DD/slug/`) and confirm they return redirect pages instead of 404s.
+
 ### Tag Validation
 
 - This repo uses a single `/tags/` index page with one `<h2>` section per tag.
@@ -38,10 +43,11 @@ Use this skill when a new blog post needs a final QA pass and the goal is to ver
 ### Optional Playwright Follow-Up
 
 - Full Playwright is optional for content-only validation when the requested sweep only needs build confidence plus route smoke checks.
-- If the full suite is run, treat the current share-link environment mismatch and the archive crawl timeout as known baseline noise unless the new work makes either failure worse.
+- When share links, canonical URLs, or redirects change, run the full suite with the dev server up at `http://127.0.0.1:4000/`; the current 3-test Playwright suite is capable of going fully green.
 
 ## Anti-Patterns
 
 - Assuming the tag system generates one page per tag.
+- Assuming `redirect_from` works without `jekyll-redirect-from` enabled in the Jekyll config.
 - Stopping after `_site` generation without checking the live local routes.
 - Treating `_config.yml` environment setup as a publishable content change.

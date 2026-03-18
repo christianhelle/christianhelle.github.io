@@ -69,3 +69,10 @@
 - Roy (13:05, 13:14 UTC): Pre-draft validation identified 8 verified claims and 8 caveats. Final sweep: `bundle exec jekyll build` ✅, `dotnet build` ✅, smoke checks ✅.
 - Pris (13:12 UTC): Updated README.md with new post entry (commit ff8e640).
 - Deckard (13:08 UTC): Review gate APPROVED; all quality gates met.
+
+### March 18, 2026 (Late): Cabazure.Kusto Publication Complete
+- **Scope:** Final validation and publication of "Azure Kusto with Cabazure" blog post
+- **Roy's Final Validation:** Code examples verified (12/12 accurate), `jekyll-redirect-from` enabled in all config files, `bundle exec jekyll build` ✅ clean, full Playwright test suite passing (3/3 tests)
+- **Status:** ✅ Ready for publication to master branch
+- **Decision:** Post approved for immediate merge; all quality gates satisfied
+- **Key Learning:** Redirect aliases require `jekyll-redirect-from` plugin enabled in all config files, not just front matter

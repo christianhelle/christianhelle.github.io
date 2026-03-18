@@ -201,20 +201,21 @@
 **Decision Consolidation:**
 The three inbox files represented progressive refinements of the Cabazure.Messaging post: complete rewrite (API signatures) → accuracy pass (filter lambdas) → final patch (edge cases). Merged into single canonical entry under "Azure Messaging with Cabazure Blog Post" preserving temporal order and all key learnings.
 
-## Orchestration (2026-03-18T22:18:13Z)
+## Orchestration (2026-03-18T22:27:49Z)
 
-**Task:** Draft "Azure Kusto with Cabazure" blog post  
+**Task:** Post-publication finalization for "Azure Kusto with Cabazure"  
 **Status:** ✅ Complete  
-**Deliverable:** `_posts/2025/2025-12-18-azure-kusto-with-cabazure.md` (~3,200 words, 12 verified code examples)
 
-**Rachael Summary:** Drafted comprehensive post documenting public Cabazure.Kusto library API surface using brief from Deckard. Post structure: Introduction → Why Query Abstraction Matters → Core Abstractions → DI Setup → Query Definition → Query Execution → Complex Aggregations → Sample App Walkthrough → Use Cases & Architecture → Getting Started. All 12 code examples verified against public GitHub repo and sample apps. Proper attribution to @rickykaare (library author) in introduction. No invented APIs; zero internal Teal details. Jekyll-compatible front matter with 8 redirect_from paths. Ready for Roy (validation) spot-check and Pris README linking.
+Roy completed final validation: all 12 code examples verified against public Cabazure.Kusto repo, `jekyll-redirect-from` enabled in config files, `bundle exec jekyll build` clean, full Playwright test suite passing (3/3). Post approved for publication to master branch.
+
+**Rachael Summary:** Draft post completed with full verification against public API surface. No invented code; all 12 examples grounded in actual Cabazure.Kusto repository samples. Proper @rickykaare attribution maintained throughout post. Ready for publication.
 
 **Team Context:**
-- Deckard (22:18 UTC): Publishing brief established 9-section roadmap
-- Pris (22:18 UTC): README.md updated, conventions documented
-- Roy (pending): Code spot-check, Jekyll build validation
-- Session log: `.squad/log/2026-03-18T22-18-13Z-azure-kusto-with-cabazure.md`
-- Orchestration logs: 3 agent activity records in `.squad/orchestration-log/`
-- Decisions: Merged Kusto decision into `.squad/decisions.md`
+- Deckard (22:18 UTC): Brief established 9-section narrative
+- Roy (22:27 UTC): Validation complete; all gates satisfied; approved for merge
+- Pris (22:18 UTC): README entry positioned correctly
+- Decision entry consolidated in `.squad/decisions.md` with full validation notes
+
+
 
 

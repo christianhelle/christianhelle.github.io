@@ -104,7 +104,7 @@ Added new blog post entry "Azure Messaging with Cabazure" to README.md in the 20
 ### Azure Kusto with Cabazure Blog Post
 **Decided:** 2026-03-18  
 **Owner:** Deckard, Rachael, Roy, Pris  
-**Status:** Ready for Validation  
+**Status:** Completed
 
 #### What Was Decided
 
@@ -162,14 +162,14 @@ Christian Helle directive documented: Write the post using public Cabazure.Kusto
 - ✅ **README consistency:** Positioned in correct reverse chronological order; URL format matches existing posts
 - ✅ **Jekyll compatibility:** Front matter follows established conventions; post file in correct directory structure
 
-#### Next Steps
+#### Validation (2026-03-18 Final)
 
-1. Roy (validation) to spot-check code examples against public Cabazure.Kusto repo
-2. Roy to verify Jekyll build succeeds: `bundle exec jekyll build`
-3. Roy to confirm post renders correctly on dev server: `bundle exec jekyll serve --incremental`
-4. Final approval before publication to master branch
-5. Post becomes visible in blog index, archive pages, and README entry
-6. Link checker tests validate all URLs
+Roy completed validation pass:
+- Post code examples verified against public Cabazure.Kusto repo (12/12 accurate)
+- `jekyll-redirect-from` plugin enabled in all config files for working alias pages
+- `bundle exec jekyll build` ✅ clean
+- `dotnet test .\tests\playwright\PlaywrightTests.csproj` ✅ all 3 tests passed
+- Post ready for publication to master branch
 
 #### Learnings
 
@@ -177,6 +177,7 @@ Christian Helle directive documented: Write the post using public Cabazure.Kusto
 - **Public library attribution:** Proper author credit (@rickykaare) builds reader trust and respects open-source maintainer work; "created by" phrasing is clearer than implicit claims
 - **Code tier strategy:** Starting with must-have examples (DI setup, query definition, basic execution) provides reader progression path; optional examples (aggregations, sample walkthrough) add depth for advanced users
 - **Public-safety discipline:** Explicit inbox rules prevent accidental Teal detail leakage; brief included safety checklist to verify scope
+- **Redirect plugin requirement:** `jekyll-redirect-from` must be enabled in all config files for front matter `redirect_from` aliases to generate working pages; without it, canonical post renders but aliases 404
 
 ## Governance
 
