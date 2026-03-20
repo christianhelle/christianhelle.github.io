@@ -18,3 +18,9 @@
   - Conclusion: reflect on experience, end with GitHub link.
   - Post length: ~2000–2500 words (medium-long form).
   - Section rhythm: "How it works" → implementation deep dives → usage & output → distribution → conclusion.
+
+- **2026-03-20 (Chronicles Post Revision):** Addressed Lambert's blocking revision request (B1) by adding Chronicles repository link and NuGet package reference.
+  - Added GitHub link to Chronicles repository (https://github.com/chronicles-net/chronicles) in the introduction where the library is first mentioned.
+  - Appended NuGet package name and availability note (`Chronicles` package available via NuGet) naturally at the end of the intro paragraph.
+  - Maintained conversational voice by keeping the sentence structure organic and avoiding boilerplate installation instructions.
+  - Change is surgical: one-line modification in paragraph 1 that introduces both the repo link and the package availability without disrupting narrative flow.
