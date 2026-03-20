@@ -1,6 +1,15 @@
 {
-  "universe": "Blade Runner",
-  "capacity": 8,
-  "overflow_strategy": "diegetic_expansion",
-  "allow_mixing": false
+  "version": 1,
+  "default_team_size": 5,
+  "allowlist": [
+    "alien"
+  ],
+  "selection": {
+    "one_universe_per_assignment": true,
+    "overflow_strategy": [
+      "diegetic-expansion",
+      "thematic-promotion",
+      "structural-mirroring"
+    ]
+  }
 }

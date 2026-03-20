@@ -1,50 +1,38 @@
 {
-  "agents": [
+  "version": 1,
+  "entries": [
     {
-      "persistent_name": "Deckard",
-      "role": "Lead",
-      "universe": "Blade Runner",
-      "created_at": "2026-03-05T20:33:06Z",
+      "persistent_name": "Ripley",
+      "universe": "alien",
+      "created_at": "2026-03-20T14:03:09Z",
       "legacy_named": false,
       "status": "active"
     },
     {
-      "persistent_name": "Rachael",
-      "role": "Content Dev",
-      "universe": "Blade Runner",
-      "created_at": "2026-03-05T20:33:06Z",
+      "persistent_name": "Bishop",
+      "universe": "alien",
+      "created_at": "2026-03-20T14:03:09Z",
       "legacy_named": false,
       "status": "active"
     },
     {
-      "persistent_name": "Pris",
-      "role": "Jekyll Dev",
-      "universe": "Blade Runner",
-      "created_at": "2026-03-05T20:33:06Z",
+      "persistent_name": "Dallas",
+      "universe": "alien",
+      "created_at": "2026-03-20T14:03:09Z",
       "legacy_named": false,
       "status": "active"
     },
     {
-      "persistent_name": "Roy",
-      "role": "Tester",
-      "universe": "Blade Runner",
-      "created_at": "2026-03-05T20:33:06Z",
+      "persistent_name": "Lambert",
+      "universe": "alien",
+      "created_at": "2026-03-20T14:03:09Z",
       "legacy_named": false,
       "status": "active"
     },
     {
-      "persistent_name": "Scribe",
-      "role": "Session Logger",
-      "universe": "exempt",
-      "created_at": "2026-03-05T20:33:06Z",
-      "legacy_named": false,
-      "status": "active"
-    },
-    {
-      "persistent_name": "Ralph",
-      "role": "Work Monitor",
-      "universe": "exempt",
-      "created_at": "2026-03-05T20:33:06Z",
+      "persistent_name": "Hicks",
+      "universe": "alien",
+      "created_at": "2026-03-20T14:03:09Z",
       "legacy_named": false,
       "status": "active"
     }
