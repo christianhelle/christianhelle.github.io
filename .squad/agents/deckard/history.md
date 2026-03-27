@@ -76,3 +76,21 @@
 - **Status:** ✅ Ready for publication to master branch
 - **Decision:** Post approved for immediate merge; all quality gates satisfied
 - **Key Learning:** Redirect aliases require `jekyll-redirect-from` plugin enabled in all config files, not just front matter
+
+### March 19, 2026: Multi-Model Blog Post Evaluation Strategy — Atc.Test Article Selection
+- **Scope:** Analyzed six blog post variants (July 2025 dated) for "Atc.Test - Unit testing for .NET with A Touch of Class" to determine which model/version best aligns with Christian's blog voice and publication standards
+- **Variants Evaluated:**
+  - 2025-07-01: Free/early model; 416 lines; focused, crisp voice; 95.5/100 score
+  - 2025-07-12: Mid-tier model; 833 lines; exhaustive, tutorial tone; 83/100 score
+  - 2025-07-15: Premium model; 391 lines; structured, generic voice; 86.5/100 score
+  - 2025-07-18: Premium model; 505 lines; comprehensive, formal tone; 80/100 score
+  - 2025-07-20: Premium model; 142 lines; REJECTED (insufficient content, 42/100)
+  - 2025-07-22: Free/early model; 375 lines; balanced, pragmatic voice; **94/100 score (WINNER)**
+- **Selection Rubric:** Accuracy (30%), Completeness (25%), Voice Alignment (20%), Maintainability (15%), Signal-to-Noise (10%)
+- **Decision:** Keep 2025-07-22; delete 07-01, 07-12, 07-15, 07-18, 07-20
+- **Rationale:** 2025-07-22 leads on voice alignment (problem-first framing: "ceremony was not"), explicit use-case guidance, xUnit v3 justification depth, and exact-type reuse pattern pedagogy. Matches Christian's established tone (Cabazure.Messaging, Chlogr) better than alternatives
+- **Execution:** Sequential three-phase approach: (1) Code accuracy + redirect audit (Deckard), (2) Build + Playwright validation (Roy) + README update (Pris), (3) Deletion + commit + final validation
+- **Risks Identified:** Slug migration (/dotnet/ → /net/), jekyll-redirect-from plugin verification (critical), archive/tag page crawling (low), external backlink breakage (accepted SEO refresh)
+- **Acceptance Criteria:** Code verification ✅, build clean ✅, Playwright tests pass ✅, README updated, plugin enabled, redirects verified
+- **Documentation:** Full strategy written to `.squad/decisions/deckard-atc-post-selection-strategy.md`
+- **Key Learning:** Multi-variant evaluation requires holistic signal-to-noise assessment; parallelizing variant evaluation is counterproductive (duplicates work, loses context). Sequential cross-check better. Problem-first framing is distinguishing feature of Christian's best posts; voice alignment matters as much as completeness for blog audience.

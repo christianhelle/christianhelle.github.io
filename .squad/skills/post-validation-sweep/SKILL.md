@@ -19,6 +19,8 @@ Use this skill when a new blog post needs a final QA pass and the goal is to ver
 
 ### Build Validation
 
+- If the change deleted or renamed post files, run `bundle exec jekyll clean` before `bundle exec jekyll build`.
+- A plain rebuild can leave stale files in `_site`, which makes removed draft routes look healthy even when they would be missing in a clean publish.
 - Run `bundle exec jekyll build` from the repo root to confirm the site renders into `_site` without Liquid or Markdown failures.
 - Run `dotnet build .\blog.sln` to make sure the Playwright test solution still compiles after the content change.
 
@@ -32,7 +34,14 @@ Use this skill when a new blog post needs a final QA pass and the goal is to ver
 ### Redirect Validation
 
 - If the post uses `redirect_from`, make sure `jekyll-redirect-from` is enabled in `_config.yml`, `_config_dev.yml`, and `_config_prod.yml`; front matter alone is not enough.
+- If a canonical slug changes during cleanup, update manually curated surfaces such as `README.md` to the winning permalink; redirects should protect legacy links, not become the new primary target.
 - After the build, smoke at least the short-link aliases (`/slug/`, `/YYYY/slug/`, `/YYYY/MM/DD/slug/`) and confirm they return redirect pages instead of 404s.
+
+### Variant Collision Audit
+
+- If multiple draft posts share the same month and slug, Jekyll can silently overwrite the generated page while `/archives/` still lists every dated draft.
+- Before selecting a winner, inspect `_site\YYYY\MM\` for the actual generated files and compare `/archives/` entries to the resolved URLs so duplicate-date-to-one-route collisions are caught early.
+- When a winner changes slug family (for example `dotnet` vs `net`), include legacy canonical URLs in the redirect smoke pass before deleting losing variants.
 
 ### Tag Validation
 
