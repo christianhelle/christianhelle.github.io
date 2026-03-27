@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Atc.Test - Unit testing for .NET with A Touch of Class
-date: '2025-07-22'
+date: "2025-07-22"
 author: Christian Helle
 tags:
   - .NET
@@ -11,14 +11,14 @@ tags:
   - NSubstitute
   - FluentAssertions
 redirect_from:
-  - /2025/07/22/atc-test-unit-testing-for-net-with-a-touch-of-class
-  - /2025/07/22/atc-test-unit-testing-for-net-with-a-touch-of-class/
-  - /2025/07/atc-test-unit-testing-for-net-with-a-touch-of-class
-  - /2025/07/atc-test-unit-testing-for-net-with-a-touch-of-class/
-  - /2025/atc-test-unit-testing-for-net-with-a-touch-of-class
-  - /2025/atc-test-unit-testing-for-net-with-a-touch-of-class/
-  - atc-test-unit-testing-for-net-with-a-touch-of-class
-  - atc-test-unit-testing-for-net-with-a-touch-of-class/
+  - /2025/07/22/atc-test-unit-testing-for-dotnet-with-a-touch-of-class
+  - /2025/07/22/atc-test-unit-testing-for-dotnet-with-a-touch-of-class/
+  - /2025/07/atc-test-unit-testing-for-dotnet-with-a-touch-of-class
+  - /2025/07/atc-test-unit-testing-for-dotnet-with-a-touch-of-class/
+  - /2025/atc-test-unit-testing-for-dotnet-with-a-touch-of-class
+  - /2025/atc-test-unit-testing-for-dotnet-with-a-touch-of-class/
+  - atc-test-unit-testing-for-dotnet-with-a-touch-of-class
+  - atc-test-unit-testing-for-dotnet-with-a-touch-of-class/
 ---
 
 I have been writing unit tests in .NET for a long time. Over the years, I have tried many combinations of testing frameworks, mocking libraries, and assertion libraries. For a long time, my go-to stack was xUnit, AutoFixture, NSubstitute, and FluentAssertions. Each of these tools does its job well, but putting them all together in a consistent way across a growing test suite always required a surprising amount of repetitive setup code.
@@ -62,7 +62,7 @@ Add the `Atc.Test` NuGet package to your test project. Since the library is buil
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="xunit.v3" Version="3.0.1" />
-    <PackageReference Include="Atc.Test" Version="$(LatestOrPinned)" />
+    <PackageReference Include="Atc.Test" Version="2.0.17" />
   </ItemGroup>
 </Project>
 ```

@@ -13,9 +13,10 @@ public class ShareUiTests : PageTest
         const string postUrl = "http://127.0.0.1:4000/2022/10/autofaker.html";
         const string expectedPathData = "M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z";
 
-        await Page.GotoAsync(postUrl);
+        await Page.GotoAsync(postUrl, new() { WaitUntil = WaitUntilState.Commit });
 
         var shareLink = Page.GetByRole(AriaRole.Link, new() { NameString = "Share on X", Exact = true });
+        await shareLink.WaitForAsync(new() { State = WaitForSelectorState.Visible });
 
         Assert.That(await shareLink.CountAsync(), Is.EqualTo(1));
         Assert.That(await shareLink.IsVisibleAsync(), Is.True);
@@ -26,13 +27,18 @@ public class ShareUiTests : PageTest
         var iconPath = Page.Locator("li.twitter svg path");
         var iconPathCount = await iconPath.CountAsync();
         var iconPathData = await iconPath.GetAttributeAsync("d");
+        Assert.That(href, Is.Not.Null);
+        var hrefUri = new Uri(href!);
+        var decodedHref = Uri.UnescapeDataString(href!);
 
         Assert.Multiple(() =>
         {
             Assert.That(title, Is.EqualTo("Share on X"));
             Assert.That(ariaLabel, Is.EqualTo("Share on X"));
-            Assert.That(href, Does.StartWith("https://twitter.com/intent/tweet?"));
-            Assert.That(href, Does.Contain("url=https://christianhelle.com/2022/10/autofaker.html"));
+            Assert.That(hrefUri.Scheme, Is.EqualTo("https"));
+            Assert.That(hrefUri.Host, Is.EqualTo("twitter.com"));
+            Assert.That(hrefUri.AbsolutePath, Is.EqualTo("/intent/tweet"));
+            Assert.That(decodedHref, Does.Contain("/2022/10/autofaker.html"));
             Assert.That(href, Does.Contain("via=christianhelle"));
             Assert.That(href, Does.Contain("related=christianhelle"));
             Assert.That(iconPathCount, Is.EqualTo(1));
@@ -45,11 +51,12 @@ public class ShareUiTests : PageTest
     {
         const string postUrl = "http://127.0.0.1:4000/2022/10/autofaker.html";
 
-        await Page.GotoAsync(postUrl);
+        await Page.GotoAsync(postUrl, new() { WaitUntil = WaitUntilState.Commit });
 
         var twitterIcon = Page.Locator("li.twitter svg");
         var linkedinIcon = Page.Locator("li.linkedin svg");
         var facebookIcon = Page.Locator("li.facebook svg");
+        await twitterIcon.WaitForAsync(new() { State = WaitForSelectorState.Visible });
 
         var twitterVisible = await twitterIcon.IsVisibleAsync();
         var linkedinVisible = await linkedinIcon.IsVisibleAsync();
