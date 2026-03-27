@@ -21,11 +21,11 @@ redirect_from:
   - atc-test-unit-testing-for-dotnet-with-a-touch-of-class/
 ---
 
-I have been writing unit tests in .NET for a long time. Over the years, I have tried many combinations of testing frameworks, mocking libraries, and assertion libraries. For a long time, my go-to stack was xUnit, AutoFixture, NSubstitute, and FluentAssertions. Each of these tools does its job well, but putting them all together in a consistent way across a growing test suite always required a surprising amount of repetitive setup code.
+I have been writing unit tests in .NET for a long time. Over the years, I have tried many combinations of testing frameworks, mocking libraries, and assertion libraries. For a long time, my go-to stack was [xUnit](https://xunit.net/), [AutoFixture](https://github.com/AutoFixture/AutoFixture), [NSubstitute](https://nsubstitute.github.io/), and [FluentAssertions](https://fluentassertions.com/). Each of these tools does its job well, but putting them all together in a consistent way across a growing test suite always required a surprising amount of repetitive setup code.
 
 Every test class looked roughly the same: create a fixture, configure it, freeze a dependency, mock something, create the system under test, act, and assert. The pattern was fine, but the ceremony was not. When a constructor changes or a new dependency gets added, you end up touching dozens of test files just to fix the wiring.
 
-[Atc.Test](https://github.com/atc-net/atc-test) is a library from the [ATC](https://github.com/atc-net) organization that solves exactly this problem. It wraps xUnit v3, AutoFixture, NSubstitute, and FluentAssertions into a cohesive, attribute-driven experience that eliminates boilerplate and lets you focus on the behavior you are actually testing.
+[Atc.Test](https://github.com/atc-net/atc-test) is a library from the [ATC](https://github.com/atc-net) organization that solves exactly this problem. It wraps [xUnit](https://xunit.net/) v3, [AutoFixture](https://github.com/AutoFixture/AutoFixture), [NSubstitute](https://nsubstitute.github.io/), and [FluentAssertions](https://fluentassertions.com/) into a cohesive, attribute-driven experience that eliminates boilerplate and lets you focus on the behavior you are actually testing.
 
 This post is a comprehensive guide to using Atc.Test. I will walk through everything from getting started to advanced frozen reuse patterns, auto-registration of customizations, and the helper extensions that ship with the library.
 
@@ -50,7 +50,7 @@ This delivers the most value in mid-to-large test suites with hundreds or more t
 
 ### Installing the Package
 
-Add the `Atc.Test` NuGet package to your test project. Since the library is built on xUnit v3, you also need to explicitly reference xUnit and the test SDK:
+Add the `Atc.Test` NuGet package to your test project. Since the library is built on [xUnit](https://xunit.net/) v3, you also need to explicitly reference xUnit and the test SDK:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -67,23 +67,23 @@ Add the `Atc.Test` NuGet package to your test project. Since the library is buil
 </Project>
 ```
 
-### Why xUnit Must Be Referenced Directly
+### Why [xUnit](https://xunit.net/) Must Be Referenced Directly
 
 This is a deliberate design decision worth understanding. Atc.Test depends on `xunit.v3.extensibility.core` (the extensibility surface) but intentionally does not bring in the full `xunit.v3` meta-package. There are a few reasons for this:
 
 1. **No NU1701 warnings.** Runner assets do not always target `netstandard2.1`, which is one of Atc.Test's target frameworks. Pulling in the full meta-package can cause warnings.
-2. **Version independence.** You can pin or float the xUnit version independently. If you want a different patch or minor version, just change your `<PackageReference>` line. No changes to Atc.Test are required.
+2. **Version independence.** You can pin or float the [xUnit](https://xunit.net/) version independently. If you want a different patch or minor version, just change your `<PackageReference>` line. No changes to Atc.Test are required.
 3. **Separation of concerns.** The library provides attributes and utilities. You own the test infrastructure and runner decisions.
 
-### xUnit v3 Only
+### [xUnit](https://xunit.net/) v3 Only
 
-Atc.Test relies on xUnit v3 extensibility APIs that do not exist in v2. Specifically:
+Atc.Test relies on [xUnit](https://xunit.net/) v3 extensibility APIs that do not exist in v2. Specifically:
 
 - The async data attribute signature: `ValueTask<IReadOnlyCollection<ITheoryDataRow>> GetData(...)`
 - `ITheoryDataRow` with metadata preservation (Label, Explicit, Timeout)
 - The `DisposalTracker` parameter passed to data attributes
 
-This means Atc.Test is **not compatible with xUnit v2**. If you try to swap `xunit.v3` for the v2 `xunit` package, you will get build errors for missing types. If you run with a legacy v2 runner, test discovery will fail.
+This means Atc.Test is **not compatible with [xUnit](https://xunit.net/) v2**. If you try to swap `xunit.v3` for the v2 `xunit` package, you will get build errors for missing types. If you run with a legacy v2 runner, test discovery will fail.
 
 That said, you can mix v2 and v3 projects in the same solution. They just must not share v3-based base test classes.
 
@@ -213,7 +213,7 @@ This is useful when your test data requires construction logic, conditional rows
 
 ## The [Frozen] Attribute
 
-One of the most important concepts in AutoFixture-based testing is **freezing**. When you freeze a value, the same instance is reused for every other parameter in the same test that requires that type. This is critical when you need to set up a mock and then verify that the same mock was used by the system under test.
+One of the most important concepts in [AutoFixture](https://github.com/AutoFixture/AutoFixture)-based testing is **freezing**. When you freeze a value, the same instance is reused for every other parameter in the same test that requires that type. This is critical when you need to set up a mock and then verify that the same mock was used by the system under test.
 
 ### Basic Frozen Reuse
 
@@ -323,7 +323,7 @@ With this in place, every call to `FixtureFactory.Create()` will include your cu
 
 This is particularly useful for:
 
-- **Registering default values** for domain types that AutoFixture cannot construct by default
+- **Registering default values** for domain types that [AutoFixture](https://github.com/AutoFixture/AutoFixture) cannot construct by default
 - **Applying recursion guards** to prevent infinite object graphs
 - **Configuring string generators** to produce realistic test data instead of random gibberish
 - **Setting up custom builders** for types with complex construction logic
@@ -336,7 +336,7 @@ Under the hood, every data attribute in Atc.Test uses `FixtureFactory.Create()` 
 
 1. **RecursionCustomization** - Handles circular references gracefully instead of throwing `ObjectCreationException`.
 2. **AutoRegisterCustomization** - Discovers and applies all `[AutoRegister]`-decorated customizations and specimen builders.
-3. **AutoNSubstituteCustomization** - Configures NSubstitute to generate substitutes for interfaces and abstract classes, with `ConfigureMembers = false` and `GenerateDelegates = true`.
+3. **AutoNSubstituteCustomization** - Configures [NSubstitute](https://nsubstitute.github.io/) to generate substitutes for interfaces and abstract classes, with `ConfigureMembers = false` and `GenerateDelegates = true`.
 
 You can use `FixtureFactory.Create()` directly in your own test setup code if you need a fixture outside of the data attributes:
 
@@ -356,7 +356,7 @@ public void Manual_Fixture_Example()
 
 ## Helper Extensions
 
-Atc.Test ships with several convenience extension classes that reduce boilerplate when working with FluentAssertions and NSubstitute.
+Atc.Test ships with several convenience extension classes that reduce boilerplate when working with [FluentAssertions](https://fluentassertions.com/) and [NSubstitute](https://nsubstitute.github.io/).
 
 ### EquivalencyAssertionOptionsExtensions
 
@@ -503,7 +503,7 @@ The `HasProperties` method is useful as a guard before calling `BeEquivalentTo`,
 
 ## Requirements
 
-Atc.Test targets `netstandard2.1`, `net8.0`, and `net9.0`, giving it broad compatibility across .NET versions. It requires xUnit v3 as the test framework and uses NSubstitute transitively for mocking. FluentAssertions is recommended for assertions.
+Atc.Test targets `netstandard2.1`, `net8.0`, and `net9.0`, giving it broad compatibility across .NET versions. It requires [xUnit](https://xunit.net/) v3 as the test framework and uses [NSubstitute](https://nsubstitute.github.io/) transitively for mocking. [FluentAssertions](https://fluentassertions.com/) is recommended for assertions.
 
 The library is multi-targeted to support teams that are not always on the latest .NET version, while still taking advantage of newer APIs when available.
 
@@ -511,8 +511,8 @@ The library is multi-targeted to support teams that are not always on the latest
 
 Atc.Test brings together the best testing tools in the .NET ecosystem and makes them work as a cohesive unit. The data attributes eliminate boilerplate, the `[Frozen]` attribute ensures consistent mock wiring, and the `[AutoRegister]` attribute lets you establish project-wide testing conventions with a single attribute.
 
-What I like most about this library is that it does not try to replace the tools you already know. It does not hide xUnit, AutoFixture, NSubstitute, or FluentAssertions behind an abstraction. You still use those tools directly when you need to. What Atc.Test does is remove the repetitive setup code that makes tests noisy and fragile to refactoring.
+What I like most about this library is that it does not try to replace the tools you already know. It does not hide [xUnit](https://xunit.net/), [AutoFixture](https://github.com/AutoFixture/AutoFixture), [NSubstitute](https://nsubstitute.github.io/), or [FluentAssertions](https://fluentassertions.com/) behind an abstraction. You still use those tools directly when you need to. What Atc.Test does is remove the repetitive setup code that makes tests noisy and fragile to refactoring.
 
-If you are maintaining a test suite of any meaningful size and you are already using xUnit, AutoFixture, and NSubstitute, this library is a straightforward way to make your tests cleaner and your refactoring safer.
+If you are maintaining a test suite of any meaningful size and you are already using [xUnit](https://xunit.net/), [AutoFixture](https://github.com/AutoFixture/AutoFixture), and [NSubstitute](https://nsubstitute.github.io/), this library is a straightforward way to make your tests cleaner and your refactoring safer.
 
 You can find the full source code, documentation, and examples on the [GitHub repository](https://github.com/atc-net/atc-test). The library is available on [NuGet](https://www.nuget.org/packages/Atc.Test).
