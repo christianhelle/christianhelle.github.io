@@ -62,7 +62,7 @@ Add the `Atc.Test` NuGet package to your test project. Since the library is buil
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="xunit.v3" Version="3.0.1" />
-    <PackageReference Include="Atc.Test" Version="2.0.17" />
+    <PackageReference Include="Atc.Test" Version="1.1.18" />
   </ItemGroup>
 </Project>
 ```
