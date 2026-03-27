@@ -33,6 +33,12 @@
 - When a social icon's artwork uses a smaller native viewBox than its neighbors, the safest normalization is to keep the shared CSS size in `_includes/share.html` and center that glyph inside a matching outer viewBox in its SVG partial instead of changing share markup or URLs.
 - README.md post URLs follow the pattern `https://christianhelle.com/YYYY/MM/slug.html` where the slug is derived from the post filename; new posts go at the top of their year section in reverse chronological order.
 - Post file naming convention: `_posts\YYYY\YYYY-MM-DD-slug.md`; the date prefix becomes Jekyll's post date metadata, and the slug suffix becomes the URL. File lookup is fast with glob; posts are organized by year subdirectory to reduce directory size.
+- The live post URL is driven by the filename slug plus `_config*.yml` permalink rules, not by the front matter title; with `/:categories/:year/:month/:title:output_ext`, same-month draft variants sharing a slug collapse onto one rendered HTML file while `site.posts` still surfaces every source file in archives, tags, pagination, and sitemap output.
+- For the Atc.Test cleanup, the least disruptive public URL is the existing README target `https://christianhelle.com/2025/07/atc-test-unit-testing-for-dotnet-with-a-touch-of-class.html`; if content from a `...-for-net-...` draft wins, rename it to the `dotnet` slug or add a real redirect plan before deleting the old slug.
+- Tag choice is a repo-surface decision, not just editorial metadata: the Atc.Test variants split between `Testing` and `Unit Testing`, so the surviving file determines whether `/tags/` keeps a dedicated `Unit Testing` section or folds the post into the broader `Testing` section only.
+- Current local builds do not emit alias pages for the Atc.Test drafts' `redirect_from` entries; only the two canonical slug HTML files appear in `_site`, so redirect-based cleanup requires explicit redirect support and post-cleanup smoke checks.
+- When the canonical winner changes slug families, manually curated surfaces like `README.md` should be updated to the surviving permalink instead of relying on a redirect alias.
+- In this repo, `redirect_from` front matter only works consistently when `jekyll-redirect-from` is enabled in all committed Jekyll configs: `_config.yml`, `_config_dev.yml`, and `_config_prod.yml`.
 
 ## Orchestration (2026-03-17T13:12:00Z)
 

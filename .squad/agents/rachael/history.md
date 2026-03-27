@@ -219,3 +219,42 @@ Roy completed final validation: all 12 code examples verified against public Cab
 
 
 
+
+## 2026-05-XX: Atc.Test Blog Post Consolidation (Canonicalization)
+
+**Task:** Consolidate six Atc.Test blog post drafts into a single canonical post; fix package version placeholder.
+
+**Work Summary:**
+- Reviewed five losing drafts (2025-07-01, 2025-07-12, 2025-07-15, 2025-07-18, 2025-07-20)
+- Confirmed winning post: 2025-07-22-atc-test-unit-testing-for-net-with-a-touch-of-class.md
+- Verified Atc.Test package version against NuGet.org: **latest stable = 2.0.17** (released 2/8/2026)
+- Fixed placeholder: Changed Version=$(LatestOrPinned)" → Version="2.0.17" (line 65)
+- Front matter validated: Contains comprehensive redirect_from coverage for all slug variations
+- Deleted losing drafts post-verification:
+  - 2025-07-01-atc-test-unit-testing-for-dotnet-with-a-touch-of-class.md
+  - 2025-07-12-atc-test-unit-testing-for-dotnet-with-a-touch-of-class.md
+  - 2025-07-15-atc-test-unit-testing-for-net-with-a-touch-of-class.md
+  - 2025-07-18-atc-test-unit-testing-for-net-with-a-touch-of-class.md
+  - 2025-07-20-atc-test-unit-testing-for-net-with-a-touch-of-class.md
+
+**Fact-Check Notes:**
+- July 1 & 15 drafts had version 2.0.17 (aligned with current NuGet latest)
+- July 18 & 20 drafts had outdated 1.0.0 (stale)
+- July 22 winning post had non-publishable placeholder—now fixed
+- No superior passages identified in losing drafts requiring transplant
+- Winning post already includes comprehensive redirect coverage for:
+  - Full dated paths (/2025/07/22/..., /2025/07/..., /2025/...)
+  - Slug variants with and without trailing slash
+  - Alternative "dotnet" vs ".NET" naming
+
+**Outcome:** Canonical post stable and publishable. No blockers detected.
+
+## Learnings
+
+- **Version Pinning Practice:** For library documentation posts, always pin to a stable released version (not floating, not placeholder). Check NuGet.org or package registry directly; trailing edge package updates (2026 timeline) indicate active maintenance.
+- **Consolidation Pattern:** When merging multiple drafts, the "winner" is determined by:
+  1. Most recent date (freshest perspective)
+  2. Fewest factual inaccuracies
+  3. Best front matter coverage (redirects, tags, structure)
+  4. Avoid transplanting from losing drafts unless passage is demonstrably superior and verifiable
+
