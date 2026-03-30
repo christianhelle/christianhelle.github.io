@@ -1,6 +1,7 @@
 2026
 ----
 
+*   [A comprehensive Zig learning guide for C# Developers](https://christianhelle.com/2026/03/zig-learning-guide-for-csharp-developers.html)
 *   [From AI-Assisted Code Completion to Agentic Software Engineering](https://christianhelle.com/2026/03/from-ai-assisted-code-completion-to-agentic-engineering.html)
 *   [Generate a Changelog from GitHub Actions](https://christianhelle.com/2026/03/generate-changelog-from-github-actions.html)
 *   [Building a Github Changelog Generator in Zig](https://christianhelle.com/2026/03/building-a-github-changelog-generator-in-zig.html)
