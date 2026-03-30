@@ -24,9 +24,15 @@ class ArchivesLinkParser(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag == "a":
             for attr, value in attrs:
-                if attr == "href" and value and value.startswith(f"https://{HOST}/"):
-                    if value not in self.urls:
-                        self.urls.append(value)
+                if attr == "href" and value:
+                    if value.startswith(f"https://{HOST}/"):
+                        url = value
+                    elif value.startswith("/"):
+                        url = f"https://{HOST}{value}"
+                    else:
+                        continue
+                    if url not in self.urls:
+                        self.urls.append(url)
 
 
 def fetch_post_urls():
