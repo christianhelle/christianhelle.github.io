@@ -2,7 +2,6 @@
 """Submit blog post URLs to Bing via the IndexNow API after each deployment."""
 
 import json
-import os
 import sys
 import urllib.request
 import urllib.error
@@ -11,7 +10,7 @@ from html.parser import HTMLParser
 ARCHIVES_URL = "https://christianhelle.com/archives"
 INDEXNOW_ENDPOINT = "https://api.indexnow.org/indexnow"
 HOST = "christianhelle.com"
-API_KEY = os.environ.get("INDEXNOW_KEY", "93f380660c5f48eebdc7eb41b094762e")
+API_KEY = "93f380660c5f48eebdc7eb41b094762e"
 KEY_LOCATION = f"https://{HOST}/{API_KEY}.txt"
 
 

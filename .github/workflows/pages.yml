@@ -80,8 +80,6 @@ jobs:
         uses: actions/checkout@v6
       - name: Submit blog URLs to IndexNow
         run: python3 .github/scripts/indexnow.py
-        env:
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
 
   # Test site for broken links
   test:
