@@ -1,9 +1,12 @@
 ---
 layout: post
 title: Microsoft Development Center Copenhagen - TechFest 2007
+description: Presenting TimeTracker and Mobile Inspection Log solutions at Microsoft TechFest 2007, featuring an MSDN Channel 9 interview and the Imagine Cup 2007 LiveBook project showcase.
 date: '2007-11-27T09:38:00.000+01:00'
 author: Christian Resma Helle
-tags: 
+tags:
+- Windows Mobile
+- Microsoft
 modified_time: '2012-03-12T20:59:59.920+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-4463168550609958334
 blogger_orig_url: https://christian-helle.blogspot.com/2007/11/microsoft-development-center-copenhagen.html

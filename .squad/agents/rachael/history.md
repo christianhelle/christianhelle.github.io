@@ -219,3 +219,133 @@ Roy completed final validation: all 12 code examples verified against public Cab
 
 
 
+
+## 2026-05-XX: Atc.Test Blog Post Consolidation (Canonicalization)
+
+**Task:** Consolidate six Atc.Test blog post drafts into a single canonical post; fix package version placeholder.
+
+**Work Summary:**
+- Reviewed five losing drafts (2025-07-01, 2025-07-12, 2025-07-15, 2025-07-18, 2025-07-20)
+- Confirmed winning post: 2025-07-22-atc-test-unit-testing-for-net-with-a-touch-of-class.md
+- Verified Atc.Test package version against NuGet.org: **latest stable = 2.0.17** (released 2/8/2026)
+- Fixed placeholder: Changed Version=$(LatestOrPinned)" → Version="2.0.17" (line 65)
+- Front matter validated: Contains comprehensive redirect_from coverage for all slug variations
+- Deleted losing drafts post-verification:
+  - 2025-07-01-atc-test-unit-testing-for-dotnet-with-a-touch-of-class.md
+  - 2025-07-12-atc-test-unit-testing-for-dotnet-with-a-touch-of-class.md
+  - 2025-07-15-atc-test-unit-testing-for-net-with-a-touch-of-class.md
+  - 2025-07-18-atc-test-unit-testing-for-net-with-a-touch-of-class.md
+  - 2025-07-20-atc-test-unit-testing-for-net-with-a-touch-of-class.md
+
+**Fact-Check Notes:**
+- July 1 & 15 drafts had version 2.0.17 (aligned with current NuGet latest)
+- July 18 & 20 drafts had outdated 1.0.0 (stale)
+- July 22 winning post had non-publishable placeholder—now fixed
+- No superior passages identified in losing drafts requiring transplant
+- Winning post already includes comprehensive redirect coverage for:
+  - Full dated paths (/2025/07/22/..., /2025/07/..., /2025/...)
+  - Slug variants with and without trailing slash
+  - Alternative "dotnet" vs ".NET" naming
+
+**Outcome:** Canonical post stable and publishable. No blockers detected.
+
+## Learnings
+
+- **Version Pinning Practice:** For library documentation posts, always pin to a stable released version (not floating, not placeholder). Check NuGet.org or package registry directly; trailing edge package updates (2026 timeline) indicate active maintenance.
+- **Consolidation Pattern:** When merging multiple drafts, the "winner" is determined by:
+  1. Most recent date (freshest perspective)
+  2. Fewest factual inaccuracies
+  3. Best front matter coverage (redirects, tags, structure)
+  4. Avoid transplanting from losing drafts unless passage is demonstrably superior and verifiable
+
+
+### 2026-01-23: SEO Content Quality Improvements (Issue #252)
+
+**Task**: Improve content quality and SEO metadata for low-value pages identified in the SEO audit.
+
+**Actions Taken**:
+- Added SEO-friendly `description:` front matter to about.md and projects.md standalone pages
+- Enhanced 9 thin blog posts from 2007-2008 with missing descriptions and tags
+- Focused on posts under 25 lines that had minimal metadata
+- All descriptions written based on existing content - no technical fabrication
+
+**Key Decisions**:
+- Prioritized standalone pages (about, projects) first as they're indexed and valuable
+- Selected oldest, shortest posts from 2007-2008 era (likely Blogger migrations)
+- Added descriptions that are 1-2 sentences, SEO-friendly, and accurate
+- Added relevant tags from existing site taxonomy
+- Maintained Christian's direct, technical, developer-focused voice
+
+**Technical Notes**:
+- Jekyll build succeeded in ~51 seconds after changes
+- All metadata properly formatted in YAML front matter
+- Used existing tag patterns (Windows Mobile, Visual Studio, .NET Compact Framework, etc.)
+
+**Outcome**:
+- PR #260 merged successfully
+- 2 standalone pages improved
+- 9 blog posts enhanced with better SEO metadata
+- All changes maintain technical accuracy and voice consistency
+
+**Lessons**:
+- Older Blogger-migrated posts (2007-2008) often lack `description:` and `tags:`
+- Even short announcement posts benefit from clear SEO descriptions
+- Tags should be consistent with existing taxonomy, not invented
+- Jekyll's build performance is excellent - no need for long timeouts
+
+
+### 2026-03-XX: Internal Linking Strategy (Issue #253)
+
+**Task**: Strengthen internal linking between related blog posts to improve discoverability and SEO for under-indexed pages.
+
+**Actions Taken**:
+- Added 45 contextual internal links across 13 blog posts
+- Focused on 4 main topic clusters:
+  - REST API/OpenAPI Tools (21 links) - largest cluster
+  - Zig/Rust Language Projects (17 links)
+  - Azure Services (2 links)
+  - AI/Agentic Development (5 links)
+- Created comprehensive tracking document at docs/seo/internal-link-plan-2026-03.md
+
+**Key Decisions**:
+- Prioritized HTTP File Generator (2023-11) as central hub - added 6 outbound links
+- Connected complete .http workflow: Generator → Testing → Integration
+- Built Zig learning journey: HTTP File Runner → chlogr → clocz → argiope
+- Used contextual linking (within existing paragraphs or conclusion sections)
+- All links use relative URLs in format /YYYY/MM/post-slug.html
+- Maintained quality over quantity: 3.5 links per post average (range 2-6)
+
+**Reading Flows Enabled**:
+1. REST API Development: HTTP File Generator → Refitter → MSBuild → Alba → HttpTestGen → Integration Testing
+2. Zig Learning Journey: HTTP File Runner → chlogr → clocz → argiope → ZigFaker
+3. Testing Strategies: Alba → Atc.Test → HttpTestGen → Integration Testing
+4. Azure Infrastructure: Cosmos CQRS → Cabazure Messaging → Cabazure Kusto
+
+**Technical Notes**:
+- Jekyll build succeeded in ~51 seconds with all changes
+- Links naturally integrated - no forced placements
+- Anchor text descriptive and relevant
+- All links contextually appropriate to surrounding content
+
+**Link Quality Standards**:
+- ✅ Contextually appropriate and natural
+- ✅ Links in relevant sections (intro, related work, conclusion)
+- ✅ Descriptive anchor text
+- ✅ Genuine reader value
+- ✅ No artificial placements
+- ✅ Maintains Christian's technical voice
+
+**Outcome**:
+- PR #261 merged successfully
+- 13 posts enhanced with internal links
+- Complete tracking document created with statistics and analysis
+- Expected improvements to time-on-site and pages-per-session metrics
+
+**Lessons**:
+- Topic clusters are real and measurable: REST API/OpenAPI is largest (15+ related posts)
+- Hub posts (HTTP File Generator) deserve multiple outbound links to downstream tools
+- Zig/Rust tools form a cohesive learning journey that wasn't previously connected
+- Conclusion sections are ideal for "Related:" style link clusters
+- 2-3 links per post is sustainable; 6+ starts to feel heavy
+- Links should explain relationship, not just point: "for testing with Alba" > "Alba"
+- Creating reading flows is more valuable than random cross-linking

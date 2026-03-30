@@ -17,7 +17,7 @@ redirect_from:
 
 I'm excited to introduce [HttpTestGen](https://github.com/christianhelle/httptestgen), a powerful .NET source generator that automatically converts `.http` files into fully functional C# test code. This innovative tool bridges the gap between API testing in IDEs (like Visual Studio Code with the REST Client extension) and automated testing in your .NET projects.
 
-If you've been using `.http` files to test your APIs manually in Visual Studio or other IDEs, HttpTestGen takes this workflow to the next level by automatically generating unit tests from those same files. This means you can design, test, and validate your APIs using the familiar `.http` syntax, then seamlessly integrate those tests into your automated test suite.
+If you've been using `.http` files to test your APIs manually in Visual Studio or other IDEs, HttpTestGen takes this workflow to the next level by automatically generating unit tests from those same files. I've written about [generating .http files from OpenAPI specs](/2023/11/http-file-generator.html) and [running them as integration tests](/2026/01/integration-testing-with-httprunner.html), and HttpTestGen completes the testing workflow by bringing those manual tests into your automated test suite.
 
 ## What is HttpTestGen?
 
@@ -385,6 +385,8 @@ HttpTestGen is designed for optimal performance:
 - **Memory efficient**: No reflection or dynamic compilation at runtime
 
 ## Integration with Popular Tools
+
+HttpTestGen works seamlessly with the [HTTP File Generator tool](/2023/11/http-file-generator.html) I created for generating .http files from OpenAPI specifications, and pairs well with other .NET testing frameworks like [Alba](/2025/01/testing-refit-interfaces-using-alba.html) and [Atc.Test](/2025/07/atc-test-unit-testing-for-net-with-a-touch-of-class.html).
 
 ### Visual Studio Code
 

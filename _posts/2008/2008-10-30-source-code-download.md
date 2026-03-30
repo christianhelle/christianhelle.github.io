@@ -1,9 +1,13 @@
 ---
 layout: post
 title: Source Code Download
+description: Making Windows Mobile development source code available as Visual Studio solutions on GitHub, including samples and articles published on the blog.
 date: '2008-10-30T10:33:00.008+01:00'
 author: Christian Resma Helle
-tags: 
+tags:
+- Windows Mobile
+- ".NET Compact Framework"
+- Source Code
 modified_time: '2008-10-30T13:04:23.372+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-2997965583255080778
 blogger_orig_url: https://christian-helle.blogspot.com/2008/10/source-code-download.html

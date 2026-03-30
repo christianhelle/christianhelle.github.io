@@ -674,3 +674,5 @@ This setup ensures that every change is validated against your API, providing fa
 By combining the simplicity of `.http` files with the advanced features of `httprunner`, you can build a robust integration testing suite that lives right alongside your code. It's version-controlled, easy to read, and powerful enough for complex scenarios involving authentication, chaining, and conditional logic.
 
 Give it a try and let me know what you think!
+
+This integration testing workflow builds on my earlier work with .http files. You can [generate .http files from OpenAPI specs](/2023/11/http-file-generator.html), [convert them to automated tests with HttpTestGen](/2025/09/httptestgen-dotnet-testing-framework.html), or test generated Refit clients with [Alba](/2025/01/testing-refit-interfaces-using-alba.html).

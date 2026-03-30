@@ -427,3 +427,5 @@ services.AddEventStore(
 ```
 
 If you're interested in the full source code then you can grab it [here](/assets/samples/AtcCosmosEventStoreCqrs.zip).
+
+These CQRS and Event Sourcing patterns work well with modern Azure messaging and analytics infrastructure. For event processing with Azure Service Bus and Event Hubs, check out [Cabazure Messaging](/2025/08/azure-messaging-with-cabazure.html), and for analyzing event data with Azure Data Explorer, see [Cabazure Kusto](/2025/12/azure-kusto-with-cabazure.html).

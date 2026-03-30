@@ -204,3 +204,38 @@ When documenting a library or tool authored by someone else (especially open-sou
 5. Merge user directives into main decision entry (not orphaned in inbox)
 
 **Impact:** Maintains credibility with readers and respects open-source maintainers' work. Positions blog post as authoritative documentation source, not invention claim.
+
+### Atc.Test Blog Post - Project Links Update
+**Decided:** 2026-03-27  
+**Owner:** Rachael  
+**Status:** Completed
+
+Enhanced the canonical Atc.Test blog post (`_posts/2025/2025-07-22-atc-test-unit-testing-for-net-with-a-touch-of-class.md`) with official hyperlinks for all four primary testing libraries referenced throughout the article.
+
+#### Links Added
+
+| Project | URL | Locations |
+|---------|-----|-----------|
+| xUnit | https://xunit.net/ | 5 |
+| AutoFixture | https://github.com/AutoFixture/AutoFixture | 3 |
+| NSubstitute | https://nsubstitute.github.io/ | 3 |
+| FluentAssertions | https://fluentassertions.com/ | 2 |
+
+#### Implementation
+
+- 13 hyperlinks total integrated across 10 article sections
+- Links placed naturally within prose context (opening paragraph, installation, why/xUnit sections, frozen attributes, auto-registration, fixture factory, helper extensions, requirements, conclusion)
+- Standard markdown syntax throughout
+- No modifications to code blocks, technical annotations, or unrelated content
+- Post voice and style preserved
+
+#### Verification
+
+✓ All links render correctly in Jekyll build  
+✓ Links point to correct official project sites  
+✓ No unintended side effects or broken links  
+✓ Markdown validation passed
+
+#### Outcome
+
+Post enhanced with official project references, improving reader navigation to library documentation and crediting project maintainers.

@@ -1,9 +1,12 @@
 ---
 layout: post
 title: Cepa Mobility - Enabling the Disabled
+description: Highlighting Cepa Mobility's inspiring work developing Windows Mobile solutions to enable people with disabilities through assistive communication technology.
 date: '2008-01-01T23:25:00.002+01:00'
 author: Christian Resma Helle
-tags: 
+tags:
+- Windows Mobile
+- Accessibility
 modified_time: '2009-09-25T15:58:41.691+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1466139380673023419
 blogger_orig_url: https://christian-helle.blogspot.com/2008/01/cepa-mobility-enabling-disabled.html
