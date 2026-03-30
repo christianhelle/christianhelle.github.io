@@ -690,4 +690,6 @@ Building [HTTP File Runner](https://github.com/christianhelle/httprunner) in Zig
 
 The modular code structure makes the project maintainable and extensible. Each component, from HTTP parsing to response validation, is cleanly separated, making it easy to add new features or modify existing behavior.
 
-Give it a try and let me know what you think! If you find it useful, consider starring the repository or sharing it with fellow developers.
+Give it a try and let me know what you think! If you find it useful, consider considering starring the repository or sharing it with fellow developers.
+
+I later [rewrote this tool in Rust](/2025/10/httprunner-zig-to-rust-rewrite.html) to compare the two languages, and have since built more Zig tools like [chlogr](/2025/11/building-a-github-changelog-generator-in-zig.html), [clocz](/2026/02/building-clocz-zig-line-counter.html), and [argiope](/2026/03/building-argiope-web-crawler-broken-link-detector.html).

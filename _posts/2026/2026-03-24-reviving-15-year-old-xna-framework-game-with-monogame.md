@@ -10,14 +10,14 @@ tags:
   - Agents
   - .NET
 redirect_from:
-  - /2026/03/24/reviving-20-year-old-xna-framework-game-with-monogame
-  - /2026/03/24/reviving-20-year-old-xna-framework-game-with-monogame/
-  - /2026/03/reviving-20-year-old-xna-framework-game-with-monogame
-  - /2026/03/reviving-20-year-old-xna-framework-game-with-monogame/
-  - /2026/reviving-20-year-old-xna-framework-game-with-monogame
-  - /2026/reviving-20-year-old-xna-framework-game-with-monogame/
-  - /reviving-20-year-old-xna-framework-game-with-monogame
-  - /reviving-20-year-old-xna-framework-game-with-monogame/
+  - /2026/03/24/reviving-15-year-old-xna-framework-game-with-monogame
+  - /2026/03/24/reviving-15-year-old-xna-framework-game-with-monogame/
+  - /2026/03/reviving-15-year-old-xna-framework-game-with-monogame
+  - /2026/03/reviving-15-year-old-xna-framework-game-with-monogame/
+  - /2026/reviving-15-year-old-xna-framework-game-with-monogame
+  - /2026/reviving-15-year-old-xna-framework-game-with-monogame/
+  - /reviving-15-year-old-xna-framework-game-with-monogame
+  - /reviving-15-year-old-xna-framework-game-with-monogame/
 ---
 
 I recently revived [Chris' Puzzle Game](https://github.com/christianhelle/xnapuzzlegame), an old sliding puzzle game I originally built with XNA for Windows Phone. The result is a modern [MonoGame port](https://github.com/christianhelle/puzzlegame-mono) that targets current versions of .NET and runs as a desktop application on Windows.

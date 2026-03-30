@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Projects
+description: Open source projects and tools for .NET developers including Refitter, REST API Client Code Generators, HTTP File Generator, and various developer productivity tools for OpenAPI, testing, and API development.
 permalink: /projects/
 ---
 

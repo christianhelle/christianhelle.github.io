@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+description: Christian Helle is a Microsoft MVP and experienced Application Developer/Architect specializing in cloud, mobile, and API development with over 20 years of experience building developer tools and open source projects.
 permalink: /about/
 redirect_from:
     - /blog/author/admin/

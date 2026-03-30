@@ -27,7 +27,11 @@ public class BlogArchiveTests : PageTest
 
     private static async Task WaitForPageAsync(IPage page, string url)
     {
-        await page.WaitForURLAsync(url, new() { WaitUntil = WaitUntilState.DOMContentLoaded });
+        var expectedPath = new Uri(url).AbsolutePath;
+        await page.WaitForURLAsync(
+            currentUrl => Uri.TryCreate(currentUrl, UriKind.Absolute, out var currentUri) &&
+                          string.Equals(currentUri.AbsolutePath, expectedPath, StringComparison.OrdinalIgnoreCase),
+            new() { WaitUntil = WaitUntilState.Commit });
     }
 
     private async Task CrawlArchiveLinks(IBrowserType browserType, string baseUrl, string startUrl)

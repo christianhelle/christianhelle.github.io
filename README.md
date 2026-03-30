@@ -2,9 +2,9 @@
 ----
 
 *   [Reviving a 20 year old XNA Framework game with MonoGame](https://christianhelle.com/2026/03/reviving-20-year-old-xna-framework-game-with-monogame.html)
+*   [From AI-Assisted Code Completion to Agentic Software Engineering](https://christianhelle.com/2026/03/from-ai-assisted-code-completion-to-agentic-engineering.html)
 *   [Generate a Changelog from GitHub Actions](https://christianhelle.com/2026/03/generate-changelog-from-github-actions.html)
 *   [Building a Github Changelog Generator in Zig](https://christianhelle.com/2026/03/building-a-github-changelog-generator-in-zig.html)
-*   [From AI-Assisted Code Completion to Agentic Software Engineering](https://christianhelle.com/2026/03/from-ai-assisted-code-completion-to-agentic-engineering.html)
 *   [ZigFaker - A Zig library to minimize unit testing ceremony](https://christianhelle.com/2026/03/zigfaker.html)
 *   [Building a web crawler and broken link detector in Zig](https://christianhelle.com/2026/03/building-argiope-web-crawler-broken-link-detector.html)
 *   [Modernizing REST API Client Code Generator with the New Visual Studio Extensibility Model](https://christianhelle.com/2026/02/building-rest-api-client-code-generator-with-new-vs-extensibility-model.html)
@@ -18,6 +18,7 @@
 *   [Rewriting HTTP File Runner in Rust (from Zig)](https://christianhelle.com/2025/10/httprunner-zig-to-rust-rewrite.html)
 *   [HttpTestGen - .http file testing framework for .NET](https://christianhelle.com/2025/09/httptestgen-dotnet-testing-framework.html)
 *   [Azure Messaging with Cabazure](https://christianhelle.com/2025/08/azure-messaging-with-cabazure.html)
+*   [Atc.Test - Unit testing for .NET with A Touch of Class](https://christianhelle.com/2025/07/atc-test-unit-testing-for-net-with-a-touch-of-class.html)
 *   [Run .http files from the command line using a fast, small, single binary tool](https://christianhelle.com/2025/06/http-file-runner-zig-tool.html)
 *   [A faster Azure DevOps CLI written in Rust](https://christianhelle.com/2025/06/azure-devops-cli.html)
 *   [SQLite Query Analyzer - A Decade-Long Journey with C++ and Qt](https://christianhelle.com/2025/05/sqlite-query-analyzer-revisited.html)
