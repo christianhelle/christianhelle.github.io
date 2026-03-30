@@ -1,9 +1,12 @@
 ---
 layout: post
 title: Microsoft Dynamics Convergence 2007 - Copenhagen
+description: Speaking at Microsoft Dynamics Convergence 2007 in Copenhagen about extending Microsoft Dynamics solutions with mobile applications and demonstrating the TimeTracker application.
 date: '2007-10-24T21:33:00.000+02:00'
 author: Christian Resma Helle
-tags: 
+tags:
+- Microsoft Dynamics
+- Windows Mobile
 modified_time: '2007-10-24T21:48:55.733+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-1008038308534286526
 blogger_orig_url: https://christian-helle.blogspot.com/2007/10/microsoft-dynamics-convergence-2007.html

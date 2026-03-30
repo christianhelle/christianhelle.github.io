@@ -1,6 +1,7 @@
 ---
 layout: post
 title: WISP Lite in Managed Code
+description: Alex Feinman's blog post about using WISP Lite managed wrapper for Windows Mobile 6.0 development in .NET Compact Framework.
 date: '2007-06-29T20:16:00.000+02:00'
 author: Christian Resma Helle
 tags:
