@@ -20,7 +20,7 @@ redirect_from:
   - /reviving-15-year-old-xna-framework-game-with-monogame/
 ---
 
-I recently revived [Chris' Puzzle Game](https://github.com/christianhelle/xnapuzzlegame), an old sliding puzzle game I originally built with XNA for Windows Phone. The result is a modern [MonoGame port](https://github.com/christianhelle/puzzlegame-mono) that targets current versions of .NET and runs as a desktop application on Windows.
+I recently revived [Chris' Puzzle Game](https://github.com/christianhelle/xnapuzzlegame), an old sliding puzzle game I originally for Windows Mobile then re-wrote using XNA for Windows Phone. The result is a modern [MonoGame port](https://github.com/christianhelle/puzzlegame-mono) that targets current versions of .NET and runs as a desktop application on Windows.
 
 What made this project especially interesting is that I did not port it the traditional way. This was a pure agentic engineering exercise using GitHub Copilot CLI together with [Squad](https://github.com/christianhelle/blog/tree/master/.squad). I gave the agents a goal, pointed them at the original repository, and let them work through the migration with the old game as the behavior reference.
 
@@ -366,7 +366,7 @@ What changed was everything around those core behaviors. The code is cleaner, th
 
 That is the best kind of rewrite. The spirit stays the same while the codebase stops fighting the platform.
 
-## Why MonoGame was the right choice
+## Why MonoGame?
 
 MonoGame is a very natural destination for old XNA projects. The conceptual model is close enough that the original structure still makes sense, but the tooling and runtime are current enough that the project can live comfortably in a modern .NET ecosystem.
 
