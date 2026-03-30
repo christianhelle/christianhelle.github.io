@@ -251,3 +251,5 @@ The GitHub Actions workflow (`release.yml`) builds binaries for Linux (x86_64, a
 ## Conclusion
 
 I was pleasantly surprised by how productive I could be with Zig after working with it on-and-off for half a year, building a performant and cross-platform tool in such a short amount of time. If you want to check it out or contribute, the source code is on GitHub at [https://github.com/christianhelle/clocz](https://github.com/christianhelle/clocz).
+
+This was part of my ongoing Zig learning journey. For more Zig projects, see [HTTP File Runner](/2025/06/http-file-runner-zig-tool.html), [chlogr](/2025/11/building-a-github-changelog-generator-in-zig.html), [argiope](/2026/03/building-argiope-web-crawler-broken-link-detector.html), and [ZigFaker](/2026/03/zigfaker.html).

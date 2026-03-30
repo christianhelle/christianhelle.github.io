@@ -724,3 +724,5 @@ The current implementation has several limitations worth noting:
 Building chlogr was a good exercise in working with Zig's standard library for HTTP, JSON parsing, and string allocation. The tool generates a useful artifact (changelogs) while demonstrating real-world concerns like credential handling, API integration, and Markdown formatting.
 
 The source code is on GitHub at [https://github.com/christianhelle/chlogr](https://github.com/christianhelle/chlogr). If you need to automatically generate changelogs from GitHub, give it a try. Contributions and improvements are welcome!
+
+This was one of several Zig projects I've built to learn the language. For other Zig tools, see [HTTP File Runner](/2025/06/http-file-runner-zig-tool.html), [clocz](/2026/02/building-clocz-zig-line-counter.html), [argiope](/2026/03/building-argiope-web-crawler-broken-link-detector.html), and [ZigFaker](/2026/03/zigfaker.html). You might also be interested in how I [automated changelog generation in GitHub Actions](/2026/03/generate-changelog-from-github-actions.html).

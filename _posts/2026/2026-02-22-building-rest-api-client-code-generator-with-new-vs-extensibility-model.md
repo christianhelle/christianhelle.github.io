@@ -353,3 +353,5 @@ Both the old (Dev17) and new (Extensibility) projects reference the same [**Core
 Migrating to the new Visual Studio Extensibility model has been a significant step forward. The performance gains from .NET 8.0, the stability of the out-of-process model, and the improved developer experience with modern APIs make it well worth the effort.
 
 If you're a Visual Studio extension author, I highly recommend looking into this new model. And if you're a user of the REST API Client Code Generator, I hope you enjoy the faster, more stable experience!
+
+This extension builds on years of OpenAPI tooling work. For related approaches to API client generation, see my posts on [Kiota](/2023/02/visual-studio-kiota.html) and [Refitter](/2023/03/refitter.html), both of which offer alternative code generation strategies from OpenAPI specs.

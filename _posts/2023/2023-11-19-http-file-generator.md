@@ -137,7 +137,7 @@ and produces the following files:
 -rw-r--r--  1 christian  staff  135 Nov 13 22:40 UploadFile.http
 ```
 
-For me, .http files seems to be the way going forward.
+For me, .http files seems to be the way going forward. I've since expanded the .http file workflow in several ways, including [converting to cURL requests](/2024/01/curl-request-generator.html), [environment variable support](/2024/05/generate-http-file-env.html), [executing them as automated tests](/2025/09/httptestgen-dotnet-testing-framework.html), and even [integration testing workflows](/2026/01/integration-testing-with-httprunner.html).
 
 There are of course a few challenges in adopting this in my daily workflows. Swagger UI has [Authentication and Authorization](https://swagger.io/docs/specification/v3_0/authentication/) built-in and is extremely easy to implement and enable. In fact, enabling security is the first thing I do when I setup a new API project.
 
@@ -214,7 +214,7 @@ Once the **REST Client** extension installed you should be able to see a **Send 
 
 ### Using .http files from JetBrains Rider
 
-JetBrains IDE's come with a built-in HTTP Client that supports `.http` files.
+JetBrains IDE's come with a built-in HTTP Client that supports `.http` files. IntelliJ IDEA can also [generate .http files from OpenAPI specs with built-in tests](/2024/12/generate-http-files-with-intellij-tests.html).
 
 ![Rider HTTP Client - .http file](/assets/images/rider-http-file.png)
 
