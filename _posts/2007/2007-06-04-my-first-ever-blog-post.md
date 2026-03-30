@@ -1,9 +1,11 @@
 ---
 layout: post
 title: My first ever blog post
+description: Christian Helle introduces his new blog focused on Windows Mobile development and Visual Studio Team System from Copenhagen, Denmark.
 date: '2007-06-04T07:54:00.000+02:00'
 author: Christian Resma Helle
-tags: 
+tags:
+- blogging
 modified_time: '2007-06-04T11:10:36.545+02:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-5968416529503462172
 blogger_orig_url: https://christian-helle.blogspot.com/2007/06/my-first-ever-blog-post.html

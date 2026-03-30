@@ -1,9 +1,12 @@
 ---
 layout: post
 title: Chris' Puzzle Game for Windows Mobile
+description: A casual puzzle game for Windows Mobile developed during Easter holiday, perfect for passing time while traveling.
 date: '2008-04-10T15:03:00.004+02:00'
 # author: Christian Resma Helle
-tags: 
+tags:
+- Windows Mobile
+- Game Development
 modified_time: '2008-11-03T14:22:15.478+01:00'
 blogger_id: tag:blogger.com,1999:blog-4995334164049002857.post-2945677375841407311
 blogger_orig_url: https://christian-helle.blogspot.com/2008/04/chris-puzzle-game.html
