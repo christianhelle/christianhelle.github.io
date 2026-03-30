@@ -239,3 +239,215 @@ Enhanced the canonical Atc.Test blog post (`_posts/2025/2025-07-22-atc-test-unit
 #### Outcome
 
 Post enhanced with official project references, improving reader navigation to library documentation and crediting project maintainers.
+
+### SEO URL Audit Strategy
+**Decided:** 2026-03-30  
+**Owner:** Deckard  
+**Status:** Completed  
+**Issue:** #248 | **PR:** #256
+
+Conducted comprehensive audit of all 504 generated HTML pages and classified root causes of indexing issues. Primary finding: 356 redirect stub pages (jekyll-redirect-from plugin) are bulk of "crawled but not indexed" — this is **expected behavior**, not a problem.
+
+#### Key Findings
+
+- **Blog Posts (129):** Valuable content, keep indexed
+- **Redirect Stubs (356):** jekyll-redirect-from generated; already have `noindex` meta tags; expected to be crawled but not indexed
+- **Utility Pages (6):** Archives, tags, privacy are noindex candidates; about, projects, homepage keep indexed
+- **Root Cause:** No conditional robots meta logic for utility pages (remediated in #249)
+
+#### Remediation
+
+Created 6 sub-issues (#249-#254) for targeted fixes focusing on utility page noindex directives, content quality, and internal linking strategy.
+
+**Deliverable:** `docs/seo/non-indexed-url-audit-2026-03.md` (339 lines)
+
+#### Key Principle
+
+Distinguish between expected architectural behavior (redirect stubs with noindex) and actual indexing problems (utility pages without noindex).
+
+### Conditional Robots Meta Tag Pattern
+**Decided:** 2026-03-30  
+**Owner:** Pris  
+**Status:** Completed  
+**Issue:** #249 | **PR:** #257
+
+Implemented conditional robots meta tag pattern in `_includes/head.html` allowing any page to control crawler indexing via front matter without plugin dependencies:
+
+```liquid
+{%- if page.robots -%}
+<meta name="robots" content="{{ page.robots }}">
+{%- endif -%}
+```
+
+#### Implementation
+
+Applied to three utility pages identified in SEO audit:
+- `archives.html` — post listing duplicate of homepage navigation
+- `tags.html` — tag cloud, navigation-only page
+- `privacy.md` — legal boilerplate with no unique value
+
+Each page now has: `sitemap: false` + `robots: noindex,follow`
+
+#### Verification
+
+- ✅ Utility pages excluded from `_site/sitemap.xml`
+- ✅ Noindex meta tag renders in generated HTML
+- ✅ Blog posts and other pages unaffected
+- ✅ Follow directive preserves link equity while preventing indexing
+
+#### Team Impact
+
+Pattern is reusable for future utility/internal pages. Content team can now control page indexing with simple front matter.
+
+### Canonical Tags Verification — No Fixes Required
+**Decided:** 2026-03-30  
+**Owner:** Pris  
+**Status:** Completed  
+**Issue:** #250 | **PR:** #258
+
+Verified comprehensive canonical tag architecture — no changes required. All 504 HTML pages have correct canonical tags using production URL (https://christianhelle.com). All 356 redirect stubs have canonical tags pointing to correct target URLs with noindex directives. No slug collisions, consistent .html extension, zero broken references.
+
+#### Key Insight
+
+"Crawled but not indexed" issues for redirect stubs are NOT canonical tag problems. Redirect stubs should remain "crawled but not indexed" — this is correct behavior. The site's SEO architecture is sound for canonical URL management.
+
+**Deliverable:** `docs/seo/canonical-tags-verification-2026-03.md`
+
+### Internal Link SEO Verification — No Changes Required
+**Decided:** 2026-03-30  
+**Owner:** Pris  
+**Status:** Completed  
+**Issue:** #251 | **PR:** #259
+
+Verified all internal linking structure follows SEO best practices. All internal links use canonical URLs (/YYYY/MM/post-slug.html). Zero redirect stub references in internal navigation. All 356 stubs properly configured with noindex. Sitemap clean with only canonical URLs. README.md uses production URLs throughout.
+
+#### Best Practices Confirmed
+
+✅ Canonical URLs in internal navigation  
+✅ Redirect stubs isolated for backward compatibility  
+✅ Sitemap optimization  
+✅ Template implementation using Jekyll filters  
+✅ Production URLs throughout  
+
+**Deliverable:** `issue-251-verification-report.md`
+
+#### Key Takeaway
+
+When plugins are correctly configured from the start, verification is the deliverable. Documentation of "no issues found" provides value by confirming architectural soundness and establishing baseline for future audits.
+
+### Content Quality Improvements Strategy
+**Decided:** 2026-03-30  
+**Owner:** Rachael  
+**Status:** Completed  
+**Issue:** #252 | **PR:** #260
+
+When improving thin content from older blog posts (especially 2007-2013 Blogger migrations), focus on metadata enhancement:
+
+1. **Add missing `description:` front matter** — Write 1-2 sentence SEO-friendly descriptions based on existing content
+2. **Add missing `tags:`** — Use existing site taxonomy, don't invent new tags
+3. **Never fabricate technical details** — Only enhance metadata and context that's clearly inferable
+4. **Prioritize indexed valuable pages first** — Standalone pages (about, projects) before blog posts
+
+#### Selection Criteria
+
+- Line count under 25 (very thin)
+- Missing `description:` front matter
+- Missing or empty `tags:`
+- From 2007-2013 era (Blogger migration period)
+- Has a valuable title/topic worth preserving
+
+#### What NOT to Do
+
+- ❌ Don't fabricate technical content or code examples
+- ❌ Don't change post dates, permalinks, or categories
+- ❌ Don't modify the core technical meaning
+- ❌ Don't invent new tag names — use existing taxonomy
+- ❌ Don't add content that wasn't clearly in the original
+
+#### Results
+
+11 pages improved (about.md, projects.md, 9 older blog posts) with consistent metadata standards while preserving Christian's authentic developer voice.
+
+### Internal Linking Strategy for Under-Indexed Posts
+**Decided:** 2026-03-30  
+**Owner:** Rachael  
+**Status:** Completed  
+**Issue:** #253 | **PR:** #261
+
+Implemented **cluster-based internal linking strategy** that groups related posts by topic and creates contextual cross-links to improve discoverability and SEO signal. Quality over quantity: 2-4 links per post (sustainable, not overwhelming).
+
+#### Topic Clusters Identified
+
+1. **REST API/OpenAPI Tools** (15+ posts)
+   - Hub: HTTP File Generator (2023-11)
+   - Tools: Refitter, Kiota, HttpTestGen, Integration Testing
+   - Workflow: Generate → Test → Integrate
+
+2. **Zig/Rust Language Projects** (8+ posts)
+   - Journey: HTTP File Runner → chlogr → clocz → argiope
+   - Language comparison: Zig vs Rust rewrite
+
+3. **Azure Services** (4+ posts)
+   - Progression: Cosmos → CQRS → Messaging → Analytics
+
+4. **Testing Frameworks** (.NET ecosystem)
+   - Alba, Atc.Test, HttpTestGen cross-links
+
+#### Results
+
+- **45 contextual links** added across 13 posts
+- **4 reading flows** established
+- **Average 3.5 links per post** (range 2-6)
+- **Zero forced placements** — all links contextually appropriate
+
+#### Link Quality Standards
+
+All links must be:
+- ✅ Contextually appropriate (fits naturally in surrounding content)
+- ✅ Value-adding (helps reader discover genuinely related content)
+- ✅ Descriptive (explains relationship, not just points)
+- ✅ Voice-preserving (maintains Christian's direct, technical style)
+
+#### Rationale
+
+Blog naturally organizes into topic ecosystems where related posts build on each other. Readers arriving at one post in a cluster are likely interested in related topics. Hub posts like HTTP File Generator transform from dead-ends into gateways to the entire ecosystem.
+
+**Deliverable:** `docs/seo/internal-link-plan-2026-03.md` (complete tracking table with contextual justification)
+
+#### Success Metrics
+
+**Short-term (3 months):**
+- Increased pages per session
+- Reduced bounce rate on cluster posts
+- Longer time on site
+
+**Long-term (6+ months):**
+- Improved search rankings for cluster keywords
+- Better Google understanding of topic authority
+- Increased organic traffic to under-indexed posts
+
+### SEO Reindex Tracker
+**Decided:** 2026-03-30  
+**Owner:** Rachael  
+**Status:** Completed  
+**Issue:** #254 | **PR:** #262
+
+Created reindex tracking document consolidating baseline metrics and next steps for Google Search Console reindex request.
+
+#### Baseline Metrics
+
+- URLs remediated: 504 total (356 redirect stubs, 129 blog posts, 19 utility/special)
+- Noindex additions: 3 utility pages (archives, tags, privacy)
+- Content improvements: 11 pages enhanced with metadata
+- Internal links added: 45 across 13 posts
+- Canonical verification: 100% coverage, all correct
+
+#### Next Steps
+
+1. Submit GSC reindex request for improved pages
+2. Monitor GSC for reindex of enhanced pages (2-4 week window)
+3. Analyze impact on "crawled but not indexed" warnings for utility pages
+4. Track improvements in search rankings for cluster keywords
+5. Plan second-pass internal linking from newer posts (2023+) to existing clusters
+
+**Deliverable:** `docs/seo/reindex-tracker-2026-03.md`

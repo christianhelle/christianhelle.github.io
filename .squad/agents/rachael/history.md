@@ -349,3 +349,67 @@ Roy completed final validation: all 12 code examples verified against public Cab
 - 2-3 links per post is sustainable; 6+ starts to feel heavy
 - Links should explain relationship, not just point: "for testing with Alba" > "Alba"
 - Creating reading flows is more valuable than random cross-linking
+
+---
+
+## Issue #254: Re-indexing Tracker for SEO-Improved Pages
+
+**Date:** March 30, 2026
+
+**Summary:**
+Created `docs/seo/reindex-tracker-2026-03.md` to track all pages improved across the SEO audit remediation (issues #248-#253) for Google Search Console re-indexing requests.
+
+**What Was Created:**
+- Comprehensive re-indexing tracking document with instructions for using Google Search Console
+- Tracking table with columns: URL, Change Type, Issue, Deployed Date, Requested Indexing, Indexed?, Notes
+- Summary of all SEO changes across 6 issues with 24 unique URLs to submit
+
+**Pages Tracked:**
+
+1. **Noindexed Utility Pages (3)** - DO NOT submit for indexing:
+   - `/archives/`, `/tags/`, `/privacy/` (issue #249)
+
+2. **Content Quality Improvements (11)**: 
+   - `/about/` and `/projects/` with new SEO descriptions
+   - 9 historic blog posts (2007-2008) with improved metadata and tags
+
+3. **Internal Link Enhancements (13)**:
+   - HTTP File Generator and related REST API tools cluster (6 posts)
+   - Zig/Rust language learning ecosystem (5 posts)  
+   - Cosmos CQRS and Azure services (1 post)
+   - AI/Agentic Development main article (1 post)
+
+**Document Features:**
+- Clear step-by-step instructions for Google Search Console URL Inspection tool
+- Note about expected 2-6 week re-indexing timeline
+- Weekly monitoring checklist with key metrics
+- References to related SEO documentation
+- Batch submission recommendations to manage crawl budget
+
+**Key Insight:**
+The tracker consolidates 3+ months of SEO work into a single actionable document. Christian can submit URLs in batches without worrying about which issue each came from—the tracker cross-references everything. This reduces manual tracking burden and ensures nothing falls through the cracks.
+
+**Technical Notes:**
+- 184-line markdown document
+- Jekyll build completed successfully
+- PR #262 merged without issues
+- Document is accessible at `/docs/seo/reindex-tracker-2026-03.md`
+
+**Process:**
+1. Gathered commit details from PR #260 (issue #252) and #261 (issue #253) commits
+2. Cross-referenced with internal-link-plan-2026-03.md for exact list of 13 posts
+3. Combined with noindex changes from issue #249
+4. Created comprehensive tracking table with all metadata
+5. Added Google Search Console instructions for Christian's use
+6. Documented expected timeline and monitoring approach
+
+**Outcome:**
+- PR #262 merged to master
+- Commented on issue #254 with summary of tracker contents
+- All tracking complete and ready for Christian to submit URLs for indexing
+
+**Lessons:**
+- Consolidating tracking across multiple issues into one document is more valuable than issue-specific trackers
+- Include instructions in tracking documents—not everyone uses every tool the same way
+- Expected timelines and monitoring guidance should be part of the tracker, not separate
+- Cross-referencing related SEO documentation helps context and prevents reinvention
