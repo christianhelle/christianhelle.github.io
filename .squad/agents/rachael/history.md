@@ -292,3 +292,60 @@ Roy completed final validation: all 12 code examples verified against public Cab
 - Even short announcement posts benefit from clear SEO descriptions
 - Tags should be consistent with existing taxonomy, not invented
 - Jekyll's build performance is excellent - no need for long timeouts
+
+
+### 2026-03-XX: Internal Linking Strategy (Issue #253)
+
+**Task**: Strengthen internal linking between related blog posts to improve discoverability and SEO for under-indexed pages.
+
+**Actions Taken**:
+- Added 45 contextual internal links across 13 blog posts
+- Focused on 4 main topic clusters:
+  - REST API/OpenAPI Tools (21 links) - largest cluster
+  - Zig/Rust Language Projects (17 links)
+  - Azure Services (2 links)
+  - AI/Agentic Development (5 links)
+- Created comprehensive tracking document at docs/seo/internal-link-plan-2026-03.md
+
+**Key Decisions**:
+- Prioritized HTTP File Generator (2023-11) as central hub - added 6 outbound links
+- Connected complete .http workflow: Generator → Testing → Integration
+- Built Zig learning journey: HTTP File Runner → chlogr → clocz → argiope
+- Used contextual linking (within existing paragraphs or conclusion sections)
+- All links use relative URLs in format /YYYY/MM/post-slug.html
+- Maintained quality over quantity: 3.5 links per post average (range 2-6)
+
+**Reading Flows Enabled**:
+1. REST API Development: HTTP File Generator → Refitter → MSBuild → Alba → HttpTestGen → Integration Testing
+2. Zig Learning Journey: HTTP File Runner → chlogr → clocz → argiope → ZigFaker
+3. Testing Strategies: Alba → Atc.Test → HttpTestGen → Integration Testing
+4. Azure Infrastructure: Cosmos CQRS → Cabazure Messaging → Cabazure Kusto
+
+**Technical Notes**:
+- Jekyll build succeeded in ~51 seconds with all changes
+- Links naturally integrated - no forced placements
+- Anchor text descriptive and relevant
+- All links contextually appropriate to surrounding content
+
+**Link Quality Standards**:
+- ✅ Contextually appropriate and natural
+- ✅ Links in relevant sections (intro, related work, conclusion)
+- ✅ Descriptive anchor text
+- ✅ Genuine reader value
+- ✅ No artificial placements
+- ✅ Maintains Christian's technical voice
+
+**Outcome**:
+- PR #261 merged successfully
+- 13 posts enhanced with internal links
+- Complete tracking document created with statistics and analysis
+- Expected improvements to time-on-site and pages-per-session metrics
+
+**Lessons**:
+- Topic clusters are real and measurable: REST API/OpenAPI is largest (15+ related posts)
+- Hub posts (HTTP File Generator) deserve multiple outbound links to downstream tools
+- Zig/Rust tools form a cohesive learning journey that wasn't previously connected
+- Conclusion sections are ideal for "Related:" style link clusters
+- 2-3 links per post is sustainable; 6+ starts to feel heavy
+- Links should explain relationship, not just point: "for testing with Alba" > "Alba"
+- Creating reading flows is more valuable than random cross-linking
