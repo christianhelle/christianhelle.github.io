@@ -94,3 +94,24 @@
 - **Acceptance Criteria:** Code verification ✅, build clean ✅, Playwright tests pass ✅, README updated, plugin enabled, redirects verified
 - **Documentation:** Full strategy written to `.squad/decisions/deckard-atc-post-selection-strategy.md`
 - **Key Learning:** Multi-variant evaluation requires holistic signal-to-noise assessment; parallelizing variant evaluation is counterproductive (duplicates work, loses context). Sequential cross-check better. Problem-first framing is distinguishing feature of Christian's best posts; voice alignment matters as much as completeness for blog audience.
+
+### January 2026: SEO URL Audit — Issue #248 (Crawled but Not Indexed)
+- **Scope:** Comprehensive audit of 504 generated HTML pages to classify "crawled but not indexed" URLs reported in Google Search Console
+- **Build & Analysis:** Built site with `bundle exec jekyll build` (60s), analyzed _site/ output structure
+- **Key Findings:**
+  - **356 redirect stub pages** (jekyll-redirect-from) — bulk of crawled-not-indexed; already have `<meta name="robots" content="noindex">` but still being crawled
+  - **129 blog posts** in sitemap — valuable content, keep indexed
+  - **6 utility pages:** archives, tags, privacy (noindex candidates); about, projects, homepage (keep indexed)
+  - **1 error page** (404.html) — correctly excluded
+  - **Discrepancy:** 504 total HTML vs 135 in sitemap
+- **Root Causes:**
+  - jekyll-redirect-from generates redirect stubs that are crawlable despite noindex meta tags
+  - No conditional robots meta logic in `_includes/head.html` (uses `{%- seo -%}` without differentiation)
+  - Utility pages (archives, tags, privacy) add no search value but are in sitemap
+- **Classification Table:** Blog posts (keep), redirect stubs (already noindexed, expected behavior), utility pages (3 noindex, 3 keep), error pages (correct)
+- **Remediation Plan:** Created sub-issues #249-#254 (noindex utility pages, verify canonical tags, fix internal links, content improvements, internal linking, re-indexing)
+- **Decision:** Redirect stub "crawled but not indexed" status is **expected behavior**, not a problem. They have noindex directives and should not be in index. Primary fix is adding noindex to 3 utility pages.
+- **Deliverable:** `docs/seo/non-indexed-url-audit-2026-03.md` (339 lines, comprehensive classification with remediation roadmap)
+- **Workflow:** Created feature branch, built site, analyzed output, created audit document, committed, pushed, created PR #256, commented on issue #248, merged PR, deleted branch, switched back to master
+- **Key Learning:** jekyll-redirect-from plugin behavior is architectural, not content-quality issue. Redirect stubs are functioning as designed (noindex present). GSC warnings can be safely ignored. Minimal remediation needed: 3 utility page noindex directives + internal link fixes.
+- **File Paths:** `docs/seo/non-indexed-url-audit-2026-03.md`, `_includes/head.html` (conditional robots meta TBD in #249)
