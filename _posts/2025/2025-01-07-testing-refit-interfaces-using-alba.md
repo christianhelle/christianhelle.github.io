@@ -120,3 +120,5 @@ This way, we don't need to run the actual API project before we can test
 if the Refit interface works as expected.
 
 I published an example project to [Github](https://github.com/christianhelle/TestingRefitWithAlba) if you want to try it out yourself.
+
+For more testing approaches with .NET, check out [Atc.Test](/2025/07/atc-test-unit-testing-for-net-with-a-touch-of-class.html) for unit testing with a different flavor, [HttpTestGen](/2025/09/httptestgen-dotnet-testing-framework.html) for converting .http files to tests, or [integration testing with httprunner](/2026/01/integration-testing-with-httprunner.html) for complete workflow testing.

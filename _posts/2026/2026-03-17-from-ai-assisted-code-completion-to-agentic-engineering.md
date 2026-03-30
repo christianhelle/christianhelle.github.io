@@ -163,3 +163,5 @@ I no longer think about AI as just something that helps me write code faster. I 
 That is why this feels like more than better autocomplete.
 
 It feels like an entirely new form of software engineering. Agentic software engineering.
+
+This shift has impacted how I build tools like [Refitter](/2023/03/refitter.html), [HTTP File Generator](/2023/11/http-file-generator.html), and the various [Zig](/2026/02/building-clocz-zig-line-counter.html) and [Rust](/2025/06/azure-devops-cli.html) projects on my [projects page](/projects/).

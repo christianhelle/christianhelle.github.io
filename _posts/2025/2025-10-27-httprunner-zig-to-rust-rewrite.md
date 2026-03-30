@@ -335,3 +335,5 @@ For more details on the migration, check out:
 - [Documentation](https://christianhelle.com/httprunner/) - Full user guide
 
 The project continues to evolve, and I'm excited about the possibilities that Rust's ecosystem enables for future enhancements.
+
+This was one of several systems-level programming projects I've built. For more Zig and Rust tools, see [chlogr (Zig)](/2025/11/building-a-github-changelog-generator-in-zig.html), [clocz (Zig)](/2026/02/building-clocz-zig-line-counter.html), [Azure DevOps CLI (Rust)](/2025/06/azure-devops-cli.html), and [argiope (Zig)](/2026/03/building-argiope-web-crawler-broken-link-detector.html).
