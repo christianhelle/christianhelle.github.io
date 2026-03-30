@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Reviving a 20 year old XNA Framework game with MonoGame
+title: Reviving a 15 year old XNA Framework game with MonoGame
 date: 2026-03-24
 author: Christian Helle
 tags:
@@ -316,19 +316,20 @@ This entire port was built through agentic engineering with GitHub Copilot CLI a
 The primary implementation team is described directly in `.squad/team.md`:
 
 ```markdown
-| Name     | Role         |
-|----------|--------------|
-| Keaton   | Lead         |
-| McManus  | Gameplay Dev |
-| Fenster  | Platform Dev |
-| Hockney  | UI Dev       |
-| Redfoot  | Tester       |
+| Name    | Role         |
+| ------- | ------------ |
+| Keaton  | Lead         |
+| McManus | Gameplay Dev |
+| Fenster | Platform Dev |
+| Hockney | UI Dev       |
+| Redfoot | Tester       |
 ```
 
 And the decision log captured the working style explicitly:
 
 ```markdown
 ### 2026-03-24: Preserve progress with small logical commits
+
 **What:** During implementation, commit frequently in small, coherent groups so the repo keeps a detailed progress history.
 **Why:** Incremental MonoGame porting will be easier to review, debug, and compare against the original XNA game when each change stays tightly scoped.
 ```
