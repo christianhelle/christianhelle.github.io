@@ -2,6 +2,8 @@
 layout: page
 title: Privacy Policy
 permalink: /privacy/
+sitemap: false
+robots: noindex,follow
 ---
 
 - The website owner doesn't steal or sell any of your data.
