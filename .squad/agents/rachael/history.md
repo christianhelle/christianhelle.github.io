@@ -413,3 +413,72 @@ The tracker consolidates 3+ months of SEO work into a single actionable document
 - Include instructions in tracking documents—not everyone uses every tool the same way
 - Expected timelines and monitoring guidance should be part of the tracker, not separate
 - Cross-referencing related SEO documentation helps context and prevents reinvention
+
+---
+
+## Learnings - 2026-03-31 23.55.59
+
+### Task: Comprehensive Rust learning guide for C# developers
+
+**Patterns observed:**
+- Christian's writing style is direct, technical, first-person ("I"), with brief intros explaining context
+- Uses H2 sections throughout, sometimes H3 for subsections
+- Alternates explanation with code examples in both languages
+- Code examples are short and focused (5-15 lines), not full programs
+- Practical, hands-on focus with "In C#" and "In Rust" comparisons
+- Front matter follows strict format: layout, title, date, author, tags (no categories used recently)
+- File naming: _posts/YYYY/YYYY-MM-DD-slug.md
+
+**Key reference posts:**
+- httprunner-zig-to-rust-rewrite.md: language comparison post style
+- from-ai-assisted-code-completion-to-agentic-engineering.md: general writing voice
+
+**Content structure:**
+- Brief intro with motivation and context
+- Comprehensive sections with side-by-side comparisons
+- Code blocks use `csharp and `ust language identifiers
+- Tables for command comparisons
+- Conclusion with recommendations and resources
+
+**Post specs:**
+- Date: 2026-03-31
+- Length: ~15,000 words (comprehensive as requested)
+- 24 major sections covering all aspects of Rust vs C#
+- Covers: setup, variables, types, functions, control flow, ownership, structs, enums, errors, collections, generics, traits, lifetimes, modules, closures, smart pointers, concurrency, async, testing, macros, tooling, unique features
+- No redirect_from in front matter (will be added later)
+
+## 2026-03-31: Comprehensive Rust vs C# Learning Guide
+
+**Task:** Write comprehensive blog post comparing Rust and C# for C# developers transitioning to Rust.
+
+**Work Summary:**
+- Published 2,649-line, ~8,500-word blog post "Comprehensive Rust Learning Guide for C# Developers"
+- File: `_posts/2026/2026-03-31-comprehensive-rust-learning-guide-for-csharp-developers.md`
+- 24 H2 sections covering all major Rust language features with C# comparisons
+- Comprehensive coverage:
+  * **Fundamentals:** Project setup, variables, type system, function definitions, control flow
+  * **Ownership Model:** Core Rust concepts (ownership, borrowing, lifetimes) with explicit C# context
+  * **Advanced Types:** Structs, enums, pattern matching, error handling (Result/Option vs exceptions)
+  * **Collections:** Vecs, arrays, maps, iterators vs .NET collections
+  * **Generics & Traits:** Type parameters, trait objects, vs C# interfaces/generics
+  * **Concurrency:** Threading models, channels, async/await patterns in both languages
+  * **Ecosystem:** Testing, macros, modules, tooling, build system
+  * **Unique Rust Features:** Lifetimes, borrow checker, move semantics
+- All code examples are practical, focused, and directly comparable
+- Structured as learning guide for C# developers entering Rust ecosystem
+- Front matter includes relevant tags; no redirect paths (will be added later if needed)
+
+**Validation:**
+- ✅ Jekyll build: Clean, no errors
+- ✅ .NET build: All systems green
+- ✅ README.md: Updated with new post entry
+
+**Commit:** d74a2b3
+
+**Key Learning:** When documenting language transitions for experienced developers, emphasize the conceptual shifts, not just syntax. C# developers understand strong typing, garbage collection, inheritance—show them why Rust's borrow checker, move semantics, and trait system matter. Use side-by-side examples and contrast sections to anchor understanding.
+
+**Team Context:**
+- Orchestration Log: Created `.squad/orchestration-log/2026-03-31T2147-rachael.md`
+- Session Log: Created `.squad/log/2026-03-31T2147-rust-csharp-guide.md`
+- History: This entry (appended 2026-03-31T21:47)
+
