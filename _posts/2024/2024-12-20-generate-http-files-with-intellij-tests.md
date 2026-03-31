@@ -3,6 +3,7 @@ layout: post
 title: Generate .http files with IntelliJ tests from OpenAPI specifications
 date: '2024-12-20'
 author: Christian Helle
+description: Learn how to generate .http files with IntelliJ response tests from OpenAPI specs using HTTP File Generator for Rider and IntelliJ API workflows.
 tags:
 
 - REST

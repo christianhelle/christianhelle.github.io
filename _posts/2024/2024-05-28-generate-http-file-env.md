@@ -3,6 +3,7 @@ layout: post
 title: Generate .http files and .env from OpenAPI specifications
 date: '2024-05-28'
 author: Christian Helle
+description: Generate .http files and matching .env environments from OpenAPI specs with HTTP File Generator, Azure CLI access tokens, and reusable API settings.
 tags: 
 - REST
 - OpenAPI
