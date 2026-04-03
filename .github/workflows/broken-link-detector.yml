@@ -9,8 +9,8 @@ on:
       - "*"
 
 jobs:
-  windows:
-    runs-on: windows-latest
+  test:
+    runs-on: ubuntu-latest
     name: Test site for broken links
     steps:
       - name: Setup Python
