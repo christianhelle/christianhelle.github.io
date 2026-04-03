@@ -16,9 +16,25 @@ jobs:
       - name: Install argiope
         shell: pwsh
         run: |
-          $destination = "$env:RUNNER_TEMP\argiope.exe"
-          Invoke-WebRequest -Uri "https://github.com/christianhelle/argiope/releases/latest/download/argiope-windows-x86_64.exe" -OutFile $destination
-          $env:RUNNER_TEMP | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          $version = "0.3.5"
+          $archive = "$env:RUNNER_TEMP\argiope-windows-x86_64.zip"
+          $extractPath = "$env:RUNNER_TEMP\argiope"
+          $expectedSha256 = "4ee6599a0564a6c204d35f1448d045562d0013ea2d1d5c1f80d02f9314cddd4d"
+          $url = "https://github.com/christianhelle/argiope/releases/download/$version/argiope-windows-x86_64.zip"
+
+          Invoke-WebRequest -Uri $url -OutFile $archive
+
+          $actualSha256 = (Get-FileHash -Path $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actualSha256 -ne $expectedSha256) {
+            throw "argiope archive checksum mismatch: expected $expectedSha256, got $actualSha256"
+          }
+
+          Expand-Archive -Path $archive -DestinationPath $extractPath -Force
+          if (-not (Test-Path (Join-Path $extractPath "argiope.exe"))) {
+            throw "argiope.exe was not found after extracting $archive"
+          }
+
+          $extractPath | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Run argiope
         shell: pwsh
         run: |
