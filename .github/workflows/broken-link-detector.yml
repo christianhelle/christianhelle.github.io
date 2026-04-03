@@ -12,15 +12,17 @@ jobs:
   windows:
     runs-on: windows-latest
     name: Test site for broken links
+    env:
+      ARGIOPE_VERSION: "0.3.5"
+      ARGIOPE_WINDOWS_X86_64_SHA256: "4ee6599a0564a6c204d35f1448d045562d0013ea2d1d5c1f80d02f9314cddd4d"
     steps:
       - name: Install argiope
         shell: pwsh
         run: |
-          $version = "0.3.5"
           $archive = "$env:RUNNER_TEMP\argiope-windows-x86_64.zip"
           $extractPath = "$env:RUNNER_TEMP\argiope"
-          $expectedSha256 = "4ee6599a0564a6c204d35f1448d045562d0013ea2d1d5c1f80d02f9314cddd4d"
-          $url = "https://github.com/christianhelle/argiope/releases/download/$version/argiope-windows-x86_64.zip"
+          $expectedSha256 = $env:ARGIOPE_WINDOWS_X86_64_SHA256
+          $url = "https://github.com/christianhelle/argiope/releases/download/$env:ARGIOPE_VERSION/argiope-windows-x86_64.zip"
 
           Invoke-WebRequest -Uri $url -OutFile $archive
 
