@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - ".github/workflows/production-crawler.yml"
+      - ".github/workflows/broken-link-detector.yml"
     branches:
-      - "*"
+      - "main"
 
 jobs:
   test:
