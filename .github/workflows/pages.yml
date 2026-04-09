@@ -87,9 +87,7 @@ jobs:
     name: Test site for broken links
     steps:
       - name: Install Argiope
-        shell: pwsh
-        run: |
-          curl -fsSL https://christianhelle.com/argiope/install | sh
+        run: snap install argiope
       - name: Run Argiope Check
         run: argiope check https://christianhelle.com --report broken-links-report.txt
       - name: Publish results
