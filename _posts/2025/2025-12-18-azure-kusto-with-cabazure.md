@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Querying Azure Data Explorer from .NET with Cabazure
+title: Querying Azure Data Explorer from .NET with Cabazure.Kusto
 date: 2025-12-18
 author: Christian Helle
 tags:
