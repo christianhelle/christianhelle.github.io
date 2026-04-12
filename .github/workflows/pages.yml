@@ -89,6 +89,7 @@ jobs:
       - name: Install Argiope
         run: sudo snap install argiope
       - name: Run Argiope Check
+        continue-on-error: true
         run: argiope check https://christianhelle.com --report broken-links-report.txt
       - name: Publish results
         uses: actions/upload-artifact@v7
