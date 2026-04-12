@@ -87,7 +87,7 @@ jobs:
     name: Test site for broken links
     steps:
       - name: Install Argiope
-        run: snap install argiope
+        run: sudo snap install argiope
       - name: Run Argiope Check
         run: argiope check https://christianhelle.com --report broken-links-report.txt
       - name: Publish results
