@@ -57,7 +57,7 @@ A command-line interface for Azure DevOps operations, streamlining CI/CD workflo
 
 ## [Energi Data Service Client for .NET](https://github.com/christianhelle/edsclient)
 
-A .NET client library for consuming day-ahead energy prices from the Danish Energi Data Service API. It provides strongly typed models, async APIs, and dependency injection support for applications that work with electricity market data.
+A .NET client library for consuming day-ahead energy prices from the Danish Energi Data Service API. It provides strongly-typed models, async APIs, and dependency injection support for applications that work with electricity market data.
 
 ## [HTTP File Runner](https://github.com/christianhelle/httprunner)
 
