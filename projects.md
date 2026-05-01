@@ -1,11 +1,11 @@
 ---
 layout: page
 title: Projects
-description: Open source projects and tools for .NET developers including Refitter, REST API Client Code Generators, HTTP File Generator, and various developer productivity tools for OpenAPI, testing, and API development.
+description: Open source projects spanning .NET libraries, Zig tools, API generators, testing utilities, data clients, and developer productivity apps.
 permalink: /projects/
 ---
 
-Below is a curated list of my open source projects, each with a detailed description and a link to the repository. These tools and libraries are designed to enhance developer productivity, streamline workflows, and support modern software development practices.
+Below is a curated list of my open source projects, each with a detailed description and a link to the repository. These tools and libraries span .NET, Zig, API development, testing, data access, and developer productivity workflows.
 
 ## [Refitter](https://github.com/christianhelle/refitter)
 
@@ -55,6 +55,10 @@ A modern, cross-platform SQLite database management tool built with C++ and Qt. 
 
 A command-line interface for Azure DevOps operations, streamlining CI/CD workflows and project management. This tool enables automation and scripting of common DevOps tasks.
 
+## [Energi Data Service Client for .NET](https://github.com/christianhelle/edsclient)
+
+A .NET client library for consuming day-ahead energy prices from the Danish Energi Data Service API. It provides strongly typed models, async APIs, and dependency injection support for applications that work with electricity market data.
+
 ## [HTTP File Runner](https://github.com/christianhelle/httprunner)
 
 A fast, small, single binary tool for running .http files from the command line, built with Zig for optimal performance. It enables automated API testing and integration in CI pipelines.
@@ -70,6 +74,14 @@ A web crawler built in Zig for broken-link detection and image downloading. Argi
 ## [Clocz - Line of Code Counter](https://github.com/christianhelle/clocz)
 
 A fast, multi-threaded command-line tool for counting lines of code, written in Zig. Clocz delivers performance and efficiency for analyzing codebase metrics across large projects, with support for multiple programming languages.
+
+## [ZigFaker](https://github.com/christianhelle/zigfaker)
+
+A Zig library for generating anonymous and contextually realistic fake data for unit tests using comptime type reflection. ZigFaker reduces test setup boilerplate and helps developers create expressive, repeatable test data with zero external dependencies.
+
+## [GitHub Changelog Generator](https://github.com/christianhelle/chlogr)
+
+A fast native CLI written in Zig that generates Markdown changelogs from GitHub tags, merged pull requests, and closed issues. It automates release note generation and organizes changes into clear sections for maintainers and users.
 
 ## [Azure SDK for Zig](https://github.com/christianhelle/azure-sdk-for-zig)
 
