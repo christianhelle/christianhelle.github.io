@@ -92,9 +92,9 @@ Most of the interesting logic lived in `GameplayScreen`. That class was responsi
 
 That combination is very typical of small XNA projects. It is also exactly the kind of codebase that benefits from a rewrite rather than a literal line-by-line port.
 
-## Moving from XNA and Windows Phone to MonoGame and .NET 9
+## Moving from XNA and Windows Phone to MonoGame and .NET 10
 
-One of the first changes in the MonoGame port was simply choosing a modern runtime and packaging model. Instead of an XNA project targeting Windows Phone, the new project targets `net9.0-windows` and references the MonoGame desktop framework directly.
+One of the first changes in the MonoGame port was simply choosing a modern runtime and packaging model. Instead of an XNA project targeting Windows Phone, the new project targets `net10.0` and references the MonoGame desktop framework directly.
 
 ```xml
 <PropertyGroup>
