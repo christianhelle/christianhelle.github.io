@@ -12,17 +12,17 @@ I'm an experienced **Application and Solutions Developer / Architect / Consultan
 
 ### Professional Focus
 
-As a **[Microsoft MVP](https://mvp.microsoft.com/en-US/MVP/profile/e343a429-7b0d-ed11-b83f-000d3a1036b3)**, I focus on creating developer tools and solutions that enhance productivity and simplify complex development workflows. My expertise spans the entire development lifecycle - from design and development to testing, deployment, monitoring, and instrumentation of systems ranging from small projects to large-scale commercial, industrial, and enterprise applications.
+As a **[Microsoft MVP](https://mvp.microsoft.com/en-US/MVP/profile/e343a429-7b0d-ed11-b83f-000d3a1036b3)**, I focus on creating developer tools and solutions that enhance productivity and simplify complex development workflows. My expertise spans the entire development life cycle - from design and development to testing, deployment, monitoring, and instrumentation of systems ranging from small projects to large-scale commercial, industrial, and enterprise applications.
 
 ### Technology Stack & Platforms
 
 I've built software that runs across diverse environments:
 
-- **Cloud**: Azure, serverless architectures
+- **Cloud**: Azure
 - **Desktop**: Windows Servers, Windows Desktop, Windows Embedded, Windows CE, Mac OS, Unix, Linux
 - **Mobile**: iOS, Android, Xamarin
 - **Web**: Wide range of browsers, ASP.NET Core, REST APIs
-- **Modern Tech**: .NET 9.0, OpenAPI/Swagger, microservices, event sourcing, CQRS
+- **Modern Tech**: .NET 10.0, distributed systems, event sourcing, CQRS
 
 ### Open Source
 
