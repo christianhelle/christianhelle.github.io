@@ -19,9 +19,9 @@ redirect_from:
 
 Back in 2023, I wrote about [HTTP File Generator](/2023/11/generate-http-files-from-openapi-spec/), a command-line tool I built to generate `.http` files from OpenAPI specifications. At the time, it shipped as a [.NET Tool on NuGet](https://www.nuget.org/packages/HttpGenerator), and that version served me really well. I use this tool all the time when working with APIs because I much prefer staying inside my editor with `.http` files over bouncing back and forth to Swagger UI.
 
-Over the past week, I completed a substantial port of the project to Rust and promoted the Rust CLI to the primary release path. This was not a small rewrite and it was definitely not a flag day migration where I deleted the old implementation and hoped for the best. I kept the legacy .NET implementation in the repository, used it as a migration oracle, and moved the project forward in phases.
+Over the past few weeks, I completed a substantial port of the project to Rust and promoted the Rust CLI to the primary release path. This was not a small rewrite and it was definitely not a flag day migration where I deleted the old implementation and hoped for the best. I kept the legacy .NET implementation in the repository, used it as a migration oracle, and moved the project forward in phases.
 
-The result is a tool that is easier to ship as a native CLI, easier to install across platforms, and much more explicit internally about how it parses OpenAPI documents and turns them into `.http` files.
+The result is a tool that is 15x faster, ships as a natively compiled single binary CLI app, easier to install across platforms, and much more explicit internally about how it parses OpenAPI documents and turns them into `.http` files.
 
 In this post, I want to walk through what changed, why I did it, and show some of the before and after code.
 
