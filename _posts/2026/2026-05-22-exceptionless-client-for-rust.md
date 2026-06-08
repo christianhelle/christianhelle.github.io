@@ -31,7 +31,7 @@ If you're a .NET developer who has used Exceptionless, you know the value: a sin
 
 Exceptionless is open-source and can be self-hosted or used via their cloud service at `exceptionless.io`. Events are sent to `collector.exceptionless.io` by default, or to your own server if you're self-hosting. The Rust client supports both.
 
-![Project Overview](/assets/images/exceptionless-overview.png)
+![Project Overview](/assets/images/error-overview.png)
 
 ## Getting Started
 
@@ -113,7 +113,7 @@ The client automatically captures the error message and type from Rust's `std::e
 
 The error surfaces in your Exceptionless dashboard with the full stack trace and metadata:
 
-![Error Details](/assets/images/exceptionless-environment.png)
+![Error Details](/assets/images/error-details.png)
 
 ## Sending Structured Logs
 
@@ -141,7 +141,7 @@ The log level is a string—currently `"trace"`, `"debug"`, `"info"`, `"warn"`, 
 
 Structured logs appear in the Exceptionless Logs view alongside error events, making it easy to correlate log entries with the exceptions they preceded:
 
-![Log Messages](/assets/images/exceptionless-exception.png)
+![Log Messages](/assets/images/log-messages.png)
 
 ## Tracking Feature Usage
 
@@ -168,7 +168,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 Feature events show up in the Feature Usage dashboard, giving you visibility into which features matter most to your users:
 
-![Feature Tracking](/assets/images/exceptionless-overview.png)
+![Feature Tracking](/assets/images/feature-tracking.png)
 
 ## Configuration
 
@@ -312,7 +312,7 @@ Privacy is important. The support key is derived from an anonymous identity, aut
 
 When errors do get reported to Exceptionless, they include the error type, message, and redacted settings—enough context to diagnose issues without exposing sensitive data:
 
-![Error from HTTP File Generator](/assets/images/exceptionless-exception.png)
+![Error from HTTP File Generator](/assets/images/error-details.png)
 
 ## What's Next
 
