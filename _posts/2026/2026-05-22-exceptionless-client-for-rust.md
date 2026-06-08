@@ -246,42 +246,26 @@ The Rust client is designed to be a solid foundation. The missing features are o
 
 The `exceptionless-rs` client powers the telemetry in [HTTP File Generator](https://github.com/christianhelle/httpgenerator), which was originally written in .NET and later rewritten in Rust. The integration demonstrates how to use the client in a real application with a sink-agnostic design.
 
-HTTP File Generator defines a `TelemetrySink` trait that abstracts the telemetry backend:
+HTTP File Generator uses a `TelemetrySinkCollection` enum to abstract over different telemetry backends:
 
 ```rust
-pub trait TelemetrySink {
-    fn emit(&mut self, event: TelemetryEvent);
-}
-
-#[derive(Debug, Default)]
-pub struct NoopTelemetrySink;
-
-impl TelemetrySink for NoopTelemetrySink {
-    fn emit(&mut self, _event: TelemetryEvent) {}
-}
-
-#[derive(Debug, Default)]
-pub struct MemoryTelemetrySink {
-    events: Vec<TelemetryEvent>,
-}
-
-impl TelemetrySink for MemoryTelemetrySink {
-    fn emit(&mut self, event: TelemetryEvent) {
-        self.events.push(event);
-    }
+pub enum TelemetrySinkCollection {
+    Exceptionless(ExceptionlessTelemetrySink),
+    Memory(MemoryTelemetrySink),
+    Noop(NoopTelemetrySink),
 }
 ```
 
-The `TelemetryRecorder` is generic over the sink, allowing different backends for different environments:
+The `TelemetryRecorder` is no longer generic, but instead holds a `TelemetrySinkCollection`, allowing different backends for different environments:
 
 ```rust
-pub struct TelemetryRecorder<S> {
+pub struct TelemetryRecorder {
     context: Option<TelemetryContext>,
-    sink: S,
+    sink: TelemetrySinkCollection,
 }
 ```
 
-In production, a real `ExceptionlessTelemetrySink` would implement `TelemetrySink` and use `exceptionless-rs` to emit events. During development, `NoopTelemetrySink` is used—no telemetry is sent, but the same code path runs. For testing, `MemoryTelemetrySink` captures events for verification.
+In production, the `Exceptionless` variant is used to emit events to Exceptionless. During development, the `Noop` variant ensures no telemetry is sent, while in tests, the `Memory` variant captures events for verification.
 
 The recorder captures feature usage events when commands complete successfully:
 
