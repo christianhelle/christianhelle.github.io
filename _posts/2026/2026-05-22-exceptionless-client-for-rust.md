@@ -217,20 +217,20 @@ If you've used [Exceptionless for .NET](https://github.com/exceptionless/Excepti
 
 Here's how they compare:
 
-| Feature | .NET Client | Rust Client |
-|---------|-------------|-------------|
-| Error reporting | ✅ | ✅ |
-| Log events | ✅ | ✅ |
-| Feature tracking | ✅ | ✅ |
-| Custom metadata | ✅ | ✅ |
-| Async submission | ✅ (`Task`) | ✅ (`async/await`) |
-| Bearer authentication | ✅ | ✅ |
-| Event queuing & batch retry | ✅ | ❌ |
-| Session tracking | ✅ | ❌ |
-| Plugin system | ✅ | ❌ |
-| Server settings sync | ✅ | ❌ |
-| Log level filtering | ✅ | ❌ |
-| Automatic environment data | ✅ | ❌ |
+| Feature                     | .NET Client | Rust Client        |
+| --------------------------- | ----------- | ------------------ |
+| Error reporting             | ✅          | ✅                 |
+| Log events                  | ✅          | ✅                 |
+| Feature tracking            | ✅          | ✅                 |
+| Custom metadata             | ✅          | ✅                 |
+| Async submission            | ✅ (`Task`) | ✅ (`async/await`) |
+| Bearer authentication       | ✅          | ✅                 |
+| Event queuing & batch retry | ✅          | ❌                 |
+| Session tracking            | ✅          | ❌                 |
+| Plugin system               | ✅          | ❌                 |
+| Server settings sync        | ✅          | ❌                 |
+| Log level filtering         | ✅          | ❌                 |
+| Automatic environment data  | ✅          | ❌                 |
 
 The .NET client has a rich architecture that the Rust client doesn't yet have:
 
@@ -337,7 +337,3 @@ Get started today:
 - Source code: [github.com/christianhelle/exceptionless-rs](https://github.com/christianhelle/exceptionless-rs)
 - Package: [crates.io/crates/exceptionless](https://crates.io/crates/exceptionless)
 - Documentation: [docs.rs/exceptionless](https://docs.rs/exceptionless)
-
-For tips and tricks on software development, check out [my blog](https://christianhelle.com).
-
-If you find this useful and feel a bit generous then feel free to [buy me a coffee ☕](https://www.buymeacoffee.com/christianhelle)
