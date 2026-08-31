@@ -322,3 +322,65 @@ pub fn defineTool(
 ```
 
 Status lines are summarized — `🔧 Reading "src/main.zig"`, `🔧 Running "zig build test"`, `🔧 Writing 12 lines (384 bytes) to "README.md"` — large payloads are counted, not dumped.
+
+## Skills system
+
+Puny loads reusable prompt-engineering skills from markdown files — no plugin runtime, just a `SKILL.md` with YAML frontmatter:
+
+```markdown
+---
+name: my-skill
+description: >
+  Expert knowledge of MyTool for integration testing.
+  Covers setup, configuration, and common patterns.
+triggers: mytool, integration test, configure
+disable-model-invocation: false
+---
+
+# MyTool Instructions
+
+When asked about MyTool, follow these guidelines...
+```
+
+Two locations are scanned:
+
+- **Global**: `~/.agents/skills/` — shared across repos
+- **Repository**: `<repo-root>/.agents/skills/` — per-project, rooted via `git rev-parse --show-toplevel`
+
+Each subdirectory is a skill; the directory name *is* the skill name. The registry does a light scan (directory names only) at startup and a full scan (parsing `SKILL.md` frontmatter) right after:
+
+```zig
+var skill_registry = skills.Registry.init(arena);
+defer skill_registry.deinit();
+if (!parsed.no_skills) {
+    if (try skills.homeDir(arena, init.environ_map)) |home| {
+        const global_path = try std.fs.path.join(arena, &.{ home, ".agents", "skills" });
+        try skill_registry.lightScan(init.io, global_path);
+    }
+    if (try git_root.findGitRepoRoot(arena, init.io)) |repo_root| {
+        const repo_path = try std.fs.path.join(arena, &.{ repo_root, ".agents", "skills" });
+        try skill_registry.lightScan(init.io, repo_path);
+    }
+    skill_registry.fullScan(init.io) catch {};
+}
+skills.setGlobalRegistry(&skill_registry);
+```
+
+Loaded skills are injected as system messages; the registry listing becomes an `<available_skills>` block in the system prompt:
+
+```xml
+<available_skills>
+  <skill>
+    <name>nano-commits</name>
+    <description>Commit often. One logical change per commit.</description>
+  </skill>
+</available_skills>
+```
+
+Skills load three ways:
+
+1. **Slash command** — `/nano-commits`, `/grill-me`, any directory name
+2. **Keyword trigger** — mentioning a `triggers` phrase or the directory name as a whole word in your message automatically loads the skill
+3. **Model invocation** — the model calls the `load_skill` tool when it sees a relevant entry in `<available_skills>`. Skills with `disable-model-invocation: true` are slash-only.
+
+`--no-skills` / `PUNY_NO_SKILLS=1` disables all of this; skill directories are never scanned and `/skills` reports that skills are disabled.
