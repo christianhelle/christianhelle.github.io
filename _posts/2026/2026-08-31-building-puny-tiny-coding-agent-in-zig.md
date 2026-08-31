@@ -43,3 +43,15 @@ The four providers I actually use are the only ones Puny supports:
 - [GitHub Copilot](https://github.com/features/copilot) — bundled with my sponsored GitHub subscription
 
 If you want another provider badly enough, you can add it — but Puny will never become a comparison-table feature dump. Each feature has to earn its place.
+
+## Why Zig
+
+Zig was the obvious choice for a tool that has to be tiny, fast, and portable.
+
+- **No runtime**: no GC, no hidden allocations. Startup is a direct `main` entry with an arena allocator — ~1 ms cold start.
+- **Tiny binaries**: `ReleaseSmall` produces a ~1 MB single binary with zero external dependencies. It runs anywhere without installing a runtime.
+- **Cross-compilation first-class**: one `build.zig` emits Linux (x86_64, aarch64), macOS (x86_64, aarch64), and Windows (x86_64, aarch64) artifacts. No matrix of Docker images.
+- **Explicit control**: manual memory management with `ArenaAllocator` and `GeneralPurposeAllocator`, `defer`, and `errdefer` everywhere. When you read the code, you know who owns what.
+- **Tooling**: `zig build`, `zig fmt`, `zig build test` — no extra package manager, no lock-file churn.
+
+Compared to Rust, Zig's learning curve is flatter and the project stays closer to the metal without fighting the borrow checker. For a CLI that is mostly I/O and string handling, Zig's simplicity wins.
