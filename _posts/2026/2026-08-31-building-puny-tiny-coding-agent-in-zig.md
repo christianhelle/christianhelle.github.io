@@ -55,3 +55,78 @@ Zig was the obvious choice for a tool that has to be tiny, fast, and portable.
 - **Tooling**: `zig build`, `zig fmt`, `zig build test` — no extra package manager, no lock-file churn.
 
 Compared to Rust, Zig's learning curve is flatter and the project stays closer to the metal without fighting the borrow checker. For a CLI that is mostly I/O and string handling, Zig's simplicity wins.
+
+## Performance and resource usage
+
+The numbers are the point.
+
+| Metric | Puny |
+|---|---|
+| Binary size | ~1 MB (`ReleaseSmall`) |
+| Cold start | ~1 ms |
+| Idle CPU | <1% |
+| Dependencies | 0 (single static binary) |
+| Runtime | None (no GC, no Node, no Python) |
+
+Startup time is measured from process entry to the welcome screen — before any network call. The binary is the whole tool; there is nothing to `npm install` or `pip install`. On a Raspberry Pi or a cheap VPS over SSH, that matters.
+
+Memory usage is kept low by design:
+
+- **Arena per session**: the main loop uses an `ArenaAllocator` backed by `page_allocator` for transient chat state. At session boundaries the arena is reset rather than freeing piecemeal.
+- **Bounded reads**: file and prompt reads are capped (10 MiB limits on prompt files and remote fetches, 1 MiB skill files, 30 s remote timeout) so a single bad path can't blow up RAM.
+- **Streaming by default**: LLM responses are streamed chunk-by-chunk with a buffered writer; the full response is never held twice.
+- **No background threads**: apart from the detached update-check child process, Puny is single-threaded. No watchers, no LSP server, no file-system thread pool burning CPU in the background.
+
+This is deliberate. Puny should be invisible on `htop`.
+
+## Architecture overview
+
+```
+src/
+├── main.zig              # Entry, startup timing, signal handling
+├── build.zig / build.zig.zon
+├── chat/                 # Interactive loop, session, display, stats
+├── cli/                  # Argument parsing
+├── config/               # config.json + XChaCha20-Poly1305 key encryption
+├── core/                 # Session UUIDs, git root, cancel/sigint
+├── providers/            # Provider union + 4 transports + OpenAPI clients
+├── models/               # Model picker
+├── skills/               # Skill registry (scan, frontmatter, triggers)
+├── tools/                # Tool definitions (read/write/list, shell, grep, git, fetch, skill)
+├── prompts/              # History + prompt-file loading
+├── agents/               # Agent instructions (AGENTS.md)
+├── tui/                  # Welcome screen, ANSI/VT helpers
+├── sessions/             # Session store (list, resume, prune)
+└── update_check.zig      # Background update check (detached child)
+```
+
+The entry point wires everything together in `main.zig`:
+
+```zig
+pub fn main(init: std.process.Init) !void {
+    vt.enableAnsi();
+    vt.enableUtf8();
+    const arena: std.mem.Allocator = init.arena.allocator();
+    var messages_arena_state = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+    const messages_arena = messages_arena_state.allocator();
+    const startup_time = std.Io.Clock.Timestamp.now(init.io, .awake);
+
+    upgrade.cleanupOldBackup(arena, init.io);
+
+    const args_slice = try init.minimal.args.toSlice(arena);
+    var parsed = cli.parseArgs(init.io, init.environ_map, args_slice);
+
+    if (parsed.upgrade) {
+        try upgrade.runUpgrade(arena, init.io, init.environ_map, parsed.force_upgrade);
+        update_check.clearFlag(init.io, arena, init.environ_map) catch {};
+        return;
+    }
+
+    // Detached child: PUNY_UPDATE_CHECK=1 means we are the background updater
+    if (std.mem.eql(u8, init.environ_map.get(update_check.check_env_var) orelse "", "1")) {
+        _ = update_check.runCheck(init.io, arena, init.environ_map) catch {};
+        return;
+    }
+    // ... provider/model init, skill scan, system prompt, chat loop
+}
+```
