@@ -461,3 +461,86 @@ puny --prune --session <uuid>  # Delete all except one
 Or interactively: `/resume`, `/resume abc-12`, `/sessions`, `/prune`.
 
 Planning mode is special-cased: read-only tools plus `save_prd`, with `planning_mode` and `first_prompt` persisted in `session.json` and restored so the conversation picks up exactly where it left off.
+
+## Interactive chat and model selection
+
+On startup, Puny resolves the provider, API key, and model — then shows an interactive model picker if no model is configured:
+
+```zig
+const configured_model: ?[]const u8 = blk: {
+    const raw = if (reconfigure_force_picker) null
+        else parsed.model orelse cfg.providerEntry(selected_provider.*).model;
+    if (raw) |id| if (http_client.isValidUtf8(id)) break :blk id;
+    break :blk null;
+};
+
+prov.* = resolver.createProvider(parsed.mock, selected_provider.*, provider_url.*, api_key, provider_arena, io);
+if (!parsed.mock) try resolver.ensureCopilotAuth(arena, io, init, cfg, stdout_writer, prov);
+
+const init_result = (try model_selection.select(
+    prov, configured_model, arena, io, init, skip_validation,
+    cfg, selected_provider.*, init.environ_map, random,
+)) orelse {
+    // Fallback: show picker when the configured model isn't in the running list
+    break :blk try model_selection.select(prov, null, arena, io, init, false, cfg, selected_provider.*, init.environ_map, random);
+};
+model_key.* = init_result.model_key;
+```
+
+The chat loop is cancellation-aware, prompt-history-aware, skill-aware, and session-persistent. Slash commands handled inline:
+
+- `/quit` / `/exit`, `/new` / `/reset`, `/stats`, `/config` (reconfigure mid-session)
+- `/plan [task]` / `/build [task]`, `/model [id]`, `/provider [name]`, `/thinking [level]`
+- `/sessions`, `/resume [id]`, `/prune`, `/skills`, `/file <path|url>`
+
+The welcome screen shows provider, URL, model, reasoning effort, session ID, and whether the session is one-shot or prefilled. Startup time is printed with ANSI dim:
+
+```zig
+fn printStartupTime(io: std.Io, stdout_writer: *std.Io.Writer, startup_time: std.Io.Clock.Timestamp) !void {
+    const now = std.Io.Clock.Timestamp.now(io, .awake);
+    const elapsed_ns: u64 = @intCast(startup_time.raw.durationTo(now.raw).nanoseconds);
+    var startup_buf: [64]u8 = undefined;
+    try stdout_writer.print("{s}Startup time: {s}{s}", .{
+        ansi.dim, formatDuration(&startup_buf, elapsed_ns), ansi.reset,
+    });
+    try stdout_writer.flush();
+}
+```
+
+## Installation and usage
+
+Quick install:
+
+```bash
+# Linux/macOS
+curl -fsSL https://christianhelle.com/puny/install | bash
+
+# Windows (PowerShell)
+irm https://christianhelle.com/puny/install.ps1 | iex
+
+# Pin or customize
+VERSION=v0.1.0 curl -fsSL https://christianhelle.com/puny/install | bash
+curl -fsSL https://christianhelle.com/puny/install | bash -s -- --dir "$HOME/.local/bin"
+```
+
+Build from source (requires Zig 0.16.0+):
+
+```bash
+git clone https://github.com/christianhelle/puny.git
+cd puny
+zig build install-release
+```
+
+Usage:
+
+```bash
+puny                                          # Interactive chat (wizard on first run)
+puny --provider opencode --api-key $KEY        # Hosted model
+puny --provider copilot                       # GitHub Copilot device-flow
+puny --prompt "List all source files" --oneshot
+puny --prompt-file spec.md --oneshot
+puny --prompt-file https://example.com/spec.md
+puny --mock --model mock-model --prompt "search" --oneshot   # No backend
+```
+
+Puny also supports `--prompt-file` / `/file` for file-or-URL prompts (10 MiB, 30 s timeout), `--show-thinking` for reasoning output, and `--debug` / `--chat-log` for `puny_debug.log` / `puny_chat.log`.
