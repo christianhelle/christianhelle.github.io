@@ -384,3 +384,80 @@ Skills load three ways:
 3. **Model invocation** — the model calls the `load_skill` tool when it sees a relevant entry in `<available_skills>`. Skills with `disable-model-invocation: true` are slash-only.
 
 `--no-skills` / `PUNY_NO_SKILLS=1` disables all of this; skill directories are never scanned and `/skills` reports that skills are disabled.
+
+## Configuration and secrets
+
+Puny stores configuration in `config.json` under a platform-appropriate directory:
+
+- Linux/macOS: `$XDG_CONFIG_HOME/puny` or `~/.config/puny`
+- Windows: `%APPDATA%\puny` or `%USERPROFILE%\puny`
+
+On first launch, a setup wizard prompts for provider, URL (LM Studio only), and API key. Subsequent runs skip the wizard unless you pass `--reconfigure` or `/config`.
+
+API keys are encrypted at rest with XChaCha20-Poly1305. The encryption key is a random 32-byte file:
+
+- POSIX: `~/.local/share/puny/encryption.key` (`0600`)
+- Windows: `%LOCALAPPDATA%\puny\encryption.key`
+
+`config.json` itself is written `0600` on POSIX, and plaintext keys are migrated to `enc:v1:` blobs on the next save. `PUNY_API_KEY` / `--api-key` / `--api-key-file` remain session-only and are never persisted.
+
+Per-provider settings (URL, API key, last-selected model, reasoning effort) are stored so switching providers doesn't require re-entering credentials.
+
+Resolution order everywhere is `CLI flag` → `environment variable` → `config.json` → `default`. For example:
+
+```
+provider: --provider > PUNY_PROVIDER > config.json > lmstudio
+api key:  --api-key > --api-key-file > PUNY_API_KEY > config.json
+model:    --model > PUNY_MODEL > config.json (per-provider entry)
+```
+
+## Sessions — persistence that actually works
+
+Every run creates a UUID-identified session folder:
+
+```
+~/.config/puny/sessions/<uuid>/
+├── plan.md        # PRD markdown (planning mode)
+├── plan.html      # PRD HTML
+├── messages.json  # Full conversation (saved every turn)
+└── session.json   # Metadata: planning mode, first prompt
+```
+
+Sessions use a v4 UUID with the variant/variant bits set explicitly — no external dependency:
+
+```zig
+pub fn generateUuid(random: std.Random, arena: std.mem.Allocator) ![]const u8 {
+    var bytes: [16]u8 = undefined;
+    random.bytes(&bytes);
+    bytes[6] = (bytes[6] & 0x0f) | 0x40;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+
+    const hex = "0123456789abcdef";
+    var buf: [36]u8 = undefined;
+    var i: usize = 0;
+    var j: usize = 0;
+    while (i < 16) : (i += 1) {
+        if (i == 4 or i == 6 or i == 8 or i == 10) {
+            buf[j] = '-'; j += 1;
+        }
+        buf[j] = hex[bytes[i] >> 4];
+        buf[j + 1] = hex[bytes[i] & 0x0f];
+        j += 2;
+    }
+    return try arena.dupe(u8, &buf);
+}
+```
+
+Conversation persistence is automatic — after every turn, on `/quit`, on `Ctrl+C`, and on `/reset` — including tool results so a restored session has full context. Empty sessions (no user message, no reply, no PRD) are pruned automatically.
+
+You can resume several ways:
+
+```bash
+puny --session abc-12          # By UUID prefix
+puny --resume                  # Most recent with a conversation
+puny --prune --session <uuid>  # Delete all except one
+```
+
+Or interactively: `/resume`, `/resume abc-12`, `/sessions`, `/prune`.
+
+Planning mode is special-cased: read-only tools plus `save_prd`, with `planning_mode` and `first_prompt` persisted in `session.json` and restored so the conversation picks up exactly where it left off.
