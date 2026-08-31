@@ -544,3 +544,25 @@ puny --mock --model mock-model --prompt "search" --oneshot   # No backend
 ```
 
 Puny also supports `--prompt-file` / `/file` for file-or-URL prompts (10 MiB, 30 s timeout), `--show-thinking` for reasoning output, and `--debug` / `--chat-log` for `puny_debug.log` / `puny_chat.log`.
+
+## Distribution and miscellany
+
+Like my other Zig tools, distribution is automatic: GitHub Actions builds `tar.gz` / `zip` artifacts for six targets and attaches them to releases. `install.sh` / `install.ps1` detect OS and architecture, handle `--dir`/`--prefix` and `VERSION` pinning, and `puny --upgrade` re-runs the same script.
+
+A minimal Docker path is also included — `zig build -Ddocker -Doptimize=ReleaseSmall -Dtarget=x86_64-linux` plus a generated `Dockerfile` from `alpine:latest` with a non-root `puny` user. The encryption key lives in the container's writable layer (`/app/.local/share/puny/encryption.key`), so mount a volume if you want persisted keys.
+
+Puny ships with a mock provider (`--mock` / `PUNY_MOCK=1`) that simulates tool calls from keywords (`read`→`read_file`, `search`→`grep_search`, `reasoning`→streamed thinking) so the whole loop is testable without a backend. A background update checker spawns a detached child after the welcome screen (skipped in `--oneshot`), writes a flag file, and surfaces an update notice on the next run.
+
+```bash
+zig build run -- --mock --model mock-model --prompt "respond with reasoning" --show-thinking --oneshot
+puny --debug    # → puny_debug.log (pretty-printed SSE)
+puny --chat-log # → puny_chat.log (full conversation, reasoning included)
+```
+
+## Conclusion
+
+Puny is the tool I wanted but couldn't find — a tiny, natively compiled, single-binary coding agent that starts instantly, stays small, and only does what I actually need. Building it in Zig kept the binary at ~1 MB, the startup at ~1 ms, and the codebase honest about ownership and I/O. No runtime, no framework, no plugin ecosystem — just a tool that reads, edits, searches, and runs commands.
+
+The source code is on GitHub at [https://github.com/christianhelle/puny](https://github.com/christianhelle/puny). Give it a try, file an issue, or send a PR. And if you want parallel work, run another instance.
+
+This is part of my ongoing Zig journey. For more Zig tools, see [HTTP File Runner](/2025/06/http-file-runner-zig-tool.html), [chlogr](/2025/11/building-a-github-changelog-generator-in-zig.html), [clocz](/2026/02/building-clocz-zig-line-counter.html), [argiope](/2026/03/building-argiope-web-crawler-broken-link-detector.html), and [ZigFaker](/2026/03/zigfaker.html).
