@@ -239,3 +239,86 @@ Every streaming path goes through `chatStreamingCaptured`, which captures non-su
 **Copilot auth** is the most involved flow: resolve an OAuth token (`--api-key` → `PUNY_API_KEY` → `config.json` → `GITHUB_COPILOT_OAUTH_TOKEN` → `apps.json`/`hosts.json` discovery → device-flow login), exchange it for a short-lived Copilot token, filter the model list to picker-enabled `chat` models, and hide legacy/internal models from the picker.
 
 **HTTP internals** use `std.http` with SSE streaming, cancellation-aware reads (Ctrl+C closes the socket via `core/cancel.zig` + `sigint.zig`), and a `HttpFailureCapture` observer that records the raw error body for the debug log and user-facing hints.
+
+## Tool calling — the curated set
+
+Puny exposes a small, fixed tool registry. The model sees these tools on every request; when it decides to call one, Puny executes it immediately (YOLO mode — no confirmation) and feeds the result back.
+
+```zig
+pub const registry = blk: {
+    @setEvalBranchQuota(10000);
+    break :blk &[_]Tool{
+        filesystem.read_file,
+        filesystem.write_file,
+        filesystem.list_directory,
+        shell.execute_shell,
+        search.grep_search,
+        git.git_status,
+        git.git_diff,
+        web.web_fetch,
+        skill_loader.load_skill,
+    };
+};
+
+pub const planning_registry = blk: {
+    @setEvalBranchQuota(10000);
+    break :blk &[_]Tool{
+        filesystem.read_file,
+        filesystem.list_directory,
+        search.grep_search,
+        web.web_fetch,
+        git.git_status,
+        git.git_diff,
+        core_session.save_prd_tool,
+        skill_loader.load_skill,
+    };
+};
+```
+
+Planning mode trims the set further — no `write_file` or `execute_shell` until the PRD is saved, where `save_prd` writes both `plan.md` and `plan.html` to the session folder:
+
+```zig
+pub const save_prd_tool = Tool{
+    .name = "save_prd",
+    .description = "Save the Product Requirements Document...",
+    .schema = savePrdSchema,
+    .execute = struct {
+        pub fn exec(allocator: std.mem.Allocator, io: std.Io, args: std.json.Value) ![]const u8 {
+            var md_file = try std.Io.Dir.cwd().createFile(io, prd_path_global, .{});
+            defer md_file.close(io);
+            try md_file.writeStreamingAll(io, markdown.string);
+            var html_file = try std.Io.Dir.cwd().createFile(io, html_path_global, .{});
+            defer html_file.close(io);
+            try html_file.writeStreamingAll(io, html.string);
+            return std.fmt.allocPrint(allocator, " - {s}\n - {s}", .{ abs_md, abs_html });
+        }
+    }.exec,
+};
+```
+
+Each tool is defined with a comptime schema:
+
+```zig
+pub fn defineTool(
+    comptime name: []const u8,
+    comptime description: []const u8,
+    comptime Params: type,
+    comptime handler: fn (allocator: std.mem.Allocator, io: std.Io, params: Params) anyerror![]const u8,
+) Tool {
+    const Schema = schema.ToolDefinition(name, description, Params);
+    return .{
+        .name = name,
+        .description = description,
+        .schema = Schema.schema,
+        .execute = struct {
+            pub fn exec(allocator: std.mem.Allocator, io: std.Io, args: std.json.Value) ![]const u8 {
+                const parsed = try std.json.parseFromValue(Params, allocator, args, .{});
+                defer parsed.deinit();
+                return handler(allocator, io, parsed.value);
+            }
+        }.exec,
+    };
+}
+```
+
+Status lines are summarized — `🔧 Reading "src/main.zig"`, `🔧 Running "zig build test"`, `🔧 Writing 12 lines (384 bytes) to "README.md"` — large payloads are counted, not dumped.
