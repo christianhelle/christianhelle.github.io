@@ -165,3 +165,97 @@ List pipelines in the OtherProject project specifically, not my default
 
 This mirrors how `gh` remembers your repo via the git remote. The agent handles both cases: deriving context from git where it can, and remembering project scope where you told it to.
 
+## The Core Loop: Creating and Managing Pull Requests
+
+This is the skill's flagship scenario and the one most directly comparable to the GitHub experience. On GitHub you say "create a PR" and `gh` derives the repo and branch from git. With the azdocli skill, the agent does the equivalent for Azure DevOps.
+
+### The GitHub-like Flow
+
+When you are on a feature branch and say "create a pull request", the agent will:
+
+1. Run `git remote get-url origin` and `git branch --show-current` to derive the repo and source branch
+2. Compose `azdocli repos pr create` with sensible defaults
+
+```bash
+# What the agent actually runs for you
+REPO=$(git remote get-url origin | sed 's/.*\/\(.*\)\.git/\1/')
+BRANCH=$(git branch --show-current)
+
+azdocli repos pr create \
+  --repo "$REPO" \
+  --source "$BRANCH" \
+  --title "feat: add dark mode" \
+  --description "Implements dark mode toggle"
+```
+
+Key defaults the agent knows about:
+
+| Flag | Default | Notes |
+|------|---------|-------|
+| `--target` | `main` | Auto-prefixed with `refs/heads/` |
+| `--title` | `Pull Request` | The agent will generate a meaningful title from your changes if you don't provide one |
+| `--description` | *(none)* | The agent can derive this from commit messages or a description file |
+
+**Example prompts:**
+
+```text
+Create a pull request for this branch
+```
+
+This is the canonical GitHub-like prompt. The agent derives `REPO` and `BRANCH` from git, targets `main`, and generates a title from your recent commits.
+
+```text
+Create a PR from feature/payment-gateway targeting develop with title "Add Stripe integration"
+```
+
+Explicit source, target, and title — the agent passes `--source feature/payment-gateway --target develop --title "Add Stripe integration"`.
+
+```text
+Open a pull request for my current branch and use the content of PR_DESCRIPTION.md as the description
+```
+
+The agent knows about `--description-file` via `azdocli repos pr update` and will create the PR then update it with the file content.
+
+### Browsing and Inspecting PRs
+
+After creation, the natural next step is to review what is out there. The skill covers the view side of the PR lifecycle:
+
+```bash
+# List PRs in a repo
+azdocli repos pr list --repo MyRepo
+
+# Show PR details
+azdocli repos pr show --repo MyRepo --id 123
+
+# Show commits in a PR
+azdocli repos pr commits --repo MyRepo --id 123
+
+# Update title or description
+azdocli repos pr update --repo MyRepo --id 123 --title "New title"
+azdocli repos pr update --repo MyRepo --id 123 --description-file ./description.md
+```
+
+**Example prompts:**
+
+```text
+Show me all open pull requests in the Backend repo
+```
+
+```text
+What's the status of PR 204 in MyRepo? Who created it and what's the source branch?
+```
+
+```text
+List the commits in PR 123 for the WebApp repo
+```
+
+```text
+Update the title of PR 87 in MyRepo to "fix: handle null token in auth middleware"
+```
+
+```text
+Replace the description of PR 87 with the contents of ./docs/pr-body.md
+```
+
+> Approval and merge still happen in the Azure DevOps web UI — azdocli is view and create only. The agent will tell you this rather than failing silently if you ask it to approve or merge.
+
