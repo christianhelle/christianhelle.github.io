@@ -301,3 +301,49 @@ Hard-delete the old-prototype repo without asking
 ```
 
 The agent knows `--hard` means permanent deletion and `--yes` skips the confirmation prompt. It will not combine them unless you explicitly ask for destructive action.
+
+## Pipelines: The CI/CD Pulse Check
+
+This is where the GitHub Actions analogy is strongest. Just as you might say "show me the failed runs for this repo" with `gh`, you can now do the same for Azure Pipelines:
+
+```bash
+azdocli pipelines list                    # list all pipelines
+azdocli pipelines runs --id 42            # show all runs for pipeline 42
+azdocli pipelines show --id 42 --build-id 123  # details for a specific build
+azdocli pipelines run --id 42             # trigger a new run (experimental)
+```
+
+**Example prompts:**
+
+```text
+List all pipelines in my project
+```
+
+```text
+Show me the runs for pipeline 42 — any failures?
+```
+
+```text
+What happened in build 123 of pipeline 42? Show me the details
+```
+
+```text
+Trigger pipeline 42 for me
+```
+
+The agent knows `pipelines runs --id` shows the history for a single pipeline definition, while `pipelines show --id --build-id` drills into one specific execution. If you phrase it ambiguously like "show me pipeline 42", it will default to listing runs and ask if you wanted a specific build. The `--project` flag is optional if you have a default set, just like with repos.
+
+A morning standup variant that mirrors my personal workflow:
+
+```text
+Before standup, check pipelines — list all pipelines and then show runs for the main build pipeline
+```
+
+The agent will chain `azdocli pipelines list` to identify the main pipeline, then `azdocli pipelines runs --id <n>` to show recent activity, all without extra prompting.
+
+```text
+Rerun the latest failed pipeline build
+```
+
+The agent will list runs, identify the failed one, and trigger it via `azdocli pipelines run --id`. It will warn you that `pipelines run` is currently registered but not yet fully implemented in some builds, so you know to confirm in the web UI if needed.
+
