@@ -347,3 +347,78 @@ Rerun the latest failed pipeline build
 
 The agent will list runs, identify the failed one, and trigger it via `azdocli pipelines run --id`. It will warn you that `pipelines run` is currently registered but not yet fully implemented in some builds, so you know to confirm in the web UI if needed.
 
+## Boards: Work Items as a Conversation
+
+Azure Boards is where Azure DevOps diverges most from GitHub Issues, so the skill puts extra care into mapping natural language to the right work item type and state transitions.
+
+```bash
+azdocli boards work-item list                          # my work items (default 50)
+azdocli boards work-item list --state Active --work-item-type Bug --limit 20
+azdocli boards work-item show --id 123                 # show details
+azdocli boards work-item show --id 123 --web           # open in browser
+azdocli boards work-item create bug --title "Fix login"             # subcommand is the type
+azdocli boards work-item update --id 123 --state Active --priority 2
+azdocli boards work-item delete --id 123               # permanent
+azdocli boards work-item delete --id 123 --soft-delete # state -> Removed
+```
+
+Supported create subcommands are `bug`, `task`, `user-story`, `feature`, and `epic`. The agent knows to map your natural language type to the correct subcommand.
+
+**Example prompts:**
+
+```text
+Show my work items
+```
+
+Simplest standup prompt. The agent runs `azdocli boards work-item list` and summarizes what is assigned to you. It defaults to 50 results; you can narrow it.
+
+```text
+List active bugs assigned to me, max 20 results
+```
+
+The agent composes `azdocli boards work-item list --state Active --work-item-type Bug --limit 20`.
+
+```text
+Show me work item 456
+```
+
+```text
+Open work item 456 in the browser
+```
+
+The `--web` flag opens the web UI directly. The agent knows to use it when you say "open in browser" versus just showing details inline.
+
+```text
+Create a bug called "Login fails after password change" 
+```
+
+```text
+Create a user story "As a shopper I want to filter by size so that I can find my fit"
+```
+
+The agent maps "bug" → `azdocli boards work-item create bug` and "user story" → `azdocli boards work-item create user-story`. The `--title` flag is required; the agent will use your quoted text as the title.
+
+```text
+Update work item 123 — set it to Active and priority 1
+```
+
+```text
+Close work item 123
+```
+
+Priority is 1–4, state values like `Active`, `Resolved`, `Closed` are passed through to `--state` and `--priority`.
+
+```text
+Delete work item 999 but soft-delete it so it can be recovered
+```
+
+The agent knows `--soft-delete` changes state to `Removed` instead of permanent deletion, and will prefer it unless you say "permanently" or "hard delete".
+
+A combined workflow example:
+
+```text
+After my standup, create a task "Write integration tests for checkout" then list my active work items to confirm
+```
+
+The agent will run `azdocli boards work-item create task --title "Write integration tests for checkout"` followed by `azdocli boards work-item list --state Active`, chaining two commands in one turn.
+
