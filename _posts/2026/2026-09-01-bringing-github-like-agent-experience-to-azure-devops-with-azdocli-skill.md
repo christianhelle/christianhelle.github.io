@@ -27,7 +27,7 @@ I wanted that same experience for Azure DevOps.
 
 For years Azure DevOps has had powerful APIs and a capable web UI, but the command-line story has always felt fragmented. The official `az devops` extension through the Azure CLI works, but it is Python-based, slow to start, heavy on dependencies, and not designed for agentic workflows. When I built [azdocli](https://github.com/christianhelle/azdocli) — a fast, native Azure DevOps CLI written in Rust — I focused on speed, single-binary distribution, and scripting ergonomics. But speed alone does not give you the GitHub-like "just tell the agent what you want" experience.
 
-That last mile is what the [azdocli skill](../skills/azdocli) solves. It teaches your AI agent how to use `azdocli` the way the GitHub skill teaches it to use `gh`. Once installed, you can talk to your agent in plain English and it will translate your intent into the right `azdocli` commands, with the right flags, defaults, and safety checks.
+That last mile is what the [azdocli skill](https://github.com/christianhelle/azdocli) solves. It teaches your AI agent how to use `azdocli` the way the GitHub skill teaches it to use `gh`. Once installed, you can talk to your agent in plain English and it will translate your intent into the right `azdocli` commands, with the right flags, defaults, and safety checks.
 
 In this post I will walk you through the entire experience in detail: what the skill is, how to install it, how it decides when to trigger, and how to use it across every major Azure DevOps area — repos, pull requests, pipelines, boards, projects, wikis, and even cross-tenant migrations — with example prompts you can copy-paste and adapt.
 
@@ -53,7 +53,7 @@ If you have not used azdocli before, the [announcement post](/2025/06/azure-devo
 
 ## What is the azdocli Skill?
 
-The [azdocli skill](../skills/azdocli) lives in `skills/azdocli` and consists of two files:
+The [azdocli skill](https://github.com/christianhelle/azdocli) lives in `skills/azdocli` and consists of two files:
 
 - **`SKILL.md`** — the compact instruction set the agent loads into context. It contains installation steps, authentication setup, default project configuration, and the core pull request workflow with quick-reference tables for every other command group.
 - **`REFERENCE.md`** — the full command catalog with every flag, default, and example for every subcommand. The agent consults this when it needs precise syntax.
