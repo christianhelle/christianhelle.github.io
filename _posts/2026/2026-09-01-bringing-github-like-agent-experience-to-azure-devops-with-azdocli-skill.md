@@ -133,3 +133,35 @@ I'm getting an auth error — re-run login for my profile and check the config
 The agent knows that `azdocli login` is interactive and will walk you through the PAT prompt. It also knows about `--profile` for named credential profiles, which becomes important in the migration scenario later.
 
 To clear credentials the agent can run `azdocli logout`, which removes stored credentials and config.
+
+## Setting a Default Project
+
+One of the most satisfying quality-of-life features in azdocli came from pure frustration during development: constantly typing `--project MyProject` for every command. The fix is a single setup step:
+
+```bash
+azdocli project "MyProject"   # set default
+azdocli project               # view current default
+```
+
+Once set, every `--project` flag becomes optional. The agent knows this and will offer to configure it for you. If you do not set one, it will explicitly pass `--project YourProject` on each command. If you do, it omits the flag and the CLI uses the stored default.
+
+**Example prompts:**
+
+```text
+Set my default project to ECommercePlatform
+```
+
+```text
+What project am I currently defaulting to?
+```
+
+```text
+List my repos — I'm defaulting to MyProject so you shouldn't need the flag
+```
+
+```text
+List pipelines in the OtherProject project specifically, not my default
+```
+
+This mirrors how `gh` remembers your repo via the git remote. The agent handles both cases: deriving context from git where it can, and remembering project scope where you told it to.
+
