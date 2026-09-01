@@ -601,3 +601,71 @@ Resume the batch migration from manifest.json without failing fast
 ```
 
 In all migration prompts the agent knows about `--fail-fast`, `--resume`, `--state-file`, `--output-dir`, and `-y/--yes` for skipping confirmations. It defaults to `--dry-run` unless you say "real migration" or "actually migrate".
+
+## Putting It All Together: End-to-End Workflows
+
+The real value of the azdocli skill shows when you chain commands the way you naturally think about work. Here are a few realistic multi-step workflows, each expressible as a single prompt to the agent.
+
+### Morning Standup Prep
+
+```text
+Get me ready for standup — show my active work items, list all pipelines and their latest runs, and show open PRs in the Backend repo
+```
+
+The agent will run `azdocli boards work-item list --state Active`, `azdocli pipelines list` + `pipelines runs --id` for each, and `azdocli repos pr list --repo Backend` in sequence, then summarize the results. What used to mean opening half a dozen browser tabs is now one sentence.
+
+### Emergency Hotfix
+
+```text
+Critical login issue — create a bug "Users unable to authenticate after deploy", trigger pipeline 42, and open the bug in the browser so I can watch it
+```
+
+Three commands, no context switching: `azdocli boards work-item create bug --title "Users unable to authenticate after deploy"`, `azdocli pipelines run --id 42`, `azdocli boards work-item show --id <new-id> --web`. The entire response happens while your editor stays focused.
+
+### Feature Branch to PR
+
+```text
+I just finished the feature/checkout-refactor branch — push it if needed and create a PR targeting main with a description generated from my commits since main
+```
+
+The agent checks `git status`, pushes if the branch is ahead, derives the repo name, and runs `azdocli repos pr create --repo <name> --source feature/checkout-refactor --target main --title "…" --description "…"`. If you have a `PR_DESCRIPTION.md` file, it will offer to use `repos pr update --description-file` instead.
+
+### Bulk Onboarding
+
+```text
+I just set up a new machine — log me in, set the default project to Platform, and clone all repos in parallel to ~/src
+```
+
+→ `azdocli login`, `azdocli project Platform`, `azdocli repos clone --target-dir ~/src --yes --parallel --concurrency 8`. The skill handles the "new machine" narrative end to end.
+
+### Wiki-Assisted Discovery
+
+```text
+Search the wiki for "onboarding", download the best match to ./docs, and then create a task linking to it
+```
+
+The agent will run `azdocli wiki page search "onboarding" --show-contents`, pick the top hit, `azdocli wiki page download /<hit> --dir ./docs`, and finally `azdocli boards work-item create task --title "…"`.
+
+## Tips for Getting the Best Results
+
+A few things I have learned from using the skill heavily:
+
+**Be explicit when you mean destructive actions.** The agent will not infer `--hard`, `--yes`, or `--soft-delete` choices from vague language. Say "hard-delete without confirmation" if that is what you want. Otherwise it will ask.
+
+**Let the agent derive git context.** You rarely need to say the repo or branch name. If you are on `feature/x` in a repo whose origin is `https://dev.azure.com/org/project/_git/MyRepo`, the agent already knows the `--repo MyRepo` and `--source feature/x` values. Only override them when you are targeting something other than the current checkout.
+
+**Prefer "show me" vs "open in browser".** Without `--web` the agent shows inline data; with it, it opens the web UI. Being explicit about which you want saves a round trip.
+
+**Use "dry run" as your safety net for migrations.** The agent defaults to `--dry-run` for `azdocli migrate` unless you say "real", "actually", or "without dry run". Trust that default.
+
+**Mention the project only when it is not the default.** "List repos in OtherProject" is enough; you do not need to say `--project OtherProject` literally. The agent will add the flag.
+
+## Conclusion
+
+The GitHub CLI taught us that the best dev tooling is the tooling you do not have to think about. You say what you want in the language you already use, and the agent does the mechanical part. There is no reason that experience should be exclusive to GitHub when so many teams do their daily work in Azure DevOps.
+
+The [azdocli skill](https://github.com/christianhelle/azdocli) brings that last mile to Azure DevOps: one skill file that teaches your agent how to install the CLI, authenticate, remember your default project, create and browse pull requests, inspect pipelines, manage boards, explore wikis, and even orchestrate cross-tenant migrations, all from a single conversational interface. Underneath it is a fast, native Rust binary that makes chaining commands feel instantaneous.
+
+If you already use `azdocli`, drop the skill into your agent's skills directory and try a prompt like "create a pull request for this branch" or "show me my active bugs" — you will feel the GitHub-like flow immediately. If you have not tried `azdocli` yet, the one-liner installer and `azdocli login` are all it takes to get started, and the skill will walk you through the rest.
+
+The source is at [github.com/christianhelle/azdocli](https://github.com/christianhelle/azdocli) with full documentation in `REFERENCE.md`. Issues and PRs are welcome — especially those created by telling your agent to do it for you.
