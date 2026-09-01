@@ -259,3 +259,45 @@ Replace the description of PR 87 with the contents of ./docs/pr-body.md
 
 > Approval and merge still happen in the Azure DevOps web UI — azdocli is view and create only. The agent will tell you this rather than failing silently if you ask it to approve or merge.
 
+## Repositories: Beyond Pull Requests
+
+Pull requests get the spotlight, but the skill also handles everyday repo operations.
+
+```bash
+azdocli repos list                        # list all repos in the default project
+azdocli repos show --id MyRepo            # repo details
+azdocli repos create --name NewRepo       # create a repo
+azdocli repos delete --id MyRepo          # delete (add --hard --yes for permanent)
+azdocli repos clone                       # clone all repos from the default project
+azdocli repos clone --target-dir ./repos --yes --parallel --concurrency 8
+```
+
+**Example prompts:**
+
+```text
+List all repos in my project
+```
+
+```text
+Show me details for the Infrastructure repo — size, remote URL, default branch
+```
+
+```text
+Create a new repo called Playground and show me the clone URL
+```
+
+```text
+Clone all repos from my project in parallel into ./repos — skip confirmation
+```
+
+The bulk clone workflow is the one where `azdocli` really shines over the browser. When I got a new machine and needed to restore hundreds of repos, the difference between sequential browser cloning and `azdocli repos clone --parallel --concurrency 32 --yes` was the difference between 20 minutes of babysitting and a few seconds of unattended work. With the skill, you just say "clone everything in parallel" and the agent picks the right flags.
+
+```text
+Delete the temp-experiment repo but confirm before doing it
+```
+
+```text
+Hard-delete the old-prototype repo without asking
+```
+
+The agent knows `--hard` means permanent deletion and `--yes` skips the confirmation prompt. It will not combine them unless you explicitly ask for destructive action.
