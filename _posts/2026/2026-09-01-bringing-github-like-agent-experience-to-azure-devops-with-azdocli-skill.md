@@ -422,3 +422,110 @@ After my standup, create a task "Write integration tests for checkout" then list
 
 The agent will run `azdocli boards work-item create task --title "Write integration tests for checkout"` followed by `azdocli boards work-item list --state Active`, chaining two commands in one turn.
 
+## Projects, Users, and Wiki: The Rest of the Surface Area
+
+The skill does not stop at repos, pipelines, and boards. It covers the broader Azure DevOps surface that you might otherwise reach only through the web portal.
+
+### Projects
+
+```bash
+azdocli projects list                              # list team projects in the org
+azdocli projects show --project MyProject           # show a project (or --open in browser)
+azdocli projects create --name NewProject --description "My new project"
+azdocli projects delete --id <project-guid> --yes   # GUID required — get via show
+```
+
+**Example prompts:**
+
+```text
+List all team projects in the organization
+```
+
+```text
+Show me the details for the Platform project
+```
+
+```text
+Create a new project called Sandbox with description "Experiments"
+```
+
+```text
+Delete project <guid> — I already confirmed, skip the prompt
+```
+
+The agent knows `projects delete` requires a GUID, not a name, and will call `projects show --project <name>` first to resolve it if you provide a name.
+
+### Users
+
+```bash
+azdocli user list
+azdocli user show --email user@company.com
+azdocli user show --id <uuid>
+azdocli user add --email user@company.com --license express
+azdocli user remove --email user@company.com
+azdocli user update --email user@company.com --license stakeholder
+```
+
+Licenses are `none`, `earlyAdopter`, `express`, `professional`, `advanced`, and `stakeholder`.
+
+**Example prompts:**
+
+```text
+List all users in the org
+```
+
+```text
+Show me user@company.com
+```
+
+```text
+Add user@company.com with an express license
+```
+
+```text
+Change user@company.com to stakeholder
+```
+
+```text
+Remove user@company.com from the organization
+```
+
+The agent enforces the mutual exclusivity of `--id` vs `--email` and validates the license values before calling the CLI.
+
+### Wiki
+
+```bash
+azdocli wiki list                                   # list wikis in a project
+azdocli wiki show [MyWiki]                          # details (auto-resolves if only one)
+azdocli wiki page list [/Home] --wiki MyWiki        # list pages from a root path
+azdocli wiki page show /Getting-Started             # show page content
+azdocli wiki page show /Getting-Started --web       # open in browser
+azdocli wiki page download /Getting-Started --dir ./docs
+azdocli wiki page search "API key" --show-contents --limit 10
+azdocli wiki page move /Old-Name /New-Name          # rename/move
+```
+
+**Example prompts:**
+
+```text
+List all wikis in my project
+```
+
+```text
+Show me the wiki page at /Getting-Started
+```
+
+```text
+Search the wiki for "deploy" and show content snippets, limit 10
+```
+
+```text
+Download the wiki page /Onboarding to ./docs
+```
+
+```text
+Rename the wiki page from /Old-Name to /New-Name
+```
+
+The agent knows wikis auto-resolve when only one exists, so it will omit `--wiki MyWiki` unless disambiguation is needed, and it knows `--dir` and `--overwrite` for downloads.
+
