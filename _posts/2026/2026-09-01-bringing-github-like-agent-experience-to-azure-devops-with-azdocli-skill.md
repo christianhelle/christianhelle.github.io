@@ -69,3 +69,67 @@ The skill triggers whenever the user intent matches Azure DevOps work or when th
 
 That is the same shape as the GitHub skill: intent in, correct CLI invocation out, with the agent handling the glue.
 
+## Installation and Authentication
+
+The first thing the agent does in any Azure DevOps session is make sure `azdocli` is available and authenticated. You do not need to remember the install commands — the agent does that for you — but it helps to know what happens under the hood.
+
+### Installing azdocli
+
+If `azdocli` is not installed, the agent will pick the right one-liner for the current platform:
+
+| Platform | Command the agent runs |
+|----------|------------------------|
+| Linux/macOS | `curl -fsSL https://christianhelle.com/azdocli/install \| bash` |
+| Windows (PowerShell) | `iwr -useb https://christianhelle.com/azdocli/install.ps1 \| iex` |
+| Cargo (any) | `cargo install azdocli` |
+| Linux (Snap) | `snap install azdocli` |
+
+It then verifies with `azdocli --version`.
+
+**Example prompts:**
+
+```text
+Install azdocli for me
+```
+
+```text
+Check if azdocli is installed and set it up if not
+```
+
+```text
+I'm on Windows — set up azdocli so we can work with Azure DevOps
+```
+
+In each case the agent detects the OS, runs the correct installer, and confirms the binary is on the PATH. You can also be explicit about the method: "install azdocli via cargo" will make the agent prefer `cargo install azdocli` even on Linux where the curl installer would otherwise be the default.
+
+### Logging in with a PAT
+
+Azure DevOps authenticates via Personal Access Tokens (PATs). The agent will prompt you when needed:
+
+```bash
+azdocli login
+# prompts for: organization URL/name + PAT
+
+# Named profile for cross-tenant scenarios
+azdocli login --profile my-org
+```
+
+You create the PAT in the web UI under User Settings → Personal Access Tokens. For `azdocli` you typically need **Code** (Read & Write), **Build** (Read & Execute), **Work Items** (Read & Write), and **Project and Team** (Read) scopes.
+
+**Example prompts:**
+
+```text
+Log me into Azure DevOps — my org is contoso
+```
+
+```text
+Set up auth for two tenants, one as source and one as target
+```
+
+```text
+I'm getting an auth error — re-run login for my profile and check the config
+```
+
+The agent knows that `azdocli login` is interactive and will walk you through the PAT prompt. It also knows about `--profile` for named credential profiles, which becomes important in the migration scenario later.
+
+To clear credentials the agent can run `azdocli logout`, which removes stored credentials and config.
