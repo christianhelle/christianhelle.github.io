@@ -529,3 +529,75 @@ Rename the wiki page from /Old-Name to /New-Name
 
 The agent knows wikis auto-resolve when only one exists, so it will omit `--wiki MyWiki` unless disambiguation is needed, and it knows `--dir` and `--overwrite` for downloads.
 
+## Advanced Scenario: Cross-Tenant Migration
+
+This is the skill's most advanced area and one that has no real GitHub equivalent: migrating an entire team project from one Azure DevOps organization to another. Because `azdocli migrate` touches so many resources, the skill is careful to lean on safety flags.
+
+The migration feature requires **named credential profiles**. The agent will have already set these up via `azdocli login --profile <name>` during the authentication step, but if you start with migration it will prompt for them.
+
+Available migration phases (which the agent can include or skip selectively) are: `project`, `process`, `areas`, `iterations`, `teams_create`, `teams_configure`, `repos`, `wikis`, `variable_groups`, `service_connections`, `work_items`, `wi_links`, `wi_attachments`, `wi_comments`, `prs`, `pipelines_yaml`, `pipelines_classic`, `test_plans`, `dashboards`.
+
+### Single-Project Migration
+
+```bash
+azdocli migrate project \
+  --source-profile src \
+  --target-profile dst \
+  --source "OldProject" \
+  --target "NewProject" \
+  --create-target \
+  --dry-run
+
+# Resume after interruption
+azdocli migrate project --source-profile src --target-profile dst --source OldProject --resume
+
+# Narrow to specific phases
+azdocli migrate project --source-profile src --target-profile dst --source OldProject --phases repos,wikis,work_items
+```
+
+**Example prompts:**
+
+```text
+Migrate the OldProject team project from tenant A to tenant B — create the target if it doesn't exist, but do a dry run first
+```
+
+The agent will compose `azdocli migrate project --source-profile src --target-profile dst --source "OldProject" --create-target --dry-run` and show you what would be migrated without writing anything.
+
+```text
+Run the real migration for OldProject from source profile "src" to target profile "dst", but only migrate repos, wikis, and work items
+```
+
+→ `--phases repos,wikis,work_items`.
+
+```text
+The last migration failed halfway through — resume it from the state file
+```
+
+→ adds `--resume`.
+
+```text
+Skip the test_plans and dashboards phases and use 8 concurrent API calls
+```
+
+→ `--skip-phases test_plans,dashboards --concurrency 8`.
+
+### Batch Migration
+
+For multiple projects the agent expects a JSON manifest:
+
+```bash
+azdocli migrate batch --config manifest.json --dry-run
+azdocli migrate batch --config manifest.json --resume --fail-fast
+```
+
+**Example prompts:**
+
+```text
+Migrate everything in manifest.json as a batch — dry run and stop on first error
+```
+
+```text
+Resume the batch migration from manifest.json without failing fast
+```
+
+In all migration prompts the agent knows about `--fail-fast`, `--resume`, `--state-file`, `--output-dir`, and `-y/--yes` for skipping confirmations. It defaults to `--dry-run` unless you say "real migration" or "actually migrate".
