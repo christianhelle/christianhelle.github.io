@@ -77,7 +77,7 @@ A Zig client for Exceptionless that captures errors, logs, and feature-usage eve
 
 ## [HTTP File Runner](https://github.com/christianhelle/httprunner)
 
-A fast, small, single binary tool for running .http files from the command line, built with Zig for optimal performance. It enables automated API testing and integration in CI pipelines.
+A cross-platform Rust application for running `.http` files from the command line, a terminal UI, or a native/WASM GUI. It supports request discovery, detailed output, and test reports for API testing workflows.
 
 ## [HttpTestGen - .http File Testing Framework](https://github.com/christianhelle/httptestgen)
 
