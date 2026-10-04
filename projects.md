@@ -47,6 +47,10 @@ Visual Studio custom tool for generating strongly-typed classes from ResW resour
 
 An OpenAPI reader that merges external references into a single document using the Microsoft OpenAPI toolset. This project simplifies working with complex, multi-file OpenAPI specifications.
 
+## [Multi Document Reader for OpenAPI in Rust](https://github.com/christianhelle/oasreader-rs)
+
+A Rust library that reads Swagger 2.0, OpenAPI 3.0, and OpenAPI 3.1 documents and merges external references into a single document. It is the Rust counterpart to [oasreader](https://github.com/christianhelle/oasreader) and is shared by Rust tools such as the HTTP File Generator and cURL Request Generator.
+
 ## [SQLite Query Analyzer](https://github.com/christianhelle/sqlitequery)
 
 A modern, cross-platform SQLite database management tool built with C++ and Qt. Recently updated after a decade, it offers a fast and user-friendly interface for SQLite development.
