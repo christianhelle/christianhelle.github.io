@@ -55,6 +55,10 @@ A Rust library that reads Swagger 2.0, OpenAPI 3.0, and OpenAPI 3.1 documents an
 
 A modern, cross-platform SQLite database management tool built with C++ and Qt. Recently updated after a decade, it offers a fast and user-friendly interface for SQLite development.
 
+## [SQL Query Analyzer](https://github.com/christianhelle/sqlquery)
+
+A cross-platform desktop database tool for querying and editing SQLite, PostgreSQL, SQL Server, and MySQL/MariaDB databases. It extends SQLite Query Analyzer to work with database servers as well as local SQLite files.
+
 ## [Azure DevOps CLI](https://github.com/christianhelle/azdocli)
 
 A command-line interface for Azure DevOps operations, streamlining CI/CD workflows and project management. This tool enables automation and scripting of common DevOps tasks.
