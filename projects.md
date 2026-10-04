@@ -67,6 +67,10 @@ A standalone Rust CLI for interacting with Azure DevOps and automating common de
 
 A .NET client library for consuming day-ahead energy prices from the Danish Energi Data Service API. It provides strongly-typed models, async APIs, and dependency injection support for applications that work with electricity market data.
 
+## [Exceptionless Client for Rust](https://github.com/christianhelle/exceptionless-rs)
+
+A Rust client for Exceptionless that captures errors, logs, and feature-usage events from Rust applications.
+
 ## [HTTP File Runner](https://github.com/christianhelle/httprunner)
 
 A fast, small, single binary tool for running .http files from the command line, built with Zig for optimal performance. It enables automated API testing and integration in CI pipelines.
