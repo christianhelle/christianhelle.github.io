@@ -111,6 +111,10 @@ A native Rust terminal UI for exploring Azure Cosmos DB. Browse accounts, databa
 
 A minimal, natively compiled coding agent designed for fast startup and a tiny footprint. Puny supports local and hosted models, persistent sessions, built-in project tools, reusable skills, branch reviews, and implementation/review/fix workflows.
 
+## [AI Agent Skills](https://github.com/christianhelle/skills)
+
+A collection of reusable skills for AI coding agents, covering workflows such as test-driven development, coding best practices, nano-commits, worktree isolation, and Azure DevOps.
+
 ---
 
 _Interested in contributing or learning more? Visit the project repositories or reach out through [GitHub](https://github.com/christianhelle)._
