@@ -13,7 +13,7 @@ A tool for generating Refit interfaces and contracts from OpenAPI specifications
 
 ## [REST API Client Code Generator](https://github.com/christianhelle/apiclientcodegen)
 
-A comprehensive Visual Studio extension supporting multiple code generators (AutoRest, NSwag, OpenAPI Generator, Kiota). It enables developers to generate REST API clients from OpenAPI specifications, supporting a wide range of platforms and languages.
+A suite of tools for generating REST API clients from OpenAPI specifications, with extensions for Visual Studio, Visual Studio Code, and JetBrains Rider, plus command-line support. It integrates NSwag, OpenAPI Generator, Swagger Codegen, Refitter, and Microsoft Kiota.
 
 ## [HTTP File Generator](https://github.com/christianhelle/httpgenerator)
 
