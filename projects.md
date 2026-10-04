@@ -103,7 +103,7 @@ A fast native CLI written in Zig that generates Markdown changelogs from GitHub 
 
 Azure SDK client libraries for the Zig programming language. This project enables developers to build cloud-native applications in Zig with access to Azure services through type-safe, performant bindings.
 
-## [termos](https://github.com/christianhelle/termos)
+## [Termos](https://github.com/christianhelle/termos)
 
 A native Rust terminal UI for exploring Azure Cosmos DB. Browse accounts, databases, containers, and documents, run SQL queries, and edit container settings.
 
