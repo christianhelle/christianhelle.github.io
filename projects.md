@@ -71,6 +71,10 @@ A .NET client library for consuming day-ahead energy prices from the Danish Ener
 
 A Rust client for Exceptionless that captures errors, logs, and feature-usage events from Rust applications.
 
+## [Exceptionless Client for Zig](https://github.com/christianhelle/exceptionless-zig)
+
+A Zig client for Exceptionless that captures errors, logs, and feature-usage events from Zig applications.
+
 ## [HTTP File Runner](https://github.com/christianhelle/httprunner)
 
 A fast, small, single binary tool for running .http files from the command line, built with Zig for optimal performance. It enables automated API testing and integration in CI pipelines.
