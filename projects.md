@@ -107,6 +107,10 @@ Azure SDK client libraries for the Zig programming language. This project enable
 
 A native Rust terminal UI for exploring Azure Cosmos DB. Browse accounts, databases, containers, and documents, run SQL queries, and edit container settings.
 
+## [Puny](https://github.com/christianhelle/puny)
+
+A minimal, natively compiled coding agent designed for fast startup and a tiny footprint. Puny supports local and hosted models, persistent sessions, built-in project tools, reusable skills, branch reviews, and implementation/review/fix workflows.
+
 ---
 
 _Interested in contributing or learning more? Visit the project repositories or reach out through [GitHub](https://github.com/christianhelle)._
