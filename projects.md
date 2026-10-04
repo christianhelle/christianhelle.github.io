@@ -61,7 +61,7 @@ A cross-platform desktop database tool for querying and editing SQLite, PostgreS
 
 ## [Azure DevOps CLI](https://github.com/christianhelle/azdocli)
 
-A command-line interface for Azure DevOps operations, streamlining CI/CD workflows and project management. This tool enables automation and scripting of common DevOps tasks.
+A standalone Rust CLI for interacting with Azure DevOps and automating common development and project-management tasks.
 
 ## [Energi Data Service Client for .NET](https://github.com/christianhelle/edsclient)
 
