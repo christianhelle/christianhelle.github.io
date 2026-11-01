@@ -5,7 +5,7 @@ description: Open source .NET, Rust, Zig, and C++ projects for API development, 
 permalink: /projects/
 ---
 
-Below is a curated list of my open source projects, with links to their repositories. These tools and libraries span .NET, Rust, Zig, API development, testing, data access, AI agent tooling, and developer productivity.
+Below is a curated list of my open source projects, with links to their repositories. These tools and libraries span .NET, Rust, Zig, API development, testing, data access, terminal applications, AI agent tooling, and developer productivity.
 
 ## [Refitter](https://github.com/christianhelle/refitter)
 
