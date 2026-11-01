@@ -111,6 +111,10 @@ A native Rust terminal UI for exploring Azure Cosmos DB. Browse accounts, databa
 
 A minimal, natively compiled coding agent designed for fast startup and a tiny footprint. Puny supports local and hosted models, persistent sessions, built-in project tools, reusable skills, branch reviews, and implementation/review/fix workflows.
 
+## [TUILook](https://github.com/christianhelle/tuilook)
+
+A terminal mail and calendar client for Outlook.com and Microsoft 365, built in Rust with vim-style keys. TUILook keeps an offline cache so mail shows up instantly while folders sync in the background, and it supports multiple accounts, search, attachments, and calendar management from the terminal.
+
 ## [AI Agent Skills](https://github.com/christianhelle/skills)
 
 A collection of reusable skills for AI coding agents, covering workflows such as test-driven development, coding best practices, nano-commits, worktree isolation, and Azure DevOps.
