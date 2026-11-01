@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Projects
-description: Open source .NET, Rust, Zig, and C++ projects for API development, database tools, testing, and AI-assisted developer workflows.
+description: Open source .NET, Rust, Zig, and C++ projects for API development, database tools, testing, terminal apps, and AI-assisted developer workflows.
 permalink: /projects/
 ---
 
