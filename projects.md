@@ -115,6 +115,10 @@ A minimal, natively compiled coding agent designed for fast startup and a tiny f
 
 A terminal mail and calendar client for Outlook.com and Microsoft 365, built in Rust with vim-style keys. TUILook keeps an offline cache so mail shows up instantly while folders sync in the background, and it supports multiple accounts, search, attachments, and calendar management from the terminal.
 
+## [TUICalc](https://github.com/christianhelle/tuicalc)
+
+A Rust terminal spreadsheet editor for Excel `.xlsx` and OpenDocument `.ods`, `.ots`, and `.fods` workbooks. It uses vim-style keys and preserves workbook features such as charts, styles, pivot tables, and macros when saving edits.
+
 ## [AI Agent Skills](https://github.com/christianhelle/skills)
 
 A collection of reusable skills for AI coding agents, covering workflows such as test-driven development, coding best practices, nano-commits, worktree isolation, and Azure DevOps.
